@@ -1,0 +1,58 @@
+from city_scrapers_core.constants import CITY_COUNCIL, COMMITTEE
+from city_scrapers_core.items import Meeting
+from city_scrapers_core.spiders import LegistarSpider
+
+
+class CleCityCouncilSpider(LegistarSpider):
+    name = "cle_city_council"
+    agency = "Cleveland City Council"
+    timezone = "America/Detroit"
+    allowed_domains = ["cityofcleveland.legistar.com"]
+    start_urls = ["https://cityofcleveland.legistar.com"]
+    link_types = []
+
+    def parse_legistar(self, events):
+        """
+        `parse_legistar` should always `yield` Meeting items.
+
+        Change the `_parse_title`, `_parse_start`, etc methods to fit your scraping
+        needs.
+        """
+        for event, _ in events:
+            meeting = Meeting(
+                title=event["Name"]["label"],
+                description=self._parse_description(event),
+                classification=self._parse_classification(event),
+                start=self.legistar_start(event),
+                end=None,
+                all_day=False,
+                time_notes="",
+                location=self._parse_location(event),
+                links=self.legistar_links(event),
+                source=self.legistar_source(event),
+            )
+
+            meeting["status"] = self._get_status(meeting)
+            meeting["id"] = self._get_id(meeting)
+
+            yield meeting
+
+    def _parse_description(self, item):
+        """Parse or generate meeting description."""
+        if "--em--" not in item.get("Meeting Location", ""):
+            return ""
+        return " ".join(item["Meeting Location"].split("--em--")[1:]).strip()
+
+    def _parse_classification(self, item):
+        """Parse or generate classification from allowed options."""
+        if "committee" in item["Name"]["label"].lower():
+            return COMMITTEE
+        return CITY_COUNCIL
+
+    def _parse_location(self, item):
+        """Parse or generate location."""
+        return {
+            "address": "601 Lakeside Ave Cleveland OH 44114",
+            # Might miss rare edge cases, but will be captured in name
+            "name": item["Meeting Location"].split("--em--")[0],
+        }
