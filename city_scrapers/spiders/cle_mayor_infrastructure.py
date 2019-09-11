@@ -13,6 +13,7 @@ class CleMayorInfrastructureSpider(CityScrapersSpider):
     timezone = "America/Detroit"
     allowed_domains = ["planning.city.cleveland.oh.us"]
     start_urls = ["http://planning.city.cleveland.oh.us/designreview/schedule.php"]
+    custom_settings = {"ROBOTSTXT_OBEY": False}
 
     def parse(self, response):
         """
