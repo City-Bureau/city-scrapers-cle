@@ -1,15 +1,15 @@
 import re
 from datetime import datetime
 
-from city_scrapers_core.constants import COMMISSION
+from city_scrapers_core.constants import BOARD
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
 from dateutil.relativedelta import relativedelta
 
 
-class CuyaEuclidCreekCouncilSpider(CityScrapersSpider):
-    name = "cuya_euclid_creek_council"
-    agency = "Euclid Creek Watershed Council"
+class CuyaSoilWaterConservation(CityScrapersSpider):
+    name = "cuya_soil_water_conservation"
+    agency = "Cuyahoga Soil and Water Conservation District"
     timezone = "America/Detroit"
     allowed_domains = ["www.cuyahogaswcd.org"]
 
@@ -29,7 +29,7 @@ class CuyaEuclidCreekCouncilSpider(CityScrapersSpider):
         """
         for item in response.css(".events-calendar td.filled a"):
             item_text = item.css("*::text").extract_first()
-            if "Euclid" in item_text and "Council" in item_text:
+            if "SWCD" in item_text:
                 yield response.follow(
                     item.attrib["href"], dont_filter=True, callback=self._parse_meeting
                 )
@@ -38,7 +38,7 @@ class CuyaEuclidCreekCouncilSpider(CityScrapersSpider):
         meeting = Meeting(
             title=self._parse_title(response),
             description=self._parse_description(response),
-            classification=COMMISSION,
+            classification=BOARD,
             start=self._parse_start(response),
             end=self._parse_end(response),
             all_day=False,
@@ -56,6 +56,8 @@ class CuyaEuclidCreekCouncilSpider(CityScrapersSpider):
     def _parse_title(self, response):
         """Parse or generate meeting title."""
         title_str = response.css(".lucy-page h2::text").extract_first()
+        if "SWCD Board" in title_str:
+            return "Board of Supervisors"
         return re.sub(r" Meeting$", "", title_str).strip()
 
     def _parse_description(self, response):
