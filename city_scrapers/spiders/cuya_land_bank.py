@@ -9,7 +9,7 @@ from city_scrapers_core.spiders import CityScrapersSpider
 class CuyaLandBankSpider(CityScrapersSpider):
     name = "cuya_land_bank"
     agency = "Cuyahoga County Land Bank"
-    timezone = "America/Chicago"
+    timezone = "America/Detroit"
     allowed_domains = ["www.cuyahogalandbank.org"]
     start_urls = ["http://www.cuyahogalandbank.org/boardMeetings.php"]
     location = {
