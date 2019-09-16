@@ -62,13 +62,7 @@ class CuyaCountyMixin:
         for detail_str in detail_strs:
             if re.search(r" \d{3}", detail_str):
                 loc_str = detail_str.strip()
-        if not loc_str:
-            return self.location
-        # Add conference room info to location name
-        loc = {**self.location}
-        loc_details = loc_str.split(", ")[-1]
-        loc["name"] += " " + loc_details
-        return loc
+        return loc_str
 
     def _parse_links(self, response):
         links = []
