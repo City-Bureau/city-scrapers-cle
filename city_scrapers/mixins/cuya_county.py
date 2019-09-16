@@ -47,7 +47,10 @@ class CuyaCountyMixin:
         end = None
         start = datetime.strptime(dt_strs[0], "%m/%d/%Y-%I:%M %p")
         if len(dt_strs) > 1:
-            end = datetime.strptime(dt_strs[1], "%m/%d/%Y-%I:%M %p")
+            try:
+                end = datetime.strptime(dt_strs[1], "%m/%d/%Y-%I:%M %p")
+            except ValueError:
+                pass
         return start, end
 
     def _parse_description(self, response):
