@@ -32,7 +32,7 @@ class CuyaCountyMixin:
             links=self._parse_links(response),
             source=self._parse_source(response),
         )
-        meeting["status"] = self._get_status(meeting)
+        meeting["status"] = self._parse_status(response, meeting)
         meeting["id"] = self._get_id(meeting)
         yield meeting
 
@@ -80,3 +80,6 @@ class CuyaCountyMixin:
 
     def _parse_source(self, response):
         return response.url
+
+    def _parse_status(self, response, meeting):
+        return self._get_status(meeting)
