@@ -61,7 +61,7 @@ class CuyaCountyMixin:
         loc_str = None
         for detail_str in detail_strs:
             if re.search(r" \d{3}", detail_str):
-                loc_str = detail_str.strip()
+                loc_str = re.sub(r"\s+", " ", detail_str).strip()
         return loc_str
 
     def _parse_links(self, response):
