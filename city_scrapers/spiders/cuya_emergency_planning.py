@@ -15,7 +15,6 @@ class CuyaEmergencyPlanningSpider(CuyaCountyMixin, CityScrapersSpider):
     }
 
     def parse(self, response):
-        # Pull the most recent 12 meetings
         for detail_link in response.css("#rightColumn td:nth-child(2) a::attr(href)").extract():
             yield response.follow(detail_link, callback=self._parse_detail, dont_filter=True)
 
