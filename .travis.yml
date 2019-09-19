@@ -14,10 +14,11 @@ script:
 before_deploy:
   - export PYTHONPATH=$(pwd):$PYTHONPATH
   - export SCRAPY_SETTINGS_MODULE=city_scrapers.settings.prod
+  - export WAYBACK_ENABLED=true
 deploy:
   - skip_cleanup: true
     provider: script
-    script: scrapy runall -s LOG_ENABLED=False
+    script: ./.deploy.sh
     on:
       python: 3.6
       branch: master
