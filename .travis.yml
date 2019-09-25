@@ -14,7 +14,6 @@ script:
 before_deploy:
   - export PYTHONPATH=$(pwd):$PYTHONPATH
   - export SCRAPY_SETTINGS_MODULE=city_scrapers.settings.prod
-  - export WAYBACK_ENABLED=true
 deploy:
   - skip_cleanup: true
     provider: script
