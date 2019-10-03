@@ -1,4 +1,5 @@
 from datetime import datetime
+from operator import itemgetter
 from os.path import dirname, join
 
 import pytest  # noqa
@@ -17,7 +18,7 @@ spider = CuyaPlanningSpider()
 freezer = freeze_time("2019-10-03")
 freezer.start()
 
-parsed_items = [item for item in spider.parse(test_response)]
+parsed_items = sorted([item for item in spider.parse(test_response)], key=itemgetter("start"))
 
 freezer.stop()
 
@@ -35,7 +36,7 @@ def test_description():
 
 
 def test_start():
-    assert parsed_items[0]["start"] == datetime(2019, 6, 13, 14, 0)
+    assert parsed_items[0]["start"] == datetime(2018, 12, 13, 14, 0)
 
 
 def test_end():
@@ -47,7 +48,7 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0]["id"] == "cuya_planning/201906131400/x/planning_commission"
+    assert parsed_items[0]["id"] == "cuya_planning/201812131400/x/planning_commission"
 
 
 def test_status():
@@ -64,10 +65,10 @@ def test_source():
 
 def test_links():
     assert parsed_items[0]["links"] == [{
-        "href": "https://www.countyplanning.us/about/meetings/june-13-2019-meeting-agenda/",
+        "href": "https://www.countyplanning.us/about/meetings/december-13-2018-meeting-agenda/",
         "title": "Agenda"
     }, {
-        "href": "https://www.countyplanning.us/about/meetings/june-13-2019-meeting-minutes/",
+        "href": "https://www.countyplanning.us/about/meetings/december-13-2018-meeting-agenda/",
         "title": "Minutes"
     }]
 
