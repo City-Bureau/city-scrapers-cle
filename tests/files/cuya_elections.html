@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html>
+<head id="Head2"><title>
+	August 27, 2019 Board Meeting - Cuyahoga County Board of Elections
+</title><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta http-equiv="X-UA-Compatible" content="IE=Edge" /><link href="/content/bootstrap.min.css" rel="stylesheet" media="screen" /><link href="/content/bootstrap-theme.min.css" rel="stylesheet" media="screen" /><link href="/content/layout-styles.css" rel="stylesheet" media="screen" /><link href="/content/user-styles.css" rel="stylesheet" media="screen" />
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <link href="/content/ie8.css" rel="stylesheet" media="screen" />
+        <script src="/scripts/html5shiv.min.js"></script>
+        <script src="/scripts/respond.min.js"></script>
+    <![endif]-->
+
+ 
+    <style>
+      
+    </style>
+
+
+    <script src="/scripts/jquery-1.9.1.min.js"></script>
+    <script src="/Scripts/jquery.maskedinput.js"></script>
+    <script>
+        jQuery(function ($) {
+            $("#ContentPlaceHolder1_ContentPlaceHolderMain_txtDOB").mask("99/99/9999", { placeholder: "__/__/____" });
+            $("#ContentPlaceHolder1_ContentPlaceHolderMain_txtDOB").css('cursor', 'pointer');
+
+            $("#ContentPlaceHolder1_ContentPlaceHolderMain_lblDateFormat").css('color', '#999999');
+
+
+           
+            //if ($("#ContentPlaceHolder1_ContentPlaceHolderMain_txtDOB").val!="") {
+            //    $("#ContentPlaceHolder1_ContentPlaceHolderMain_txtDOB").keyup(function () {
+            //        $(this).css({
+            //            "color": "#000000"
+            //        });
+            //    });
+                
+            //}
+        });
+		
+		
+    
+         $(window).load(function () {
+            //--------------------------------------------------------------Fix for blind user by Sergey Efraim, January 15, 2019------------------------------------------
+            //get element with class .active which is HOME link
+            var home_li = $('li.active');
+            //select class .caretLink element so HOME link would not get selected along with other links with this class
+            var home_child_li = home_li.children('.caretLink');
+            var home_child_li = home_li.children('.caretLink'); //another time for IE and Chrome
+            //replace it with class .homeLink (something different from others)
+            home_child_li.removeClass('caretLink').addClass('homeLink');
+            home_child_li.removeClass('caretLink').addClass('homeLink'); //another time for IE and Chrome
+            //now, once home link is out of our scope, we can do whatever we want with elements that have .caret and .dropdown and .caretLink classes
+            $('.caret').removeClass('caret').addClass('hidden');
+            $('.dropdown').removeClass('dropdown').addClass('');
+            //replace html withing element with .caretLink with html that has image and alt tag attribute that provides blind user with sound instrucation to find way around the damn menu.
+            $('.caretLink').html("<img src='https://boe.cuyahogacounty.us/img/caret.png'  alt='Hit enter to expand menu. Use down arrow to get through list of links in the menu panel. To exit this menu panel use Escape'/>");
+        });
+		
+    </script>
+   
+	<style>
+		.centeredList {
+		font-size:85%!important;}
+	</style>
+
+
+   
+   <script>
+       (function (i, s, o, g, r, a, m) {
+           i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+               (i[r].q = i[r].q || []).push(arguments)
+           }, i[r].l = 1 * new Date(); a = s.createElement(o),
+           m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+       })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+       ga('create', 'UA-11952497-5', 'auto');
+       ga('send', 'pageview');
+
+</script>
+</head>
+<body id="mBody">
+    <form method="post" action="./EventTemplate.aspx?LanguageCD=en-US&amp;ItemKey=20878&amp;pb=y" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTE4NTg5Njc0NzIPZBYCZg9kFgJmD2QWAgIDD2QWAgIBD2QWCgIBD2QWAmYPDxYGHgRUZXh0Ba4BPGEgY2xhc3M9JycgaHJlZj0naHR0cHM6Ly9ib2UuY3V5YWhvZ2Fjb3VudHkudXM6NDQzL2VzLVVTL2hvbWUuYXNweCc+RXNwYcOxb2w8L2E+Jm5ic3A7fCZuYnNwOzxhIGNsYXNzPScnIGhyZWY9J2h0dHBzOi8vYm9lLmN1eWFob2dhY291bnR5LnVzOjQ0My9lbi1VUy9ob21lLmFzcHgnPkVuZ2xpc2g8L2E+HghDc3NDbGFzc2QeBF8hU0ICAmRkAgMPDxYCHghJbWFnZVVybAUXL2ltZ19ib2UvZW4tVVMvTE9HTy5wbmdkZAIHD2QWCAIBDxYCHwAFswg8ZGl2IGNsYXNzPSJpbWFnZVN0YWNrIj4KPGRpdj48YSBocmVmPSIvZW4tVVMvbXktdm90aW5nLWluZm9ybWF0aW9uLmFzcHgiPjxpbWcgYWx0PSIiIHNyYz0iL2ltZ19ib2UvQW1JUmVnaXN0ZXJlZEljb24uZ2lmIiAvPk15IFZvdGluZyBJbmZvPC9hPjwvZGl2Pgo8L2Rpdj4KPGRpdiBjbGFzcz0iaW1hZ2VTdGFjayI+CjxkaXY+PGEgaHJlZj0iL2VuLVVTL015LVBvbGxpbmctTG9jYXRpb24uYXNweCI+PGltZyBhbHQ9IiIgc3JjPSIvaW1nX2JvZS9XaGVyZURvSVZvdGVJY29uLmdpZiIgLz5XaGVyZSBkbyBJIHZvdGU/PC9hPjwvZGl2Pgo8L2Rpdj4KPGRpdiBjbGFzcz0iaW1hZ2VTdGFjayI+CjxkaXY+PGEgaHJlZj0iL2VuLVVTL2JhbGxvdC1zZWFyY2guYXNweCI+PGltZyBhbHQ9IiIgc3JjPSIvaW1nX2JvZS9NeUJhbGxvdEljb24uZ2lmIiAvPldoYXQncyBvbiBteSBiYWxsb3Q/PC9hPjwvZGl2Pgo8L2Rpdj4KPGRpdiBjbGFzcz0iaW1hZ2VTdGFjayI+CjxkaXY+PGEgaHJlZj0iL2VuLVVTL3ZvdGVieW1haWxhcHBsaWNhdGlvbi5hc3B4Ij48aW1nIGFsdD0iIiBzcmM9Ii9pbWdfYm9lL1ZvdGVCeU1haWxJY29uU20uZ2lmIiAvPlZvdGUgYnkgTWFpbDwvYT48L2Rpdj4KPC9kaXY+CjxkaXYgY2xhc3M9ImltYWdlU3RhY2siPgo8ZGl2PjxhIGhyZWY9Ii9lbi1VUy90cmFjay1teS1iYWxsb3QuYXNweCI+PGltZyBhbHQ9IiIgc3JjPSIvaW1nX2JvZS9UcmFja015QmFsbG90SWNvbi5naWYiIC8+VHJhY2sgTXkgQmFsbG90PC9hPjwvZGl2Pgo8L2Rpdj4KPGRpdiBjbGFzcz0iaW1hZ2VTdGFjayI+CjxkaXY+PGEgaHJlZj0iL2VuLVVTL3ZvdGVyLXJlZ2lzdHJhdGlvbi5hc3B4Ij48aW1nIGFsdD0iIiBzcmM9Ii9pbWdfYm9lL1JlZ2lzdGVySWNvbi5naWYiIC8+UmVnaXN0ZXIgdG8gVm90ZTwvYT48L2Rpdj4KPC9kaXY+CjxkaXYgY2xhc3M9ImltYWdlU3RhY2siPgo8ZGl2PjxhIGhyZWY9Ii9lbi1VUy91cGRhdGVteWFkZHJlc3MuYXNweCI+PGltZyBhbHQ9IiIgc3JjPSIvaW1nX2JvZS9VcGRhdGVNeUFkZHJlc3NJY29uLmdpZiIgLz5VcGRhdGUgTXkgQWRkcmVzczwvYT48L2Rpdj4KPC9kaXY+ZAIDD2QWBGYPZBYCAgEPFgIfAAWXAzxkdD4xMC80LzIwMTk8L2R0PjxkZD48YSBocmVmPSdodHRwczovL2JvZS5jdXlhaG9nYWNvdW50eS51cy9lbi1VUy8xMDA0MTlUZXN0b2ZUYWJ1bGF0aW9uLmFzcHgnPk5vdGljZSBvZiBQdWJsaWMgVGVzdCBvZiBWb3RlIFRhYnVsYXRpb24gU3lzdGVtPC9hPjwvZGQ+PGR0PjEwLzIzLzIwMTk8L2R0PjxkZD48YSBocmVmPSdodHRwczovL2JvZS5jdXlhaG9nYWNvdW50eS51cy9lbi1VUy8xMDIzMjAxOS5hc3B4Jz5PY3RvYmVyIDIzLCAyMDE5IEJvYXJkIE1lZXRpbmc8L2E+PC9kZD48ZHQ+MTEvNS8yMDE5PC9kdD48ZGQ+PGEgaHJlZj0naHR0cHM6Ly9ib2UuY3V5YWhvZ2Fjb3VudHkudXMvZW4tVVMvTm92ZW1iZXIwNWdlbmVyYWwuYXNweCc+Tm92ZW1iZXIgNSwgMjAxOSBHZW5lcmFsIEVsZWN0aW9uPC9hPjwvZGQ+ZAICDw8WAh4HVmlzaWJsZWhkZAIFDxYCHwAFkAc8ZGl2IGNsYXNzPSJteVBhbmVsSGVhZGluZyI+CjxoMyBjbGFzcz0icGFuZWwtdGl0bGUiPkZlYXR1cmVkIEl0ZW1zPC9oMz4KPC9kaXY+CjxkaXYgY2xhc3M9InBhbmVsLWJvZHkiPgo8dWw+CiAgICA8bGk+PGEgaHJlZj0iL2VuLVVTL2Fic2VudGVlLXZvdGVyLWxhYmVscy5hc3B4Ij5Wb3RlIEJ5IE1haWwgTGFiZWxzPC9hPiA8L2xpPgogICAgPGxpPjxhIGhyZWY9Ii9wZGZfYm9lL2VuLVVTL1ZvdGVyX3JlZ2NhcmQucGRmIiB0YXJnZXQ9ImJsYW5rIj5Wb3RlciBSZWdpc3RyYXRpb24gQ2FyZDwvYT4gPC9saT4KICAgIDxsaT48YSBocmVmPSIvZW4tVVMvZG93bmxvYWRzLmFzcHgiPkRhdGEgRG93bmxvYWRzJm5ic3A7PC9hPjwvbGk+CiAgICA8bGk+PGEgaHJlZj0iaHR0cHM6Ly93d3cuc29zLnN0YXRlLm9oLnVzL1NPUy9hZ2VuY3kvaW5pdGlhdGl2ZXMvU2FmZWF0SG9tZU9oaW8uYXNweCI+U2FmZSBhdCBIb21lPC9hPjwvbGk+CiAgICA8bGk+PGEgaHJlZj0iL2VuLVVTL2JlY29tZWFwb2xsd29ya2VyLmFzcHgiPkJlY29tZSBhbiBFbGVjdGlvbiBPZmZpY2lhbDwvYT48L2xpPgogICAgPGxpPjxhIGhyZWY9Ii9lbi1VUy9jdXJyZW50cG9sbHdvcmtlcnMuYXNweCI+RWxlY3Rpb24gT2ZmaWNpYWwgVHJhaW5pbmcgTWF0ZXJpYWxzPC9hPiA8L2xpPgogICAgPGxpPjxhIGhyZWY9Ii9lbi1VUy9idXNpbmVzcy13aXRoLXRoZS1ib2FyZC5hc3B4Ij5CdXNpbmVzcyB3aXRoIHRoZSBCb2FyZDwvYT48L2xpPgogICAgPGxpPjxhIGhyZWY9Ii9lbi1VUy9saW5rcy5hc3B4Ij5MaW5rcyBhbmQgUmVzb3VyY2VzPC9hPiA8L2xpPgogICAgPGxpPjxhIGhyZWY9Ii9lbi1VUy9yZXBvcnRzLWhpc3RvcmljYWwtaW5mb3JtYXRpb24uYXNweCI+SGlzdG9yaWNhbCBJbmZvcm1hdGlvbjwvYT48L2xpPgo8L3VsPgo8L2Rpdj5kAgcPZBYCAgEPZBYGAgEPFgIfAAUdQXVndXN0IDI3LCAyMDE5IEJvYXJkIE1lZXRpbmdkAgMPZBYMAgEPFgIfAAUdQXVndXN0IDI3LCAyMDE5IEJvYXJkIE1lZXRpbmdkAgUPFgIfAAUROC8yNy8yMDE5LTI6MDAgUE1kAgcPZBYCAgMPFgIfAAUROC8yNy8yMDE5LTM6MDAgUE1kAgsPFgIfAGVkAg8PFgIfAGVkAhEPZBYCAgEPDxYEHwAFNExvZ2luIG9yIHJlZ2lzdGVyIGluIG9yZGVyIHRvIHNpZ24gdXAgZm9yIHRoaXMgZXZlbnQfBGhkZAIFD2QWAgIBDw8WAh4cdXNlckxvZ2dlZEluQmVmb3JlRm9ybVN1Ym1pdGhkFgQCAQ9kFgYCAw8PFgYfAGUfAQUQRm9ybU1lc3NhZ2VDbGFzcx8CAgJkZAIJDw8WCB8ABQVMb2dpbh8BBQ5idXR0b25Ob01hcmdpbh8CAgIfBGhkZAILD2QWAmYPZBYGZg8QD2QWAh4Fc3R5bGUFDWRpc3BsYXk6bm9uZTtkFgBkAgEPFgIfBGhkAgIPEA8WAh8EaGRkZGQCAw8PFgIfBGhkFgICAw8PFgQfAQUOYnV0dG9uTm9NYXJnaW4fAgICZGQCCQ9kFgJmDw8WBh8ABa4BPGEgY2xhc3M9JycgaHJlZj0naHR0cHM6Ly9ib2UuY3V5YWhvZ2Fjb3VudHkudXM6NDQzL2VzLVVTL2hvbWUuYXNweCc+RXNwYcOxb2w8L2E+Jm5ic3A7fCZuYnNwOzxhIGNsYXNzPScnIGhyZWY9J2h0dHBzOi8vYm9lLmN1eWFob2dhY291bnR5LnVzOjQ0My9lbi1VUy9ob21lLmFzcHgnPkVuZ2xpc2g8L2E+HwFkHwICAmRkAgsPZBYCAgEPFgIfAAW/DTxkaXYgY2xhc3M9ImNvbC14cy02Ij4KPHRhYmxlPgogICAgPHRib2R5PgogICAgICAgIDx0cj4KICAgICAgICAgICAgPHRkPjxiciAvPgogICAgICAgICAgICA8L3RkPgogICAgICAgICAgICA8dGQ+Jm5ic3A7PGEgaHJlZj0iaHR0cDovL3d3dy5mYWNlYm9vay5jb20vcGFnZXMvQ2xldmVsYW5kLU9IL0N1eWFob2dhLUNvdW50eS1Cb2FyZC1vZi1FbGVjdGlvbnMvMTI3MTA0MzkwNjQ0NTUwIiB0YXJnZXQ9Il9ibGFuayI+PGltZyB3aWR0aD0iNDciIGhlaWdodD0iNDciIGFsdD0iRm9sbG93IFVzIG9uIEZhY2Vib29rIiBzcmM9Ii9pbWdfYm9lL2ZhY2Vib29rLWljb24ucG5nIiAvPjwvYT4mbmJzcDs8YSBocmVmPSJodHRwOi8vdHdpdHRlci5jb20vQ3V5YWhvZ2FCT0UiIHRhcmdldD0iX2JsYW5rIj48aW1nIGFsdD0iRm9sbG93IFVzIG9uIFR3aXR0ZXIiIHNyYz0iL2ltZ19ib2UvdHdpdHRlci1pY29uLnBuZyIgc3R5bGU9ImhlaWdodDogNDdweDsgd2lkdGg6IDQ3cHg7IiAvPjwvYT4mbmJzcDs8YSBocmVmPSJodHRwczovL3d3dy55b3V0dWJlLmNvbS91c2VyL0N1eWFob2dhQ291bnR5Qk9FLyIgdGFyZ2V0PSJfYmxhbmsiIHRpdGxlPSJZb3VUdWJlIENoYW5uZWwiPjxpbWcgYWx0PSIiIHNyYz0iL2ltZ19ib2UveW91dHViZV9sb2dvLnBuZyIgLz48L2E+Jm5ic3A7PC90ZD4KICAgICAgICAgICAgPHRkPjxiciAvPgogICAgICAgICAgICA8YSBocmVmPSJodHRwczovL29sdnIub2hpb3Nvcy5nb3YvIj48aW1nIGFsdD0iIiBzcmM9Ii9pbWdfYm9lL29ubGluZXZyLnBuZyIgLz48L2E+Jm5ic3A7PGEgaHJlZj0iaHR0cHM6Ly9vbHZyLm9oaW9zb3MuZ292LyI+PGltZyBhbHQ9IiIgc3JjPSIvaW1nX2JvZS9vY29hLnBuZyIgLz48L2E+Jm5ic3A7Jm5ic3A7PGEgaHJlZj0iaHR0cHM6Ly93d3cuT2hpb1Nvcy5Hb3YvZWxlY3Rpb25zL3ZvdGVycy92b3Rpbmctc2NoZWR1bGUvIj48aW1nIGFsdD0iIiBzcmM9Ii9pbWdfYm9lL2NhbGVuZGFyLnBuZyIgLz48L2E+PGJyIC8+CiAgICAgICAgICAgIDwvdGQ+CiAgICAgICAgPC90cj4KICAgIDwvdGJvZHk+CjwvdGFibGU+CkJvYXJkIG9mIEVsZWN0aW9ucyB8IDI5MjUgRXVjbGlkIEF2ZSB8IENsZXZlbGFuZCwgT0ggNDQxMTUgfCA8YnIgLz4KKDIxNik0NDMtVk9URSg4NjgzKSZuYnNwOyZuYnNwOzxhIGhyZWY9Imh0dHA6Ly9pc2MuY3V5YWhvZ2Fjb3VudHkudXMvIj5Qb3dlcmVkIGJ5IHRoZSBEZXBhcnRtZW50IG9mIElUPC9hPiZuYnNwOzxiciAvPgo8YSBocmVmPSIvZW4tVVMvYWNjZXNzaWJpbGl0eS1zdGF0ZW1lbnQuYXNweCI+QWNjZXNzaWJpbGl0eSBTdGF0ZW1lbnQ8L2E+ICB8ICA8YSBocmVmPSIvZW4tVVMvZGlzY2xhaW1lci5hc3B4Ij5EaXNjbGFpbWVyPC9hPiAgfCAgPGEgaHJlZj0iL2VuLVVTL3ByaXZhY3ktcG9saWN5LmFzcHgiPlByaXZhY3kgUG9saWN5PC9hPiAgfCAgPGEgaHJlZj0iL2VuLVVTL3B1YmxpYy1yZWNvcmRzLXBvbGljeS5hc3B4Ij5QdWJsaWMgUmVjb3JkcyBQb2xpY3k8L2E+Jm5ic3A7ICZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOzwvZGl2Pgo8bWFwIGlkPSJyYWRlX2ltZ19tYXBfMTU1NDc1NDQ5ODE5NCIgbmFtZT0icmFkZV9pbWdfbWFwXzE1NTQ3NTQ0OTgxOTQiPgo8YXJlYSBzaGFwZT0iUkVDVCIgY29vcmRzPSIxLDEsMTY2LDYwIiBocmVmPSJodHRwczovL3d3dy5vaGlvc2VjcmV0YXJ5b2ZzdGF0ZS5nb3YvZWxlY3Rpb25zL3ZvdGVycy8iIC8+PC9tYXA+ZGQll/9UMC+SclWtO0LWf93EHDJm0pWm4RrS8iY/23lCqA==" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="3EAED612" />
+        <!-- navbar -->
+        <div class="container xs-margin-bottom ">
+            <!--HEADER-->
+            <div class="header" style="background-image: url(/img_boe/HeaderBackground.jpg); background-size: 100% 100%; WIDTH: 100%; ">
+                <a href="http://www.cuyahogacounty.us"><img class="pull-right img-responsive seal autowidth" src="/img_boe/CuyahogaCountySeal.gif"></a>
+                <div class="pull-right hidden-xs hidden-sm" style="margin-top:3%">
+                    <input type="text" class="form-control searchText" id="search" placeholder="Search" />
+                    <button type="button" onclick="window.location='/en-US/SearchResults.aspx?searchText='+$('#search').val();return false;" class="btn btn-default searchButton">
+                        <b class="glyphicon glyphicon-search blue"></b>
+                    </button>
+                    <br />
+                    <span id="SetLanguage1_Label1"><a class='' href='https://boe.cuyahogacounty.us:443/es-US/home.aspx'>Español</a>&nbsp;|&nbsp;<a class='' href='https://boe.cuyahogacounty.us:443/en-US/home.aspx'>English</a></span>
+                    
+                </div>
+                <a href="/"><img id="imgLogoTitle" class="img-responsive autowidth" src="/img_boe/en-US/LOGO.png" /></a>
+             </div>
+            <!--END HEADER-->
+            
+<style type="text/css">
+
+</style>
+<div class="navbar navbar-inverse ">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" style="float:none;color:#fff;font-weight:bold;">
+        <div style="display:inline-block;padding-right:5px;">
+            <span class="icon-bar"> </span>
+            <span class="icon-bar"> </span>
+            <span class="icon-bar"> </span>
+        </div>
+        Menu
+    </button>
+    <div class="collapse navbar-collapse"  style="padding-left:0px">
+        <ul class="nav navbar-nav centeredList"><li class="active"><a href="https://boe.cuyahogacounty.us/en-US/home.aspx" class="caretLink">Home</a></li><li class="dropdown"><a href="https://boe.cuyahogacounty.us/en-US/voters.aspx">VOTERS</a><a data-toggle="dropdown" data-target="#" href="#" class="caretLink"><b class="caret">&nbsp;</b></a><ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu"><li><a href="https://boe.cuyahogacounty.us/en-US/My-Polling-Location.aspx">Where Do I Vote?</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/my-voting-information.aspx">My Voting Info</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/voter-registration.aspx">Register to Vote</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/updatemyaddress.aspx">Update My Address</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/vote-by-mail.aspx">Vote by Mail</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/track-my-ballot.aspx">Track My Ballot</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/cancelregistration.aspx">Cancel Registration</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/using-optical-scan-ballots.aspx">Using Optical Scan Ballots</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/voter-identification-requirements.aspx">ID Requirements</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/declareorchangeparty.aspx">Declare or Change Party</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/voterinfoguide.aspx">Voter Info Guide</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/votebymaillabels.aspx">Vote by Mail Labels</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/uniformed-services-personnel.aspx">Military and Overseas Voters</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/prov_envelope.aspx">Provisional Voting</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/provisionalBallotNotice.aspx">Provisional Ballot Notice</a></li></ul></li><li class="dropdown"><a href="https://boe.cuyahogacounty.us/en-US/election-information.aspx">ELECTIONS</a><a data-toggle="dropdown" data-target="#" href="#" class="caretLink"><b class="caret">&nbsp;</b></a><ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu"><li><a href="https://boe.cuyahogacounty.us/en-US/electioninfo.aspx">Election Information</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/ballot-search.aspx">View Ballots</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/audit-materials.aspx">Election Audit Information</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/election-results-history.aspx">Election Results History</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/VoterRegistrationStatistics.aspx">Voter Registration Statistics</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/pollinglocations.aspx">Polling Locations</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/street-range-guide.aspx">Street Range Guide</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/RaceResultsAll.aspx">Election Results</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/RaceResultsCommittee.aspx">Committee Results</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/epbproject.aspx">Electronic Pollbooks</a></li></ul></li><li class="dropdown"><a href="https://boe.cuyahogacounty.us/en-US/candidates.aspx">CANDIDATES</a><a data-toggle="dropdown" data-target="#" href="#" class="caretLink"><b class="caret">&nbsp;</b></a><ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu"><li><a href="https://boe.cuyahogacounty.us/en-US/petitions.aspx">Petitions</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/candidate-filing.aspx">Candidate Filing</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/filing-protests.aspx">Filing Protests</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/absentee-voter-labels.aspx">Vote by Mail Labels/Ballot Tracking</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/campaign-finance.aspx">Campaign Finance Information</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/cfguide.aspx">Campaign Finance Handbook</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/cfforms.aspx">Campaign Finance Forms</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/campaign-finance-reports.aspx">Campaign Finance Reports</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/ballotissues.aspx">Ballot Issues</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/initiativepetitions.aspx">Initiative/Referendum Petitions</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/local-options.aspx">Local Options</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/Vote-By-Mail-Application-Requests.aspx">Vote by Mail Application Requests</a></li></ul></li><li class="dropdown"><a href="https://boe.cuyahogacounty.us/en-US/poll-workers.aspx">ELECTION DAY OFFICIALS</a><a data-toggle="dropdown" data-target="#" href="#" class="caretLink"><b class="caret">&nbsp;</b></a><ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu"><li><a href="https://boe.cuyahogacounty.us/en-US/becomeapollworker.aspx">Become an Election Day Official</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/currentpollworkers.aspx">Training Materials</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/electiondaypositions.aspx">Election Day Positions</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/pollworkerfeedback.aspx">Election Official Feedback</a></li></ul></li><li class="dropdown"><a href="https://boe.cuyahogacounty.us/en-US/job-opportunities.aspx">EMPLOYMENT</a></li><li class="dropdown"><a href="https://boe.cuyahogacounty.us/en-US/EventsCalendar.aspx">CALENDAR</a></li><li class="dropdown"><a href="https://boe.cuyahogacounty.us/en-US/community-outreach.aspx">OUTREACH</a><a data-toggle="dropdown" data-target="#" href="#" class="caretLink"><b class="caret">&nbsp;</b></a><ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu"><li><a href="https://boe.cuyahogacounty.us/en-US/blog.aspx">Blog</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/voter-engagement-resource-library.aspx">Voter Engagement Resource Library</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/NVRD.aspx">National Voter Registration Day</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/multimedia.aspx">Media</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/subscribe.aspx">Subscribe</a></li></ul></li><li class="dropdown"><a href="https://boe.cuyahogacounty.us/en-US/about-us.aspx">ABOUT US</a><a data-toggle="dropdown" data-target="#" href="#" class="caretLink"><b class="caret">&nbsp;</b></a><ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu"><li><a href="https://boe.cuyahogacounty.us/en-US/board-members-staff.aspx">Board Members &amp; Staff</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/board-meeting-archive.aspx">Board Meeting Calendar</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/phone-numbers.aspx">Phone Numbers</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/address-directions.aspx">Address</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/public-records-policy.aspx">Public Records Policy</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/business-with-the-board.aspx">Business with the Board</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/Maps.aspx">Maps</a></li><li><a href="https://boe.cuyahogacounty.us/en-US/contactusonline.aspx">Contact Us</a></li></ul></li></ul>
+    </div>
+</div>
+        </div>
+        <!-- end navbar -->
+
+        <div class="container" style="margin-top:-1.4em;">
+            
+
+    <div class="row">
+        <div class="col-sm-3 nopadding  hidden-xs">
+            <div class="imageStack">
+<div><a href="/en-US/my-voting-information.aspx"><img alt="" src="/img_boe/AmIRegisteredIcon.gif" />My Voting Info</a></div>
+</div>
+<div class="imageStack">
+<div><a href="/en-US/My-Polling-Location.aspx"><img alt="" src="/img_boe/WhereDoIVoteIcon.gif" />Where do I vote?</a></div>
+</div>
+<div class="imageStack">
+<div><a href="/en-US/ballot-search.aspx"><img alt="" src="/img_boe/MyBallotIcon.gif" />What's on my ballot?</a></div>
+</div>
+<div class="imageStack">
+<div><a href="/en-US/votebymailapplication.aspx"><img alt="" src="/img_boe/VoteByMailIconSm.gif" />Vote by Mail</a></div>
+</div>
+<div class="imageStack">
+<div><a href="/en-US/track-my-ballot.aspx"><img alt="" src="/img_boe/TrackMyBallotIcon.gif" />Track My Ballot</a></div>
+</div>
+<div class="imageStack">
+<div><a href="/en-US/voter-registration.aspx"><img alt="" src="/img_boe/RegisterIcon.gif" />Register to Vote</a></div>
+</div>
+<div class="imageStack">
+<div><a href="/en-US/updatemyaddress.aspx"><img alt="" src="/img_boe/UpdateMyAddressIcon.gif" />Update My Address</a></div>
+</div>
+            <div class="panel panel-default nomargin">
+                <div class="myPanelHeading">
+                    <h3 class="panel-title">Upcoming events</h3>
+                </div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <div id="ContentPlaceHolder1_ItemSummaryEvents_pnlHasData">
+	
+	<dt>10/4/2019</dt><dd><a href='https://boe.cuyahogacounty.us/en-US/100419TestofTabulation.aspx'>Notice of Public Test of Vote Tabulation System</a></dd><dt>10/23/2019</dt><dd><a href='https://boe.cuyahogacounty.us/en-US/10232019.aspx'>October 23, 2019 Board Meeting</a></dd><dt>11/5/2019</dt><dd><a href='https://boe.cuyahogacounty.us/en-US/November05general.aspx'>November 5, 2019 General Election</a></dd>
+
+</div>
+
+
+                    </dl>
+                </div>
+            </div>
+            <div class="panel panel-default hidden-xs ">
+                <div class="myPanelHeading">
+<h3 class="panel-title">Featured Items</h3>
+</div>
+<div class="panel-body">
+<ul>
+    <li><a href="/en-US/absentee-voter-labels.aspx">Vote By Mail Labels</a> </li>
+    <li><a href="/pdf_boe/en-US/Voter_regcard.pdf" target="blank">Voter Registration Card</a> </li>
+    <li><a href="/en-US/downloads.aspx">Data Downloads&nbsp;</a></li>
+    <li><a href="https://www.sos.state.oh.us/SOS/agency/initiatives/SafeatHomeOhio.aspx">Safe at Home</a></li>
+    <li><a href="/en-US/becomeapollworker.aspx">Become an Election Official</a></li>
+    <li><a href="/en-US/currentpollworkers.aspx">Election Official Training Materials</a> </li>
+    <li><a href="/en-US/business-with-the-board.aspx">Business with the Board</a></li>
+    <li><a href="/en-US/links.aspx">Links and Resources</a> </li>
+    <li><a href="/en-US/reports-historical-information.aspx">Historical Information</a></li>
+</ul>
+</div>
+            </div>
+        </div>
+        <div class="col-sm-9" style="background-color:#fff;">
+            
+    
+
+<h1>August 27, 2019 Board Meeting</h1>
+<div class="padding">
+    <div id="ContentPlaceHolder1_ContentPlaceHolderMain_EventDetailsAndRegistration1_pnlEventDetails">
+	
+	    <blockquote>
+	    <h2 style="display: none;">August 27, 2019 Board Meeting</h2>
+	    <dl>	    
+	        <dt>Start date:</dt>
+	            <dd>8/27/2019-2:00 PM</dd>
+	        <div id="ContentPlaceHolder1_ContentPlaceHolderMain_EventDetailsAndRegistration1_pnlEndDate">
+		
+	            <dt>End date:</dt>
+	                <dd>8/27/2019-3:00 PM</dd>
+	        
+	</div>
+	        <dt>
+                Address:
+            </dt>
+	            <dd></dd>
+	        <div id="ContentPlaceHolder1_ContentPlaceHolderMain_EventDetailsAndRegistration1_pnlDownloads">
+		
+	            <dt>
+                    Downloads:
+                </dt>
+	            <dd>
+	                <a href="http://boe.cuyahogacounty.us/ViewFile.aspx?file=9Fsk2MKlT8E%3d">Board Agenda</a><br />
+	            </dd>
+	        
+	</div>
+	    </dl>
+		    
+	    </blockquote>
+        <br />
+        
+
+        <div id="ContentPlaceHolder1_ContentPlaceHolderMain_EventDetailsAndRegistration1_pnlRegisterButton">
+		
+            <p></p>
+        
+	</div>
+        
+        <!--p><a id="ContentPlaceHolder1_ContentPlaceHolderMain_EventDetailsAndRegistration1_lnkBackToCalendar">Back to calendar</a>   </p-->
+
+    
+</div>
+    <p>
+        
+    </p>
+
+</div>
+
+        </div>
+    </div>
+
+
+
+            <br />
+            <!-- mobile search and language links-->
+            <div class="row form-group  visible-xs ">
+                <input type="text" class="form-control pull-left" id="searchBottom" placeholder="Search" style="width:75%;height:39px;" />
+                <button type="submit" class="btn btn-primary searchButton pull-right" style="width:20%;" onclick="window.location='/en-US/SearchResults.aspx?searchText='+$('#searchBottom').val();return false;">
+                    <b class="glyphicon glyphicon-search white"></b>
+                </button>
+                <br />
+                <span id="SetLanguage2_Label1"><a class='' href='https://boe.cuyahogacounty.us:443/es-US/home.aspx'>Español</a>&nbsp;|&nbsp;<a class='' href='https://boe.cuyahogacounty.us:443/en-US/home.aspx'>English</a></span>
+            </div>
+            <!-- end mobile search and language links-->
+
+            <!--footer-->
+            <div class="row nopadding nomargin  hidden-xs  ">
+                <div class="col-xs-12">
+                    <hr />
+                </div>
+            </div>
+            
+            <div class="row hidden-xs  ">
+                
+    <div class="col-xs-6">
+<table>
+    <tbody>
+        <tr>
+            <td><br />
+            </td>
+            <td>&nbsp;<a href="http://www.facebook.com/pages/Cleveland-OH/Cuyahoga-County-Board-of-Elections/127104390644550" target="_blank"><img width="47" height="47" alt="Follow Us on Facebook" src="/img_boe/facebook-icon.png" /></a>&nbsp;<a href="http://twitter.com/CuyahogaBOE" target="_blank"><img alt="Follow Us on Twitter" src="/img_boe/twitter-icon.png" style="height: 47px; width: 47px;" /></a>&nbsp;<a href="https://www.youtube.com/user/CuyahogaCountyBOE/" target="_blank" title="YouTube Channel"><img alt="" src="/img_boe/youtube_logo.png" /></a>&nbsp;</td>
+            <td><br />
+            <a href="https://olvr.ohiosos.gov/"><img alt="" src="/img_boe/onlinevr.png" /></a>&nbsp;<a href="https://olvr.ohiosos.gov/"><img alt="" src="/img_boe/ocoa.png" /></a>&nbsp;&nbsp;<a href="https://www.OhioSos.Gov/elections/voters/voting-schedule/"><img alt="" src="/img_boe/calendar.png" /></a><br />
+            </td>
+        </tr>
+    </tbody>
+</table>
+Board of Elections | 2925 Euclid Ave | Cleveland, OH 44115 | <br />
+(216)443-VOTE(8683)&nbsp;&nbsp;<a href="http://isc.cuyahogacounty.us/">Powered by the Department of IT</a>&nbsp;<br />
+<a href="/en-US/accessibility-statement.aspx">Accessibility Statement</a>  |  <a href="/en-US/disclaimer.aspx">Disclaimer</a>  |  <a href="/en-US/privacy-policy.aspx">Privacy Policy</a>  |  <a href="/en-US/public-records-policy.aspx">Public Records Policy</a>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+<map id="rade_img_map_1554754498194" name="rade_img_map_1554754498194">
+<area shape="RECT" coords="1,1,166,60" href="https://www.ohiosecretaryofstate.gov/elections/voters/" /></map>
+
+
+                
+            </div>
+            <!--end footer-->
+        </div>
+    </form>
+
+    <script src="/scripts/jquery.mobile.custom.min.js"></script>
+    <script src="/scripts/bootstrap.min.js"></script>
+    <script>
+        if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+            var msViewportStyle = document.createElement("style");
+            msViewportStyle.appendChild(
+                document.createTextNode(
+                    "@-ms-viewport{width:auto!important}"
+                )
+            );
+            document.getElementsByTagName("head")[0].
+                appendChild(msViewportStyle);
+        }
+
+        
+        $(document).ready(function () {
+            //enable mobile gestures on bootstrap carousels
+            $(".carousel").swiperight(function () {
+                $(this).carousel('prev');
+            });
+            $(".carousel").swipeleft(function () {
+                $(this).carousel('next');
+            });
+
+            $(".dropdownNavNewWindow").change(function () {
+                if ($(this).val() != '') {
+                    window.open($(this).val(), "_blank");
+                }
+            });
+            $(".dropdownNav").change(function () {
+                if ($(this).val() != '') {
+                    window.location.href = $(this).val();
+                }
+            });
+
+        });
+        $(function () {
+            $('.carousel').carousel({
+                interval: 5000
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+<script id="f5_cspm">(function(){var f5_cspm={f5_p:'IHLAEMIJCHADGOECOKHJDJFOCCNINNJKLEAJGDPIFOHHDCELNIGMHBEJIEJGLBMKLANNMFGJPGEBODMFKFCNNIMMJFPAFAGDAAOBNOJBAOHJBBFEAAPPPGIIJOIKBOFP',setCharAt:function(str,index,chr){if(index>str.length-1)return str;return str.substr(0,index)+chr+str.substr(index+1);},get_byte:function(str,i){var s=(i/16)|0;i=(i&15);s=s*32;return((str.charCodeAt(i+16+s)-65)<<4)|(str.charCodeAt(i+s)-65);},set_byte:function(str,i,b){var s=(i/16)|0;i=(i&15);s=s*32;str=f5_cspm.setCharAt(str,(i+16+s),String.fromCharCode((b>>4)+65));str=f5_cspm.setCharAt(str,(i+s),String.fromCharCode((b&15)+65));return str;},set_latency:function(str,latency){latency=latency&0xffff;str=f5_cspm.set_byte(str,48,(latency>>8));str=f5_cspm.set_byte(str,49,(latency&0xff));str=f5_cspm.set_byte(str,43,2);return str;},wait_perf_data:function(){try{var wp=window.performance.timing;if(wp.loadEventEnd>0){var res=wp.loadEventEnd-wp.navigationStart;if(res<60001){var cookie_val=f5_cspm.set_latency(f5_cspm.f5_p,res);window.document.cookie='f5avr0413442900aaaaaaaaaaaaaaaa='+encodeURIComponent(cookie_val)+';path=/';}
+return;}}
+catch(err){return;}
+setTimeout(f5_cspm.wait_perf_data,100);return;},go:function(){var chunk=window.document.cookie.split(/\s*;\s*/);for(var i=0;i<chunk.length;++i){var pair=chunk[i].split(/\s*=\s*/);if(pair[0]=='f5_cspm'&&pair[1]=='1234')
+{var d=new Date();d.setTime(d.getTime()-1000);window.document.cookie='f5_cspm=;expires='+d.toUTCString()+';path=/;';setTimeout(f5_cspm.wait_perf_data,100);}}}}
+f5_cspm.go();}());</script>
