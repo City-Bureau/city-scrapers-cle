@@ -1,0 +1,986 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head id="Head1"><meta charset="UTF-8" /><link href="/DefaultContent/Default/bootstrap.v3.4.1.min.css" rel="stylesheet"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" /><title>
+	
+    Materials and Presentations | Northeast Ohio Areawide Coordinating Agency
+
+</title>
+    <meta name="viewport" content="width=device-width" />
+    
+    <link href="/DefaultContent/Default/StyleBundleDesignTheme.cssbnd?v=WzGLJttWGMsSWkibXZfxbNIGqjn-0ZgUEM7R6Ar83SY1" rel="stylesheet"/>
+<link href="/Project/Contents/Main/StyleBundleDesignTheme.cssbnd?v=yBsSBC3DggQrKRcPoNEWXNBu4Ql6XtUOVoto0vwvNfw1" rel="stylesheet"/>
+<link href="/Areas/Admin/Content/StyleBundleFrontendExtra.cssbnd?v=TXLLavBbQdlTrg6sukdO1rojFtp3vRD061rBA3Rt7YM1" rel="stylesheet"/>
+<link href="/DefaultContent/Default/Print.cssbnd?v=47rmsGcOk4CIHfb2HDg7t9s31eiFEWHej5QI1ytFlII1" rel="stylesheet" media="print" />
+<link href="/Project/Contents/Main/Print.cssbnd?v=qwVpjfTJ4fJWc6FGoOlBGRnWvcDCuKH3RsqCdluaIjY1" rel="stylesheet" media="print" />
+<script src="/Scripts/ScriptBundleFAllInOne.jsbnd?v=9Hvwuoi3xkMwBkqNYgQqr6If8Kys9bSWTmawwLtHirI1"></script>
+
+<script>
+    function handleExternalURL() { };
+</script>
+<script>window.visionOptions = {virtualApplicationPath:'/',logOnPath:'Admin/LogOn',logOffPath:'Admin/LogOff',enableSessionTimeout:false,sessionTimeoutInMinutes:30,timeToAlertBeforeSessionTimeoutInMinutes:5,extendSessionTimeoutPath:'Admin/Account/ExtendSessionTimeout',mainFolderPath:'/Project/Contents/Main/',centerLocation:'Cleveland, OH', siteID:1, navigationID:7639, isHomePage:false, emergencyNoticeChanged:false, loggedIn:false, showTopTips:true, currentDesignFolderPath:'/Project/Contents/Main/', useDesignThemFontSizeCss:false , clientResponsiveTableEnabled:true, imageUrl:'/Home/ShowPublishedImage/', engagementAdminEndPoint:'/Admin/Engagement/', visionLiveAdminEndPoint:'/Admin/Components/', cmsAdminEndPoint:'/Admin/', enableSplashUrl:false, eSignatureView: '/Shared/SignatureView', socialMediaInfo :{ twitter : { maxLength : 280  } }, baseImageUrl:'/Home/ShowPublishedImage' };;window.visionApps={"cms_core":{"DateFormat":"MM/dd/yyyy","TimeFormat":"h:mm TT","PhoneFormat":"(999) 999-9999","OrganizationName":"Northeast Ohio Areawide Coordinating Agency","TimeAMFormat":"AM","TimePMFormat":"PM","GoogleReCaptchaPublicKey":"6LfD_hgUAAAAAHPhLzmYTQReOp5mspjlIxKQ1y-H"}};;window.visionApps.token="eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiayI6IjlGMjJlK3ovNEtqTHZoVzE5aVVXZ0E9PSJ9.VEeShV6sGHaLQWdfdiY_WdxTdIXo2LJO4lHZNL5M3uDHyIPeRLYSRwlmfn_Y3EcPnNZWa61YCDdmqd1mfkiFYngtmvRzPHxp.rGd1ZDpCry2dsmFe8gBFhA.Y-0-vDHZ50kRA7duclcr7-C5GbZNCgjm46jJlQhGsMyT4ypu7qyFhMvn7bG-f1etl6BJrhvtKei6JPwGO-Qza4JOTnLS_oPzCv5zL_zcRA_-vtAwGyH6SRhlKHZdaEZELjuqGItZLAPhhSh4QljH2iDCzqw4rUOHkN8doZnUZXOfq1ZrntQUNwlb31HF1Opead7NPY8KxIc0p8_V-irgY5IcQycJgjbo22jVT6KlLBE.aymG9cM39K0kHvflySodIBv6qDz8opLb8qqnbgA1zxw";(function(window){window.cmsCoreConfig={}; (function(config){ (function(window){window.coreComponentFormConfig={"apiEndPoint":"https://form.visioninternet.com/"};})(window);; })(window.cmsCoreConfig); })(window);(function(window){window.visionLiveConfig={}; (function(config){ config.flexibleComponent={"serverURL":"https://flex.visioninternet.com/"};; })(window.visionLiveConfig); })(window);</script>
+
+    <script type="text/javascript">
+        // added the htmlEncode and htmlDecode method to fixed the js load order issue.
+        $.extend($, {
+            htmlEncode: function (html) {
+                var temp = document.createElement("div");
+                (temp.textContent != undefined) ? (temp.textContent = html) : (temp.innerText = html);
+                var output = temp.innerHTML;
+                temp = null;
+                return output;
+            },
+            htmlDecode: function (text) {
+                var temp = document.createElement("div");
+                temp.innerHTML = text;
+                var output = temp.innerText || temp.textContent;
+                temp = null;
+                return output;
+            }
+        });
+        $(function () {
+            //script for view full site button, placed here to keep firefox for mobile devices happy
+            var viewFullElement = document.getElementById("view-full");
+            var isResponsive = "yes";
+            if (viewFullElement) {
+                if (isResponsive == "yes") {
+                    viewFullElement.className = 'mobile_only fullsite';
+                }
+                else {
+                    viewFullElement.innerHTML = 'View Mobile Optimized';
+                    viewFullElement.className = '';
+                }
+            }
+        });
+    </script>
+    
+
+    <!--[if lt IE 9]>
+        <script src="/Scripts/ScriptBundleOthers.jsbnd?v=3Q7FhTQfRrKx8h7Kvdbh9bBluzlNlXKsFAERd4g8_TY1"></script>
+
+	<![endif]-->
+
+    
+    <link id="active_font" rel="stylesheet" type="text/css" href="/Project/Contents/Main/x-small.css">
+    
+    <link rel="Shortcut Icon" href="/favicon.ico" />
+
+    
+    
+
+<!-- Google Universal Analytics -->
+<script type="text/javascript">
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-43947113-1', 'auto');
+    ga('require', 'displayfeatures');
+    //TFS 21771, Enhanced Link Attribution, https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-link-attribution
+    ga('require', 'linkid'); 
+    ga('set', 'dimension1', 'Materials and Presentations, ID:7639');
+    ga('set', 'dimension2', '2019');
+    ga('send', 'pageview');
+</script>
+<!-- End Google Universal Analytics -->
+
+      
+    
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    
+
+    <script>
+        $(function () {
+            $.frontendSessionManager({
+                virtualApplicationPath:"/",
+                backendUserLogin: false,
+                frontendUserLogin: false,
+                sessionTimeoutInMinutes:30,
+                timeToAlertBeforeSessionTimeoutInMinutes:5,
+                extendSessionTimeoutPath:"Home/FrontEndExtendSessionTimeout"
+            }).setTimerForSessionExpiration();
+        });
+    </script>
+    
+
+    <meta name="google-site-verification" content="kJ8qvVA3oQ5goe4e5vmkEhxPZWK8_5OPZsXMCrCP2gU" /></head>
+
+<body class="front_end_body site_standardsitetemplate ">    
+    <link href="/DefaultContent/Default/StyleBundleAngularLib.cssbnd?v=sED2Qjf38ysQJYZW_ZvZj-7IGXKm4NOJhdA51oOtG5A1" rel="stylesheet"/>
+
+
+
+<script>
+    window.frontendCommonConfig = {
+        loginPage: 'https://www.noaca.org/sys/sso/login',
+        popupLoginPage: '/sys/sso/popuplogin',
+        photoBaseUrlForPeople: 'https://www.noaca.org/sys/sso/ShowProfilePhoto?id=',
+        photoBaseUrl: 'https://www.noaca.org/Home/ShowPublishedImage/',
+        token: window.visionApps ? window.visionApps.token : '',
+        cmsUserLogged: false,
+        anonymousAvatar: 'https://www.noaca.org/DefaultContent/Default/_gfx/anonymous.png',
+        loginUser: {
+            name: '',
+            avatar: '',
+            userID: null,
+            firstName: '',
+            lastName: '',
+            imageID: null,
+            email: '',
+        }
+    };
+</script>
+
+
+<script>
+    //It's before the AngularJSLib Loading, which might be update in the AngularJSLib bundle.
+    window.viPredefinedModules = [];
+</script>
+<script src="/Scripts/ScriptBundleAngularLib.jsbnd?v=VSS8ZjJxUptR8M9kCyb6N30B3BVC5wAM2kUFfdG8EWQ1"></script>
+
+
+<script>
+    (function (window, angular) {
+
+        $("body").attr("ng-app", "vi.cms");
+        
+        window.viCurrentModule = angular.module("vi.cms", window.viPredefinedModules || []);
+    })(window, angular);
+</script>
+    
+    <script src="/Scripts/frontendCoreBundle.jsbnd?v=smS9toWIqxYgg8EqmHExAc74Zpw4AOz9v7Cpadw6_h41"></script>
+
+
+    
+    <!--stopindex-->
+    <noscript>
+        <div class="noscript_alert"><span>Please enable JavaScript in your browser for a better user experience.</span></div>
+    </noscript>
+    <!--startindex-->
+    <div class="vi-temp-message-container" style="display:none;"></div>
+        
+    
+    
+
+<div class="sitewrapper  site_template mainSpan_wrapper">
+    <div class="mainSpan" id="mainSpan_wrapper_Screen">
+        <!--stopindex-->
+        <div id="skipnav" tabindex="-1">
+            <a href="#sitebody" tabindex="-1">
+                <img alt="Skip to page body" src="/DefaultContent/Default/_gfx/spacer.gif" /></a>
+            
+            <a title="Home" href="/home" tabindex="-1">
+                <img alt="Home" src="/DefaultContent/Default/_gfx/spacer.gif" /></a>
+            
+            <a title="About" href="/about" tabindex="-1">
+                <img alt="About" src="/DefaultContent/Default/_gfx/spacer.gif" /></a>
+            
+            <a title="Regional Planning" href="/regional-planning" tabindex="-1">
+                <img alt="Regional Planning" src="/DefaultContent/Default/_gfx/spacer.gif" /></a>
+            
+            <a title="Tools & Resources" href="/tools-resources" tabindex="-1">
+                <img alt="Tools & Resources" src="/DefaultContent/Default/_gfx/spacer.gif" /></a>
+            
+            <a title="Community Assistance Center" href="/community-assistance-center" tabindex="-1">
+                <img alt="Community Assistance Center" src="/DefaultContent/Default/_gfx/spacer.gif" /></a>
+            
+            <a title="Board & Committees" href="/board-committees" tabindex="-1">
+                <img alt="Board & Committees" src="/DefaultContent/Default/_gfx/spacer.gif" /></a>
+            
+        </div>
+        <!--startindex-->
+
+        <header id="siteheader" class="">
+            <!--stopindex-->
+			<h1 class="wcag_only">Northeast Ohio Areawide Coordinating Agency</h1>
+            <a id="home_link" href="/home">Home</a>
+            
+            <a class="menu_trigger mobile_only" href="javascript:void(0);">Menu</a>
+            
+            <!--startindex-->
+            
+<div id="headercolumn" class="site_template_column  header_column   " >
+
+                <!--stopindex-->
+                
+
+<div id="top_nav">
+		<a href="/about/calendar" target="_self">Calendar</a>
+		<a href="/about/contact-us" target="_self">Contact Us</a>
+		<a href="/about/contact-us/jobs/noaca-and-nondiscrimination" target="_self">Nondiscrimination</a>
+	<a href="javascript:void" onclick="javascript:GoogleTranslateLink();" class="translate_link">Translate</a>
+</div>
+
+<script type="text/javascript">
+    function GoogleTranslateLink()
+    {
+        if (window.location.href.indexOf("translate.google.com") == -1)
+        {
+            var url = "//translate.google.com/translate?js=y&prev=_t&hl=en&ie=UTF-8&layout=1&eotf=1&sl=en&tl=es&u=";
+            url += escape(window.location.href);
+            window.location.href = url;
+        }
+    }
+</script>
+                <!--startindex-->
+            
+
+                <!--stopindex-->
+                
+
+<div class="header_social_icons hidden-xs">
+		<a href="http://www.facebook.com/NOACA" target="_blank" title="Like us on Facebook!">
+			<img class="xyz" src="/Home/ShowPublishedImage/4402/636590475033570000" data-alt-src='/Home/ShowPublishedImage/4404/636590475035900000' alt="facebook" />
+		</a>
+		<a href="https://twitter.com/NOACA_mpo" target="_blank" title="Follow us on Twitter!">
+			<img class="xyz" src="/Home/ShowPublishedImage/4406/636590475038270000" data-alt-src='/Home/ShowPublishedImage/4408/636590475040600000' alt="twitter" />
+		</a>
+		<a href="https://www.linkedin.com/company/noaca/" target="_blank" title="Connect with us on LinkedIn!">
+			<img class="xyz" src="/Home/ShowPublishedImage/4598/636598298126170000" data-alt-src='/Home/ShowPublishedImage/4600/636598298075230000' alt="LinkedIn" />
+		</a>
+</div>
+
+<script>
+    $(".social_icons img.xyz")
+        .mouseover(function () {
+        	$("img", this).attr("src", $(this).attr("data-alt-src"));
+        })
+        .mouseout(function () {
+            $("img", this).attr("src", $(this).attr("data-src"));
+        });
+</script>
+                <!--startindex-->
+            
+
+                <!--stopindex-->
+                
+
+<div class="search_block">
+    <div id="searchbox" class="clearfix">
+    	<label style="display: none;" for="search_text">Search</label>
+    	<input type="text" title="Search..."  id="search_text" placeholder="Search..."/>
+    	<a href="javascript:void(0);">Go</a>
+    </div>
+    
+    <script>
+        $(function () {
+            $("#searchbox input").keydown(function (e) {
+                if (e.keyCode == 13) {
+                    $("#searchbox a").click();
+                }
+            });
+            $("#searchbox a").click(function () {
+                var keyWord = $("#searchbox input#search_text").val();
+                if (keyWord.length <= 0) { return false; }
+    			keyWord  = keyWord.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+                keyWord = encodeURIComponent(keyWord.replace("<"," ").replace(">"," ") );
+                var link = '/about/search';
+                if (link.indexOf("?") >= 0 )
+                    link = link + "&q=" + keyWord;
+                else
+                    link = link + "?q=" + keyWord;
+                window.location.href = link;
+            });
+        });
+    
+    	$(function () {
+            $("#search_text").focusin(function () {
+                $(this).parent('#searchbox').addClass('active');
+            });
+            $("#search_text").focusout(function () {
+              $(this).parent('#searchbox').removeClass('active');
+            });
+        });
+    </script>
+</div>
+                <!--startindex-->
+            
+
+</div>
+
+        </header>
+
+        
+<div class="standardlayout clearfix" id="sitebody">
+    
+<div id="ColumnUserControl1" class="column   top_col clearfix  "  >
+    <!--!!WidgetStart, vi-orderdata="0"  vi-hideonmobile="false" vi-widgetinstancedata="201"WidgetStart!!-->    
+
+                <!--stopindex-->
+                <div class=" main_menu_widget"><link href="/DefaultContent/Default/StyleBundleMegaMenuDropDown.cssbnd?v=CD_eN-fYJU8KKPigt6x-Ey-z8_WTsoZ7bqx2pLTZtXU1" rel="stylesheet"/>
+<link href="/Project/Contents/Main/StyleBundleMegaMenuDropDown.cssbnd?v=FzKyJvJFNAO3SpoWfVtrp5-suyDa3hxN7kkSXlweqT81" rel="stylesheet"/>
+<nav class="regularmegamenu mainnav" id="menuContainer_201_0_8243"><ul class="dropdownmenu clearfix"><li class="megamenu_first" id="dropdownrootitem1"><a class="dropdownrootitem1" href="/home" title="Home" data-navid="1" target="_self">Home</a></li><li class="megamenu_first" id="dropdownrootitem2"><a class="dropdownrootitem2" title="About" data-navid="2">About</a><div class="megamenu_container widthcontainer3col"><div class="inner_container"><ul class="megamenu_column"><li class="megamenu_level1"><a class="megamenu_level1" href="/about/about-noaca" title="About NOACA" data-navid="7635" target="_self">About NOACA</a><ul class="megamenu_level1"><li class="megamenu_level2"><a class="megamenu_level2" href="/about/about-noaca/how-to-interact-with-noaca" title="How to Interact with NOACA" data-navid="183" target="_self">How to Interact with NOACA</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/about/about-noaca/noaca-policies" title="NOACA Policies" data-navid="2307" target="_self">NOACA Policies</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/about/about-noaca/faqs" title="FAQs" data-navid="41" target="_self">FAQs</a></li></ul></li></ul><ul class="megamenu_column"><li class="megamenu_level1"><a class="megamenu_level1" href="/about/annual-reports-and-events" title="Annual Reports and Events" data-navid="7706" target="_self">Annual Reports and Events</a><ul class="megamenu_level1"><li class="megamenu_level2"><a class="megamenu_level2" href="/about/annual-reports-and-events/annual-meeting" title="Annual Meeting" data-navid="3341" target="_self">Annual Meeting</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/about/annual-reports-and-events/annual-reports" title="Annual Reports" data-navid="7643" target="_self">Annual Reports</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/about/annual-reports-and-events/financial-audit" title="Financial Audit" data-navid="2322" target="_blank">Financial Audit</a></li></ul></li></ul><ul class="megamenu_column"><li class="megamenu_level1"><a class="megamenu_level1" href="/about/contact-us" title="Contact Us" data-navid="50" target="_self">Contact Us</a><ul class="megamenu_level1"><li class="megamenu_level2"><a class="megamenu_level2" href="/about/contact-us/noaca-offices" title="NOACA Offices" data-navid="7686" target="_self">NOACA Offices</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/about/contact-us/jobs" title="Jobs" data-navid="119" target="_self">Jobs</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/about/contact-us/doing-business-with-noaca" title="Doing Business with NOACA " data-navid="3429" target="_self">Doing Business with NOACA </a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/about/contact-us/speakers-bureau" title="Speakers Bureau" data-navid="7532" target="_self">Speakers Bureau</a></li></ul></li></ul></div></div></li><li class="megamenu_first" id="dropdownrootitem3"><a class="dropdownrootitem3" title="Regional Planning" data-navid="3">Regional Planning</a><div class="megamenu_container widthcontainer4col"><div class="inner_container"><ul class="megamenu_column"><li class="megamenu_level1"><a class="megamenu_level1" href="/regional-planning/air-quality-planning" title="Air Quality Planning" data-navid="79" target="_self">Air Quality Planning</a><ul class="megamenu_level1"><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/air-quality-planning/air-quality-advisories" title="Air Quality Advisories " data-navid="114" target="_self">Air Quality Advisories </a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/air-quality-planning/air-quality-trends-reports" title="Air Quality Trends Reports" data-navid="102" target="_self">Air Quality Trends Reports</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/air-quality-planning/congestion-mitigation-air-quality-program" title="Congestion Mitigation &amp; Air Quality Program" data-navid="7663" target="_self">Congestion Mitigation &amp; Air Quality Program</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/air-quality-planning/gohio-commute" title="Gohio Commute" data-navid="184" target="_blank">Gohio Commute</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/air-quality-planning/commuter-choice-awards" title="Commuter Choice Awards" data-navid="3342" target="_self">Commuter Choice Awards</a></li></ul></li></ul><ul class="megamenu_column"><li class="megamenu_level1"><a class="megamenu_level1" href="/regional-planning/water-quality-planning" title="Water Quality Planning" data-navid="97" target="_self">Water Quality Planning</a><ul class="megamenu_level1"><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/water-quality-planning/areawide-water-quality-management-208-plan" title="208 Areawide Water Quality Management Plan" data-navid="7664" target="_self">Areawide Water Quality Management (208) Plan</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/water-quality-planning/water-quality-strategic-plan" title="Water Quality Strategic Plan" data-navid="6474" target="_self">Water Quality Strategic Plan</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/water-quality-planning/storm-water-planning" title="Storm Water Planning" data-navid="99" target="_self">Storm Water Planning</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/water-quality-planning/watershed-planning" title="Watershed Planning" data-navid="7703" target="_self">Watershed Planning</a></li></ul></li></ul><ul class="megamenu_column"><li class="megamenu_level1"><a class="megamenu_level1" href="/regional-planning/transportation-planning" title="Transportation Planning" data-navid="51" target="_self">Transportation Planning</a><ul class="megamenu_level1"><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/transportation-planning/managing-congestion" title="Managing Congestion" data-navid="7649" target="_self">Managing Congestion</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/transportation-planning/transit-planning-tod" title="Transit Planning &amp; TOD" data-navid="7650" target="_self">Transit Planning &amp; TOD</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/transportation-planning/transportation-asset-management" title="Transportation Asset Management" data-navid="234" target="_self">Transportation Asset Management</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/transportation-planning/regional-safety-program" title="Regional Safety Program" data-navid="5457" target="_self">Regional Safety Program</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/transportation-planning/freight-planning" title="Freight Planning" data-navid="56" target="_self">Freight Planning</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/transportation-planning/human-services-mobility-planning" title="Human Services &amp; Mobility Planning" data-navid="66" target="_self">Human Services &amp; Mobility Planning</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/transportation-planning/bicycle-pedestrian-planning" title="Bicycle &amp; Pedestrian Planning" data-navid="52" target="_self">Bicycle &amp; Pedestrian Planning</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/transportation-planning/signal-timing-optimization-stop" title="Signal Timing Optimization (STOP)" data-navid="7591" target="_self">Signal Timing Optimization (STOP)</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/transportation-planning/hyperloop" title="Hyperloop" data-navid="7596" target="_self">Hyperloop</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/transportation-planning/transportation-modeling" title="Transportation Modeling" data-navid="7661" target="_self">Transportation Modeling</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/transportation-planning/operations-its-planning" title="Operations &amp; ITS Planning" data-navid="7670" target="_self">Operations &amp; ITS Planning</a></li></ul></li></ul><ul class="megamenu_column"><li class="megamenu_level1"><a class="megamenu_level1" href="/regional-planning/major-planning-documents" title="Major Planning Documents" data-navid="7648" target="_self">Major Planning Documents</a><ul class="megamenu_level1"><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/major-planning-documents/regional-strategic-plan" title="Regional Strategic Plan" data-navid="3389" target="_self">Regional Strategic Plan</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/major-planning-documents/aim-forward-2040" title="AIM Forward 2040" data-navid="7544" target="_self">AIM Forward 2040</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/major-planning-documents/transportation-improvement-program-tip" title="Transportation Improvement Program (TIP)" data-navid="73" target="_self">Transportation Improvement Program (TIP)</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/major-planning-documents/overall-work-program-owp" title="Overall Work Program (OWP)" data-navid="72" target="_self">Overall Work Program (OWP)</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/regional-planning/major-planning-documents/clean-water-2000-noaca-s-208-plan" title="Clean Water 2000: NOACA's 208 Plan" data-navid="7694" target="_self">Clean Water 2000: NOACA's 208 Plan</a></li></ul></li></ul></div></div></li><li class="megamenu_first" id="dropdownrootitem4"><a class="dropdownrootitem4" title="Tools &amp; Resources" data-navid="5">Tools &amp; Resources</a><div class="megamenu_container widthcontainer3col"><div class="inner_container"><ul class="megamenu_column"><li class="megamenu_level1"><a class="megamenu_level1" href="/tools-resources/resources" title="Resources" data-navid="7653" target="_self">Resources</a><ul class="megamenu_level1"><li class="megamenu_level2"><a class="megamenu_level2" href="/tools-resources/resources/getting-around-the-region" title="Getting Around the Region" data-navid="7685" target="_self">Getting Around the Region</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/tools-resources/resources/street-design-flexibility-guidelines" title="Street Design Flexibility Guidelines" data-navid="7658" target="_blank">Street Design Flexibility Guidelines</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/tools-resources/resources/trail-crossing-typology" title="Trail Crossing Typology" data-navid="7707" target="_blank">Trail Crossing Typology</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/tools-resources/resources/traffic-counts" title="Traffic Counts" data-navid="61" target="_self">Traffic Counts</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/tools-resources/resources/facts-data-on-northeast-ohio" title="Facts &amp; Data on Northeast Ohio" data-navid="6503" target="_self">Facts &amp; Data on Northeast Ohio</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/tools-resources/resources/major-employment-hubs-in-the-cleveland-region" title="Major Employment Hubs in the Cleveland Region" data-navid="7651" target="_blank">Major Employment Hubs in the Cleveland Region</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/tools-resources/resources/vibrant-neo-2040-county-reports" title="Vibrant NEO 2040 County Reports " data-navid="4437" target="_self">Vibrant NEO 2040 County Reports </a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/tools-resources/resources/interactive-tip-portal" title="Interactive TIP Portal" data-navid="7647" target="_blank">Interactive TIP Portal</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/tools-resources/resources/funding-resource-guide" title="Funding Resource Guide" data-navid="7535" target="_blank">Funding Resource Guide</a></li></ul></li></ul><ul class="megamenu_column"><li class="megamenu_level1"><a class="megamenu_level1" href="/tools-resources/maps" title="Maps" data-navid="59" target="_self">Maps</a><ul class="megamenu_level1"><li class="megamenu_level2"><a class="megamenu_level2" href="/tools-resources/maps/gis-portal" title="GIS Portal" data-navid="94" target="_self">GIS Portal</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/tools-resources/maps/bike-maps" title="Bike Maps" data-navid="6505" target="_self">Bike Maps</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/tools-resources/maps/fpa-wastewater-treatment-maps" title="FPA &amp; Wastewater Treatment Maps" data-navid="7681" target="_self">FPA &amp; Wastewater Treatment Maps</a></li></ul></li></ul><ul class="megamenu_column"><li class="megamenu_level1"><a class="megamenu_level1" href="/tools-resources/recent-studies" title="Recent Studies" data-navid="7682" target="_self">Recent Studies</a><ul class="megamenu_level1"><li class="megamenu_level2"><a class="megamenu_level2" href="/tools-resources/recent-studies/i-71-corridor-study" title="I-71 Corridor Study" data-navid="7683" target="_self">I-71 Corridor Study</a></li></ul></li></ul></div></div></li><li class="megamenu_first" id="dropdownrootitem5"><a class="dropdownrootitem5" title="Community Assistance Center" data-navid="4">Community Assistance Center</a><div class="megamenu_container widthcontainer3col"><div class="inner_container"><ul class="megamenu_column"><li class="megamenu_level1"><a class="megamenu_level1" href="/community-assistance-center/funding-programs" title="Funding Programs" data-navid="131" target="_self">Funding Programs</a><ul class="megamenu_level1"><li class="megamenu_level2"><a class="megamenu_level2" href="/community-assistance-center/funding-programs/congestion-mitigation-air-quality-program" title="Congestion Mitigation &amp; Air Quality Program " data-navid="4430" target="_self">Congestion Mitigation &amp; Air Quality Program </a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/community-assistance-center/funding-programs/enhanced-mobility-section-5310-program" title="Enhanced Mobility (Section 5310) Program" data-navid="146" target="_self">Enhanced Mobility (Section 5310) Program</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/community-assistance-center/funding-programs/transportation-for-livable-communities-initiative-tlci" title="Transportation for Livable Communities Initiative (TLCI)" data-navid="132" target="_self">Transportation for Livable Communities Initiative (TLCI)</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/community-assistance-center/funding-programs/tlci-planning-assistance" title="TLCI Planning Assistance" data-navid="7656" target="_self">TLCI Planning Assistance</a></li></ul></li></ul><ul class="megamenu_column"><li class="megamenu_level1"><a class="megamenu_level1" href="/community-assistance-center/planning-assistance" title="Planning Assistance" data-navid="142" target="_self">Planning Assistance</a><ul class="megamenu_level1"><li class="megamenu_level2"><a class="megamenu_level2" href="/community-assistance-center/planning-assistance/traffic-safety-operations" title="Traffic Safety &amp; Operations" data-navid="7655" target="_self">Traffic Safety &amp; Operations</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/community-assistance-center/planning-assistance/safe-routes" title="Safe Routes" data-navid="7675" target="_self">Safe Routes</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/community-assistance-center/planning-assistance/street-supplies" title="Street Supplies" data-navid="7660" target="_self">Street Supplies</a></li></ul></li></ul><ul class="megamenu_column"><li class="megamenu_level1"><a class="megamenu_level1" href="/community-assistance-center/form-applications" title="Form Applications" data-navid="7699" target="_self">Form Applications</a><ul class="megamenu_level1"><li class="megamenu_level2"><a class="megamenu_level2" href="/community-assistance-center/form-applications/request-a-functional-classification-revision" title="Request a Functional Classification Revision" data-navid="93" target="_self">Request a Functional Classification Revision</a></li></ul></li></ul></div></div></li><li class="megamenu_first" id="dropdownrootitem6"><a class="dropdownrootitem6" title="Board &amp; Committees " data-navid="7">Board &amp; Committees</a><div class="megamenu_container widthcontainer1col"><div class="inner_container"><ul class="megamenu_column"><li class="megamenu_level1"><a class="megamenu_level1" href="/board-committees/noaca-board-and-committees" title="NOACA Board and Committees" data-navid="7687" target="_self">NOACA Board and Committees</a><ul class="megamenu_level1"><li class="megamenu_level2"><a class="megamenu_level2" href="/board-committees/noaca-board-and-committees/agendas-and-presentations" title="Materials and Presentations" data-navid="7639" target="_self">Agendas and Presentations</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/board-committees/noaca-board-and-committees/membership" title="Membership" data-navid="7640" target="_self">Membership</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/board-committees/noaca-board-and-committees/2019-meeting-schedule" title="2019 Meeting Schedule" data-navid="7692" target="_blank">2019 Meeting Schedule</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/board-committees/noaca-board-and-committees/code-of-regulations" title="Code of Regulations" data-navid="105" target="_self">Code of Regulations</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/board-committees/noaca-board-and-committees/legislative-agenda" title="Legislative Agenda" data-navid="7590" target="_self">Legislative Agenda</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/board-committees/noaca-board-and-committees/board-policies" title="Board Policies" data-navid="2309" target="_blank">Board Policies</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/board-committees/noaca-board-and-committees/board-resolutions" title="Board Resolutions" data-navid="2305" target="_self">Board Resolutions</a></li><li class="megamenu_level2"><a class="megamenu_level2" href="/board-committees/noaca-board-and-committees/board-resource-guide" title="Board Resource Guide" data-navid="2306" target="_blank">Board Resource Guide</a></li></ul></li></ul></div></div></li></ul><script>
+$(function () {
+ var menuContainer = $('#menuContainer_201_0_8243');
+ menuContainer.find('.dropdownmenu>li>a[data-navid="7"]').closest('li').addClass('active');
+});
+</script></nav></div>
+
+
+<script>
+    /**********************************************************
+    Dropdown Menu delay disappearance on mouse out
+    *********************************************************/
+    /*javascript to delay the disappearance of the menu when the user mouses out.  Uses jquery library.*/
+    $(function () {
+        
+
+        var timer = null;
+        var delay = 800; //change this number for shorter or longer delay
+
+        
+        //using megamenu
+        var dropdowncontainer = '>.megamenu_container';
+        var activePage = $(".mainnav .dropdownmenu > li.active");
+        $(".mainnav > .dropdownmenu > li").hoverIntent(
+
+            //what happens on hover over
+            function () {
+                 //end timer and stop hiding if they are mousing back in.
+                 if (timer != null) {
+                     clearTimeout(timer);
+                     timer = null;
+                 }
+                 // Find the hovered menu's sub-menu
+                 var $menu = $(this);
+                 var $submenu = $(this).find(dropdowncontainer);
+
+                 // hide any other submenus that are open
+                 $('.mainnav > .dropdownmenu>li' + dropdowncontainer).not($submenu).css('display', 'none');
+                 $('.mainnav > .dropdownmenu li.active').not($menu).not(activePage).removeClass('active');
+
+                 // show current menu
+                 $submenu.css('display', 'block');
+                 $menu.addClass('active');
+             },
+
+            //what happens on mouse out
+            function () {
+                var $submenu = $(this).find(dropdowncontainer);
+                var $menu = $(this);
+                // delay disappearance
+                var mouseDelay = $(this).data("mouseDelay") || delay;
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    $submenu.css('display', 'none'); $menu.not(activePage).removeClass('active');
+                    clearTimeout(timer); timer = null;
+                }, mouseDelay);
+            }
+        );
+
+
+        $('body').bind('keyup', function (event) {
+            if (event.keyCode == 9) {
+                // Find the hovered menu's sub-menu
+                var $menu = $(event.target).closest('li');
+                if ($menu.hasClass('megamenu_first')) {
+                    var $submenu = $menu.find(dropdowncontainer);
+
+                    // hide any other submenus that are open
+                    $('.mainnav > .dropdownmenu>li' + dropdowncontainer).not($submenu).css('display', 'none');
+                    $('.mainnav > .dropdownmenu li.active').not($menu).not(activePage).removeClass('active');
+
+                    // show current menu
+                    $submenu.css('display', 'block');
+                    $menu.addClass('active');
+                }
+            }
+        });
+
+        
+    });
+</script>
+
+<script>
+    //$(function () 
+    {
+        var menuContainerID = "menuContainer_201_0_8243";
+        var menuContainer = $("#" + menuContainerID);
+        
+        function isIE(userAgent) {
+            userAgent = userAgent || navigator.userAgent;
+            return userAgent.indexOf("MSIE ") > -1 || userAgent.indexOf("Trident/") > -1;
+        }
+
+        function isIE9(userAgent) {
+            userAgent = userAgent || navigator.userAgent;
+            return userAgent.indexOf("MSIE 9") > -1;
+        }
+
+        function isTouchScreenEvent(event) {
+            var _isTouchScreen = false;
+            if ("ontouchstart" in window) {
+                _isTouchScreen = true;
+            } else if ("onpointerdown" in window) {
+                _isTouchScreen = event.originalEvent.pointerType == "touch";
+            } else if (window.MSPointerEvent) {
+                _isTouchScreen = event.originalEvent.pointerType == event.originalEvent.MSPOINTER_TYPE_TOUCH; // 2 ; http://blogs.msdn.com/b/ie/archive/2011/09/20/touch-input-for-ie10-and-metro-style-apps.aspx
+            } else {
+            }
+            return _isTouchScreen;
+        }
+
+        var _isIE = isIE();
+        var _isIE9 = isIE9();
+        var isMegaMenu = $('.megamenu_first', menuContainer).length > 0;
+        var currentMenu = $('> ul.dropdownmenu > li.active', menuContainer);
+
+        $(function () {
+            if (currentMenu.length == 0)
+                currentMenu = $('> ul.dropdownmenu > li.active', menuContainer);
+        });
+
+        if (("ontouchstart" in window   // Chrome & Safari (IOS) && Firefox
+         || "onpointerdown" in window   // IE 11 
+         || window.MSPointerEvent       // IE 10
+         ) && ($(window).width() > 648)) {
+            var eventName = "ontouchstart" in window ? "touchstart"
+                          : "onpointerdown" in window ? "pointerdown"
+                          : window.MSPointerEvent ? "MSPointerDown"
+                          : "";
+            if (eventName.length > 0) {
+                $('> ul.dropdownmenu  li>a[data-navid]', menuContainer).bind(eventName, function (event) {
+
+                    if (isTouchScreenEvent(event) == false) {
+                        return true;
+                    }
+
+                    var currentLevelAnchor = $(this);
+                    var currentLeveLi = currentLevelAnchor.closest("li");
+                    var firstLevelLi = currentLevelAnchor.closest("li[id^='dropdownrootitem']");
+                    var firstLevelAnchor = firstLevelLi.find(">a[data-navid]");
+                    var inFirstLevel = currentLevelAnchor[0] == firstLevelAnchor[0];
+
+                    var hasSubMenu = currentLevelAnchor.next("ul,div").length > 0;
+                    if (hasSubMenu) {
+                        $(this).closest("li").data("mouseDelay", 1);
+
+                        // Menu is not selected
+                        if (!firstLevelLi.hasClass('touch-active')) {
+                            if ($(this).attr("href")) {
+                                $(this).attr("data-href", $(this).attr("href"));
+                                $(this).attr("href", "javascript:void(0);");
+                            }
+                            $(menuContainer).find('.touch-active').removeClass('touch-active').not(currentMenu).removeClass('active');
+
+                            firstLevelLi.addClass('touch-active active');
+                            currentLevelAnchor.addClass('touch-active active');
+                            currentMenu.addClass("active");
+
+                            $(' li:not(.touch-active)', menuContainer).not(firstLevelLi).removeClass('_current');
+                            $(' li:not(.touch-active) li', menuContainer).not(currentLeveLi).removeClass('_current');
+
+                            $('> ul.dropdownmenu > li:not(.touch-active) > a[data-navid]', menuContainer).next().css('display', 'none');
+                            $('> ul.dropdownmenu > li.touch-active > a[data-navid]', menuContainer).next().css('display', 'block');
+
+                            event.preventDefault();
+                        }
+                            // Menu is selected
+                        else {
+                            if (inFirstLevel) {
+                                // non clickable
+                                if (currentLevelAnchor.attr('href') == undefined) {
+                                    //has class touch-active and no link
+                                    removeClassAndHideMenu();
+                                    event.preventDefault();
+                                } else if ($(this).attr("data-href")) { //clickable, but href have been moved to data.
+                                    $(this).attr("href", $(this).attr("data-href"));
+                                }
+                            }
+                            else {
+                                if (isMegaMenu)
+                                    return true;
+
+                                if (!currentLeveLi.hasClass('touch-active')) {
+                                    if ($(this).attr("href")) {
+                                        $(this).attr("data-href", $(this).attr("href"));
+                                        $(this).attr("href", "javascript:void(0);");
+                                    }
+                                    $(firstLevelLi).find('.touch-active').removeClass('touch-active').not(currentMenu).removeClass('active');
+                                    currentLeveLi.parent().children("li._current").removeClass("_current");
+                                    currentLeveLi.addClass('touch-active active _current');
+
+                                    currentLevelAnchor.addClass('touch-active active');
+
+                                    //$(' li:not(.touch-active)', menuContainer).not(firstLevelLi).removeClass('_current');    
+                                    //$(' li:not(.touch-active) li', menuContainer).not(currentLeveLi).removeClass('_current');
+
+                                    $(' li:not(.touch-active) > a[data-navid]', currentLeveLi.parent()).next().css('display', 'none');
+                                    $('> li.touch-active > a[data-navid]', currentLeveLi.parent()).next().css('display', 'block');
+
+                                    event.preventDefault();
+                                } else {
+                                    if (currentLevelAnchor.attr('href') == undefined) {
+                                        //has class touch-active and no link
+                                        removeClassAndHideMenu();
+                                        event.preventDefault();
+                                    } else if ($(this).attr("data-href")) {
+                                        $(this).attr("href", $(this).attr("data-href"));
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                });
+            }
+        }
+
+
+
+        function removeClassAndHideMenu() {
+            $(menuContainer).find('a.touch-active, li.touch-active').removeClass('touch-active active');
+            $('> ul.dropdownmenu > li > a[data-navid]', menuContainer).next().css('display', 'none');
+            // If we don't change the menu item, we should keep the old one.
+            if ($('> ul.dropdownmenu > li.active', menuContainer).length == 0) {
+                currentMenu.addClass("active");
+            }
+        }
+
+        $('body').bind(eventName, function (event) {
+            if (isTouchScreenEvent(event) == false) {
+                return true;
+            }
+            if (!$(event.target).closest('li.touch-active').length) {
+                removeClassAndHideMenu();
+            }
+        });
+    }
+    //);
+</script>
+
+                
+                <!--startindex-->
+                <!--!!WidgetEnd-->
+
+    
+</div>
+
+    
+<div id="ColumnUserControl2" class="column   left_col  "  >
+    <!--!!WidgetStart, vi-orderdata="0"  vi-hideonmobile="false" vi-widgetinstancedata="203"WidgetStart!!-->    
+
+                <!--stopindex-->
+                
+
+<nav id='leftNav_203_0_8243' class='nocontent sidenav mobile_list vi-sidenav-desktop   '>
+    <h2 class="mobile_only mobile_header">Jump to subpage...</h2>
+    <ul><li class="sidenav_expanded sidenav_haschildren"><a href='https://www.noaca.org/board-committees/noaca-board-and-committees' target='_self'>NOACA Board and Committees</a><a href="javascript:void(0)" title="Expand/Collapse subpages under Sidenav Item with Children" class="vi-sidenav-toggle">-</a><ul><li class="sidenav_current"><a href='https://www.noaca.org/board-committees/noaca-board-and-committees/agendas-and-presentations' target='_self'>Agendas and Presentations</a></li><li><a href='https://www.noaca.org/board-committees/noaca-board-and-committees/membership' target='_self'>Membership</a></li><li><a href='https://www.noaca.org/board-committees/noaca-board-and-committees/2019-meeting-schedule' target='_blank'>2019 Meeting Schedule</a></li><li><a href='https://www.noaca.org/board-committees/noaca-board-and-committees/code-of-regulations' target='_self'>Code of Regulations</a></li><li><a href='https://www.noaca.org/board-committees/noaca-board-and-committees/legislative-agenda' target='_self'>Legislative Agenda</a></li><li><a href='https://www.noaca.org/board-committees/noaca-board-and-committees/board-policies' target='_blank'>Board Policies</a></li><li><a href='https://www.noaca.org/board-committees/noaca-board-and-committees/board-resolutions' target='_self'>Board Resolutions</a></li><li><a href='https://www.noaca.org/board-committees/noaca-board-and-committees/board-resource-guide' target='_blank'>Board Resource Guide</a></li></ul></li></ul>
+</nav>
+<script>
+    $(function () {
+        //test if it is mobile view or not and add classes accordingly. Needed because different sites use different breakpoints for mobile
+        if ($('.sidenav .mobile_only').is(':visible')) {
+            $('.sidenav').addClass('vi-sidenav-mobile');
+        } else {
+            $('.sidenav').addClass('vi-sidenav-desktop');
+        }
+        //need to also check for mobile view on resize and change classes if needed
+        var sidenavResizeTimer;
+
+        $(window).on('resize', function (e) {
+
+            clearTimeout(sidenavResizeTimer);
+            sidenavResizeTimer = setTimeout(function () {
+
+                if ($('.sidenav .mobile_only').is(':visible')) {
+                    $('.vi-sidenav-desktop').addClass('vi-sidenav-mobile').removeClass('vi-sidenav-desktop');
+                } else {
+                    $('.vi-sidenav-mobile').addClass('vi-sidenav-desktop').removeClass('vi-sidenav-mobile');
+                }
+            }, 250);
+
+        });
+
+        //expand/collapse function
+        $("#leftNav_203_0_8243 .vi-sidenav-toggle").click(function () {
+            var item = $(this),
+                parent = item.parent("li");
+
+            if (parent.length) {
+                if (parent.hasClass("sidenav_expanded")) {
+                    parent.removeClass("sidenav_expanded");
+                } else {
+                    parent.addClass("sidenav_expanded");
+                }
+            }
+
+            if (item.html() === "+") {
+                item.html('-');
+            } else {
+                item.html('+');
+            }
+        });
+    });
+</script>
+                
+                <!--startindex-->
+                <!--!!WidgetEnd-->
+
+    
+</div>
+
+    
+<div id="ColumnUserControl3" class="column   right_col  "  >
+    <!--!!WidgetStart, vi-orderdata="0"  vi-hideonmobile="false" vi-widgetinstancedata="204"WidgetStart!!-->    
+
+<a id="pagebody"></a>
+<header id="widget_204_0_8243" class="title_widget clearfix  " >
+    
+    <!--stopindex-->
+    <p class="breadcrumb">
+        <a href="/board-committees">Board & Committees</a> » <a href="/board-committees/noaca-board-and-committees">NOACA Board and Committees</a> 
+    </p>
+    <!--startindex-->
+    
+    <h1 class="titlewidget-title"><span>Materials and Presentations</span></h1>
+    
+    <!--stopindex-->
+    <div class="title_right">
+        
+        <a class="printer_friendly" href="javascript:window.print();" title="Click to print this page">Print</a>
+        
+        <a class="thickbox feedback_link" title="Click to submit an email to feedback" href="javascript:void(0);">Feedback</a>
+        
+        <script type="text/javascript">
+            function shareLink(shareType) {
+                var shareUrl = "";
+                var shareTitle = document.itemTitle ? encodeURIComponent(document.itemTitle.trim()).replace(/[!'()*]/g, escape) : "Materials+and+Presentations";
+                switch (shareType) {
+                    case "facebook":
+                        shareUrl = "http://www.facebook.com/sharer.php?u=https%3a%2f%2fwww.noaca.org%2fHome%2fComponents%2fCalendar%2fEvent%2f8261%2f7639%3ftoggle%3dall%26npage%3d2&t=" + shareTitle;
+                        break;
+                    case "linkedin":
+                        shareUrl = "http://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fwww.noaca.org%2fHome%2fComponents%2fCalendar%2fEvent%2f8261%2f7639%3ftoggle%3dall%26npage%3d2&title=" + shareTitle;
+                        break;
+                    case "twitter":
+                        //Below link works in iOS and other OS
+                        shareUrl = "https://twitter.com/intent/tweet?url=https%3a%2f%2fwww.noaca.org%2fHome%2fComponents%2fCalendar%2fEvent%2f8261%2f7639%3ftoggle%3dall%26npage%3d2&text=Materials+and+Presentations+%7c+";
+                        break;
+                    case "delicious":
+                        shareUrl = "https://secure.delicious.com/login?noui=yes&v=4&jump=https%3a%2f%2fwww.noaca.org%2fHome%2fComponents%2fCalendar%2fEvent%2f8261%2f7639%3ftoggle%3dall%26npage%3d2%26title%3D" + shareTitle + "%26notes%3D%26tags%3D%26v%3D4%26noui%3D%26share%3Dyes%26jump%3Dclose%26time%3D1239993443";
+                        break;
+                    case "myspace":
+                        shareUrl = "http://www.myspace.com/Modules/PostTo/Pages/?u=https%3a%2f%2fwww.noaca.org%2fHome%2fComponents%2fCalendar%2fEvent%2f8261%2f7639%3ftoggle%3dall%26npage%3d2&t=" + shareTitle + "&c=";
+                        break;
+                    case "googlebookmark":
+                        shareUrl = "http://www.google.com/bookmarks/mark?op=add&bkmk=https%3a%2f%2fwww.noaca.org%2fHome%2fComponents%2fCalendar%2fEvent%2f8261%2f7639%3ftoggle%3dall%26npage%3d2&title=" + shareTitle;
+                        break;
+                    case "stumbleupon":
+                        shareUrl = "http://www.stumbleupon.com/submit?url=https%3a%2f%2fwww.noaca.org%2fHome%2fComponents%2fCalendar%2fEvent%2f8261%2f7639%3ftoggle%3dall%26npage%3d2&title=" + shareTitle;
+                        break;
+                    case "digg":
+                        shareUrl = "http://digg.com/submit/?url=https%3a%2f%2fwww.noaca.org%2fHome%2fComponents%2fCalendar%2fEvent%2f8261%2f7639%3ftoggle%3dall%26npage%3d2";
+                        break;
+                    case "tumblr":
+                        shareUrl = "https://www.tumblr.com/share/link?url=https%3a%2f%2fwww.noaca.org%2fHome%2fComponents%2fCalendar%2fEvent%2f8261%2f7639%3ftoggle%3dall%26npage%3d2&name=" + shareTitle;
+                        break;
+                    case "reddit":
+                        shareUrl = "http://www.reddit.com/submit?url=https%3a%2f%2fwww.noaca.org%2fHome%2fComponents%2fCalendar%2fEvent%2f8261%2f7639%3ftoggle%3dall%26npage%3d2&title=" + shareTitle;
+                        break;
+                }
+                if (shareUrl.length > 0) window.open(shareUrl, "_blank");
+            }
+        </script>
+        <div id="share">
+            <a class="sharelink" href="javascript:void(0);" title="Click to expand Share & Bookmark options" aria-haspopup="true" aria-expanded="false" aria-labelledby="share-desciption">Share & Bookmark</a>
+            <span id="share-desciption" class="wcag_only" >Press Enter to show all options, press Tab go to next option</span>
+            <ul class="no_external_url_indication">
+                <li>
+                    
+                    <a title="Click to submit an email online" href="javascript:void(0);" class="shareemail send_share_email">Email</a>
+                    
+                </li>
+                <li><a title="Click to share with Facebook" href="javascript:shareLink('facebook')" class="sharefacebook">Facebook</a></li>
+                
+                <li><a title="Click to share with LinkedIn" href="javascript:shareLink('linkedin')" class="sharelinkedin">LinkedIn</a></li>
+                <li><a title="Click to share with Twitter" href="javascript:shareLink('twitter')" class="sharetwitter">Twitter</a></li>
+                
+                
+                
+                
+                
+                
+                <li><a title="Click to share with Reddit" href="javascript:shareLink('reddit')" class="sharereddit">Reddit</a></li>
+            </ul>
+        </div>
+        
+        <div class="font_size">
+            <a href="javascript:void(0);" title="default font size" class="text_size">Font Size:</a>
+            <a href="javascript:void(0);" title="larger font size" class="font_larger">+</a>
+            <a href="javascript:void(0);" title="smaller font size" class="font_smaller">-</a>
+        </div>
+        
+    </div>
+    <!--startindex-->
+
+    
+</header>
+<script type="text/javascript">
+    $(function () {
+        var widgetContext = "widget_204_0_8243";
+
+        $("#" + widgetContext + " #share").click(function () {
+            if (!$("#" + widgetContext + " div#share").hasClass("click-active"))
+                $("#" + widgetContext + " div#share").find("ul").show();
+            else
+                $("#" + widgetContext + " div#share").find("ul").hide();
+        });
+
+        $("div").click(function () {
+            if ($("#" + widgetContext + " div#share").hasClass("click-active")) {
+                $("#" + widgetContext + " div#share").find("ul").hide();
+            }
+        });
+
+        $(document).click(function (e) {
+            if (!$(e.target).closest("#share").length > 0) {
+                $("#" + widgetContext + " div#share").removeClass("click-active");
+                $("#" + widgetContext + " div#share").find("ul").hide();
+            }
+        });
+
+        var shareContainerTimeout = null;
+        $("#" + widgetContext + " #share").bind('mouseover', function () {
+            //If not relate to click event
+            if (shareContainerTimeout) {
+                clearTimeout(shareContainerTimeout);
+                shareContainerTimeout = null;
+            }
+            shareContainerTimeout = setTimeout(function () {
+                if (!$("#" + widgetContext + " div#share").hasClass("click-active"))
+                    $("#" + widgetContext + " div#share").find("ul").show();
+            }, 100);
+        });
+
+        $("#" + widgetContext + " #share").bind('mouseleave', function () {            
+            //If not relate to click event     
+            if (shareContainerTimeout) {
+                clearTimeout(shareContainerTimeout);
+                shareContainerTimeout = null;
+            }
+            shareContainerTimeout = setTimeout(function () {
+                if (!$("#" + widgetContext + " div#share").hasClass("click-active"))
+                    $("#" + widgetContext + " div#share").find("ul").hide();
+            }, 200);
+        });
+
+        $("header#" + widgetContext + " a.feedback_link").click(function () {
+            var windowHeight = 485;
+            if (window.innerWidth <= 648) {
+                windowHeight = 545;
+            }
+            var opts = {
+                title: "Feedback",
+                url: "/Template/GetFeedbackPartial?feedbackUrl=https%3a%2f%2fwww.noaca.org%2fHome%2fComponents%2fCalendar%2fEvent%2f8261%2f7639%3ftoggle%3dall%26npage%3d2",
+                useFrame: true,
+                height: windowHeight,
+                onClosed: function (result) {
+                    if (result != undefined && result.IsOk == true) {
+                        $.refreshTempMessage(result.Message);
+                    }
+                },
+                skin: 'viClientDialog feedback_lightbox',
+                fixed: false
+            };
+            $.viClientDialog(opts).open();
+        });
+
+        //Safari iOS: No click event
+        $("header#" + widgetContext + " a.send_share_email").bind("click touchstart", function () {
+            var shareEmailTitle = document.itemTitle ? encodeURIComponent(document.itemTitle.trim()).replace(/[!'()*]/g, escape) : "Materials+and+Presentations";
+            var opts = {
+                title: "Click to submit an email online",
+                url: "/Template/GetShareEmailPartial?shareUrl=https%3a%2f%2fwww.noaca.org%2fHome%2fComponents%2fCalendar%2fEvent%2f8261%2f7639%3ftoggle%3dall%26npage%3d2" + "&shareTitle=" + shareEmailTitle,
+                useFrame: true,
+                height: 485,
+                onClosed: function (result) {
+                    if (result != undefined && result.IsOk == true) {
+                        $.refreshTempMessage(result.Message);
+                    }
+                },
+                skin: 'viClientDialog send_share_email_lightbox',
+                fixed: false
+            };
+            $.viClientDialog(opts).open();
+        });
+
+        
+
+    });
+</script>
+
+            <!--!!WidgetEnd-->
+
+    <!--!!WidgetStart, vi-orderdata="0"  vi-hideonmobile="false" vi-widgetinstancedata="202"WidgetStart!!-->    
+<div id='widget_202_975_8243' class='content_area normal_content_area clearfix  '>To see the associated agenda or presentation for a meeting, please click the name of the meeting.</div>
+            <!--!!WidgetEnd-->
+
+    <!--!!WidgetStart, vi-orderdata="0"  vi-hideonmobile="false" vi-widgetinstancedata="205"WidgetStart!!-->    
+<div class="need_hide_detail_widget events_widget content_area clearfix" id="events_widget_205_976_8243"><div itemscope="" itemtype="http://data-vocabulary.org/Event"><script> document.title = $.htmlDecode('Transportation Subcommittee | Agendas and Presentations | Northeast Ohio Areawide Coordinating Agency'); document.itemTitle = $.htmlDecode('Transportation Subcommittee');</script><h2 class='detail-title'><span itemprop="summary">Transportation Subcommittee</span></h2><h3 class='detail-subtitle'></h3><ul class='detail-list'><li><span class='detail-list-label'>Date: </span><span class='detail-list-value'>09/20/2019 10:30 AM - 12:00 PM <time style='display:none;' itemprop='startDate' datetime='2019-09-20T14:30+00:00'>09/20/2019 10:30 AM</time> <time style='display:none;' itemprop='endDate' datetime='2019-09-20T16:00+00:00'>09/20/2019 12:00 PM</time></span> &nbsp;</li><li><span class='detail-list-label'>Location: </span><span class='detail-list-value'><span itemprop="location" itemscope="" itemtype="http://data-vocabulary.org/Organization"><span itemprop="name">NOACA</span><br/><a href="http://www.google.com/maps?f=l&hl=en&q=1299+Superior+Avenue%2c+Cleveland%2c+Ohio+44114-3204" target="_blank" title="1299 Superior Avenue
+Cleveland, Ohio 44114-3204"><span itemprop="address" itemscope="" itemtype="http://data-vocabulary.org/Address"><span itemprop="street-address">1299 Superior Avenue</span><br /><span itemprop="locality">Cleveland</span>, <span itemprop="region">Ohio</span> 44114-3204</span></a></span></span></li></ul>
+        <ul class="formlist custom_fields">
+               
+        </ul>
+        
+<div class="addtocalendar">
+    <a class="calendar_Controls" href="javascript:void(0);">Add to my Calendar</a>
+    <div id="calendarControls">
+        <a class="outlookcalendar" href="/Home/Components/Calendar/Event/ICalendar?ID=8261&IsPublished=True" target="_blank">Outlook/iCalendar</a>
+        <a class="googleCal" href="http://www.google.com/calendar/event?action=TEMPLATE&text=Transportation+Subcommittee&dates=20190920T103000%2f20190920T120000&details=Presentations+from+the+September+20%2c+2019+meeting+of+the+Transportation+Subcommittee%3a%0d++++Project+Planning+Review+(PPR)%2fIntergovernmental+Review+and+C...%0d%0aFor+Information+Click+Here%3a+https%3a%2f%2fwww.noaca.org%2fabout%2fadvanced-components%2fcalendar-month-view%3fitem%3d8261&location=NOACA%2c+1299+Superior+Avenue+Cleveland%2c+Ohio+44114-3204&trp=false" target="_blank">Google Calendar</a>
+        <a class="yahooCal" href="http://calendar.yahoo.com/?v=60&view=d&type=20&title=Transportation+Subcommittee&st=20190920T103000&dur=01030&desc=Presentations+from+the+September+20%2c+2019+meeting+of+the+Transportation+Subcommittee%3a%0d++++Project+Planning+Review+(PPR)%2fIntergovernmental+Review+and+C...%0d%0aFor+Information+Click+Here%3a+https%3a%2f%2fwww.noaca.org%2fabout%2fadvanced-components%2fcalendar-month-view%3fitem%3d8261&in_loc=NOACA%2c+1299+Superior+Avenue+Cleveland%2c+Ohio+44114-3204" target="_blank">Yahoo Calendar</a>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("div.addtocalendar").bind("click", function (e) {
+            if (!$("div.addtocalendar").hasClass("click-active"))
+                $("div.addtocalendar").find("div#calendarControls").show();
+            else
+                $("div.addtocalendar").find("div#calendarControls").hide();
+
+            $("div.addtocalendar").toggleClass("click-active");
+        });
+
+        $("#calendarControls .yahooCal").focusout(function () {
+            $("div.addtocalendar").trigger("click");
+        });
+
+        $(document).click(function (e) {
+            if (!$(e.target).closest("div.addtocalendar").length > 0) {
+                $("div.addtocalendar").removeClass("click-active");
+                $("div.addtocalendar").find("div#calendarControls").hide();
+            }
+        });
+    });    
+</script>
+<div class='detail-content'><span itemprop="description"><p><strong>Presentations from the September 20, 2019 meeting of the Transportation Subcommittee:</strong></p>
+<ul>
+    <li><a href="/home/showdocument?id=24219" target="_blank">Project Planning Review (PPR)/Intergovernmental Review and Consultation (IGRC): 2nd Quarter State Fiscal Year (SFY) 2020</a></li>
+    <li><a href="/home/showdocument?id=24217" target="_blank">Plan and TIP Amendment: 2nd Quarter SFY 2020</a></li>
+    <li><a href="/home/showdocument?id=24221" target="_blank">Functional Classification Amendment Recommendations</a></li>
+    <li><a href="/home/showdocument?id=24225" target="_blank">Safety Performance Target Setting for Calendar Year 2020</a></li>
+    <li><a href="/home/showdocument?id=24227" target="_blank">Enhanced Mobility for Seniors and Individuals with Disabilities (Section 5310) Program Update</a></li>
+    <li><a href="/home/showdocument?id=24223" target="_blank">NOACA Project Maintenance Monitoring Program</a></li>
+</ul>
+<p>&nbsp;</p></span></div><div class='detail-agenda'><span class="agenda-minutes-label">Agenda:</span><a class='agenda_minutes_link' target='_blank' href='/Home/ShowDocument?id=24167'>Transportation Subcommittee Packet Sept. 2019 <img class='thumb_img' alt='' src='/DefaultContent/Default/_gfx/document_icons/pdf.png'/></a></div><div class='detail-minutes'></div><a href="/board-committees/noaca-board-and-committees/agendas-and-presentations/-toggle-all/-npage-2" class='detail-more'>Return to full list >></a></div></div>
+
+<script type="text/javascript">
+    $(function() {
+        
+    })
+</script>
+            <!--!!WidgetEnd-->
+
+    
+</div>
+
+</div> 
+
+        <footer id="page_footer" class="">
+            <!--stopindex-->
+            
+<div id="footercolumn" class="site_template_column  footer_column   " >
+
+                <!--stopindex-->
+                
+
+    <div class="footer_address">
+        <p>
+            <a href="https://www.google.com/maps/place/1299+Superior+Ave,+Cleveland,+OH+44114/@41.5043225,-81.6876341,17z/data=!3m1!4b1!4m5!3m4!1s0x8830fa7c03a3f81f:0x5235963d6c4d8e18!8m2!3d41.5043225!4d-81.6854454" target="_blank">1299 Superior Avenue, Cleveland, OH 44114</a
+        </p>
+    </div>
+    <div class="footer_phone">
+        <p>
+            <a href="tel:2162412414" target="_blank">(216) 241-2414</a
+        </p>
+    </div>
+<p class="footer_copyright">
+    Website created by <a href="//www.visioninternet.com/sitecredit/" target="_blank" title="Vision - Where Communities & Government Meet">Vision</a> - Where Communities & Government Meet
+</p>
+                <!--startindex-->
+            
+
+                <!--stopindex-->
+                
+
+<div class="social_icons">
+		<a href="http://www.facebook.com/NOACA" target="_blank" title="Like us on Facebook!">
+			<img class="xyz" src="/Home/ShowPublishedImage/4402/636590475033570000" data-alt-src='/Home/ShowPublishedImage/4404/636590475035900000' alt="facebook" />
+		</a>
+		<a href="https://twitter.com/NOACA_mpo" target="_blank" title="Follow us on Twitter!">
+			<img class="xyz" src="/Home/ShowPublishedImage/4406/636590475038270000" data-alt-src='/Home/ShowPublishedImage/4408/636590475040600000' alt="twitter" />
+		</a>
+		<a href="https://www.linkedin.com/company/noaca/" target="_blank" title="Connect with us on LinkedIn!">
+			<img class="xyz" src="/Home/ShowPublishedImage/4598/636598298126170000" data-alt-src='/Home/ShowPublishedImage/4600/636598298075230000' alt="LinkedIn" />
+		</a>
+</div>
+
+<script>
+    $(".social_icons img.xyz")
+        .mouseover(function () {
+        	$("img", this).attr("src", $(this).attr("data-alt-src"));
+        })
+        .mouseout(function () {
+            $("img", this).attr("src", $(this).attr("data-src"));
+        });
+</script>
+                <!--startindex-->
+            
+
+</div>
+
+            <!--startindex-->
+        </footer>
+        <div id="view-options"><a href="javascript:void(0);" id="view-full" onclick="viewfullsite()" class="mobile_only">View Full Site</a></div>
+    </div>
+</div>
+
+<script src="/Project/Contents/Main/Scripts/mobile_nav_scripts.js" type="text/javascript"></script>
+
+<script src="/Project/Contents/Main/Scripts/sitelayout_scripts.js" type="text/javascript"></script>
+    
+    <script>
+        $(function () {
+            $(".reComment[comment]").removeClass("reComment")
+                                    .removeAttr("comment")
+                                    .removeAttr("author")
+                                    .removeAttr("title")
+                                    .removeAttr("timestamp");
+        })
+    </script>
+    
+
+    
+
+    <script src="/Scripts/ScriptBundleVisionFrontend.jsbnd?v=eem404k-ikYNlmmRZnTtF-oPUfh0Tle6IXbbsM3GzLQ1"></script>
+
+
+    
+    
+    <script>
+        try { manualRenderMobile(); } catch (err) {}
+    </script>
+    
+    
+    <script src="/Scripts/Components/ScriptsFEBundle.jsbnd?v=nCJJBP2M13rc6GJyDXDwckSnsCR_X1jZynT9ggAk_rg1"></script>
+
+    <script>
+        $(function() {
+            var sitewrapper = $(".sitewrapper");
+            if(sitewrapper.length && !sitewrapper.hasClass("")) {
+                sitewrapper.addClass("");
+            }          
+        });
+    </script>      
+    
+
+    
+</body>
+</html>
