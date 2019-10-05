@@ -1,27 +1,27 @@
 import re
 from datetime import datetime, timedelta
 
-from city_scrapers_core.constants import BOARD
+from city_scrapers_core.constants import COMMISSION
 from city_scrapers_core.spiders import CityScrapersSpider
 from scrapy import FormRequest
 
 from city_scrapers.mixins import CuyaCountyMixin
 
 
-class CuyaAdministrativeRulesSpider(CuyaCountyMixin, CityScrapersSpider):
-    name = "cuya_administrative_rules"
-    agency = "Cuyahoga County Administrative Rules Board"
-    start_urls = ["http://arb.cuyahogacounty.us/en-US/events-calendar.aspx"]
-    classification = BOARD
+class CuyaOpiateTaskForceSpider(CuyaCountyMixin, CityScrapersSpider):
+    name = "cuya_opiate_task_force"
+    agency = "Cuyahoga County Opiate Task Force"
+    start_urls = ["http://opiatecollaborative.cuyahogacounty.us/en-US/Meeting-Calendar.aspx"]
+    classification = COMMISSION
     location = {
-        "name": "County Headquarters",
-        "address": "2079 East 9th St Cleveland, OH 44115",
+        "name": "Cuyahoga County Board of Health",
+        "address": "5550 Venture Dr, Parma, OH 44130",
     }
 
     def parse(self, response):
         today = datetime.now()
         payload = {
-            "ctl00$ScriptManager1":
+            "ctl00$ctl04":
                 "ctl00$ContentPlaceHolder1$EventsCalendar1$updMainPanel|ctl00$ContentPlaceHolder1$EventsCalendar1$TabContainer1$tbpDateRange$btnShowDateRange",  # noqa
             "__EVENTTARGET": "ctl00$ContentPlaceHolder1$EventsCalendar1$TabContainer1",
             "__EVENTARGUMENT": "activeTabChanged:3",
@@ -39,8 +39,16 @@ class CuyaAdministrativeRulesSpider(CuyaCountyMixin, CityScrapersSpider):
         yield FormRequest(response.url, formdata=payload, callback=self._parse_form_response)
 
     def _parse_form_response(self, response):
-        for detail_link in response.css("#contentColumn td:nth-child(2) a::attr(href)").extract():
+        for detail_link in response.css(
+            ".ajax__tab_panel:last-child .SearchResults td:nth-child(2) a::attr(href)"
+        ).extract():
             yield response.follow(detail_link, callback=self._parse_detail, dont_filter=True)
+
+    def _parse_title(self, response):
+        title_str = response.css("#rightColumn h1::text").extract_first().strip()
+        if "Special" in title_str:
+            return title_str
+        return title_str.replace(" Meeting", "").strip()
 
     def _parse_location(self, response):
         detail_strs = response.css("blockquote dd::text").extract()
@@ -48,7 +56,7 @@ class CuyaAdministrativeRulesSpider(CuyaCountyMixin, CityScrapersSpider):
         for detail_str in detail_strs:
             if re.search(r"\d{3}", detail_str):
                 loc_str = re.sub(r"\s+", " ", detail_str).strip()
-        if not loc_str or "2079" in loc_str:
+        if not loc_str or "5550" in loc_str:
             return self.location
         return {"name": "", "address": loc_str}
 
