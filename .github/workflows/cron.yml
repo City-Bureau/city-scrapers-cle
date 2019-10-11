@@ -1,4 +1,4 @@
-name: Cron build
+name: Cron Build
 
 on:
   schedule:
