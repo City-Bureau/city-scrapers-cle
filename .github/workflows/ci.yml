@@ -3,6 +3,7 @@ name: CI Checks
 on: [push, pull_request]
 
 env:
+  CI: true
   AUTOTHROTTLE_MAX_DELAY: 30.0
   AUTOTHROTTLE_START_DELAY: 1.5
   AUTOTHROTTLE_TARGET_CONCURRENCY: 3.0

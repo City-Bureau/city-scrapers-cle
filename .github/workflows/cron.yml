@@ -5,6 +5,7 @@ on:
     - cron: '7 10 * * *'
 
 env:
+  CI: true
   SCRAPY_SETTINGS_MODULE: city_scrapers.settings.prod
   WAYBACK_ENABLED: true
   AUTOTHROTTLE_MAX_DELAY: 30.0
