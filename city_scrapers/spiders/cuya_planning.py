@@ -11,7 +11,6 @@ class CuyaPlanningSpider(CityScrapersSpider):
     name = "cuya_planning"
     agency = "Cuyahoga County Planning Commission"
     timezone = "America/Detroit"
-    allowed_domains = ["www.countyplanning.us"]
     start_urls = ["https://www.countyplanning.us/about/meetings/"]
     location = {
         "name": "County Headquarters, Conference Room 4-407",

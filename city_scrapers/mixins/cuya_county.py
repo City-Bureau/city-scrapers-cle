@@ -6,7 +6,6 @@ from city_scrapers_core.items import Meeting
 
 class CuyaCountyMixin:
     timezone = "America/Detroit"
-    allowed_domains = ["cuyahogacounty.us"]
     location = {
         "name": "County Headquarters",
         "address": "2079 East 9th St Cleveland, OH 44115",

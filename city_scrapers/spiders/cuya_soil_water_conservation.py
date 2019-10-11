@@ -11,7 +11,6 @@ class CuyaSoilWaterConservation(CityScrapersSpider):
     name = "cuya_soil_water_conservation"
     agency = "Cuyahoga Soil and Water Conservation District"
     timezone = "America/Detroit"
-    allowed_domains = ["www.cuyahogaswcd.org"]
 
     @property
     def start_urls(self):

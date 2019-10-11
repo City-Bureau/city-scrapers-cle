@@ -11,7 +11,6 @@ class CuyaMetrohealthSpider(CityScrapersSpider):
     name = "cuya_metrohealth"
     agency = "Cuyahoga County MetroHealth System"
     timezone = "America/Detroit"
-    allowed_domains = ["www.metrohealth.org"]
     start_urls = ["https://www.metrohealth.org/about-us/board-and-governance/meetings"]
     location = {
         "name": "MetroHealth Business Services Building, Board Room K-107",

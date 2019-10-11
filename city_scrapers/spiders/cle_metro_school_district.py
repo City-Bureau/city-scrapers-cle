@@ -10,7 +10,6 @@ class CleMetroSchoolDistrictSpider(CityScrapersSpider):
     name = "cle_metro_school_district"
     agency = "Cleveland Metropolitan School District"
     timezone = "America/Detroit"
-    allowed_domains = ["www.boarddocs.com"]
     start_urls = ["https://www.boarddocs.com/oh/cmsd/board.nsf/XML-ActiveMeetings"]
 
     def parse(self, response):

@@ -11,7 +11,6 @@ class CuyaNortheastOhioRegionalSewerSpider(CityScrapersSpider):
     name = "cuya_northeast_ohio_regional_sewer"
     agency = "Northeast Ohio Regional Sewer District"
     timezone = "America/Detroit"
-    allowed_domains = ["www.neorsd.org"]
     start_urls = [
         "https://www.neorsd.org/document-library/?PAGE=2&BUDGETCENTER_ID=NULL&CONTENT_TYPE_ID=NULL&LibraryItem=agenda&Active=1&Archive=1&Search=Submit"  # noqa
     ]

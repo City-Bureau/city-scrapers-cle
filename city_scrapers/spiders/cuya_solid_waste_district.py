@@ -10,7 +10,6 @@ class CuyaSolidWasteDistrictSpider(CityScrapersSpider):
     name = "cuya_solid_waste_district"
     agency = "Cuyahoga County Solid Waste District"
     timezone = "America/Detroit"
-    allowed_domains = ["cuyahogarecycles.org"]
     start_urls = ["https://cuyahogarecycles.org/event_calendar"]
     location = {
         "name": "County Headquarters, Room 5-120",

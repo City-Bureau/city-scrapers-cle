@@ -10,7 +10,6 @@ class CuyaTaxIncentiveReviewSpider(CityScrapersSpider):
     name = "cuya_tax_incentive_review"
     agency = "Cuyahoga County Tax Incentive Review Council"
     timezone = "America/Detroit"
-    allowed_domains = ["bc.cuyahogacounty.us"]
     start_urls = ["http://bc.cuyahogacounty.us/en-US/Tax-Incentive-Review-Council.aspx"]
     location = {
         "name": "Cuyahoga County Headquarters",

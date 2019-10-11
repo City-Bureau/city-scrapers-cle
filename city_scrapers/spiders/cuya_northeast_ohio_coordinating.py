@@ -10,7 +10,6 @@ class CuyaNortheastOhioCoordinatingSpider(CityScrapersSpider):
     name = "cuya_northeast_ohio_coordinating"
     agency = "Northeast Ohio Areawide Coordinating Agency"
     timezone = "America/Detroit"
-    allowed_domains = ["www.noaca.org"]
     start_urls = [
         "https://www.noaca.org/board-committees/noaca-board-and-committees/agendas-and-presentations/-toggle-all",  # noqa
         "https://www.noaca.org/board-committees/noaca-board-and-committees/agendas-and-presentations/-toggle-all/-npage-2",  # noqa

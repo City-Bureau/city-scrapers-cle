@@ -7,7 +7,6 @@ class CleCityCouncilSpider(LegistarSpider):
     name = "cle_city_council"
     agency = "Cleveland City Council"
     timezone = "America/Detroit"
-    allowed_domains = ["cityofcleveland.legistar.com"]
     start_urls = ["https://cityofcleveland.legistar.com"]
     link_types = []
 

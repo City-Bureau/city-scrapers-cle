@@ -12,7 +12,6 @@ class CleDesignReviewSpider(CityScrapersSpider):
     name = "cle_design_review"
     agency = "Cleveland Design Review Advisory Committees"
     timezone = "America/Detroit"
-    allowed_domains = ["planning.city.cleveland.oh.us"]
     start_urls = ["http://planning.city.cleveland.oh.us/designreview/schedule.php"]
     custom_settings = {"ROBOTSTXT_OBEY": False}
 

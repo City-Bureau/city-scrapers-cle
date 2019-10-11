@@ -10,7 +10,6 @@ class CleBuildingStandardsSpider(CityScrapersSpider):
     name = "cle_building_standards"
     agency = "Cleveland Board of Building Standards and Building Appeals"
     timezone = "America/Detroit"
-    allowed_domains = ["planning.city.cleveland.oh.us"]
     start_urls = ["http://planning.city.cleveland.oh.us/bza/bbs.html"]
     custom_settings = {"ROBOTSTXT_OBEY": False}
     location = {

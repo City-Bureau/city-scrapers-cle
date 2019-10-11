@@ -10,7 +10,6 @@ class CleTransitCommunityAdvisorySpider(CityScrapersSpider):
     name = "cle_transit_community_advisory"
     agency = "Greater Cleveland Regional Transit Authority Community Advisory Committee"
     timezone = "America/Detroit"
-    allowed_domains = ["www.riderta.com"]
     start_urls = ["http://www.riderta.com/CAC"]
     location = {
         "name": "RTA Main Office",

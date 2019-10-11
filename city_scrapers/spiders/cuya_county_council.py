@@ -11,7 +11,6 @@ class CuyaCountyCouncilSpider(CityScrapersSpider):
     name = "cuya_county_council"
     agency = "Cuyahoga County Council"
     timezone = "America/Detroit"
-    allowed_domains = ["council.cuyahogacounty.us"]
     custom_settings = {"DEFAULT_REQUEST_HEADERS": {"Content-Type": "application/json"}}
     location = {
         "address": "4th Floor 2079 East 9th Street",

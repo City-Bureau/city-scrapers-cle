@@ -10,7 +10,6 @@ class CleLandmarksSpider(CityScrapersSpider):
     name = "cle_landmarks"
     agency = "Cleveland Landmarks Commission"
     timezone = "America/Detroit"
-    allowed_domains = ["planning.city.cleveland.oh.us"]
     start_urls = ["http://planning.city.cleveland.oh.us/landmark/AGENDALIST.html"]
     custom_settings = {"ROBOTSTXT_OBEY": False}
     location = {

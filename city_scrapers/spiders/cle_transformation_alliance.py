@@ -11,7 +11,6 @@ class CleTransformationAllianceSpider(CityScrapersSpider):
     name = "cle_transformation_alliance"
     agency = "Cleveland Transformation Alliance"
     timezone = "America/Detroit"
-    allowed_domains = ["mycleschool.org"]
     start_urls = ["https://mycleschool.org/category/events/board-of-directors-events/"]
     location = {
         "name": "Cuyahoga Metropolitan Housing Authority",

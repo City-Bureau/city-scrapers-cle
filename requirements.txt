@@ -1,0 +1,16 @@
+-i https://pypi.org/simple
+requests
+twisted
+scrapy
+scrapy-sentry
+git+https://github.com/opencivicdata/python-legistar-scraper@a9cea04cb226519aaeed6bfa3a9b3ed6f44e90d3#egg=legistar
+city-scrapers-core[azure]
+scrapy-wayback-middleware
+python-dateutil
+chardet
+pdfminer-six
+freezegun
+pytest
+flake8
+isort
+yapf

@@ -11,7 +11,6 @@ class CuyaAdamhsSpider(CityScrapersSpider):
     name = "cuya_adamhs"
     agency = "Cuyahoga County ADAMHS"
     timezone = "America/Detroit"
-    allowed_domains = ["adamhscc.org"]
     start_urls = [
         "http://adamhscc.org/en-US/board-meetings.aspx",
         "http://adamhscc.org/en-US/board-minutes.aspx",

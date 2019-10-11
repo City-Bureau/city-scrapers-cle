@@ -12,7 +12,6 @@ class CleLibrarySpider(CityScrapersSpider):
     name = "cle_library"
     agency = "Cleveland Public Library"
     timezone = "America/Detroit"
-    allowed_domains = ["cpl.org"]
     start_urls = [
         "https://cpl.org/aboutthelibrary/board-of-trustees/monthly-board-meeting-minutes/"
     ]

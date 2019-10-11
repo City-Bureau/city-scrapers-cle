@@ -10,7 +10,6 @@ class CleGatewayEconomicDevelopmentSpider(CityScrapersSpider):
     name = "cle_gateway_economic_development"
     agency = "Gateway Economic Development Corporation of Greater Cleveland"
     timezone = "America/Detroit"
-    allowed_domains = ["www.gwcomplex.org"]
     start_urls = ["https://www.gwcomplex.org/boardmeetings.html"]
     location = {
         "name": "Climaco Law Offices",

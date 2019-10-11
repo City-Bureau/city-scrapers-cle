@@ -11,7 +11,6 @@ class CleMayorInfrastructureSpider(CityScrapersSpider):
     name = "cle_mayor_infrastructure"
     agency = "Cleveland Mayor's Infrastructure and Streetscape Advisory Committee"
     timezone = "America/Detroit"
-    allowed_domains = ["planning.city.cleveland.oh.us"]
     start_urls = ["http://planning.city.cleveland.oh.us/designreview/schedule.php"]
     custom_settings = {"ROBOTSTXT_OBEY": False}
 

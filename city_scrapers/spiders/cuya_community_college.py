@@ -13,7 +13,6 @@ class CuyaCommunityCollegeSpider(CityScrapersSpider):
     name = "cuya_community_college"
     agency = "Cuyahoga Community College"
     timezone = "America/Detroit"
-    allowed_domains = ["www.tri-c.edu"]
     start_urls = ["https://www.tri-c.edu/administrative-departments/tri-c-board-of-trustees.html"]
 
     def parse(self, response):

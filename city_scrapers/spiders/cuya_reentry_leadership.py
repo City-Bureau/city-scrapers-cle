@@ -10,7 +10,6 @@ class CuyaReentryLeadershipSpider(CityScrapersSpider):
     name = "cuya_reentry_leadership"
     agency = "Greater Cleveland Reentry Leadership Coalition"
     timezone = "America/Detroit"
-    allowed_domains = ["reentry.cuyahogacounty.us"]
     start_urls = ["http://reentry.cuyahogacounty.us/en-US/Leadership-Coalition.aspx"]
 
     def parse(self, response):

@@ -10,7 +10,6 @@ class CuyaLandBankSpider(CityScrapersSpider):
     name = "cuya_land_bank"
     agency = "Cuyahoga County Land Bank"
     timezone = "America/Detroit"
-    allowed_domains = ["www.cuyahogalandbank.org"]
     start_urls = ["http://www.cuyahogalandbank.org/boardMeetings.php"]
     location = {
         "name": "Caxton Building",

@@ -11,7 +11,6 @@ class CuyaEuclidCreekCouncilSpider(CityScrapersSpider):
     name = "cuya_euclid_creek_council"
     agency = "Euclid Creek Watershed Council"
     timezone = "America/Detroit"
-    allowed_domains = ["www.cuyahogaswcd.org"]
 
     @property
     def start_urls(self):

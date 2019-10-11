@@ -11,7 +11,6 @@ class CuyaLibrarySpider(CityScrapersSpider):
     name = "cuya_library"
     agency = "Cuyahoga County Public Library"
     timezone = "America/Detroit"
-    allowed_domains = ["cuyahogalibrary.org"]
     start_urls = ["https://cuyahogalibrary.org/About-Us/Our-Organization.aspx"]
     location = {
         "name": "Administration Building Auditorium",

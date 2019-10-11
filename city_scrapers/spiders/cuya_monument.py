@@ -10,7 +10,6 @@ class CuyaMonumentSpider(CityScrapersSpider):
     name = "cuya_monument"
     agency = "Cuyahoga County Monument Commission"
     timezone = "America/Detroit"
-    allowed_domains = ["bc.cuyahogacounty.us"]
     start_urls = ["http://bc.cuyahogacounty.us/en-US/Monument-Commission.aspx"]
     location = {
         "name": "Cuyahoga County Archives Building, 3rd Floor",

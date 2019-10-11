@@ -11,7 +11,6 @@ class CuyaArtsCultureSpider(CityScrapersSpider):
     name = "cuya_arts_culture"
     agency = "Cuyahoga County Arts & Culture"
     timezone = "America/Detroit"
-    allowed_domains = ["www.cacgrants.org"]
     start_urls = ["https://www.cacgrants.org/about-us/board/board-materials/"]
 
     def parse(self, response):

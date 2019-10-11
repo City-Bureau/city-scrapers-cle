@@ -11,7 +11,6 @@ class CuyaConventionSpider(CityScrapersSpider):
     name = "cuya_convention"
     agency = "Cuyahoga County Convention Facility Development Corporation"
     timezone = "America/Detroit"
-    allowed_domains = ["www.cccfdc.org"]
     start_urls = ["http://www.cccfdc.org/"]
     location = {
         "name": "Global Center for Health Innovation, Executive Board Room",

@@ -11,7 +11,6 @@ class CleTransitSpider(CityScrapersSpider):
     name = "cle_transit"
     agency = "Greater Cleveland Regional Transit Authority"
     timezone = "America/Detroit"
-    allowed_domains = ["www.riderta.com"]
     location = {
         "name": "RTA Main Office, Board Room",
         "address": "1240 W 6th St Cleveland, OH 44113",

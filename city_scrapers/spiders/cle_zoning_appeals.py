@@ -10,7 +10,6 @@ class CleZoningAppealsSpider(CityScrapersSpider):
     name = "cle_zoning_appeals"
     agency = "Cleveland Board of Zoning Appeals"
     timezone = "America/Detroit"
-    allowed_domains = ["planning.city.cleveland.oh.us"]
     custom_settings = {"ROBOTSTXT_OBEY": False}
     location = {
         "name": "City Hall",

@@ -13,7 +13,6 @@ class CuyaDevelopmentalDisabilitiesSpider(CityScrapersSpider):
     name = "cuya_developmental_disabilities"
     agency = "Cuyahoga County Developmental Disabilities Board"
     timezone = "America/Detroit"
-    allowed_domains = ["www.cuyahogabdd.org"]
     start_urls = ["http://www.cuyahogabdd.org/en-US/Calendar.aspx"]
     location = {
         "name": "M. A. Donzella Administration Building",
