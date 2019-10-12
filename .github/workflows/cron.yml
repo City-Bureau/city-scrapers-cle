@@ -2,7 +2,7 @@ name: Cron Build
 
 on:
   schedule:
-    - cron: '55 22 * * *'
+    - cron: '7 10 * * *'
 
 env:
   CI: true
@@ -35,4 +35,5 @@ jobs:
         ./.deploy.sh
     - name: Combine output feeds
       run: |
+        export PYTHONPATH=$(pwd):$PYTHONPATH
         scrapy combinefeeds -s LOG_ENABLED=False
