@@ -1,6 +1,6 @@
 # City Scrapers Cleveland
 
-[![Build Status](https://travis-ci.org/City-Bureau/city-scrapers-cle.svg?branch=master)](https://travis-ci.org/City-Bureau/city-scrapers-cle)
+[![Build status](https://github.com/City-Bureau/city-scrapers-cle/workflows/CI%20Checks/badge.svg)](https://github.com/City-Bureau/city-scrapers-cle/actions)
 
 Repo for the [City Scrapers](https://cityscrapers.org) project in Cleveland.
 
