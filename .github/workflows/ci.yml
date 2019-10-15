@@ -40,5 +40,9 @@ jobs:
       run: |
         pytest
     - name: Validate output with scrapy
+      if: github.event_name == 'pull_request'
       run: |
+        export TRAVIS_PULL_REQUEST=true
+        export TRAVIS_COMMIT_RANGE='${{ github.base_ref }}..${{ github.head_ref }}'
+        echo $TRAVIS_COMMIT_RANGE
         scrapy validate
