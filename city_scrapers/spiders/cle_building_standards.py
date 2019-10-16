@@ -12,6 +12,7 @@ class CleBuildingStandardsSpider(CityScrapersSpider):
     timezone = "America/Detroit"
     start_urls = ["http://planning.city.cleveland.oh.us/bza/bbs.html"]
     custom_settings = {"ROBOTSTXT_OBEY": False}
+
     location = {
         "name": "City Hall",
         "address": "601 Lakeside Ave, Room 516, Cleveland OH 44114",
