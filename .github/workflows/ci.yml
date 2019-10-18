@@ -42,6 +42,7 @@ jobs:
     - name: Validate output with scrapy
       if: github.event_name == 'pull_request'
       run: |
+        echo ${{ github.event }}
         git checkout ${{ github.head_ref }}
         git diff-index ${{ github.base_ref }}
         scrapy validate
