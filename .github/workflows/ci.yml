@@ -45,6 +45,5 @@ jobs:
         git checkout ${{ github.base_ref }}
         git checkout ${{ github.head_ref }}
         git branch
-        git merge-base ${{ github.head_ref }} ${{ github.base_ref }}
-        git diff-index ${{ github.base_ref }}
+        git diff-index --name-only --diff-filter=d ${{ github.base_ref }}
         scrapy validate
