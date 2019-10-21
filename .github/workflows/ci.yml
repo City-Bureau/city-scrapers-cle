@@ -42,6 +42,9 @@ jobs:
     - name: Validate output with scrapy
       if: github.event_name == 'pull_request'
       run: |
+        git checkout ${{ github.base_ref }}
         git checkout ${{ github.head_ref }}
-        git diff-index ${{ github.base_ref }}
-        scrapy validate
+        git branch
+        git diff-index --name-only --diff-filter=d $(git merge-base HEAD ${{ github.base_ref }}) | \
+        grep -Pio '(?<=/spiders/).*(?=\.py)' | \
+        xargs scrapy validate
