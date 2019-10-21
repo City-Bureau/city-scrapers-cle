@@ -43,8 +43,8 @@ jobs:
       if: github.event_name == 'pull_request'
       run: |
         git checkout ${{ github.base_ref }}
-        git checkout ${{ github.head_ref }}
-        git branch
+        git show-ref pull
+        git checkout $(git show-ref pull | awk '{ print $2 }')
         git diff-index --name-only --diff-filter=d $(git merge-base HEAD ${{ github.base_ref }}) | \
         grep -Pio '(?<=/spiders/).*(?=\.py)' | \
         xargs scrapy validate
