@@ -45,5 +45,7 @@ jobs:
         git checkout ${{ github.base_ref }}
         git checkout ${{ github.head_ref }}
         git branch
-        git diff-index --name-only --diff-filter=d ${{ github.base_ref }}
-        scrapy validate
+        git merge-base HEAD ${{ github.base_ref }}
+        git diff-index --name-only --diff-filter=d $(git merge-base HEAD ${{ github.base_ref }})
+        git diff-index --name-only --diff-filter=d $(git merge-base HEAD ${{ github.base_ref }}) | grep -Pio '(?<=/spiders/).*(?=\.py)'
+        # scrapy validate

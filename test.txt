@@ -1,0 +1,8 @@
+.github/workflows/ci.yml
+.github/workflows/cron.yml
+Pipfile.lock
+city_scrapers/settings/prod.py
+city_scrapers/spiders/cle_building_standards.py
+city_scrapers/spiders/cuya_monument.py
+city_scrapers/spiders/cuya_solid_waste_district.py
+requirements.txt
