@@ -10,6 +10,8 @@ ITEM_PIPELINES = {
     "city_scrapers_core.pipelines.OpenCivicDataPipeline": 400,
 }
 
+SENTRY_DSN = os.getenv("SENTRY_DSN")
+
 EXTENSIONS = {
     "city_scrapers_core.extensions.AzureBlobStatusExtension": 100,
     "scrapy_sentry.extensions.Errors": 10,

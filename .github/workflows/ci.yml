@@ -45,6 +45,7 @@ jobs:
         git checkout ${{ github.base_ref }}
         git show-ref pull
         git checkout $(git show-ref pull | awk '{ print $2 }')
+        git branch
         git diff-index --name-only --diff-filter=d $(git merge-base HEAD ${{ github.base_ref }}) | \
         grep -Pio '(?<=/spiders/).*(?=\.py)' | \
         xargs scrapy validate

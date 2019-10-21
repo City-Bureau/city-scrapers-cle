@@ -24,11 +24,14 @@ class CuyaMonumentSpider(CityScrapersSpider):
         needs.
         """
         for item in response.css("#contentColumn table")[-1:].css("tr")[1:]:
+            start = self._parse_start(item)
+            if not start:
+                continue
             meeting = Meeting(
                 title="Monument Commission",
                 description="",
                 classification=COMMISSION,
-                start=self._parse_start(item),
+                start=start,
                 end=None,
                 all_day=False,
                 time_notes="",
@@ -44,8 +47,9 @@ class CuyaMonumentSpider(CityScrapersSpider):
 
     def _parse_start(self, item):
         """Parse start datetime as a naive datetime object."""
-        dt_str = re.sub(r"\s+", " ", " ".join(item.css("td:first-child *::text").extract()))
-        return datetime.strptime(dt_str, "%m/%d/%Y %I:%M %p")
+        dt_str = re.sub(r"\s+", " ", " ".join(item.css("td:first-child *::text").extract())).strip()
+        if dt_str:
+            return datetime.strptime(dt_str, "%m/%d/%Y %I:%M %p")
 
     def _parse_location(self, item):
         """Parse or generate location."""

@@ -15,6 +15,7 @@ env:
   AZURE_ACCOUNT_NAME: ${{ secrets.AZURE_ACCOUNT_NAME }}
   AZURE_CONTAINER: ${{ secrets.AZURE_CONTAINER }}
   AZURE_STATUS_CONTAINER: ${{ secrets.AZURE_STATUS_CONTAINER }}
+  SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
 jobs:
   crawl:

@@ -72,7 +72,10 @@ class CuyaSolidWasteDistrictSpider(CityScrapersSpider):
         end = None
         if len(time_strs) > 0:
             start_str = time_strs[0]
-        start = datetime.strptime(date_str + start_str, "%B %d, %Y%I:%M %p")
+        try:
+            start = datetime.strptime(date_str + start_str, "%B %d, %Y%I:%M %p")
+        except ValueError:
+            return None, None
         if len(time_strs) > 1:
             end = datetime.strptime(date_str + time_strs[1], "%B %d, %Y%I:%M %p")
         return start, end
