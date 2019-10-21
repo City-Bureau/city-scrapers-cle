@@ -23,29 +23,28 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
-    # - name: Install dependencies
-    #   run: |
-    #     python -m pip install --upgrade pip
-    #     pip install -r requirements.txt
-    # - name: Check imports with isort
-    #   run: |
-    #     isort --check-only --diff || exit 1
-    # - name: Check style with yapf
-    #   run: |
-    #     yapf --diff --recursive ./city_scrapers/ ./tests/ || exit 1
-    # - name: Lint with flake8
-    #   run: |
-    #     flake8
-    # - name: Test with pytest
-    #   run: |
-    #     pytest
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Check imports with isort
+      run: |
+        isort --check-only --diff || exit 1
+    - name: Check style with yapf
+      run: |
+        yapf --diff --recursive ./city_scrapers/ ./tests/ || exit 1
+    - name: Lint with flake8
+      run: |
+        flake8
+    - name: Test with pytest
+      run: |
+        pytest
     - name: Validate output with scrapy
       if: github.event_name == 'pull_request'
       run: |
         git checkout ${{ github.base_ref }}
         git checkout ${{ github.head_ref }}
         git branch
-        git merge-base HEAD ${{ github.base_ref }}
-        git diff-index --name-only --diff-filter=d $(git merge-base HEAD ${{ github.base_ref }})
-        git diff-index --name-only --diff-filter=d $(git merge-base HEAD ${{ github.base_ref }}) | grep -Pio '(?<=/spiders/).*(?=\.py)'
-        # scrapy validate
+        git diff-index --name-only --diff-filter=d $(git merge-base HEAD ${{ github.base_ref }}) | \
+        grep -Pio '(?<=/spiders/).*(?=\.py)' | \
+        xargs scrapy validate
