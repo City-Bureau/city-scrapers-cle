@@ -54,6 +54,8 @@ class CleLibrarySpider(CityScrapersSpider):
         for item in response.css("article"):
             title = self._parse_title(item)
             summary = item.css(".entry-summary p:first-child::text").extract_first()
+            if not summary:
+                continue
             detail_link = item.css("a")[0].attrib["href"]
             times = self._parse_times(summary)
             if len(times) == 0:
