@@ -50,7 +50,7 @@ class CuyaNortheastOhioRegionalSewerSpider(CityScrapersSpider):
         date_match = re.search(r"[a-zA-Z]{3,10} \d{1,2},? \d{4}", link_str)
         if not date_match:
             return
-        date_str = date_match.group().replace(",", "")
+        date_str = date_match.group().replace(",", "").replace("Octobr", "October")
         return datetime.strptime(date_str, "%B %d %Y").date()
 
     def _parse_link_map(self, response):
