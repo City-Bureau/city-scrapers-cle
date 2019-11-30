@@ -1,5 +1,4 @@
 -i https://pypi.org/simple
-requests
 twisted
 scrapy
 scrapy-sentry
