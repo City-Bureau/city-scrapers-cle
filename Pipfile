@@ -9,6 +9,7 @@ scrapy = "*"
 scrapy-sentry = "*"
 legistar = {git = "https://github.com/opencivicdata/python-legistar-scraper"}
 city-scrapers-core = {extras = ["azure"],version = "*"}
+azure-storage-blob = "<3"
 scrapy-wayback-middleware = "*"
 python-dateutil = "*"
 chardet = "*"
