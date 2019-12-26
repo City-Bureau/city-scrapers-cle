@@ -10,7 +10,6 @@ class CleBuildingStandardsSpider(CityScrapersSpider):
     name = "cle_building_standards"
     agency = "Cleveland Board of Building Standards and Building Appeals"
     timezone = "America/Detroit"
-    start_urls = ["http://planning.city.cleveland.oh.us/bza/bbs.html"]
     custom_settings = {"ROBOTSTXT_OBEY": False}
     location = {
         "name": "City Hall",
@@ -19,8 +18,9 @@ class CleBuildingStandardsSpider(CityScrapersSpider):
 
     @property
     def start_urls(self):
+        year = datetime.today().year
         return [
-            "http://planning.city.cleveland.oh.us/bza/bbs.html?ID={}".format(diff)
+            "http://planning.city.cleveland.oh.us/bza/bbs.html?ID={}".format(year + diff)
             for diff in range(0, 2)
         ]
 
