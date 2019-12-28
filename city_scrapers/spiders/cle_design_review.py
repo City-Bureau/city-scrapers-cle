@@ -75,15 +75,20 @@ class CleDesignReviewSpider(CityScrapersSpider):
         for row in item.css(".agendaTable tr"):
             month = row.css("strong::text").extract_first().replace(".", "")
             for date_cell in row.css("td:not(:first-child)::text").extract():
-                date_match = re.search(r"([a-zA-Z]{3}\s+)?\d{1,2}", date_cell)
+                date_match = re.search(r"([a-zA-Z]{3,9}\s+)?\d{1,2}", date_cell)
                 if not date_match:
                     continue
                 month_str = month
                 date_str = re.sub(r"\s+", " ", date_match.group()).strip()
+                month_fmt = "%b"
                 if " " in date_str:
                     month_str, date_str = date_str.split(" ")
+                if len(month_str) > 3:
+                    month_fmt = "%B"
                 starts.append(
-                    datetime.strptime(" ".join([year_str, month_str, date_str]), "%Y %b %d").date()
+                    datetime.strptime(
+                        " ".join([year_str, month_str, date_str]), "%Y {} %d".format(month_fmt)
+                    ).date()
                 )
         return starts
 
