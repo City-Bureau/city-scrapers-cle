@@ -37,8 +37,10 @@ class ClePlanningCommissionSpider(CityScrapersSpider):
         yield from self._parse_table_rows(response, agenda_dates)
 
     def _parse_table_rows(self, response, agenda_dates):
+        schedule_title = response.css(".table0 .redText *::text").extract_first()
+        schedule_year = re.search(r"\d{4}", schedule_title).group()
         for row in response.css(".agendaTable")[0].css("tr"):
-            for row_start in self._parse_table_starts(row, str(agenda_dates[0].year)):
+            for row_start in self._parse_table_starts(row, schedule_year):
                 if row_start.date() in agenda_dates:
                     continue
                 meeting = Meeting(
