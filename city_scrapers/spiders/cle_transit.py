@@ -1,7 +1,7 @@
 import re
 from datetime import datetime
 
-from city_scrapers_core.constants import BOARD, COMMITTEE, FORUM
+from city_scrapers_core.constants import ADVISORY_COMMITTEE, BOARD, COMMITTEE, FORUM
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
 from dateutil.relativedelta import relativedelta
@@ -32,7 +32,7 @@ class CleTransitSpider(CityScrapersSpider):
         """
         for meeting_link in response.css(".field-content a"):
             meeting_title = " ".join(meeting_link.css("*::text").extract())
-            if not any(w in meeting_title for w in ["Board", "Committee", "Community"]):
+            if not any(w in meeting_title for w in ["Board", "Committee", "Community", "CAC"]):
                 continue
             yield response.follow(
                 meeting_link.attrib["href"], callback=self._parse_meeting, dont_filter=True
@@ -72,12 +72,16 @@ class CleTransitSpider(CityScrapersSpider):
             return "Board of Trustees"
         if "Community Meeting" in title_str:
             return title_str
+        if "CAC" in title_str:
+            return "Community Advisory Committee"
         return re.sub(r" Meeting(s)?$", "", title_str)
 
     def _parse_classification(self, title):
         """Parse or generate classification from allowed options."""
         if "Board" in title:
             return BOARD
+        elif "Advisory" in title:
+            return ADVISORY_COMMITTEE
         elif "Committee" in title:
             return COMMITTEE
         return FORUM
