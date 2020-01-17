@@ -17,7 +17,7 @@ class CuyaInvestmentAdvisoryCommitteeSpider(CuyaCountyMixin, CityScrapersSpider)
 
     def _parse_location(self, response):
         loc_str = super()._parse_location(response)
-        if " room" not in loc_str.lower() and " rm" not in loc_str.lower():
+        if not loc_str or (" room" not in loc_str.lower() and " rm" not in loc_str.lower()):
             return self.location
         split_loc = re.split(r" (?=2079)", loc_str)
         return {**self.location, "address": " ".join(split_loc[1:])}
