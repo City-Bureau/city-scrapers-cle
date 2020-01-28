@@ -25,7 +25,7 @@ class CuyaEmergencyServicesAdvisorySpider(CuyaCountyMixin, CityScrapersSpider):
         return ADVISORY_COMMITTEE
 
     def _parse_location(self, response):
-        loc_str = super()._parse_location(response)
+        loc_str = super()._parse_location(response) or ""
         split_loc = re.split(r"[-, ]{1,2}(?=\d{2})", loc_str, 1)
         loc_name = ""
         if len(split_loc) > 1:
@@ -40,5 +40,5 @@ class CuyaEmergencyServicesAdvisorySpider(CuyaCountyMixin, CityScrapersSpider):
                 loc_addr += ", OH"
         return {
             "name": loc_name,
-            "address": loc_addr,
+            "address": loc_addr.strip(),
         }
