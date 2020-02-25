@@ -59,7 +59,7 @@ class CuyaMonumentSpider(CityScrapersSpider):
         split_loc = re.split(r", (?=\d{2})", loc_str, 1)
         loc_name = ""
         if len(split_loc) > 1:
-            loc_name, loc_addr = split_loc[0]
+            loc_name, loc_addr = split_loc
         else:
             loc_addr = split_loc[0]
         if "Cleveland" not in loc_addr:
