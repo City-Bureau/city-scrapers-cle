@@ -1,5 +1,4 @@
 import re
-from collections import defaultdict
 from datetime import datetime
 
 from city_scrapers_core.constants import ADVISORY_COMMITTEE
