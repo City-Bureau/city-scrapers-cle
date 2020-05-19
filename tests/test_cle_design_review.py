@@ -10,11 +10,13 @@ from city_scrapers.spiders.cle_design_review import CleDesignReviewSpider
 
 test_response = file_response(
     join(dirname(__file__), "files", "cle_design_review.html"),
-    url="http://planning.city.cleveland.oh.us/designreview/schedule.php",
+    url=(
+        "http://clevelandohio.gov/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/MeetingSchedules"  # noqa
+    )
 )
 spider = CleDesignReviewSpider()
 
-freezer = freeze_time("2019-09-09")
+freezer = freeze_time("2020-05-19")
 freezer.start()
 
 parsed_items = [item for item in spider.parse(test_response)]
@@ -23,7 +25,7 @@ freezer.stop()
 
 
 def test_count():
-    assert len(parsed_items) == 163
+    assert len(parsed_items) == 165
 
 
 def test_title():
@@ -35,7 +37,7 @@ def test_description():
 
 
 def test_start():
-    assert parsed_items[0]["start"] == datetime(2019, 1, 3, 9, 0)
+    assert parsed_items[0]["start"] == datetime(2020, 1, 2, 9, 0)
 
 
 def test_end():
@@ -48,7 +50,7 @@ def test_time_notes():
 
 def test_id():
     assert parsed_items[0][
-        "id"] == "cle_design_review/201901030900/x/downtown_flats_design_review_committee"
+        "id"] == "cle_design_review/202001020900/x/downtown_flats_design_review_committee"
 
 
 def test_status():
@@ -67,16 +69,17 @@ def test_location():
 
 
 def test_source():
-    assert parsed_items[0]["source"
-                           ] == "http://planning.city.cleveland.oh.us/designreview/schedule.php"
+    assert parsed_items[0][
+        "source"
+    ] == "http://clevelandohio.gov/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/MeetingSchedules"  # noqa
 
 
 def test_links():
     assert parsed_items[0]["links"] == []
-    assert parsed_items[10]["links"] == [{
-        "href":
-            "http://planning.city.cleveland.oh.us/designreview/drcagenda/2019/06072019/CLE-DRACagenda-6-06-19.pdf",  # noqa
-        "title": "Agenda"
+    assert parsed_items[1]["links"] == [{
+        'href':
+            'http://clevelandohio.gov/sites/default/files/planning/drc/agenda/2020/DF-DRAC-agenda-1-16-20.pdf',  # noqa
+        'title': 'Agenda'
     }]
 
 
