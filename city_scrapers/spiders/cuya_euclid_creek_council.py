@@ -87,7 +87,11 @@ class CuyaEuclidCreekCouncilSpider(CityScrapersSpider):
     def _parse_location(self, response):
         """Parse or generate location."""
         when_where = response.css(".when-where::text").extract()
-        addr_str = [line.strip() for line in when_where if re.search(r"\d{3}", line)][0]
+        addr_list = [line.strip() for line in when_where if re.search(r"\d{3}", line)]
+        # Likely remote
+        if len(addr_list) == 0:
+            return {"name": "", "address": ""}
+        addr_str = addr_list[0]
         addr_parts = addr_str.split(", ")
         loc_name = ""
         if len(addr_parts) > 2:
