@@ -1,3 +1,5 @@
+import re
+
 from city_scrapers_core.constants import BOARD
 from city_scrapers_core.spiders import CityScrapersSpider
 
@@ -15,5 +17,16 @@ class CuyaWorkforceDevelopmentSpider(CuyaCountyMixin, CityScrapersSpider):
                                    ).extract_first().strip().split("Development ")
         return title_parts[-1].strip()
 
+    def _parse_description(self, response):
+        return re.sub(
+            r"\s+", " ",
+            " ".join(response.css("#contentColumn .padding > div > p *::text").extract())
+        ).strip()
+
     def _parse_location(self, response):
-        return {"name": "", "address": super()._parse_location(response).replace(", Ohio", ", OH")}
+        address = super()._parse_location(response)
+        if address:
+            address = address.replace(", Ohio", ", OH")
+        else:
+            address = ""
+        return {"name": "", "address": address}
