@@ -1,5 +1,4 @@
 from datetime import datetime
-from operator import itemgetter
 from os.path import dirname, join
 
 import pytest  # noqa
@@ -11,28 +10,20 @@ from city_scrapers.spiders.cle_planning_commission import ClePlanningCommissionS
 
 test_response = file_response(
     join(dirname(__file__), "files", "cle_planning_commission.html"),
-    url="http://planning.city.cleveland.oh.us/designreview/schedule.php",
-)
-test_agenda_response = file_response(
-    join(dirname(__file__), "files", "cle_planning_commission_agenda.html"),
-    url="http://planning.city.cleveland.oh.us/designreview/drcagenda/2019/06072019/index.php",
+    url=ClePlanningCommissionSpider.start_urls[0],
 )
 spider = ClePlanningCommissionSpider()
 
-freezer = freeze_time("2019-09-09")
+freezer = freeze_time("2020-05-20")
 freezer.start()
 
-parsed_agenda = [p for p in spider._parse_agenda(test_agenda_response)][0]
-parsed_items = sorted(
-    [item for item in spider._parse_table_rows(test_response, [datetime(2019, 6, 7).date()])],
-    key=itemgetter("start"),
-)
+parsed_items = [item for item in spider.parse(test_response)]
 
 freezer.stop()
 
 
 def test_count():
-    assert len(parsed_items) == 23
+    assert len(parsed_items) == 24
 
 
 def test_title():
@@ -44,8 +35,7 @@ def test_description():
 
 
 def test_start():
-    assert parsed_items[0]["start"] == datetime(2019, 1, 4, 9, 0)
-    assert parsed_agenda["start"] == datetime(2019, 6, 7, 9)
+    assert parsed_items[0]["start"] == datetime(2020, 1, 3, 9, 0)
 
 
 def test_end():
@@ -58,7 +48,7 @@ def test_time_notes():
 
 def test_id():
     assert parsed_items[0]["id"
-                           ] == "cle_planning_commission/201901040900/x/city_planning_commission"
+                           ] == "cle_planning_commission/202001030900/x/city_planning_commission"
 
 
 def test_status():
@@ -70,18 +60,13 @@ def test_location():
 
 
 def test_source():
-    assert parsed_items[0]["source"
-                           ] == "http://planning.city.cleveland.oh.us/designreview/schedule.php"
-    assert parsed_agenda[
-        "source"
-    ] == "http://planning.city.cleveland.oh.us/designreview/drcagenda/2019/06072019/index.php"
+    assert parsed_items[0]["source"] == test_response.url
 
 
 def test_links():
-    assert parsed_items[0]["links"] == []
-    assert parsed_agenda["links"] == [{
+    assert parsed_items[0]["links"] == [{
         "href":
-            "http://planning.city.cleveland.oh.us/designreview/drcagenda/2019/06072019/CPC-DRAFT-Agenda060719.pdf",  # noqa
+            "http://clevelandohio.gov/sites/default/files/planning/drc/agenda/2020/CPC-Agenda-010320.pdf",  # noqa
         "title": "Agenda"
     }]
 
