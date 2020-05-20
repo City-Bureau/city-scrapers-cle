@@ -100,8 +100,8 @@ class CuyaAdamhsSpider(CityScrapersSpider):
 
     def _parse_title(self, item):
         """Parse or generate meeting title."""
-        title_str = item.css("strong::text").extract_first().strip()
-        if title_str.startswith("NO"):
+        title_str = " ".join(item.css("strong *::text").extract()).strip()
+        if title_str.upper().startswith("NO M"):
             return
         if "General" in title_str:
             return title_str
