@@ -2,7 +2,7 @@ from datetime import datetime
 from os.path import dirname, join
 
 import pytest  # noqa
-from city_scrapers_core.constants import COMMISSION, TENTATIVE
+from city_scrapers_core.constants import COMMISSION, PASSED
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
@@ -10,74 +10,73 @@ from city_scrapers.spiders.cle_landmarks import CleLandmarksSpider
 
 test_response = file_response(
     join(dirname(__file__), "files", "cle_landmarks.html"),
-    url="http://planning.city.cleveland.oh.us/landmark/AGENDALIST.html",
-)
-test_agenda_response = file_response(
-    join(dirname(__file__), "files", "cle_landmarks_agenda.html"),
-    url="http://planning.city.cleveland.oh.us/landmark/agenda/2019/09122019/index.php",
+    url=CleLandmarksSpider.start_urls[0],
 )
 spider = CleLandmarksSpider()
 
-freezer = freeze_time("2019-09-11")
+freezer = freeze_time("2020-05-20")
 freezer.start()
-
-parsed_dates = sorted([item for item in spider._parse_table_starts(test_response, "2019")])
-parsed_agenda = [item for item in spider._parse_agenda(test_agenda_response)][0]
+parsed_items = [item for item in spider.parse(test_response)]
 freezer.stop()
 
 
 def test_count():
-    assert len(parsed_dates) == 23
+    assert len(parsed_items) == 5
 
 
 def test_title():
-    assert parsed_agenda["title"] == "Landmarks Commission"
+    assert parsed_items[0]["title"] == "Landmarks Commission"
 
 
 def test_description():
-    assert parsed_agenda["description"] == ""
+    assert parsed_items[0]["description"] == ""
 
 
 def test_start():
-    assert parsed_agenda["start"] == datetime(2019, 9, 12, 9, 0)
+    assert parsed_items[0]["start"] == datetime(2020, 1, 9, 9, 0)
 
 
 def test_end():
-    assert parsed_agenda["end"] is None
+    assert parsed_items[0]["end"] is None
 
 
 def test_time_notes():
-    assert parsed_agenda["time_notes"] == ""
+    assert parsed_items[0]["time_notes"] == ""
 
 
 def test_id():
-    assert parsed_agenda["id"] == "cle_landmarks/201909120900/x/landmarks_commission"
+    assert parsed_items[0]["id"] == "cle_landmarks/202001090900/x/landmarks_commission"
 
 
 def test_status():
-    assert parsed_agenda["status"] == TENTATIVE
+    assert parsed_items[0]["status"] == PASSED
 
 
 def test_location():
-    assert parsed_agenda["location"] == spider.location
+    assert parsed_items[0]["location"] == spider.location
 
 
 def test_source():
-    assert parsed_agenda[
-        "source"] == "http://planning.city.cleveland.oh.us/landmark/agenda/2019/09122019/index.php"
+    assert parsed_items[0]["source"] == test_response.url
 
 
 def test_links():
-    assert parsed_agenda["links"] == [{
-        "href":
-            "http://planning.city.cleveland.oh.us/landmark/agenda/2019/08222019/CLC-8-22-19-AGENDA.pdf",  # noqa
-        "title": "Agenda"
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "href":
+                "http://clevelandohio.gov/sites/default/files/planning/landmark/agenda/2020/CLC-1-9-2020-AGENDA.pdf",  # noqa
+            "title": "Agenda"
+        },
+        {
+            "href": "http://clevelandohio.gov/node/164775",
+            "title": "Photo Gallery",
+        }
+    ]
 
 
 def test_classification():
-    assert parsed_agenda["classification"] == COMMISSION
+    assert parsed_items[0]["classification"] == COMMISSION
 
 
 def test_all_day():
-    assert parsed_agenda["all_day"] is False
+    assert parsed_items[0]["all_day"] is False
