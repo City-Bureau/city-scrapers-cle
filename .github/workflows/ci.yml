@@ -14,7 +14,7 @@ jobs:
 
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 4
+      max-parallel: 3
       matrix:
         python-version: [3.6, 3.7, 3.8]
 
@@ -28,8 +28,6 @@ jobs:
 
     - name: Install Pipenv
       uses: dschep/install-pipenv-action@v1
-      with:
-        version: 2018.11.26
 
     - name: Cache Python dependencies
       uses: actions/cache@v1

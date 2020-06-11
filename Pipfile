@@ -13,12 +13,11 @@ scrapy-wayback-middleware = "*"
 python-dateutil = "*"
 chardet = "*"
 pdfminer-six = "*"
-pywin32 = {version = "*",sys_platform = "== 'win32'"}
+pypiwin32 = {version = "*",sys_platform = "== 'win32'"}
 
 [dev-packages]
 freezegun = "*"
 pytest = "*"
-pathlib2 = {version = "*",python_version = "< '3.6'"}
 "flake8" = "*"
 isort = "*"
 yapf = "*"
