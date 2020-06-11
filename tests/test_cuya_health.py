@@ -15,7 +15,7 @@ test_response = file_response(
 )
 test_pdf_response = file_response(
     join(dirname(__file__), "files", "cuya_health.pdf"),
-    url="https://www.ccbh.net/wp-content/uploads/2019/04/REVISED-April-2019-Board-Agenda.pdf",
+    url="https://www.ccbh.net/wp-content/uploads/2019/04/REVISED-April-2019-Board-Agenda.pdf",  # noqa
     mode="rb",
 )
 spider = CuyaHealthSpider()

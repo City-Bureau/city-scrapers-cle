@@ -46,7 +46,9 @@ class CuyaNortheastOhioCoordinatingSpider(CityScrapersSpider):
 
     def _parse_title(self, response):
         """Parse or generate meeting title."""
-        return (response.css("[itemprop='summary']::text").extract_first() or "").strip()
+        return (
+            response.css("[itemprop='summary']::text").extract_first() or ""
+        ).strip()
 
     def _parse_classification(self, title):
         """Parse or generate classification from allowed options."""
@@ -58,7 +60,9 @@ class CuyaNortheastOhioCoordinatingSpider(CityScrapersSpider):
 
     def _parse_dt(self, response, prop):
         """Parse datetime as a naive datetime object."""
-        dt_str = response.css("[itemprop='{}']::attr(datetime)".format(prop)).extract_first()
+        dt_str = response.css(
+            "[itemprop='{}']::attr(datetime)".format(prop)
+        ).extract_first()
         if not dt_str:
             return
         return datetime.strptime(dt_str[:16], "%Y-%m-%dT%H:%M")
@@ -69,7 +73,9 @@ class CuyaNortheastOhioCoordinatingSpider(CityScrapersSpider):
             response.css("[itemprop='location'] [itemprop='name'] *::text").extract()
         ).strip()
         loc_addr = re.sub(
-            r"\s+", " ", " ".join(response.css("[itemprop='address'] *::text").extract())
+            r"\s+",
+            " ",
+            " ".join(response.css("[itemprop='address'] *::text").extract()),
         )
         return {
             "name": loc_name,
@@ -79,10 +85,13 @@ class CuyaNortheastOhioCoordinatingSpider(CityScrapersSpider):
     def _parse_links(self, response):
         """Parse or generate links."""
         links = []
-        for link in response.css(".detail-content a, .detail-agenda a, .detail-minutes a"):
-            link_title = re.sub(r"\s+", " ", " ".join(link.css("*::text").extract())).strip()
-            links.append({
-                "title": link_title,
-                "href": response.urljoin(link.attrib["href"]),
-            })
+        for link in response.css(
+            ".detail-content a, .detail-agenda a, .detail-minutes a"
+        ):
+            link_title = re.sub(
+                r"\s+", " ", " ".join(link.css("*::text").extract())
+            ).strip()
+            links.append(
+                {"title": link_title, "href": response.urljoin(link.attrib["href"])}
+            )
         return links

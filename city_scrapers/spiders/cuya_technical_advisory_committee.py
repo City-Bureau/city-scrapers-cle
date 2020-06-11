@@ -15,7 +15,9 @@ class CuyaTechnicalAdvisoryCommitteeSpider(CuyaCountyMixin, CityScrapersSpider):
     }
 
     def _parse_title(self, response):
-        title_parts = response.css("#contentColumn h1::text").extract_first().strip().split(" - ")
+        title_parts = (
+            response.css("#contentColumn h1::text").extract_first().strip().split(" - ")
+        )
         title_str = [t for t in title_parts if "cancel" not in t.lower()][0]
         return title_str.replace(" Meeting", "").strip()
 

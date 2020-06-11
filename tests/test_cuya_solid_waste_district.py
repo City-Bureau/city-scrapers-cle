@@ -47,7 +47,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0]["id"] == "cuya_solid_waste_district/201909131445/x/board_of_directors"
+    assert (
+        parsed_items[0]["id"]
+        == "cuya_solid_waste_district/201909131445/x/board_of_directors"
+    )
 
 
 def test_status():
@@ -63,11 +66,12 @@ def test_source():
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "href":
-            "https://cuyahogarecycles.org/Documents/PageContent/Board Meetings/2019_0913 SWD Board Meeting Agenda.pdf",  # noqa
-        "title": "Agenda"
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "href": "https://cuyahogarecycles.org/Documents/PageContent/Board Meetings/2019_0913 SWD Board Meeting Agenda.pdf",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

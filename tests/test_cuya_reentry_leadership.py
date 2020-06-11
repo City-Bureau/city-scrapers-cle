@@ -28,7 +28,10 @@ def test_count():
 
 def test_title():
     assert parsed_items[0]["title"] == "Leadership Coalition"
-    assert parsed_items[-1]["title"] == "Asset Mapping & Community Wide Update Announcements"
+    assert (
+        parsed_items[-1]["title"]
+        == "Asset Mapping & Community Wide Update Announcements"
+    )
 
 
 def test_description():
@@ -48,7 +51,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0]["id"] == "cuya_reentry_leadership/201901181000/x/leadership_coalition"
+    assert (
+        parsed_items[0]["id"]
+        == "cuya_reentry_leadership/201901181000/x/leadership_coalition"
+    )
 
 
 def test_status():

@@ -1,6 +1,8 @@
 from .base import *
 
-USER_AGENT = "City Scrapers [production mode]. Learn more and say hello at cityscrapers.org"
+USER_AGENT = (
+    "City Scrapers [production mode]. Learn more and say hello at cityscrapers.org"
+)
 
 # Configure item pipelines
 ITEM_PIPELINES = {

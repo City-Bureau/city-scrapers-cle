@@ -70,9 +70,13 @@ class CuyaReentryLeadershipSpider(CityScrapersSpider):
         for detail in detail_list:
             time_matches = re.findall(r"\d{1,2}:\d{2} [apm\.]{2,4}", detail)
             if len(time_matches) > 0:
-                start = datetime.strptime(time_matches[0].replace(".", ""), "%I:%M %p").time()
+                start = datetime.strptime(
+                    time_matches[0].replace(".", ""), "%I:%M %p"
+                ).time()
             if len(time_matches) > 1:
-                end = datetime.strptime(time_matches[1].replace(".", ""), "%I:%M %p").time()
+                end = datetime.strptime(
+                    time_matches[1].replace(".", ""), "%I:%M %p"
+                ).time()
             if start:
                 return start, end
         return start, end

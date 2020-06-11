@@ -68,10 +68,9 @@ def test_source():
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "href": "https://cpl.org/special-board-meeting-4/",
-        "title": "Agenda"
-    }]
+    assert parsed_items[0]["links"] == [
+        {"href": "https://cpl.org/special-board-meeting-4/", "title": "Agenda"}
+    ]
 
 
 def test_classification():

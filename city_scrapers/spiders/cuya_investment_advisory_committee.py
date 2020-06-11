@@ -9,7 +9,9 @@ from city_scrapers.mixins import CuyaCountyMixin
 class CuyaInvestmentAdvisoryCommitteeSpider(CuyaCountyMixin, CityScrapersSpider):
     name = "cuya_investment_advisory_committee"
     agency = "Cuyahoga County Investment Advisory Committee"
-    start_urls = ["http://bc.cuyahogacounty.us/en-US/Investment-Advisory-Committee.aspx"]
+    start_urls = [
+        "http://bc.cuyahogacounty.us/en-US/Investment-Advisory-Committee.aspx"
+    ]
     classification = ADVISORY_COMMITTEE
 
     def _parse_title(self, response):
@@ -17,7 +19,9 @@ class CuyaInvestmentAdvisoryCommitteeSpider(CuyaCountyMixin, CityScrapersSpider)
 
     def _parse_location(self, response):
         loc_str = super()._parse_location(response)
-        if not loc_str or (" room" not in loc_str.lower() and " rm" not in loc_str.lower()):
+        if not loc_str or (
+            " room" not in loc_str.lower() and " rm" not in loc_str.lower()
+        ):
             return self.location
         split_loc = re.split(r" (?=2079)", loc_str)
         return {**self.location, "address": " ".join(split_loc[1:])}

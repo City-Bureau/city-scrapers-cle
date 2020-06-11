@@ -47,7 +47,9 @@ class CuyaMonumentSpider(CityScrapersSpider):
 
     def _parse_start(self, item):
         """Parse start datetime as a naive datetime object."""
-        dt_str = re.sub(r"\s+", " ", " ".join(item.css("td:first-child *::text").extract())).strip()
+        dt_str = re.sub(
+            r"\s+", " ", " ".join(item.css("td:first-child *::text").extract())
+        ).strip()
         if dt_str:
             return datetime.strptime(dt_str, "%m/%d/%Y %I:%M %p")
 
@@ -73,8 +75,10 @@ class CuyaMonumentSpider(CityScrapersSpider):
         """Parse or generate links."""
         links = []
         for link in item.css("a"):
-            links.append({
-                "title": " ".join(link.css("*::text").extract()).strip(),
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            links.append(
+                {
+                    "title": " ".join(link.css("*::text").extract()).strip(),
+                    "href": response.urljoin(link.attrib["href"]),
+                }
+            )
         return links

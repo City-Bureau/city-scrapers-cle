@@ -12,8 +12,12 @@ class CuyaCountyMixin:
     }
 
     def parse(self, response):
-        for detail_link in response.css(".gridViewStyle td:nth-child(2) a::attr(href)").extract():
-            yield response.follow(detail_link, callback=self._parse_detail, dont_filter=True)
+        for detail_link in response.css(
+            ".gridViewStyle td:nth-child(2) a::attr(href)"
+        ).extract():
+            yield response.follow(
+                detail_link, callback=self._parse_detail, dont_filter=True
+            )
 
     def _parse_detail(self, response):
         """Yield a meeting from an individual event page"""
@@ -69,15 +73,14 @@ class CuyaCountyMixin:
     def _parse_links(self, response):
         links = []
         for link in response.css("blockquote a"):
-            links.append({
-                "title": " ".join(link.css("*::text").extract()),
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            links.append(
+                {
+                    "title": " ".join(link.css("*::text").extract()),
+                    "href": response.urljoin(link.attrib["href"]),
+                }
+            )
         for iframe in response.css(".embed-container iframe"):
-            links.append({
-                "title": "Video",
-                "href": iframe.attrib["src"],
-            })
+            links.append({"title": "Video", "href": iframe.attrib["src"]})
         return links
 
     def _parse_source(self, response):

@@ -64,15 +64,19 @@ def test_location():
 
 
 def test_source():
-    assert parsed_item["source"
-                       ] == "http://bc.cuyahogacounty.us/en-US/AuditCommitteeMtg-090519.aspx"
+    assert (
+        parsed_item["source"]
+        == "http://bc.cuyahogacounty.us/en-US/AuditCommitteeMtg-090519.aspx"
+    )
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=9RBPLk%2fewj3DObNVTeTkjQ%3d%3d",
-        "title": "Agenda"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=9RBPLk%2fewj3DObNVTeTkjQ%3d%3d",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

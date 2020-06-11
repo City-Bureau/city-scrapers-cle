@@ -63,13 +63,16 @@ def test_source():
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "href": "http://bc.cuyahogacounty.us/pdf_bc/en-US/MC/082219-MCAgenda.pdf",
-        "title": "Agenda"
-    }, {
-        "href": "http://bc.cuyahogacounty.us/pdf_bc/en-US/MC/082219-MCMinutes.pdf",
-        "title": "Minutes"
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "href": "http://bc.cuyahogacounty.us/pdf_bc/en-US/MC/082219-MCAgenda.pdf",
+            "title": "Agenda",
+        },
+        {
+            "href": "http://bc.cuyahogacounty.us/pdf_bc/en-US/MC/082219-MCMinutes.pdf",
+            "title": "Minutes",
+        },
+    ]
 
 
 def test_classification():

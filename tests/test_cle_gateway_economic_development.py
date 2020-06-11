@@ -7,7 +7,7 @@ from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
 from city_scrapers.spiders.cle_gateway_economic_development import (
-    CleGatewayEconomicDevelopmentSpider
+    CleGatewayEconomicDevelopmentSpider,
 )
 
 test_response = file_response(
@@ -49,8 +49,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0]["id"
-                           ] == "cle_gateway_economic_development/201902131500/x/board_of_trustees"
+    assert (
+        parsed_items[0]["id"]
+        == "cle_gateway_economic_development/201902131500/x/board_of_trustees"
+    )
 
 
 def test_status():
@@ -66,13 +68,16 @@ def test_source():
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "href": "https://www.gwcomplex.org/meetings/BoardMeetingAgenda02132019.pdf",
-        "title": "Agenda"
-    }, {
-        "href": "https://www.gwcomplex.org/meetings/BoardMinutes021319.pdf",
-        "title": "Minutes"
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "href": "https://www.gwcomplex.org/meetings/BoardMeetingAgenda02132019.pdf",
+            "title": "Agenda",
+        },
+        {
+            "href": "https://www.gwcomplex.org/meetings/BoardMinutes021319.pdf",
+            "title": "Minutes",
+        },
+    ]
 
 
 def test_classification():

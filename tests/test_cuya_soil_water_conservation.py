@@ -27,9 +27,9 @@ def test_title():
 
 
 def test_description():
-    assert parsed_item[
-        "description"
-    ] == """Meets fourth Monday of each month at Cuyahoga SWCD offices at 6:30pm with the exception of January, February, May and December. All meeting are open to the public.
+    assert (
+        parsed_item["description"]
+        == """Meets fourth Monday of each month at Cuyahoga SWCD offices at 6:30pm with the exception of January, February, May and December. All meeting are open to the public.
 January 29 (Tuesday)
 February 19 (Tuesday)
 March 25
@@ -46,6 +46,7 @@ Members of the media or general public that would like to be notified of SWCD sp
 Click
 here
 for more information on our Board of Supervisors"""  # noqa
+    )
 
 
 def test_start():
@@ -61,7 +62,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item["id"] == "cuya_soil_water_conservation/201909231830/x/board_of_supervisors"
+    assert (
+        parsed_item["id"]
+        == "cuya_soil_water_conservation/201909231830/x/board_of_supervisors"
+    )
 
 
 def test_status():
@@ -71,13 +75,15 @@ def test_status():
 def test_location():
     assert parsed_item["location"] == {
         "name": "Cuyahoga SWCD office",
-        "address": "3311 Perkins Ave Suite 100 Cleveland, OH 44114"
+        "address": "3311 Perkins Ave Suite 100 Cleveland, OH 44114",
     }
 
 
 def test_source():
-    assert parsed_item[
-        "source"] == "https://www.cuyahogaswcd.org/events/2019/09/23/cuyahoga-swcd-board-meeting"
+    assert (
+        parsed_item["source"]
+        == "https://www.cuyahogaswcd.org/events/2019/09/23/cuyahoga-swcd-board-meeting"
+    )
 
 
 def test_links():

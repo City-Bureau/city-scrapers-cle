@@ -7,7 +7,7 @@ from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
 from city_scrapers.spiders.cuya_personnel_review_commission import (
-    CuyaPersonnelReviewCommissionSpider
+    CuyaPersonnelReviewCommissionSpider,
 )
 
 test_response = file_response(
@@ -54,8 +54,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item[
-        "id"] == "cuya_personnel_review_commission/201907101600/x/personnel_review_commission"
+    assert (
+        parsed_item["id"]
+        == "cuya_personnel_review_commission/201907101600/x/personnel_review_commission"
+    )
 
 
 def test_status():
@@ -65,12 +67,15 @@ def test_status():
 def test_location():
     assert parsed_item["location"] == {
         "name": "",
-        "address": "2429 Superior Viaduct, Third Floor, Cleveland, OH 44113"
+        "address": "2429 Superior Viaduct, Third Floor, Cleveland, OH 44113",
     }
 
 
 def test_source():
-    assert parsed_item["source"] == "https://prc.cuyahogacounty.us/en-US/071019-PRC-Mtg.aspx"
+    assert (
+        parsed_item["source"]
+        == "https://prc.cuyahogacounty.us/en-US/071019-PRC-Mtg.aspx"
+    )
 
 
 def test_links():

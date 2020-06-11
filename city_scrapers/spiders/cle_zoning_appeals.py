@@ -19,7 +19,10 @@ class CleZoningAppealsSpider(CityScrapersSpider):
     @property
     def start_urls(self):
         base_url = "http://planning.city.cleveland.oh.us/bza/cpc.html"
-        return [base_url, "{}?ID={}&btn=Change+Year".format(base_url, datetime.now().year - 1)]
+        return [
+            base_url,
+            "{}?ID={}&btn=Change+Year".format(base_url, datetime.now().year - 1),
+        ]
 
     def parse(self, response):
         """
@@ -63,8 +66,10 @@ class CleZoningAppealsSpider(CityScrapersSpider):
         link_map = defaultdict(list)
         for option in response.css("#jumpMenu2 option"):
             dt = self._parse_start(option)
-            link_map[dt].append({
-                "href": response.urljoin(option.attrib["value"]),
-                "title": "Materials",
-            })
+            link_map[dt].append(
+                {
+                    "href": response.urljoin(option.attrib["value"]),
+                    "title": "Materials",
+                }
+            )
         return link_map

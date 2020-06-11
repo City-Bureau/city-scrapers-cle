@@ -7,7 +7,7 @@ from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
 from city_scrapers.spiders.cuya_northeast_ohio_regional_sewer import (
-    CuyaNortheastOhioRegionalSewerSpider
+    CuyaNortheastOhioRegionalSewerSpider,
 )
 
 test_response = file_response(
@@ -51,8 +51,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0][
-        "id"] == "cuya_northeast_ohio_regional_sewer/201906201230/x/board_of_trustees"
+    assert (
+        parsed_items[0]["id"]
+        == "cuya_northeast_ohio_regional_sewer/201906201230/x/board_of_trustees"
+    )
 
 
 def test_status():
@@ -64,17 +66,19 @@ def test_location():
 
 
 def test_source():
-    assert parsed_items[0][
-        "source"
-    ] == "https://www.neorsd.org/document-library/?PAGE=2&BUDGETCENTER_ID=NULL&CONTENT_TYPE_ID=NULL&LibraryItem=agenda&Active=1&Archive=1&Search=Submit"  # noqa
+    assert (
+        parsed_items[0]["source"]
+        == "https://www.neorsd.org/document-library/?PAGE=2&BUDGETCENTER_ID=NULL&CONTENT_TYPE_ID=NULL&LibraryItem=agenda&Active=1&Archive=1&Search=Submit"  # noqa
+    )
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "href":
-            "https://www.neorsd.org/I_Library.php?SOURCE=library/BA-062019.pdf&a=download_file&LIBRARY_RECORD_ID=7463",  # noqa
-        "title": "Agenda"
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "href": "https://www.neorsd.org/I_Library.php?SOURCE=library/BA-062019.pdf&a=download_file&LIBRARY_RECORD_ID=7463",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

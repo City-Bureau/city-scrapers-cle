@@ -31,7 +31,9 @@ class CuyaHealthSpider(CityScrapersSpider):
 
     def spider_idle(self):
         """When the spider_idle signal is triggered, yield all scraped items"""
-        self.crawler.signals.disconnect(self.spider_idle, signal=scrapy.signals.spider_idle)
+        self.crawler.signals.disconnect(
+            self.spider_idle, signal=scrapy.signals.spider_idle
+        )
         self.crawler.engine.crawl(
             scrapy.Request(self.start_urls[0], callback=self._yield_meetings), self
         )
@@ -51,11 +53,15 @@ class CuyaHealthSpider(CityScrapersSpider):
         date_match = re.search(r"[A-Z][a-z]{2,8} \d{1,2},? \d{4}", pdf_text)
         if not date_match:
             return
-        date_obj = datetime.strptime(date_match.group().replace(",", ""), "%B %d %Y").date()
-        self.link_date_map[date_obj].append({
-            "title": "Agenda" if "agenda" in response.url.lower() else "Minutes",
-            "href": response.url,
-        })
+        date_obj = datetime.strptime(
+            date_match.group().replace(",", ""), "%B %d %Y"
+        ).date()
+        self.link_date_map[date_obj].append(
+            {
+                "title": "Agenda" if "agenda" in response.url.lower() else "Minutes",
+                "href": response.url,
+            }
+        )
 
     def _yield_meetings(self, response):
         for start_date, links in self.link_date_map.items():

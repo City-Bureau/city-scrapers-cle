@@ -13,7 +13,7 @@ class CleLibrarySpider(CityScrapersSpider):
     agency = "Cleveland Public Library"
     timezone = "America/Detroit"
     start_urls = [
-        "https://cpl.org/aboutthelibrary/board-of-trustees/monthly-board-meeting-minutes/"
+        "https://cpl.org/aboutthelibrary/board-of-trustees/monthly-board-meeting-minutes/"  # noqa
     ]
     location = {
         "name": "Louis Stokes Wing",
@@ -31,7 +31,7 @@ class CleLibrarySpider(CityScrapersSpider):
         yield scrapy.Request(
             "https://cpl.org/category/meeting/",
             callback=self._parse_meetings_page,
-            dont_filter=True
+            dont_filter=True,
         )
 
     def _parse_meetings_page(self, response):
@@ -47,7 +47,7 @@ class CleLibrarySpider(CityScrapersSpider):
             yield scrapy.Request(
                 "https://cpl.org/category/meeting/page/{}/".format(page_num),
                 callback=self._parse_meetings_page,
-                dont_filter=True
+                dont_filter=True,
             )
 
     def _parse_meetings(self, response):
@@ -73,10 +73,8 @@ class CleLibrarySpider(CityScrapersSpider):
                 all_day=False,
                 time_notes="",
                 location=self._parse_location(summary),
-                links=[{
-                    "title": "Agenda",
-                    "href": detail_link
-                }] + self.minutes_map[start.date()],
+                links=[{"title": "Agenda", "href": detail_link}]
+                + self.minutes_map[start.date()],
                 source=detail_link,
             )
 
@@ -93,10 +91,9 @@ class CleLibrarySpider(CityScrapersSpider):
             if not link_date_match:
                 continue
             link_date = datetime.strptime(link_date_match.group(), "%B %d, %Y").date()
-            minutes_map[link_date].append({
-                "title": "Minutes",
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            minutes_map[link_date].append(
+                {"title": "Minutes", "href": response.urljoin(link.attrib["href"])}
+            )
         return minutes_map
 
     def _parse_title(self, item):
@@ -124,7 +121,9 @@ class CleLibrarySpider(CityScrapersSpider):
         time_objs = []
         for time_str, _ in time_strs:
             time_str = time_str.replace(".", "").replace("Noon", "pm").lower()
-            time_objs.append(datetime.strptime(" ".join([date_str, time_str]), "%B %d %Y %I:%M %p"))
+            time_objs.append(
+                datetime.strptime(" ".join([date_str, time_str]), "%B %d %Y %I:%M %p")
+            )
         return time_objs
 
     def _parse_location(self, summary):

@@ -15,14 +15,18 @@ init_test_response = file_response(
     url="https://www.boarddocs.com/oh/cmsd/board.nsf/XML-ActiveMeetings",
 )
 test_response = XmlResponse(
-    url=init_test_response.url, request=init_test_response.request, body=init_test_response.body
+    url=init_test_response.url,
+    request=init_test_response.request,
+    body=init_test_response.body,
 )
 spider = CleMetroSchoolDistrictSpider()
 
 freezer = freeze_time("2019-09-09")
 freezer.start()
 
-parsed_items = sorted([item for item in spider.parse(test_response)], key=itemgetter("start"))
+parsed_items = sorted(
+    [item for item in spider.parse(test_response)], key=itemgetter("start")
+)
 
 freezer.stop()
 
@@ -52,8 +56,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0][
-        "id"] == "cle_metro_school_district/200901131830/x/2009_organization_meeting_work_session"
+    assert (
+        parsed_items[0]["id"]
+        == "cle_metro_school_district/200901131830/x/2009_organization_meeting_work_session"  # noqa
+    )
 
 
 def test_status():
@@ -63,24 +69,28 @@ def test_status():
 def test_location():
     assert parsed_items[0]["location"] == {
         "name": "Board of Education Administration Building Board Room",
-        "address": "1111 Superior Ave E, Cleveland, OH 44114"
+        "address": "1111 Superior Ave E, Cleveland, OH 44114",
     }
     assert parsed_items[-1]["location"] == {
-        "address": "1111 Superior Avenue, 4th Floor Conference Room, Cleveland, OH 44114",
+        "address": "1111 Superior Avenue, 4th Floor Conference Room, Cleveland, OH 44114",  # noqa
         "name": "Cleveland Municipal School District Administrative Offices",
     }
 
 
 def test_source():
-    assert parsed_items[-1][
-        "source"] == "http://go.boarddocs.com/oh/cmsd/Board.nsf/goto?open&id=B7CTJX75F93D"
+    assert (
+        parsed_items[-1]["source"]
+        == "http://go.boarddocs.com/oh/cmsd/Board.nsf/goto?open&id=B7CTJX75F93D"
+    )
 
 
 def test_links():
-    assert parsed_items[-1]["links"] == [{
-        "href": "http://go.boarddocs.com/oh/cmsd/Board.nsf/goto?open&id=B7CTJX75F93D",
-        "title": "Agenda"
-    }]
+    assert parsed_items[-1]["links"] == [
+        {
+            "href": "http://go.boarddocs.com/oh/cmsd/Board.nsf/goto?open&id=B7CTJX75F93D",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

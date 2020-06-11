@@ -6,11 +6,13 @@ from city_scrapers_core.constants import ADVISORY_COMMITTEE, PASSED
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
-from city_scrapers.spiders.cuya_children_family_advisory import CuyaChildrenFamilyAdvisorySpider
+from city_scrapers.spiders.cuya_children_family_advisory import (
+    CuyaChildrenFamilyAdvisorySpider,
+)
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_children_family_advisory.html"),
-    url="http://bc.cuyahogacounty.us/en-US/Children-Family-Services-Advisory-Board.aspx",
+    url="http://bc.cuyahogacounty.us/en-US/Children-Family-Services-Advisory-Board.aspx",  # noqa
 )
 test_detail_response = file_response(
     join(dirname(__file__), "files", "cuya_children_family_advisory_detail.html"),
@@ -52,7 +54,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item["id"] == "cuya_children_family_advisory/201904031600/x/dcfs_advisory_board"
+    assert (
+        parsed_item["id"]
+        == "cuya_children_family_advisory/201904031600/x/dcfs_advisory_board"
+    )
 
 
 def test_status():
@@ -62,20 +67,24 @@ def test_status():
 def test_location():
     assert parsed_item["location"] == {
         "name": "",
-        "address": "3955 Euclid Avenue, Room #348E Cleveland, OH"
+        "address": "3955 Euclid Avenue, Room #348E Cleveland, OH",
     }
 
 
 def test_source():
-    assert parsed_item["source"
-                       ] == "http://bc.cuyahogacounty.us/en-US/040319-DCFS-Advisory-Board.aspx"
+    assert (
+        parsed_item["source"]
+        == "http://bc.cuyahogacounty.us/en-US/040319-DCFS-Advisory-Board.aspx"
+    )
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=YICdz%2bxQNqQfQk8n9mX1vA%3d%3d",
-        "title": "Minutes"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=YICdz%2bxQNqQfQk8n9mX1vA%3d%3d",  # noqa
+            "title": "Minutes",
+        }
+    ]
 
 
 def test_classification():

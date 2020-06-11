@@ -47,8 +47,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0]["id"
-                           ] == "cuya_veterans_service/201901020930/x/veterans_service_commission"
+    assert (
+        parsed_items[0]["id"]
+        == "cuya_veterans_service/201901020930/x/veterans_service_commission"
+    )
 
 
 def test_status():
@@ -64,10 +66,12 @@ def test_source():
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "href": "http://cuyahogavets.org/wp-content/uploads/2019/02/Minutes0122019-002.pdf",
-        "title": "Minutes",
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "href": "http://cuyahogavets.org/wp-content/uploads/2019/02/Minutes0122019-002.pdf",  # noqa
+            "title": "Minutes",
+        }
+    ]
 
 
 def test_classification():

@@ -26,7 +26,9 @@ class CuyaLandBankSpider(CityScrapersSpider):
         # Only pull most recent 10 meetings
         for meeting_link in response.css("#center a")[:5]:
             yield response.follow(
-                meeting_link.attrib["href"], dont_filter=True, callback=self._parse_meeting
+                meeting_link.attrib["href"],
+                dont_filter=True,
+                callback=self._parse_meeting,
             )
 
     def _parse_meeting(self, response):
@@ -75,7 +77,9 @@ class CuyaLandBankSpider(CityScrapersSpider):
         date_match = re.search(r"[a-zA-Z]{3,10} \d{1,2},? \d{4}", header_str)
         if not date_match:
             return
-        return datetime.strptime(date_match.group().replace(",", "") + "10", "%B %d %Y%H")
+        return datetime.strptime(
+            date_match.group().replace(",", "") + "10", "%B %d %Y%H"
+        )
 
     def _parse_links(self, response):
         """Parse or generate links."""
@@ -94,8 +98,7 @@ class CuyaLandBankSpider(CityScrapersSpider):
                     link_title = "Resolution " + resolution_match.group()
                 else:
                     link_title = link_text[:50]
-            links.append({
-                "title": link_title,
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            links.append(
+                {"title": link_title, "href": response.urljoin(link.attrib["href"])}
+            )
         return links

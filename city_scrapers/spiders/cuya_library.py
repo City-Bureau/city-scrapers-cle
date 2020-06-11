@@ -24,7 +24,8 @@ class CuyaLibrarySpider(CityScrapersSpider):
         Change the `_parse_title`, `_parse_start`, etc methods to fit your scraping
         needs.
         """
-        # Create even section groupings for each meeting, even though committees are in same el
+        # Create even section groupings for each meeting, even though committees are in
+        # same el
         sections = []
         for idx, section_group in enumerate(response.css(".list-items")[1:3]):
             if idx == 0:
@@ -38,13 +39,17 @@ class CuyaLibrarySpider(CityScrapersSpider):
             self._validate_location(section)
             title = self._parse_title(section)
             classification = self._parse_classification(title)
-            year_match = re.search(r"\d{4}", " ".join(section.css("h2 *::text").extract()))
+            year_match = re.search(
+                r"\d{4}", " ".join(section.css("h2 *::text").extract())
+            )
             if not year_match:
                 continue
             year_str = year_match.group()
             for split_text in section.extract().split("<br>"):
                 item = Selector(text=split_text)
-                item_text = re.sub(r"\s+", " ", " ".join(item.css("*::text").extract())).strip()
+                item_text = re.sub(
+                    r"\s+", " ", " ".join(item.css("*::text").extract())
+                ).strip()
                 start = self._parse_start(item_text, year_str)
                 if not start:
                     continue
@@ -56,10 +61,10 @@ class CuyaLibrarySpider(CityScrapersSpider):
                     start=start,
                     end=None,
                     all_day=False,
-                    time_notes="Details may change, confirm with staff before attending",
+                    time_notes="Details may change, confirm with staff before attending",  # noqa
                     location=self.location,
                     links=self._parse_links(item, response),
-                    source=response.url
+                    source=response.url,
                 )
 
                 meeting["status"] = self._get_status(meeting)
@@ -81,7 +86,9 @@ class CuyaLibrarySpider(CityScrapersSpider):
 
     def _parse_start(self, item_str, year_str):
         """Parse start datetime as a naive datetime object."""
-        date_match = re.search(r"[a-zA-Z]{3,10} \d{1,2} / \d{1,2}:\d{2} [APM]{2}", item_str)
+        date_match = re.search(
+            r"[a-zA-Z]{3,10} \d{1,2} / \d{1,2}:\d{2} [APM]{2}", item_str
+        )
         if not date_match:
             return
         return datetime.strptime(date_match.group() + year_str, "%B %d / %I:%M %p%Y")

@@ -6,7 +6,9 @@ from city_scrapers_core.constants import COMMITTEE, PASSED
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
-from city_scrapers.spiders.cle_transformation_alliance import CleTransformationAllianceSpider
+from city_scrapers.spiders.cle_transformation_alliance import (
+    CleTransformationAllianceSpider,
+)
 
 test_response = file_response(
     join(dirname(__file__), "files", "cle_transformation_alliance.html"),
@@ -52,7 +54,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item["id"] == "cle_transformation_alliance/201811270830/x/finance_committee"
+    assert (
+        parsed_item["id"]
+        == "cle_transformation_alliance/201811270830/x/finance_committee"
+    )
 
 
 def test_status():
@@ -60,7 +65,10 @@ def test_status():
 
 
 def test_location():
-    assert parsed_item["location"] == {"name": "", "address": "1240 Huron Rd East, Cleveland 44115"}
+    assert parsed_item["location"] == {
+        "name": "",
+        "address": "1240 Huron Rd East, Cleveland 44115",
+    }
 
 
 def test_source():

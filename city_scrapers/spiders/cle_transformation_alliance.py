@@ -22,7 +22,7 @@ class CleTransformationAllianceSpider(CityScrapersSpider):
         yield response.follow(
             "/category/events/board-of-directors-events/",
             callback=self._parse_events,
-            dont_filter=True
+            dont_filter=True,
         )
 
     def _parse_documents(self, response):
@@ -33,15 +33,16 @@ class CleTransformationAllianceSpider(CityScrapersSpider):
             if not date_str or not link_href:
                 continue
             date_obj = datetime.strptime(date_str.strip(), "%m.%d.%Y").date()
-            board_link_date_map[date_obj].append({
-                "title": "Board Packet",
-                "href": response.urljoin(link_href),
-            })
+            board_link_date_map[date_obj].append(
+                {"title": "Board Packet", "href": response.urljoin(link_href)}
+            )
         return board_link_date_map
 
     def _parse_events(self, response):
         for event_link in response.css("article h2 a::attr(href)").extract():
-            yield response.follow(event_link, callback=self._parse_detail, dont_filter=True)
+            yield response.follow(
+                event_link, callback=self._parse_detail, dont_filter=True
+            )
 
     def _parse_detail(self, response):
         title = self._parse_title(response)
@@ -75,7 +76,9 @@ class CleTransformationAllianceSpider(CityScrapersSpider):
         title_str = " ".join(response.css(".post header h1::text").extract()).strip()
         if "Board" in title_str:
             return "Board of Directors"
-        return re.sub(r"(Transformation Alliance|Meeting)", "", title_str, flags=re.I).strip()
+        return re.sub(
+            r"(Transformation Alliance|Meeting)", "", title_str, flags=re.I
+        ).strip()
 
     def _parse_classification(self, title):
         """Parse or generate classification from allowed options."""
@@ -85,7 +88,9 @@ class CleTransformationAllianceSpider(CityScrapersSpider):
 
     def _parse_start_end(self, response):
         """Parse start, end datetimes as naive datetime objects."""
-        time_detail = response.css("header .event-date::text, header .post-date::text").extract()
+        time_detail = response.css(
+            "header .event-date::text, header .post-date::text"
+        ).extract()
         detail_time = [p.strip() for p in time_detail if p.strip()]
         if len(detail_time) == 0:
             return None, None
@@ -100,7 +105,9 @@ class CleTransformationAllianceSpider(CityScrapersSpider):
                 start_str = time_str
         if not start_str:
             desc_str = " ".join(response.css(".post-content *::text").extract())
-            time_strs = [t[0] for t in re.findall(r"(\d{1,2}(:\d{2})? [apm\.]{2,4})", desc_str)]
+            time_strs = [
+                t[0] for t in re.findall(r"(\d{1,2}(:\d{2})? [apm\.]{2,4})", desc_str)
+            ]
             if len(time_strs) > 0:
                 start_str = time_strs[0]
             if len(time_strs) > 1:
@@ -121,8 +128,13 @@ class CleTransformationAllianceSpider(CityScrapersSpider):
 
     def _parse_location(self, response):
         """Parse or generate location."""
-        desc_str = re.sub(r"\s+", " ", " ".join(response.css(".post-content *::text").extract()
-                                                )).replace(" ,", ",").strip()
+        desc_str = (
+            re.sub(
+                r"\s+", " ", " ".join(response.css(".post-content *::text").extract())
+            )
+            .replace(" ,", ",")
+            .strip()
+        )
         if "8120" in desc_str:
             return self.location
         addr_match = re.search(r"\d{3}[^\.:]+?(?=(\.|$))", desc_str)

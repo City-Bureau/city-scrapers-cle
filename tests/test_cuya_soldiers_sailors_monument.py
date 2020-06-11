@@ -6,7 +6,9 @@ from city_scrapers_core.constants import COMMITTEE, PASSED
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
-from city_scrapers.spiders.cuya_soldiers_sailors_monument import CuyaSoldiersSailorsMonumentSpider
+from city_scrapers.spiders.cuya_soldiers_sailors_monument import (
+    CuyaSoldiersSailorsMonumentSpider,
+)
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_soldiers_sailors_monument.html"),
@@ -47,8 +49,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0][
-        "id"] == "cuya_soldiers_sailors_monument/201910070900/x/names_on_the_wall_committee"
+    assert (
+        parsed_items[0]["id"]
+        == "cuya_soldiers_sailors_monument/201910070900/x/names_on_the_wall_committee"
+    )
 
 
 def test_status():
@@ -58,7 +62,7 @@ def test_status():
 def test_location():
     assert parsed_items[0]["location"] == {
         "name": "",
-        "address": "16600 Sprague Road, Middleburg Heights, OH 44130"
+        "address": "16600 Sprague Road, Middleburg Heights, OH 44130",
     }
 
 

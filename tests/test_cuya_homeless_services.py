@@ -68,13 +68,16 @@ def test_source():
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "http://ohs.cuyahogacounty.us/ViewFile.aspx?file=HrgG0wNlU4uuMnY1ORPT2g%3d%3d",
-        "title": "Minutes"
-    }, {
-        "href": "http://ohs.cuyahogacounty.us/ViewFile.aspx?file=HrgG0wNlU4sH90cSRjQZyw%3d%3d",
-        "title": "Agenda"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://ohs.cuyahogacounty.us/ViewFile.aspx?file=HrgG0wNlU4uuMnY1ORPT2g%3d%3d",  # noqa
+            "title": "Minutes",
+        },
+        {
+            "href": "http://ohs.cuyahogacounty.us/ViewFile.aspx?file=HrgG0wNlU4sH90cSRjQZyw%3d%3d",  # noqa
+            "title": "Agenda",
+        },
+    ]
 
 
 def test_classification():

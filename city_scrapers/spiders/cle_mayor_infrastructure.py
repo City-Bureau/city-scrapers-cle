@@ -21,7 +21,9 @@ class CleMayorInfrastructureSpider(CityScrapersSpider):
         Change the `_parse_title`, `_parse_start`, etc methods to fit your scraping
         needs.
         """
-        section = response.css(".table0 > tr:nth-child(2) > td > table > tr:nth-child(5) > td")
+        section = response.css(
+            ".table0 > tr:nth-child(2) > td > table > tr:nth-child(5) > td"
+        )
         agenda_map = self._parse_agendas(section, response)
         year_str = str(datetime.now().year)
         agenda_dates = list(agenda_map.keys())
@@ -49,7 +51,9 @@ class CleMayorInfrastructureSpider(CityScrapersSpider):
 
     def _parse_title(self, item):
         """Parse or generate meeting title."""
-        return re.sub(r"\s+", " ", " ".join(item.css("span.h1 *::text").extract()).title()).strip()
+        return re.sub(
+            r"\s+", " ", " ".join(item.css("span.h1 *::text").extract()).title()
+        ).strip()
 
     def _parse_start(self, item, start_date):
         """Parse start datetime as a naive datetime object."""
@@ -78,7 +82,9 @@ class CleMayorInfrastructureSpider(CityScrapersSpider):
                 if " " in date_str:
                     month_str, date_str = date_str.split(" ")
                 starts.append(
-                    datetime.strptime(" ".join([year_str, month_str, date_str]), "%Y %b %d").date()
+                    datetime.strptime(
+                        " ".join([year_str, month_str, date_str]), "%Y %b %d"
+                    ).date()
                 )
         return starts
 
@@ -113,15 +119,19 @@ class CleMayorInfrastructureSpider(CityScrapersSpider):
         agenda_map = defaultdict(list)
         for agenda_link in item.css("option"):
             date_match_y = re.search(r"\d{4}-\d{2}-\d{2}", agenda_link.attrib["value"])
-            date_match_mo = re.search(r"\d{1,2}-\d{1,2}-\d{2}", agenda_link.attrib["value"])
+            date_match_mo = re.search(
+                r"\d{1,2}-\d{1,2}-\d{2}", agenda_link.attrib["value"]
+            )
             if not date_match_y and not date_match_mo:
                 continue
             if date_match_y:
                 date_obj = datetime.strptime(date_match_y.group(), "%Y-%m-%d").date()
             elif date_match_mo:
                 date_obj = datetime.strptime(date_match_mo.group(), "%m-%d-%y").date()
-            agenda_map[date_obj].append({
-                "title": "Agenda",
-                "href": response.urljoin(agenda_link.attrib["value"]),
-            })
+            agenda_map[date_obj].append(
+                {
+                    "title": "Agenda",
+                    "href": response.urljoin(agenda_link.attrib["value"]),
+                }
+            )
         return agenda_map

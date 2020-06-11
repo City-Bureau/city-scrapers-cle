@@ -20,7 +20,9 @@ class CleBuildingStandardsSpider(CityScrapersSpider):
     def start_urls(self):
         year = datetime.today().year
         return [
-            "http://planning.city.cleveland.oh.us/bza/bbs.html?ID={}".format(year + diff)
+            "http://planning.city.cleveland.oh.us/bza/bbs.html?ID={}".format(
+                year + diff
+            )
             for diff in range(0, 2)
         ]
 

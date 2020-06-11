@@ -26,7 +26,11 @@ class CuyaSolidWasteDistrictSpider(CityScrapersSpider):
         for item in response.css(".page-content-row div:nth-child(2)"):
             title = self._parse_title(item)
             start, end = self._parse_start_end(item)
-            if not title or not start or ("Board" not in title and "Committee" not in title):
+            if (
+                not title
+                or not start
+                or ("Board" not in title and "Committee" not in title)
+            ):
                 continue
             meeting = Meeting(
                 title=title,
@@ -67,7 +71,9 @@ class CuyaSolidWasteDistrictSpider(CityScrapersSpider):
         if not date_str or not re.search(r"\d{4}", date_str):
             return None, None
         date_str = date_str.strip()
-        time_strs = re.findall(r"\d{1,2}:\d{2} [APM]{2}", " ".join(item.css("*::text").extract()))
+        time_strs = re.findall(
+            r"\d{1,2}:\d{2} [APM]{2}", " ".join(item.css("*::text").extract())
+        )
         start_str = "12:00 AM"
         end = None
         if len(time_strs) > 0:
@@ -82,7 +88,9 @@ class CuyaSolidWasteDistrictSpider(CityScrapersSpider):
 
     def _parse_location(self, item):
         """Parse or generate location."""
-        loc_strs = [l for l in item.css("div *::text").extract() if re.search(r"\d{3}", l)]
+        loc_strs = [
+            l for l in item.css("div *::text").extract() if re.search(r"\d{3}", l)
+        ]
         if len(loc_strs) < 2 or "5-120" in loc_strs[1]:
             return self.location
         return {**self.location, "address": loc_strs[1].strip()}
@@ -96,10 +104,9 @@ class CuyaSolidWasteDistrictSpider(CityScrapersSpider):
                 continue
             if "agenda" in link_title.lower():
                 link_title = "Agenda"
-            links.append({
-                "title": link_title,
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            links.append(
+                {"title": link_title, "href": response.urljoin(link.attrib["href"])}
+            )
         return links
 
     def _parse_source(self, item, response):

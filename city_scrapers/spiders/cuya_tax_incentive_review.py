@@ -47,9 +47,10 @@ class CuyaTaxIncentiveReviewSpider(CityScrapersSpider):
 
     def _parse_title(self, item):
         """Parse or generate meeting title."""
-        return "Tax Incentive Review Council - " + " ".join(
-            item.css("td:nth-child(3) *::text").extract()
-        ).strip()
+        return (
+            "Tax Incentive Review Council - "
+            + " ".join(item.css("td:nth-child(3) *::text").extract()).strip()
+        )
 
     def _parse_start(self, item):
         """Parse start datetime as a naive datetime object."""
@@ -84,8 +85,10 @@ class CuyaTaxIncentiveReviewSpider(CityScrapersSpider):
         """Parse or generate links."""
         links = []
         for link in item.css("a"):
-            links.append({
-                "title": " ".join(link.css("*::text").extract()).strip(),
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            links.append(
+                {
+                    "title": " ".join(link.css("*::text").extract()).strip(),
+                    "href": response.urljoin(link.attrib["href"]),
+                }
+            )
         return links

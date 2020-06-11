@@ -10,12 +10,12 @@ from city_scrapers.spiders.cuya_community_college import CuyaCommunityCollegeSpi
 
 test_agenda_response = file_response(
     join(dirname(__file__), "files", "cuya_community_college_agenda.pdf"),
-    url="https://www.tri-c.edu/administrative-departments/documents/board-meeting-agenda.pdf",
+    url="https://www.tri-c.edu/administrative-departments/documents/board-meeting-agenda.pdf",  # noqa
     mode="rb",
 )
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_community_college.pdf"),
-    url="https://www.tri-c.edu/administrative-departments/documents/board-meetings-calendar.pdf",
+    url="https://www.tri-c.edu/administrative-departments/documents/board-meetings-calendar.pdf",  # noqa
     mode="rb",
 )
 spider = CuyaCommunityCollegeSpider()
@@ -55,7 +55,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0]["id"] == "cuya_community_college/201909261330/x/board_of_trustees"
+    assert (
+        parsed_items[0]["id"]
+        == "cuya_community_college/201909261330/x/board_of_trustees"
+    )
 
 
 def test_status():
@@ -74,7 +77,9 @@ def test_source():
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{"href": test_agenda_response.url, "title": "Agenda"}]
+    assert parsed_items[0]["links"] == [
+        {"href": test_agenda_response.url, "title": "Agenda"}
+    ]
 
 
 def test_classification():

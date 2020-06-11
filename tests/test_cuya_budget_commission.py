@@ -52,7 +52,9 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item["id"] == "cuya_budget_commission/201908051000/x/budget_commission"
+    assert (
+        parsed_item["id"] == "cuya_budget_commission/201908051000/x/budget_commission"
+    )
 
 
 def test_status():
@@ -67,14 +69,19 @@ def test_location():
 
 
 def test_source():
-    assert parsed_item["source"] == "http://bc.cuyahogacounty.us/en-US/080519-BC-meeting.aspx"
+    assert (
+        parsed_item["source"]
+        == "http://bc.cuyahogacounty.us/en-US/080519-BC-meeting.aspx"
+    )
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=8jA%2fdFNXxbMOPJEUFXlVnw%3d%3d",
-        "title": "Agenda"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=8jA%2fdFNXxbMOPJEUFXlVnw%3d%3d",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

@@ -34,13 +34,17 @@ class CuyaArtsCultureSpider(CityScrapersSpider):
             for link in item.css("a"):
                 link_title = " ".join(link.css("*::text").extract())
                 if "Minutes" in link_title:
-                    self.minutes_map[date_obj].append({
-                        "title": "Minutes",
-                        "href": response.urljoin(link.attrib["href"])
-                    })
+                    self.minutes_map[date_obj].append(
+                        {
+                            "title": "Minutes",
+                            "href": response.urljoin(link.attrib["href"]),
+                        }
+                    )
 
     def _parse_schedule(self, response):
-        """Iterate through all meetings for the current year, yielding request to detail pages"""
+        """
+        Iterate through all meetings for the current year, yielding detail pages
+        """
         for link in response.css(".panel-body a"):
             if "/maps/" not in link.attrib["href"]:
                 yield response.follow(
@@ -86,14 +90,20 @@ class CuyaArtsCultureSpider(CityScrapersSpider):
         """Parse or generate meeting description."""
         desc_list = []
         for desc_item in response.css("#Content_ceContent > p"):
-            desc_text = re.sub(r"\s+", " ", " ".join(desc_item.css("*::text").extract())).strip()
-            if not desc_text.startswith("View the ") and not desc_text.startswith("Want to "):
+            desc_text = re.sub(
+                r"\s+", " ", " ".join(desc_item.css("*::text").extract())
+            ).strip()
+            if not desc_text.startswith("View the ") and not desc_text.startswith(
+                "Want to "
+            ):
                 desc_list.append(desc_text)
         return "\n\n".join(desc_list).strip()
 
     def _parse_start(self, description):
         """Parse start datetime as a naive datetime object."""
-        dt_match = re.search(r"[a-zA-Z]{3,10} \d{1,2}, \d{4} at \d{1,2}:\d{2} [ap]m", description)
+        dt_match = re.search(
+            r"[a-zA-Z]{3,10} \d{1,2}, \d{4} at \d{1,2}:\d{2} [ap]m", description
+        )
         if not dt_match:
             return
         return datetime.strptime(dt_match.group(), "%B %d, %Y at %I:%M %p")
@@ -103,8 +113,13 @@ class CuyaArtsCultureSpider(CityScrapersSpider):
         name_str = response.css("center h3:last-child::text").extract_first().strip()
         addr_str = ""
         loc_span_str = re.sub(
-            r"\s+", " ",
-            " ".join(response.css("#Content_ceContent > p > span")[:1].css("*::text").extract())
+            r"\s+",
+            " ",
+            " ".join(
+                response.css("#Content_ceContent > p > span")[:1]
+                .css("*::text")
+                .extract()
+            ),
         ).strip()
         addr_split = re.split(r"(, | at )(?=\d{2}[^:])", loc_span_str)
         if len(addr_split) > 2 and "TBD" not in name_str:
@@ -122,8 +137,10 @@ class CuyaArtsCultureSpider(CityScrapersSpider):
             if ".pdf" in link.attrib["href"].lower():
                 if "agenda" in link_title.lower():
                     link_title = "Agenda and Handouts"
-                links.append({
-                    "title": link_title.strip(),
-                    "href": response.urljoin(link.attrib["href"])
-                })
+                links.append(
+                    {
+                        "title": link_title.strip(),
+                        "href": response.urljoin(link.attrib["href"]),
+                    }
+                )
         return links

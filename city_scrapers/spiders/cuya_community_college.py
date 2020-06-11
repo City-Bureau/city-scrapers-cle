@@ -13,7 +13,9 @@ class CuyaCommunityCollegeSpider(CityScrapersSpider):
     name = "cuya_community_college"
     agency = "Cuyahoga Community College"
     timezone = "America/Detroit"
-    start_urls = ["https://www.tri-c.edu/administrative-departments/tri-c-board-of-trustees.html"]
+    start_urls = [
+        "https://www.tri-c.edu/administrative-departments/tri-c-board-of-trustees.html"
+    ]
 
     def parse(self, response):
         """
@@ -31,7 +33,9 @@ class CuyaCommunityCollegeSpider(CityScrapersSpider):
             if "Agenda" in link_title:
                 agenda_url = response.urljoin(link.attrib["href"])
         if agenda_url:
-            yield response.follow(agenda_url, callback=self._parse_agenda_res, dont_filter=True)
+            yield response.follow(
+                agenda_url, callback=self._parse_agenda_res, dont_filter=True
+            )
         else:
             yield response.follow(
                 self.calendar_url, callback=self._parse_calendar, dont_filter=True
@@ -39,7 +43,9 @@ class CuyaCommunityCollegeSpider(CityScrapersSpider):
 
     def _parse_agenda_res(self, response):
         self._parse_agenda(response)
-        yield response.follow(self.calendar_url, callback=self._parse_calendar, dont_filter=True)
+        yield response.follow(
+            self.calendar_url, callback=self._parse_calendar, dont_filter=True
+        )
 
     def _parse_agenda(self, response):
         lp = LAParams(line_margin=5.0)
@@ -57,7 +63,9 @@ class CuyaCommunityCollegeSpider(CityScrapersSpider):
         out_str = StringIO()
         extract_text_to_fp(BytesIO(response.body), out_str, laparams=lp)
         pdf_text = out_str.getvalue()
-        split_dates = re.split(r"([A-Z][a-z]{2,8}\s+\d{1,2}, \d{4}[ \n$])", pdf_text, flags=re.M)
+        split_dates = re.split(
+            r"([A-Z][a-z]{2,8}\s+\d{1,2}, \d{4}[ \n$])", pdf_text, flags=re.M
+        )
         date_groups = [split_dates[1]]
         for split_str in split_dates[2:]:
             if re.search(r"([A-Z][a-z]{2,8}\s+\d{1,2}, \d{4}[ \n$])", split_str):
@@ -126,7 +134,7 @@ class CuyaCommunityCollegeSpider(CityScrapersSpider):
             },
             "EAST": {
                 "name": "Eastern Campus",
-                "address": "4250 Richmond Rd, Highland Hills, OH 44122"
+                "address": "4250 Richmond Rd, Highland Hills, OH 44122",
             },
             "ATTC": {
                 "name": "Advanced Technology Training Center",

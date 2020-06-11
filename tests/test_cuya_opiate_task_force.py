@@ -14,7 +14,7 @@ test_response = file_response(
 )
 test_detail_response = file_response(
     join(dirname(__file__), "files", "cuya_opiate_task_force_detail.html"),
-    url="http://opiatecollaborative.cuyahogacounty.us/en-US/101519-Opiate-Task-Force-meeting.aspx",
+    url="http://opiatecollaborative.cuyahogacounty.us/en-US/101519-Opiate-Task-Force-meeting.aspx",  # noqa
 )
 spider = CuyaOpiateTaskForceSpider()
 
@@ -52,7 +52,9 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item["id"] == "cuya_opiate_task_force/201910150900/x/opiate_task_force"
+    assert (
+        parsed_item["id"] == "cuya_opiate_task_force/201910150900/x/opiate_task_force"
+    )
 
 
 def test_status():
@@ -68,11 +70,12 @@ def test_source():
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href":
-            "http://opiatecollaborative.cuyahogacounty.us/ViewFile.aspx?file=0fXU2JOpNknBfOHqKZmC3Q%3d%3d",  # noqa
-        "title": "Agenda"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://opiatecollaborative.cuyahogacounty.us/ViewFile.aspx?file=0fXU2JOpNknBfOHqKZmC3Q%3d%3d",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

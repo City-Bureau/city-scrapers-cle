@@ -18,7 +18,9 @@ spider = CleBuildingStandardsSpider()
 freezer = freeze_time("2019-09-11")
 freezer.start()
 
-parsed_items = sorted([item for item in spider.parse(test_response)], key=itemgetter("start"))
+parsed_items = sorted(
+    [item for item in spider.parse(test_response)], key=itemgetter("start")
+)
 
 freezer.stop()
 
@@ -28,7 +30,9 @@ def test_count():
 
 
 def test_title():
-    assert parsed_items[0]["title"] == "Board of Building Standards and Building Appeals"
+    assert (
+        parsed_items[0]["title"] == "Board of Building Standards and Building Appeals"
+    )
 
 
 def test_description():
@@ -48,9 +52,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0][
-        "id"
-    ] == "cle_building_standards/201901230930/x/board_of_building_standards_and_building_appeals"
+    assert (
+        parsed_items[0]["id"]
+        == "cle_building_standards/201901230930/x/board_of_building_standards_and_building_appeals"  # noqa
+    )
 
 
 def test_status():
@@ -62,14 +67,18 @@ def test_location():
 
 
 def test_source():
-    assert parsed_items[0]["source"] == "http://planning.city.cleveland.oh.us/bza/bbs.html"
+    assert (
+        parsed_items[0]["source"] == "http://planning.city.cleveland.oh.us/bza/bbs.html"
+    )
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "href": "http://planning.city.cleveland.oh.us/bza/bbs/agenda/2019/AGENDA01232019.pdf",
-        "title": "Agenda"
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "href": "http://planning.city.cleveland.oh.us/bza/bbs/agenda/2019/AGENDA01232019.pdf",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

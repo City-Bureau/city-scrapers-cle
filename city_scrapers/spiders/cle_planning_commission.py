@@ -36,7 +36,9 @@ class ClePlanningCommissionSpider(CityScrapersSpider):
         # else:
         #     year_str = str(datetime.now().year)
 
-        content = scrapy.Selector(text=" ".join(re.split(r"\<hr.*?\>", page_content.extract())[:2]))
+        content = scrapy.Selector(
+            text=" ".join(re.split(r"\<hr.*?\>", page_content.extract())[:2])
+        )
         self._validate_start_time(content)
         self._validate_location(content)
 
@@ -84,8 +86,10 @@ class ClePlanningCommissionSpider(CityScrapersSpider):
     def _parse_links(self, item, response):
         links = []
         for link in item.css("a"):
-            links.append({
-                "title": " ".join(link.css("*::text").extract()).strip(),
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            links.append(
+                {
+                    "title": " ".join(link.css("*::text").extract()).strip(),
+                    "href": response.urljoin(link.attrib["href"]),
+                }
+            )
         return links

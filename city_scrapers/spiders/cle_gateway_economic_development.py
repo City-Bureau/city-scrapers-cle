@@ -26,7 +26,9 @@ class CleGatewayEconomicDevelopmentSpider(CityScrapersSpider):
         yield from self._parse_meetings(response)
         for meetings_link in response.css(".CSSTableGenerator ~ p a"):
             yield response.follow(
-                meetings_link.attrib["href"], dont_filter=True, callback=self._parse_meetings
+                meetings_link.attrib["href"],
+                dont_filter=True,
+                callback=self._parse_meetings,
             )
 
     def _parse_meetings(self, response):
@@ -64,9 +66,7 @@ class CleGatewayEconomicDevelopmentSpider(CityScrapersSpider):
     def _parse_start(self, item):
         """Parse start datetime as a naive datetime object."""
         item_str = re.sub(
-            r"\s+",
-            " ",
-            " ".join(item.css("td:first-child *::text").extract()),
+            r"\s+", " ", " ".join(item.css("td:first-child *::text").extract()),
         ).strip()
         date_match = re.search(r"[a-zA-Z]{3,10} \d{1,2},? \d{4}", item_str)
         if not date_match:
@@ -103,8 +103,12 @@ class CleGatewayEconomicDevelopmentSpider(CityScrapersSpider):
         """Parse or generate links."""
         links = []
         for link in item.css("a"):
-            links.append({
-                "title": "Agenda" if "agenda" in link.attrib["href"].lower() else "Minutes",
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            links.append(
+                {
+                    "title": "Agenda"
+                    if "agenda" in link.attrib["href"].lower()
+                    else "Minutes",
+                    "href": response.urljoin(link.attrib["href"]),
+                }
+            )
         return links

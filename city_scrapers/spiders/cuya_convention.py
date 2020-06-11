@@ -30,7 +30,9 @@ class CuyaConventionSpider(CityScrapersSpider):
         if "8:00 am" not in schedule_text:
             raise ValueError("Meeting start time has changed")
         year_str = re.search(r"\d{4}", schedule_text).group()
-        for date_str in re.findall(r"[A-Z][a-z]{2,9} \d{1,2}(?=[a-z]{2})", schedule_text):
+        for date_str in re.findall(
+            r"[A-Z][a-z]{2,9} \d{1,2}(?=[a-z]{2})", schedule_text
+        ):
             date_obj = datetime.strptime(date_str + year_str, "%B %d%Y").date()
             # Just setting these dates as keys
             self.date_links_map[date_obj] = []
@@ -62,8 +64,9 @@ class CuyaConventionSpider(CityScrapersSpider):
     def _parse_link_map(self, response):
         """Parse or generate links."""
         minutes_links = []
-        for minutes_link in response.css(".downloads-archived-dropdown option::attr(data-url)"
-                                         ).extract():
+        for minutes_link in response.css(
+            ".downloads-archived-dropdown option::attr(data-url)"
+        ).extract():
             minutes_href = response.urljoin(minutes_link)
             if minutes_href in minutes_links:
                 continue
@@ -71,17 +74,18 @@ class CuyaConventionSpider(CityScrapersSpider):
             date_obj = self._parse_link_date(minutes_link)
             if not date_obj:
                 continue
-            self.date_links_map[date_obj].append({"title": "Minutes", "href": minutes_href})
+            self.date_links_map[date_obj].append(
+                {"title": "Minutes", "href": minutes_href}
+            )
         for agenda_link in response.css("a.downloads-link-wrap::attr(href)").extract():
             if "agenda" not in agenda_link.lower():
                 continue
             date_obj = self._parse_link_date(agenda_link)
             if not date_obj:
                 continue
-            self.date_links_map[date_obj].append({
-                "title": "Agenda",
-                "href": response.urljoin(agenda_link)
-            })
+            self.date_links_map[date_obj].append(
+                {"title": "Agenda", "href": response.urljoin(agenda_link)}
+            )
 
     def _parse_link_date(self, link):
         """Parse date from multiple formats in links"""

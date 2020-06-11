@@ -12,12 +12,15 @@ from city_scrapers.spiders.cle_city_council import CleCityCouncilSpider
 freezer = freeze_time("2019-09-09")
 freezer.start()
 
-with open(join(dirname(__file__), "files", "cle_city_council.json"), "r", encoding="utf-8") as f:
+with open(
+    join(dirname(__file__), "files", "cle_city_council.json"), "r", encoding="utf-8"
+) as f:
     test_response = json.load(f)
 
 spider = CleCityCouncilSpider()
-parsed_items = sorted([item for item in spider.parse_legistar(test_response)],
-                      key=itemgetter("start"))
+parsed_items = sorted(
+    [item for item in spider.parse_legistar(test_response)], key=itemgetter("start")
+)
 
 freezer.stop()
 
@@ -57,22 +60,24 @@ def test_status():
 def test_location():
     assert parsed_items[0]["location"] == {
         "name": "Mercedes Cotner Committee Room 217",
-        "address": "601 Lakeside Ave Cleveland OH 44114"
+        "address": "601 Lakeside Ave Cleveland OH 44114",
     }
 
 
 def test_source():
-    assert parsed_items[0][
-        "source"
-    ] == "https://cityofcleveland.legistar.com/DepartmentDetail.aspx?ID=32369&GUID=E896EE8D-1217-4278-9410-347605F24208"  # noqa
+    assert (
+        parsed_items[0]["source"]
+        == "https://cityofcleveland.legistar.com/DepartmentDetail.aspx?ID=32369&GUID=E896EE8D-1217-4278-9410-347605F24208"  # noqa
+    )
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "href":
-            "https://cityofcleveland.legistar.com/View.ashx?M=A&ID=669085&GUID=5097DB3A-D3FD-457D-A31C-1AA4B87339EA",  # noqa
-        "title": "Agenda"
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "href": "https://cityofcleveland.legistar.com/View.ashx?M=A&ID=669085&GUID=5097DB3A-D3FD-457D-A31C-1AA4B87339EA",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

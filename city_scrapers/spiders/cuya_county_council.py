@@ -14,18 +14,20 @@ class CuyaCountyCouncilSpider(CityScrapersSpider):
     custom_settings = {"DEFAULT_REQUEST_HEADERS": {"Content-Type": "application/json"}}
     location = {
         "address": "4th Floor 2079 East 9th Street",
-        "name": "C. Ellen Connally Council Chambers"
+        "name": "C. Ellen Connally Council Chambers",
     }
 
     @property
     def start_urls(self):
         start_date = datetime.now() + timedelta(days=-90)
         end_date = datetime.now() + timedelta(days=90)
-        return [(
-            "http://council.cuyahogacounty.us/api/items/GetItemsByType?itemTypeCode="
-            "EVENT;NEWS;EVENTREG&languageCd=en-US&siteKey=141&"
-            "returnEventsAfterDate={}&returnEventsBeforeDate={}"
-        ).format(start_date.strftime("%m/%d/%Y"), end_date.strftime("%m/%d/%Y"))]
+        return [
+            (
+                "http://council.cuyahogacounty.us/api/items/GetItemsByType?itemTypeCode="  # noqa
+                "EVENT;NEWS;EVENTREG&languageCd=en-US&siteKey=141&"
+                "returnEventsAfterDate={}&returnEventsBeforeDate={}"
+            ).format(start_date.strftime("%m/%d/%Y"), end_date.strftime("%m/%d/%Y"))
+        ]
 
     def parse(self, response):
         """
@@ -90,22 +92,25 @@ class CuyaCountyCouncilSpider(CityScrapersSpider):
     def _parse_links(self, item):
         """Parse or generate links."""
         links = []
-        link_items = [i for i in item["Characteristics"] if i["DataType"] == "F" and i["FileName"]]
+        link_items = [
+            i for i in item["Characteristics"] if i["DataType"] == "F" and i["FileName"]
+        ]
         for link_item in link_items:
             if link_item["TypeCode"] == "BAGENDA":
-                links.append({
-                    "title": "Agenda",
-                    "href": (
-                        "{}ViewFile.aspx?file={}".format(item["SiteBaseUrl"], link_item["FileKey"])
-                    ),
-                })
+                links.append(
+                    {
+                        "title": "Agenda",
+                        "href": (
+                            "{}ViewFile.aspx?file={}".format(
+                                item["SiteBaseUrl"], link_item["FileKey"]
+                            )
+                        ),
+                    }
+                )
         body_item = [i for i in item["Characteristics"] if i["TypeCode"] == "BODY"][0]
         body = Selector(text=body_item["StringValue"])
         for iframe in body.css("iframe"):
-            links.append({
-                "title": "Video",
-                "href": iframe.attrib["src"],
-            })
+            links.append({"title": "Video", "href": iframe.attrib["src"]})
         return links
 
     def _parse_source(self, item):

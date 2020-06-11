@@ -41,11 +41,14 @@ def test_title():
 
 
 def test_description():
-    assert parsed_item["description"] == """All are invited to join Cuyahoga Arts & Culture at its Board of Trustees' annual meeting on Wednesday, April 24, 2019 at 3:30 pm at The Dealership, 3558 Lee Road, Shaker Heights, OH 44120.
+    assert (
+        parsed_item["description"]
+        == """All are invited to join Cuyahoga Arts & Culture at its Board of Trustees' annual meeting on Wednesday, April 24, 2019 at 3:30 pm at The Dealership, 3558 Lee Road, Shaker Heights, OH 44120.
 
 At the meeting, the Board of Trustees will discuss and take action on grantmaking guidelines for the 2020-21 General Operating Support and 2020 Project Support grant programs; take action on administrative matters, including the annual election of officers and reappointment of members to the Audit & Finance Advisory Committee; and, provide an update on the search for CAC’s next Executive Director.
 
 CAC's Board meetings are always open to the public."""  # noqa
+    )
 
 
 def test_start():
@@ -61,7 +64,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item["id"] == "cuya_arts_culture/201904241530/x/board_of_trustees_annual_meeting"
+    assert (
+        parsed_item["id"]
+        == "cuya_arts_culture/201904241530/x/board_of_trustees_annual_meeting"
+    )
 
 
 def test_status():
@@ -71,27 +77,27 @@ def test_status():
 def test_location():
     assert parsed_item["location"] == {
         "name": "The Dealership",
-        "address": "3558 Lee Road, Shaker Heights, OH 44120"
+        "address": "3558 Lee Road, Shaker Heights, OH 44120",
     }
 
 
 def test_source():
-    assert parsed_item["source"
-                       ] == "https://www.cacgrants.org/about-us/board/board-meeting-2019-04-10/"
+    assert (
+        parsed_item["source"]
+        == "https://www.cacgrants.org/about-us/board/board-meeting-2019-04-10/"
+    )
 
 
 def test_links():
     assert parsed_item["links"] == [
         {
-            "href":
-                "https://www.cacgrants.org/assets/ce/Documents/2019/2019-04-24-CAC-Board-Meeting-Handouts.pdf",  # noqa
-            "title": "Agenda and Handouts"
+            "href": "https://www.cacgrants.org/assets/ce/Documents/2019/2019-04-24-CAC-Board-Meeting-Handouts.pdf",  # noqa
+            "title": "Agenda and Handouts",
         },
         {
-            "href":
-                "https://www.cacgrants.org/assets/ce/Documents/2019/2019-04-24-Annual-Meeting-Minutes.pdf",  # noqa
-            "title": "Minutes"
-        }
+            "href": "https://www.cacgrants.org/assets/ce/Documents/2019/2019-04-24-Annual-Meeting-Minutes.pdf",  # noqa
+            "title": "Minutes",
+        },
     ]
 
 

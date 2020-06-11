@@ -23,7 +23,9 @@ class CuyaSoldiersSailorsMonumentSpider(CityScrapersSpider):
         # Split notice section into separate selectors by hr tags
         items = [
             Selector(text=section)
-            for section in re.split(r"\<hr\s*/?\>", " ".join(response.css(".box4 > *").extract()))
+            for section in re.split(
+                r"\<hr\s*/?\>", " ".join(response.css(".box4 > *").extract())
+            )
         ]
         for item in items:
             item_str = re.sub(r"\s+", " ", " ".join(item.css("*::text").extract()))

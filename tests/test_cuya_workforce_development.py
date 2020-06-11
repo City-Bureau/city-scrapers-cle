@@ -6,7 +6,9 @@ from city_scrapers_core.constants import BOARD, PASSED
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
-from city_scrapers.spiders.cuya_workforce_development import CuyaWorkforceDevelopmentSpider
+from city_scrapers.spiders.cuya_workforce_development import (
+    CuyaWorkforceDevelopmentSpider,
+)
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_workforce_development.html"),
@@ -52,7 +54,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item["id"] == "cuya_workforce_development/201908160800/x/board_meetings_retreat_"
+    assert (
+        parsed_item["id"]
+        == "cuya_workforce_development/201908160800/x/board_meetings_retreat_"
+    )
 
 
 def test_status():
@@ -62,22 +67,28 @@ def test_status():
 def test_location():
     assert parsed_item["location"] == {
         "name": "",
-        "address": "6161 Oak Tree Boulevard, Independence, OH 44131"
+        "address": "6161 Oak Tree Boulevard, Independence, OH 44131",
     }
 
 
 def test_source():
-    assert parsed_item["source"] == "http://bc.cuyahogacounty.us/en-US/081619-WD-Board-Meeting.aspx"
+    assert (
+        parsed_item["source"]
+        == "http://bc.cuyahogacounty.us/en-US/081619-WD-Board-Meeting.aspx"
+    )
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=yC5L9gSioQoiqlSvaiowPg%3d%3d",
-        "title": "Minutes"
-    }, {
-        "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=yC5L9gSioQps7O0IXojwYQ%3d%3d",
-        "title": "Agenda"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=yC5L9gSioQoiqlSvaiowPg%3d%3d",  # noqa
+            "title": "Minutes",
+        },
+        {
+            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=yC5L9gSioQps7O0IXojwYQ%3d%3d",  # noqa
+            "title": "Agenda",
+        },
+    ]
 
 
 def test_classification():

@@ -52,8 +52,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item[
-        "id"] == "cuya_emergency_planning/201907081330/x/local_emergency_planning_committee"
+    assert (
+        parsed_item["id"]
+        == "cuya_emergency_planning/201907081330/x/local_emergency_planning_committee"
+    )
 
 
 def test_status():
@@ -65,14 +67,18 @@ def test_location():
 
 
 def test_source():
-    assert parsed_item["source"] == "http://lepc.cuyahogacounty.us/en-US/070819-LEPC.aspx"
+    assert (
+        parsed_item["source"] == "http://lepc.cuyahogacounty.us/en-US/070819-LEPC.aspx"
+    )
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "http://lepc.cuyahogacounty.us/ViewFile.aspx?file=t5OawJ4TcSC6kSoARh5d9g%3d%3d",
-        "title": "Agenda"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://lepc.cuyahogacounty.us/ViewFile.aspx?file=t5OawJ4TcSC6kSoARh5d9g%3d%3d",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

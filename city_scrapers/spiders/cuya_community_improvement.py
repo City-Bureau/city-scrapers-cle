@@ -9,7 +9,9 @@ from city_scrapers.mixins import CuyaCountyMixin
 class CuyaCommunityImprovementSpider(CuyaCountyMixin, CityScrapersSpider):
     name = "cuya_community_improvement"
     agency = "Cuyahoga County Community Improvement Corporation"
-    start_urls = ["http://bc.cuyahogacounty.us/en-US/Community-Improvement-Corporation.aspx"]
+    start_urls = [
+        "http://bc.cuyahogacounty.us/en-US/Community-Improvement-Corporation.aspx"
+    ]
     classification = BOARD
     location = {
         "name": "County Headquarters, Room 407",

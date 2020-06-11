@@ -12,12 +12,17 @@ class CuyaPersonnelReviewCommissionSpider(CuyaCountyMixin, CityScrapersSpider):
 
     def parse(self, response):
         # Pull the most recent 12 meetings
-        for detail_link in response.css("#contentColumn td:nth-child(3) a::attr(href)"
-                                        ).extract()[:12]:
-            yield response.follow(detail_link, callback=self._parse_detail, dont_filter=True)
+        for detail_link in response.css(
+            "#contentColumn td:nth-child(3) a::attr(href)"
+        ).extract()[:12]:
+            yield response.follow(
+                detail_link, callback=self._parse_detail, dont_filter=True
+            )
 
     def _parse_title(self, response):
-        title_parts = response.css("#contentColumn h1::text").extract_first().strip().split(" - ")
+        title_parts = (
+            response.css("#contentColumn h1::text").extract_first().strip().split(" - ")
+        )
         title_str = [t for t in title_parts if "cancel" not in t.lower()][0]
         if "Special" in title_str:
             return title_str

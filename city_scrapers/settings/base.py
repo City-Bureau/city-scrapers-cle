@@ -15,7 +15,9 @@ SPIDER_MODULES = ["city_scrapers.spiders"]
 NEWSPIDER_MODULE = "city_scrapers.spiders"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = "City Scrapers [development mode]. Learn more and say hello at cityscrapers.org"
+USER_AGENT = (
+    "City Scrapers [development mode]. Learn more and say hello at cityscrapers.org"
+)
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -48,7 +50,9 @@ CLOSESPIDER_ERRORCOUNT = 5
 AUTOTHROTTLE_ENABLED = True
 AUTOTHROTTLE_START_DELAY = float(os.getenv("AUTOTHROTTLE_START_DELAY", 1.0))
 AUTOTHROTTLE_MAX_DELAY = float(os.getenv("AUTOTHROTTLE_MAX_DELAY", 30.0))
-AUTOTHROTTLE_TARGET_CONCURRENCY = float(os.getenv("AUTOTHROTTLE_TARGET_CONCURRENCY", 1.0))
+AUTOTHROTTLE_TARGET_CONCURRENCY = float(
+    os.getenv("AUTOTHROTTLE_TARGET_CONCURRENCY", 1.0)
+)
 
 SPIDER_MIDDLEWARES = {}
 

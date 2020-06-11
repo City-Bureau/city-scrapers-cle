@@ -44,8 +44,10 @@ class CleMetroSchoolDistrictSpider(CityScrapersSpider):
 
     def _parse_title(self, item):
         """Parse or generate meeting title."""
-        title_str = item.xpath("./name/text()").extract_first().replace(
-            "Cleveland Municipal School District ", ""
+        title_str = (
+            item.xpath("./name/text()")
+            .extract_first()
+            .replace("Cleveland Municipal School District ", "")
         )
         return "-".join(title_str.split("-")[:-1]).strip()
 
@@ -68,8 +70,11 @@ class CleMetroSchoolDistrictSpider(CityScrapersSpider):
 
     def _parse_location(self, item):
         """Parse or generate location."""
-        loc_item = item.xpath("./category[@order='1']/agendaitems/item/name/text()"
-                              ).extract_first().strip()
+        loc_item = (
+            item.xpath("./category[@order='1']/agendaitems/item/name/text()")
+            .extract_first()
+            .strip()
+        )
         loc_str = re.sub(r"^\d{1,2}\.\d{1,2} ?", "", loc_item)
         loc_parts = re.split(r", ?(?=\d{2})", loc_str, 1)
         if len(loc_parts) == 2:
@@ -78,7 +83,10 @@ class CleMetroSchoolDistrictSpider(CityScrapersSpider):
                 "name": loc_parts[0],
             }
         if "Board of Education Administration" in loc_parts[0]:
-            return {"address": "1111 Superior Ave E, Cleveland, OH 44114", "name": loc_parts[0]}
+            return {
+                "address": "1111 Superior Ave E, Cleveland, OH 44114",
+                "name": loc_parts[0],
+            }
         if re.search(r"^\d{2,4}", loc_parts[0]):
             return {
                 "address": loc_parts[0],

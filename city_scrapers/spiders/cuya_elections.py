@@ -12,28 +12,40 @@ class CuyaElectionsSpider(CityScrapersSpider):
     agency = "Cuyahoga County Board of Elections"
     timezone = "America/Detroit"
     start_urls = ["https://boe.cuyahogacounty.us/en-US/EventsCalendar.aspx"]
-    location = {"name": "Board of Elections", "address": "2925 Euclid Ave, Cleveland, OH 44115"}
+    location = {
+        "name": "Board of Elections",
+        "address": "2925 Euclid Ave, Cleveland, OH 44115",
+    }
 
     def parse(self, response):
         today = datetime.now()
         payload = {
-            "ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$ctl00":
-                "ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$EventsCalendar1$updMainPanel|ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$EventsCalendar1$TabContainer1$tbpDateRange$btnShowDateRange",  # noqa
+            "ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$ctl00": "ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$EventsCalendar1$updMainPanel|ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$EventsCalendar1$TabContainer1$tbpDateRange$btnShowDateRange",  # noqa
             "__EVENTTARGET": "ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$EventsCalendar1$TabContainer1",  # noqa
             "__EVENTARGUMENT": "activeTabChanged:3",
             "__VIEWSTATE": response.css("#__VIEWSTATE::attr(value)").extract_first(),
-            "__VIEWSTATEGENERATOR":
-                response.css("#__VIEWSTATEGENERATOR::attr(value)").extract_first(),
-            "__EVENTVALIDATION": response.css("#__EVENTVALIDATION::attr(value)").extract_first(),
+            "__VIEWSTATEGENERATOR": response.css(
+                "#__VIEWSTATEGENERATOR::attr(value)"
+            ).extract_first(),
+            "__EVENTVALIDATION": response.css(
+                "#__EVENTVALIDATION::attr(value)"
+            ).extract_first(),
             "__AjaxControlToolkitCalendarCssLoaded": "",
-            "ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$EventsCalendar1$TabContainer1$tbpDateRange$txtStartDate":  # noqa
-                (today - timedelta(days=200)).strftime("%m/%d/%Y"),
-            "ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$EventsCalendar1$TabContainer1$tbpDateRange$txtEndDate":  # noqa
-                (today + timedelta(days=10)).strftime("%m/%d/%Y"),
-            "ContentPlaceHolder1_ContentPlaceHolderMain_EventsCalendar1_TabContainer1_ClientState":
-                '{"ActiveTabIndex":3,"TabState":[true,true,true,true]}',
+            "ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$EventsCalendar1$TabContainer1$tbpDateRange$txtStartDate": (  # noqa
+                today - timedelta(days=200)
+            ).strftime(
+                "%m/%d/%Y"
+            ),
+            "ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$EventsCalendar1$TabContainer1$tbpDateRange$txtEndDate": (  # noqa
+                today + timedelta(days=10)
+            ).strftime(
+                "%m/%d/%Y"
+            ),
+            "ContentPlaceHolder1_ContentPlaceHolderMain_EventsCalendar1_TabContainer1_ClientState": '{"ActiveTabIndex":3,"TabState":[true,true,true,true]}',  # noqa
         }
-        yield FormRequest(response.url, formdata=payload, callback=self._parse_form_response)
+        yield FormRequest(
+            response.url, formdata=payload, callback=self._parse_form_response
+        )
 
     def _parse_form_response(self, response):
         for link in response.css(".SearchResults td:nth-child(2) a"):
@@ -63,7 +75,7 @@ class CuyaElectionsSpider(CityScrapersSpider):
             time_notes="",
             location=self._parse_location(response),
             links=self._parse_links(response),
-            source=response.url
+            source=response.url,
         )
 
         meeting["status"] = self._get_status(
@@ -84,7 +96,9 @@ class CuyaElectionsSpider(CityScrapersSpider):
         """Parse start, end datetimes as naive datetime objects."""
         dt_list = []
         for item_str in response.css(".padding dd::text").extract():
-            dt_match = re.search(r"\d{1,2}/\d{1,2}/\d{4}-\d{1,2}:\d{2} [APM]{2}", item_str)
+            dt_match = re.search(
+                r"\d{1,2}/\d{1,2}/\d{4}-\d{1,2}:\d{2} [APM]{2}", item_str
+            )
             if dt_match:
                 dt_list.append(datetime.strptime(dt_match.group(), "%m/%d/%Y-%I:%M %p"))
         end = None
@@ -108,8 +122,7 @@ class CuyaElectionsSpider(CityScrapersSpider):
         links = []
         for link in response.css(".padding blockquote a"):
             link_title = " ".join(link.css("*::text").extract()).strip()
-            links.append({
-                "title": link_title,
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            links.append(
+                {"title": link_title, "href": response.urljoin(link.attrib["href"])}
+            )
         return links

@@ -7,7 +7,7 @@ from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
 from city_scrapers.spiders.cuya_public_defenders_commission import (
-    CuyaPublicDefendersCommissionSpider
+    CuyaPublicDefendersCommissionSpider,
 )
 
 test_response = file_response(
@@ -54,8 +54,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item[
-        "id"] == "cuya_public_defenders_commission/201909041630/x/public_defenders_commission"
+    assert (
+        parsed_item["id"]
+        == "cuya_public_defenders_commission/201909041630/x/public_defenders_commission"
+    )
 
 
 def test_status():
@@ -67,8 +69,10 @@ def test_location():
 
 
 def test_source():
-    assert parsed_item[
-        "source"] == "http://publicdefender.cuyahogacounty.us/en-US/09042019CommissionMeeting.aspx"
+    assert (
+        parsed_item["source"]
+        == "http://publicdefender.cuyahogacounty.us/en-US/09042019CommissionMeeting.aspx"  # noqa
+    )
 
 
 def test_links():

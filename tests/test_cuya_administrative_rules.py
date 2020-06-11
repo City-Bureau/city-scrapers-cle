@@ -6,7 +6,9 @@ from city_scrapers_core.constants import BOARD, PASSED
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
-from city_scrapers.spiders.cuya_administrative_rules import CuyaAdministrativeRulesSpider
+from city_scrapers.spiders.cuya_administrative_rules import (
+    CuyaAdministrativeRulesSpider,
+)
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_administrative_rules.html"),
@@ -52,8 +54,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item["id"
-                       ] == "cuya_administrative_rules/201906130930/x/administrative_rules_board"
+    assert (
+        parsed_item["id"]
+        == "cuya_administrative_rules/201906130930/x/administrative_rules_board"
+    )
 
 
 def test_status():
@@ -65,26 +69,35 @@ def test_location():
 
 
 def test_source():
-    assert parsed_item["source"] == "http://arb.cuyahogacounty.us/en-US/061319-meeting.aspx"
+    assert (
+        parsed_item["source"]
+        == "http://arb.cuyahogacounty.us/en-US/061319-meeting.aspx"
+    )
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "http://arb.cuyahogacounty.us/ViewFile.aspx?file=k4UvRH5p4l98sj%2bKnczirQ%3d%3d",
-        "title": "Agenda"
-    }, {
-        "href": "http://arb.cuyahogacounty.us/ViewFile.aspx?file=Qa7DoYdtpmbKy%2f4k1H26og%3d%3d",
-        "title": "Minutes"
-    }, {
-        "href": "http://arb.cuyahogacounty.us/pdf_arb/en-US/ScooterSharePresentation.pdf",
-        "title": "Scooter Share Presentation"
-    }, {
-        "href": "http://arb.cuyahogacounty.us/pdf_arb/en-US/BirdComments.pdf",
-        "title": "Letter from Sam Cooper"
-    }, {
-        "href": "http://arb.cuyahogacounty.us/pdf_arb/en-US/LIMELetter.pdf",
-        "title": "Letter from LIME"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://arb.cuyahogacounty.us/ViewFile.aspx?file=k4UvRH5p4l98sj%2bKnczirQ%3d%3d",  # noqa
+            "title": "Agenda",
+        },
+        {
+            "href": "http://arb.cuyahogacounty.us/ViewFile.aspx?file=Qa7DoYdtpmbKy%2f4k1H26og%3d%3d",  # noqa
+            "title": "Minutes",
+        },
+        {
+            "href": "http://arb.cuyahogacounty.us/pdf_arb/en-US/ScooterSharePresentation.pdf",  # noqa
+            "title": "Scooter Share Presentation",
+        },
+        {
+            "href": "http://arb.cuyahogacounty.us/pdf_arb/en-US/BirdComments.pdf",
+            "title": "Letter from Sam Cooper",
+        },
+        {
+            "href": "http://arb.cuyahogacounty.us/pdf_arb/en-US/LIMELetter.pdf",
+            "title": "Letter from LIME",
+        },
+    ]
 
 
 def test_classification():

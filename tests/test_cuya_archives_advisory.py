@@ -52,7 +52,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item["id"] == "cuya_archives_advisory/201803291000/x/archives_advisory_commission"
+    assert (
+        parsed_item["id"]
+        == "cuya_archives_advisory/201803291000/x/archives_advisory_commission"
+    )
 
 
 def test_status():
@@ -64,14 +67,19 @@ def test_location():
 
 
 def test_source():
-    assert parsed_item["source"] == "http://bc.cuyahogacounty.us/en-US/032918-CCAAC-meeting.aspx"
+    assert (
+        parsed_item["source"]
+        == "http://bc.cuyahogacounty.us/en-US/032918-CCAAC-meeting.aspx"
+    )
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=PKQtl2S6yv5XIN4J3EO3XA%3d%3d",
-        "title": "Agenda"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=PKQtl2S6yv5XIN4J3EO3XA%3d%3d",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

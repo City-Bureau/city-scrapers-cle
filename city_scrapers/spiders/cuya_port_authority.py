@@ -12,7 +12,9 @@ class CuyaPortAuthoritySpider(CityScrapersSpider):
     name = "cuya_port_authority"
     agency = "Cleveland-Cuyahoga County Port Authority"
     timezone = "America/Detroit"
-    start_urls = ["http://www.portofcleveland.com/about-the-port/board-meeting-information/"]
+    start_urls = [
+        "http://www.portofcleveland.com/about-the-port/board-meeting-information/"
+    ]
     location = {
         "name": "Port of Cleveland Offices",
         "address": "1100 W 9th St, Suite 100, Cleveland, OH 44113",
@@ -90,10 +92,14 @@ class CuyaPortAuthoritySpider(CityScrapersSpider):
 
     def _parse_start(self, item_str):
         """Parse start datetime as a naive datetime object."""
-        date_match = re.search(r"[A-Z][a-z]{2,8} \d{1,2},? \d{4}", re.sub(r"\s+", " ", item_str))
+        date_match = re.search(
+            r"[A-Z][a-z]{2,8} \d{1,2},? \d{4}", re.sub(r"\s+", " ", item_str)
+        )
         if not date_match:
             return
-        return datetime.strptime(date_match.group().replace(",", "") + " 8:30", "%B %d %Y %H:%M")
+        return datetime.strptime(
+            date_match.group().replace(",", "") + " 8:30", "%B %d %Y %H:%M"
+        )
 
     def _validate_location(self, response):
         """Check if location has changed"""
@@ -105,8 +111,10 @@ class CuyaPortAuthoritySpider(CityScrapersSpider):
         """Parse or generate links."""
         links = []
         for link in item.css("a"):
-            links.append({
-                "title": " ".join(link.css("*::text").extract()).strip(),
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            links.append(
+                {
+                    "title": " ".join(link.css("*::text").extract()).strip(),
+                    "href": response.urljoin(link.attrib["href"]),
+                }
+            )
         return links

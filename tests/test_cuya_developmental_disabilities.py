@@ -7,7 +7,7 @@ from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
 from city_scrapers.spiders.cuya_developmental_disabilities import (
-    CuyaDevelopmentalDisabilitiesSpider
+    CuyaDevelopmentalDisabilitiesSpider,
 )
 
 test_response = file_response(
@@ -50,7 +50,9 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0]["id"] == "cuya_developmental_disabilities/201901241730/x/board"
+    assert (
+        parsed_items[0]["id"] == "cuya_developmental_disabilities/201901241730/x/board"
+    )
 
 
 def test_status():

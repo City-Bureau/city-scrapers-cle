@@ -27,7 +27,9 @@ def test_count():
 
 
 def test_title():
-    assert parsed_items[0]["title"] == "Committee of the Whole Meeting/Executive Session"
+    assert (
+        parsed_items[0]["title"] == "Committee of the Whole Meeting/Executive Session"
+    )
 
 
 def test_description():
@@ -47,9 +49,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0][
-        "id"
-    ] == "cuya_county_council/201906251430/x/committee_of_the_whole_meeting_executive_session"
+    assert (
+        parsed_items[0]["id"]
+        == "cuya_county_council/201906251430/x/committee_of_the_whole_meeting_executive_session"  # noqa
+    )
 
 
 def test_status():
@@ -59,22 +62,25 @@ def test_status():
 def test_location():
     assert parsed_items[0]["location"] == {
         "name": "C. Ellen Connally Council Chambers",
-        "address": "2079 East 9th Street, 4th Floor Cleveland, OH 44115"
+        "address": "2079 East 9th Street, 4th Floor Cleveland, OH 44115",
     }
 
 
 def test_source():
-    assert parsed_items[0]["source"] == "http://council.cuyahogacounty.us/en-US/20190625ccwhl.aspx"
+    assert (
+        parsed_items[0]["source"]
+        == "http://council.cuyahogacounty.us/en-US/20190625ccwhl.aspx"
+    )
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "href": "http://council.cuyahogacounty.us/ViewFile.aspx?file=100013975",
-        "title": "Agenda"
-    }, {
-        "href": "https://www.youtube.com/embed/Ha0gyl45jHU",
-        "title": "Video"
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "href": "http://council.cuyahogacounty.us/ViewFile.aspx?file=100013975",
+            "title": "Agenda",
+        },
+        {"href": "https://www.youtube.com/embed/Ha0gyl45jHU", "title": "Video"},
+    ]
 
 
 def test_classification():

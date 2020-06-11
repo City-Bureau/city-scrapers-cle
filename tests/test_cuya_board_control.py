@@ -61,25 +61,30 @@ def test_status():
 
 def test_location():
     assert parsed_item["location"] == {
-        **spider.location, "name": "County Headquarters 4th - Committee Room B"
+        **spider.location,
+        "name": "County Headquarters 4th - Committee Room B",
     }
 
 
 def test_source():
-    assert parsed_item["source"] == "http://bc.cuyahogacounty.us/en-US/090319-BOC-meeting.aspx"
+    assert (
+        parsed_item["source"]
+        == "http://bc.cuyahogacounty.us/en-US/090319-BOC-meeting.aspx"
+    )
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=4WMJGeytOlPc09gwkgQOWA%3d%3d",
-        "title": "Minutes"
-    }, {
-        "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=ItAmWexRAtkvZMENqysomw%3d%3d",
-        "title": "Agenda"
-    }, {
-        "href": "https://www.youtube.com/embed//yMhUaaxldIg",
-        "title": "Video"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=4WMJGeytOlPc09gwkgQOWA%3d%3d",  # noqa
+            "title": "Minutes",
+        },
+        {
+            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=ItAmWexRAtkvZMENqysomw%3d%3d",  # noqa
+            "title": "Agenda",
+        },
+        {"href": "https://www.youtube.com/embed//yMhUaaxldIg", "title": "Video"},
+    ]
 
 
 def test_classification():

@@ -55,9 +55,13 @@ class CuyaDevelopmentalDisabilitiesSpider(CityScrapersSpider):
             item = date_group.strip()
             date_str = re.search(r"^[A-Z][a-z]{2,8} \d{2}", item).group()
             if "Hearing" in item:
-                time_strs = [t[0] for t in re.findall(r"(\d{1,2}(:\d{2})? [APM]{2})", item)]
-                details = [("Public Hearing", time_strs[0].lower()),
-                           ("Board", time_strs[1].lower())]
+                time_strs = [
+                    t[0] for t in re.findall(r"(\d{1,2}(:\d{2})? [APM]{2})", item)
+                ]
+                details = [
+                    ("Public Hearing", time_strs[0].lower()),
+                    ("Board", time_strs[1].lower()),
+                ]
             else:
                 details = [("Board", "5:30 pm")]
 

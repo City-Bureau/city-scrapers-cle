@@ -59,10 +59,12 @@ def test_source():
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "http://boe.cuyahogacounty.us/ViewFile.aspx?file=9Fsk2MKlT8E%3d",
-        "title": "Board Agenda",
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://boe.cuyahogacounty.us/ViewFile.aspx?file=9Fsk2MKlT8E%3d",
+            "title": "Board Agenda",
+        }
+    ]
 
 
 def test_classification():

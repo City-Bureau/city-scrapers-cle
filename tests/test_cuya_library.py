@@ -45,8 +45,10 @@ def test_end():
 
 
 def test_time_notes():
-    assert parsed_items[0]["time_notes"
-                           ] == "Details may change, confirm with staff before attending"
+    assert (
+        parsed_items[0]["time_notes"]
+        == "Details may change, confirm with staff before attending"
+    )
 
 
 def test_id():
@@ -66,11 +68,12 @@ def test_source():
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "href":
-            "https://cuyahogalibrary.org/About-Us/Our-Organization/Board-Meetings/Board-Reports/2018-1/Board-of-Trustees/01-2019-January-Board-Book",  # noqa
-        "title": "Board Book"
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "href": "https://cuyahogalibrary.org/About-Us/Our-Organization/Board-Meetings/Board-Reports/2018-1/Board-of-Trustees/01-2019-January-Board-Book",  # noqa
+            "title": "Board Book",
+        }
+    ]
 
 
 def test_classification():

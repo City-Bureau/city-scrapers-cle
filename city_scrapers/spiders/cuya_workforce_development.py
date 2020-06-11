@@ -13,14 +13,21 @@ class CuyaWorkforceDevelopmentSpider(CuyaCountyMixin, CityScrapersSpider):
     classification = BOARD
 
     def _parse_title(self, response):
-        title_parts = response.css("#contentColumn h1::text"
-                                   ).extract_first().strip().split("Development ")
+        title_parts = (
+            response.css("#contentColumn h1::text")
+            .extract_first()
+            .strip()
+            .split("Development ")
+        )
         return title_parts[-1].strip()
 
     def _parse_description(self, response):
         return re.sub(
-            r"\s+", " ",
-            " ".join(response.css("#contentColumn .padding > div > p *::text").extract())
+            r"\s+",
+            " ",
+            " ".join(
+                response.css("#contentColumn .padding > div > p *::text").extract()
+            ),
         ).strip()
 
     def _parse_location(self, response):

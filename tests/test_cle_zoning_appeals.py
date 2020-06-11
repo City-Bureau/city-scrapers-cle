@@ -18,7 +18,9 @@ spider = CleZoningAppealsSpider()
 freezer = freeze_time("2019-09-09")
 freezer.start()
 
-parsed_items = sorted([item for item in spider.parse(test_response)], key=itemgetter("start"))
+parsed_items = sorted(
+    [item for item in spider.parse(test_response)], key=itemgetter("start")
+)
 
 freezer.stop()
 
@@ -48,7 +50,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0]["id"] == "cle_zoning_appeals/201901070930/x/board_of_zoning_appeals"
+    assert (
+        parsed_items[0]["id"]
+        == "cle_zoning_appeals/201901070930/x/board_of_zoning_appeals"
+    )
 
 
 def test_status():
@@ -60,17 +65,22 @@ def test_location():
 
 
 def test_source():
-    assert parsed_items[0]["source"] == "http://planning.city.cleveland.oh.us/bza/cpc.html"
+    assert (
+        parsed_items[0]["source"] == "http://planning.city.cleveland.oh.us/bza/cpc.html"
+    )
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "title": "Agenda",
-        "href": "http://planning.city.cleveland.oh.us/bza/agenda/2019/crr01-07-2019.pdf"
-    }, {
-        "href": "http://planning.city.cleveland.oh.us/bza/agenda/2019/images/bza01-07-2019.pdf",
-        "title": "Materials"
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "title": "Agenda",
+            "href": "http://planning.city.cleveland.oh.us/bza/agenda/2019/crr01-07-2019.pdf",  # noqa
+        },
+        {
+            "href": "http://planning.city.cleveland.oh.us/bza/agenda/2019/images/bza01-07-2019.pdf",  # noqa
+            "title": "Materials",
+        },
+    ]
 
 
 def test_classification():

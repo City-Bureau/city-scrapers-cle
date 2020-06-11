@@ -47,8 +47,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0]["id"
-                           ] == "cle_planning_commission/202001030900/x/city_planning_commission"
+    assert (
+        parsed_items[0]["id"]
+        == "cle_planning_commission/202001030900/x/city_planning_commission"
+    )
 
 
 def test_status():
@@ -64,11 +66,12 @@ def test_source():
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "href":
-            "http://clevelandohio.gov/sites/default/files/planning/drc/agenda/2020/CPC-Agenda-010320.pdf",  # noqa
-        "title": "Agenda"
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "href": "http://clevelandohio.gov/sites/default/files/planning/drc/agenda/2020/CPC-Agenda-010320.pdf",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

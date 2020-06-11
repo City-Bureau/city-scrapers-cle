@@ -52,8 +52,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item["id"
-                       ] == "cuya_board_revision/201908161030/x/board_of_revision_special_meeting"
+    assert (
+        parsed_item["id"]
+        == "cuya_board_revision/201908161030/x/board_of_revision_special_meeting"
+    )
 
 
 def test_status():
@@ -65,15 +67,19 @@ def test_location():
 
 
 def test_source():
-    assert parsed_item["source"
-                       ] == "http://bc.cuyahogacounty.us/en-US/BOR-Special-Mtg-08162019.aspx"
+    assert (
+        parsed_item["source"]
+        == "http://bc.cuyahogacounty.us/en-US/BOR-Special-Mtg-08162019.aspx"
+    )
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=1fK6J1xBlpVMKzDszKFU8Q%3d%3d",
-        "title": "Agenda"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=1fK6J1xBlpVMKzDszKFU8Q%3d%3d",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

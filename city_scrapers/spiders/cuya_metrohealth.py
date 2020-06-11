@@ -19,7 +19,9 @@ class CuyaMetrohealthSpider(CityScrapersSpider):
 
     def parse(self, response):
         for detail_link in response.css(".gen-content li a::attr(href)").extract():
-            yield response.follow(detail_link, callback=self._parse_detail, dont_filter=True)
+            yield response.follow(
+                detail_link, callback=self._parse_detail, dont_filter=True
+            )
 
     def _parse_detail(self, response):
         """
@@ -33,7 +35,9 @@ class CuyaMetrohealthSpider(CityScrapersSpider):
         for el in response.css(".gen-content > *"):
             el_text = el.extract()
             if len(meeting_items) == 0 or (
-                not isinstance(el.root, str) and el.root.tag == "p" and not el.attrib.get("style")
+                not isinstance(el.root, str)
+                and el.root.tag == "p"
+                and not el.attrib.get("style")
             ):
                 meeting_items.append(el_text)
             else:
@@ -68,9 +72,15 @@ class CuyaMetrohealthSpider(CityScrapersSpider):
 
     def _parse_title(self, item):
         """Parse or generate meeting title."""
-        title_str = " ".join(
-            item.css("p:not([style]) > strong::text, p strong > strong::text").extract()
-        ).replace("Meeting", "").strip()
+        title_str = (
+            " ".join(
+                item.css(
+                    "p:not([style]) > strong::text, p strong > strong::text"
+                ).extract()
+            )
+            .replace("Meeting", "")
+            .strip()
+        )
         if "Board" not in title_str and "Committee" not in title_str:
             title_str += " Committee"
         return re.sub(r"\s+", " ", title_str).strip()
@@ -119,8 +129,10 @@ class CuyaMetrohealthSpider(CityScrapersSpider):
         """Parse or generate links."""
         links = []
         for link in item.css("a"):
-            links.append({
-                "title": " ".join(link.css("*::text").extract()),
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            links.append(
+                {
+                    "title": " ".join(link.css("*::text").extract()),
+                    "href": response.urljoin(link.attrib["href"]),
+                }
+            )
         return links

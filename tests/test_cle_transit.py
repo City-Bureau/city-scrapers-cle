@@ -53,70 +53,67 @@ def test_status():
 def test_location():
     assert parsed_item["location"] == {
         "name": "RTA Main Office",
-        "address": "1240 West 6th St Board Room Cleveland, OH 44113"
+        "address": "1240 West 6th St Board Room Cleveland, OH 44113",
     }
 
 
 def test_source():
-    assert parsed_item["source"] == "http://www.riderta.com/events/2019/8/6/committee-meetings"
+    assert (
+        parsed_item["source"]
+        == "http://www.riderta.com/events/2019/8/6/committee-meetings"
+    )
 
 
 def test_links():
     assert parsed_item["links"] == [
         {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06CmtAgendas.pdf",
-            "title": "2019-08-06CmtAgendas.pdf"
+            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06CmtAgendas.pdf",  # noqa
+            "title": "2019-08-06CmtAgendas.pdf",
         },
         {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06FarePolicy.pdf",
-            "title": "2019-08-06FarePolicy.pdf"
+            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06FarePolicy.pdf",  # noqa
+            "title": "2019-08-06FarePolicy.pdf",
         },
         {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06CNGTriskett_0.pdf",
-            "title": "2019-08-06CNGTriskett.pdf"
+            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06CNGTriskett_0.pdf",  # noqa
+            "title": "2019-08-06CNGTriskett.pdf",
         },
         {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06VanPool.pdf",
-            "title": "2019-08-06VanPool.pdf"
+            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06VanPool.pdf",  # noqa
+            "title": "2019-08-06VanPool.pdf",
         },
         {
-            "href":
-                "http://www.riderta.com/sites/default/files/events/2019-08-06DCADiscountFareProgram.pdf",  # noqa
-            "title": "2019-08-06DCADiscountFareProgram.pdf"
+            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06DCADiscountFareProgram.pdf",  # noqa
+            "title": "2019-08-06DCADiscountFareProgram.pdf",
         },
         {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06MedinaCounty.pdf",
-            "title": "2019-08-06MedinaCounty.pdf"
+            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06MedinaCounty.pdf",  # noqa
+            "title": "2019-08-06MedinaCounty.pdf",
         },
         {
-            "href":
-                "http://www.riderta.com/sites/default/files/events/2019-08-06CasualtyInsProgram.pdf",  # noqa
-            "title": "2019-08-06CasualtyInsProgram.pdf"
+            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06CasualtyInsProgram.pdf",  # noqa
+            "title": "2019-08-06CasualtyInsProgram.pdf",
         },
         {
-            "href":
-                "http://www.riderta.com/sites/default/files/events/2019-08-06IA2ndQuarter2019.pdf",
-            "title": "2019-08-06IA2ndQuarter2019.pdf"
+            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06IA2ndQuarter2019.pdf",  # noqa
+            "title": "2019-08-06IA2ndQuarter2019.pdf",
         },
         {
-            "href":
-                "http://www.riderta.com/sites/default/files/events/2019-08-06ExternalStakholderMinutes.pdf",  # noqa
-            "title": "2019-08-06ExternalStakholderMinutes.pdf"
+            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06ExternalStakholderMinutes.pdf",  # noqa
+            "title": "2019-08-06ExternalStakholderMinutes.pdf",
         },
         {
-            "href":
-                "http://www.riderta.com/sites/default/files/events/2019-08-06OrganizationalMinutes.pdf",  # noqa
-            "title": "2019-08-06OrganizationalMinutes.pdf"
+            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06OrganizationalMinutes.pdf",  # noqa
+            "title": "2019-08-06OrganizationalMinutes.pdf",
         },
         {
-            "href":
-                "http://www.riderta.com/sites/default/files/events/2019-08-06OperationalMinutes.pdf",  # noqa
-            "title": "2019-08-06OperationalMinutes.pdf"
+            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06OperationalMinutes.pdf",  # noqa
+            "title": "2019-08-06OperationalMinutes.pdf",
         },
         {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06AuditMinutes.pdf",
-            "title": "2019-08-06AuditMinutes.pdf"
-        }
+            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06AuditMinutes.pdf",  # noqa
+            "title": "2019-08-06AuditMinutes.pdf",
+        },
     ]
 
 

@@ -12,11 +12,16 @@ class CuyaEmergencyServicesAdvisorySpider(CuyaCountyMixin, CityScrapersSpider):
     start_urls = ["http://bc.cuyahogacounty.us/en-US/CC-EmergencySrvcsAdvsryBrd.aspx"]
 
     def _parse_title(self, response):
-        title_str = " ".join([
-            w.strip()
-            for w in response.css("#contentColumn h1::text").extract_first().strip().split(" - ")
-            if "cancel" not in w.lower()
-        ])
+        title_str = " ".join(
+            [
+                w.strip()
+                for w in response.css("#contentColumn h1::text")
+                .extract_first()
+                .strip()
+                .split(" - ")
+                if "cancel" not in w.lower()
+            ]
+        )
         return title_str.replace(" Meeting", "").strip()
 
     def _parse_classification(self, title):

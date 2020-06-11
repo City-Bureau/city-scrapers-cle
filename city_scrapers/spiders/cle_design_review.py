@@ -38,7 +38,9 @@ class CleDesignReviewSpider(CityScrapersSpider):
             location = self._parse_location(committee_item)
             time_str = self._parse_time_str(committee_item)
             for row in committee_item.css(".report tr"):
-                month_str = row.css("td:first-child::text").extract_first().replace(".", "")
+                month_str = (
+                    row.css("td:first-child::text").extract_first().replace(".", "")
+                )
                 for date_cell in row.css("td:not(:first-child)"):
                     start = self._parse_start(date_cell, year_str, month_str, time_str)
                     if not start:
@@ -92,7 +94,9 @@ class CleDesignReviewSpider(CityScrapersSpider):
         desc_str = " ".join(item.css("p[id] *::text").extract())
         # Override for first committee
         if "CITYWIDE" in desc_str:
-            desc_str = " ".join([l for l in item.css("p *::text").extract() if "days" in l])
+            desc_str = " ".join(
+                [l for l in item.css("p *::text").extract() if "days" in l]
+            )
         loc_str = re.sub(r"\s+", " ", re.split(r"(\sin\s|\sat\s)", desc_str)[-1])
         if "City Hall" in loc_str:
             loc_name = "City Hall"
@@ -117,8 +121,10 @@ class CleDesignReviewSpider(CityScrapersSpider):
     def _parse_links(self, item, response):
         links = []
         for link in item.css("a"):
-            links.append({
-                "title": " ".join(link.css("*::text").extract()).strip(),
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            links.append(
+                {
+                    "title": " ".join(link.css("*::text").extract()).strip(),
+                    "href": response.urljoin(link.attrib["href"]),
+                }
+            )
         return links

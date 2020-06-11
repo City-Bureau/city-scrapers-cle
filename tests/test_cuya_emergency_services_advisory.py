@@ -7,7 +7,7 @@ from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
 from city_scrapers.spiders.cuya_emergency_services_advisory import (
-    CuyaEmergencyServicesAdvisorySpider
+    CuyaEmergencyServicesAdvisorySpider,
 )
 
 test_response = file_response(
@@ -54,8 +54,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item[
-        "id"] == "cuya_emergency_services_advisory/201909111015/x/ccesab_communications_committee"
+    assert (
+        parsed_item["id"]
+        == "cuya_emergency_services_advisory/201909111015/x/ccesab_communications_committee"  # noqa
+    )
 
 
 def test_status():
@@ -65,7 +67,7 @@ def test_status():
 def test_location():
     assert parsed_item["location"] == {
         "name": "The Cassidy Theatre",
-        "address": "6200 Pearl Road Parma Heights, OH 44130"
+        "address": "6200 Pearl Road Parma Heights, OH 44130",
     }
 
 
@@ -74,10 +76,12 @@ def test_source():
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=7DSCAKoM0rqkeTzD%2f6%2f4cw%3d%3d",
-        "title": "Agenda"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=7DSCAKoM0rqkeTzD%2f6%2f4cw%3d%3d",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

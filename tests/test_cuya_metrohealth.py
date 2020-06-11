@@ -71,25 +71,21 @@ def test_source():
 def test_links():
     assert parsed_items[0]["links"] == [
         {
-            "href":
-                "https://www.metrohealth.org/-/media/metrohealth/documents/about-us/board/meetings/2018/09_september/sept2018-bot-agenda.pdf?la=en&hash=E039383B98366D9ABB4AF4D820E30009D8DED50A",  # noqa
-            "title": "Agenda"
+            "href": "https://www.metrohealth.org/-/media/metrohealth/documents/about-us/board/meetings/2018/09_september/sept2018-bot-agenda.pdf?la=en&hash=E039383B98366D9ABB4AF4D820E30009D8DED50A",  # noqa
+            "title": "Agenda",
         },
         {
-            "href":
-                "https://www.metrohealth.org/-/media/metrohealth/documents/about-us/board/meetings/2018/09_september/sept2018-bot-minutes.pdf?la=en&hash=6E58528D3F4AAFE3F888A429AE7F61D1DC0C91A8",  # noqa
-            "title": "Minutes"
+            "href": "https://www.metrohealth.org/-/media/metrohealth/documents/about-us/board/meetings/2018/09_september/sept2018-bot-minutes.pdf?la=en&hash=6E58528D3F4AAFE3F888A429AE7F61D1DC0C91A8",  # noqa
+            "title": "Minutes",
         },
         {
-            "href":
-                "https://www.metrohealth.org/-/media/metrohealth/documents/about-us/board/meetings/2018/09_september/sept2018-bot-presidentsreport.pdf?la=en&hash=5293380F4E11A5E5CD94FA1EFF1E0B63EBBEE39C",  # noqa
-            "title": "President's Report"
+            "href": "https://www.metrohealth.org/-/media/metrohealth/documents/about-us/board/meetings/2018/09_september/sept2018-bot-presidentsreport.pdf?la=en&hash=5293380F4E11A5E5CD94FA1EFF1E0B63EBBEE39C",  # noqa
+            "title": "President's Report",
         },
         {
-            "href":
-                "https://www.metrohealth.org/-/media/metrohealth/documents/about-us/board/meetings/2018/09_september/sept2018-bot-resolutions---public.pdf?la=en&hash=8FD98573CF0EA2F3A5ACFB143B0312A0938446E8",  # noqa
-            "title": "Resolutions"
-        }
+            "href": "https://www.metrohealth.org/-/media/metrohealth/documents/about-us/board/meetings/2018/09_september/sept2018-bot-resolutions---public.pdf?la=en&hash=8FD98573CF0EA2F3A5ACFB143B0312A0938446E8",  # noqa
+            "title": "Resolutions",
+        },
     ]
 
 

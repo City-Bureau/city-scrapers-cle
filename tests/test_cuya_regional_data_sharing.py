@@ -6,7 +6,9 @@ from city_scrapers_core.constants import BOARD, PASSED
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
-from city_scrapers.spiders.cuya_regional_data_sharing import CuyaRegionalDataSharingSpider
+from city_scrapers.spiders.cuya_regional_data_sharing import (
+    CuyaRegionalDataSharingSpider,
+)
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_regional_data_sharing.html"),
@@ -52,7 +54,9 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item["id"] == "cuya_regional_data_sharing/201904051400/x/governing_board"
+    assert (
+        parsed_item["id"] == "cuya_regional_data_sharing/201904051400/x/governing_board"
+    )
 
 
 def test_status():
@@ -68,13 +72,16 @@ def test_source():
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=yC5L9gSioQrD%2bnXtN%2bErfg%3d%3d",
-        "title": "Minutes"
-    }, {
-        "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=yC5L9gSioQr6HqvCS4du4g%3d%3d",
-        "title": "Agenda"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=yC5L9gSioQrD%2bnXtN%2bErfg%3d%3d",  # noqa
+            "title": "Minutes",
+        },
+        {
+            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=yC5L9gSioQr6HqvCS4du4g%3d%3d",  # noqa
+            "title": "Agenda",
+        },
+    ]
 
 
 def test_classification():

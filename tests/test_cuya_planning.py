@@ -18,7 +18,9 @@ spider = CuyaPlanningSpider()
 freezer = freeze_time("2019-10-03")
 freezer.start()
 
-parsed_items = sorted([item for item in spider.parse(test_response)], key=itemgetter("start"))
+parsed_items = sorted(
+    [item for item in spider.parse(test_response)], key=itemgetter("start")
+)
 
 freezer.stop()
 
@@ -64,13 +66,16 @@ def test_source():
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "href": "https://www.countyplanning.us/about/meetings/december-13-2018-meeting-agenda/",
-        "title": "Agenda"
-    }, {
-        "href": "https://www.countyplanning.us/about/meetings/december-13-2018-meeting-agenda/",
-        "title": "Minutes"
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "href": "https://www.countyplanning.us/about/meetings/december-13-2018-meeting-agenda/",  # noqa
+            "title": "Agenda",  # noqa
+        },
+        {
+            "href": "https://www.countyplanning.us/about/meetings/december-13-2018-meeting-agenda/",  # noqa
+            "title": "Minutes",
+        },
+    ]
 
 
 def test_classification():

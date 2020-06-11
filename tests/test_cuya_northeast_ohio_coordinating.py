@@ -7,18 +7,18 @@ from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
 from city_scrapers.spiders.cuya_northeast_ohio_coordinating import (
-    CuyaNortheastOhioCoordinatingSpider
+    CuyaNortheastOhioCoordinatingSpider,
 )
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_northeast_ohio_coordinating.html"),
     url=(
         "https://www.noaca.org/board-committees/noaca-board-and-committees/agendas-and-presentations/-toggle-all"  # noqa
-    )
+    ),
 )
 test_detail_response = file_response(
     join(dirname(__file__), "files", "cuya_northeast_ohio_coordinating_detail.html"),
-    url="https://www.noaca.org/Home/Components/Calendar/Event/8261/7639?toggle=all&npage=2"
+    url="https://www.noaca.org/Home/Components/Calendar/Event/8261/7639?toggle=all&npage=2",  # noqa
 )
 spider = CuyaNortheastOhioCoordinatingSpider()
 
@@ -56,8 +56,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item[
-        "id"] == "cuya_northeast_ohio_coordinating/201909201430/x/transportation_subcommittee"
+    assert (
+        parsed_item["id"]
+        == "cuya_northeast_ohio_coordinating/201909201430/x/transportation_subcommittee"
+    )
 
 
 def test_status():
@@ -76,32 +78,38 @@ def test_source():
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "https://www.noaca.org/home/showdocument?id=24219",
-        "title":
-            "Project Planning Review (PPR)/Intergovernmental Review and "
-            "Consultation (IGRC): 2nd Quarter State Fiscal Year (SFY) 2020"
-    }, {
-        "href": "https://www.noaca.org/home/showdocument?id=24217",
-        "title": "Plan and TIP Amendment: 2nd Quarter SFY 2020"
-    }, {
-        "href": "https://www.noaca.org/home/showdocument?id=24221",
-        "title": "Functional Classification Amendment Recommendations"
-    }, {
-        "href": "https://www.noaca.org/home/showdocument?id=24225",
-        "title": "Safety Performance Target Setting for Calendar Year 2020"
-    }, {
-        "href": "https://www.noaca.org/home/showdocument?id=24227",
-        "title":
-            "Enhanced Mobility for Seniors and Individuals with Disabilities "
-            "(Section 5310) Program Update"
-    }, {
-        "href": "https://www.noaca.org/home/showdocument?id=24223",
-        "title": "NOACA Project Maintenance Monitoring Program"
-    }, {
-        "href": "https://www.noaca.org/Home/ShowDocument?id=24167",
-        "title": "Transportation Subcommittee Packet Sept. 2019"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "https://www.noaca.org/home/showdocument?id=24219",
+            "title": "Project Planning Review (PPR)/Intergovernmental Review and "
+            "Consultation (IGRC): 2nd Quarter State Fiscal Year (SFY) 2020",
+        },
+        {
+            "href": "https://www.noaca.org/home/showdocument?id=24217",
+            "title": "Plan and TIP Amendment: 2nd Quarter SFY 2020",
+        },
+        {
+            "href": "https://www.noaca.org/home/showdocument?id=24221",
+            "title": "Functional Classification Amendment Recommendations",
+        },
+        {
+            "href": "https://www.noaca.org/home/showdocument?id=24225",
+            "title": "Safety Performance Target Setting for Calendar Year 2020",
+        },
+        {
+            "href": "https://www.noaca.org/home/showdocument?id=24227",
+            "title": "Enhanced Mobility for Seniors and Individuals with Disabilities "
+            "(Section 5310) Program Update",
+        },
+        {
+            "href": "https://www.noaca.org/home/showdocument?id=24223",
+            "title": "NOACA Project Maintenance Monitoring Program",
+        },
+        {
+            "href": "https://www.noaca.org/Home/ShowDocument?id=24167",
+            "title": "Transportation Subcommittee Packet Sept. 2019",
+        },
+    ]
 
 
 def test_classification():

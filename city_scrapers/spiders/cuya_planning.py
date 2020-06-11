@@ -50,7 +50,9 @@ class CuyaPlanningSpider(CityScrapersSpider):
                 source=response.url,
             )
 
-            meeting["status"] = self._get_status(meeting, text=item_str_map.get(start_date, ""))
+            meeting["status"] = self._get_status(
+                meeting, text=item_str_map.get(start_date, "")
+            )
             meeting["id"] = self._get_id(meeting)
 
             yield meeting
@@ -78,8 +80,10 @@ class CuyaPlanningSpider(CityScrapersSpider):
             date_obj = datetime.strptime(date_match.group(), "%B %d, %Y").date()
             for link in row.css("a"):
                 link_title = " ".join(link.css("*::text").extract()).strip()
-                link_date_map[date_obj].append({
-                    "title": link_title,
-                    "href": response.urljoin(link.attrib["href"]),
-                })
+                link_date_map[date_obj].append(
+                    {
+                        "title": link_title,
+                        "href": response.urljoin(link.attrib["href"]),
+                    }
+                )
         return link_date_map

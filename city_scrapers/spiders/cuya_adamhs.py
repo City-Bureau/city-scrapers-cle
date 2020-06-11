@@ -40,9 +40,9 @@ class CuyaAdamhsSpider(CityScrapersSpider):
             if check_idx > 3:
                 check_idx = check_idx - math.floor(check_idx / 3)
             if check_idx % 2 == 1:
-                meeting_titles.extend([
-                    t.strip() for t in row.css("td *::text").extract() if t.strip()
-                ])
+                meeting_titles.extend(
+                    [t.strip() for t in row.css("td *::text").extract() if t.strip()]
+                )
             elif check_idx % 2 == 0:
                 meeting_selects.extend(row.css("select"))
         for title, select in zip(meeting_titles, meeting_selects):
@@ -62,10 +62,9 @@ class CuyaAdamhsSpider(CityScrapersSpider):
                     all_day=False,
                     time_notes="See meeting source to confirm",
                     location=self.location,
-                    links=[{
-                        "title": "Minutes",
-                        "href": response.urljoin(minutes_link)
-                    }],
+                    links=[
+                        {"title": "Minutes", "href": response.urljoin(minutes_link)}
+                    ],
                     source=response.url,
                 )
 
@@ -133,8 +132,10 @@ class CuyaAdamhsSpider(CityScrapersSpider):
         """Parse or generate links."""
         links = []
         for link in item.css("a"):
-            links.append({
-                "title": " ".join(link.css("*::text").extract()).strip(),
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            links.append(
+                {
+                    "title": " ".join(link.css("*::text").extract()).strip(),
+                    "href": response.urljoin(link.attrib["href"]),
+                }
+            )
         return links

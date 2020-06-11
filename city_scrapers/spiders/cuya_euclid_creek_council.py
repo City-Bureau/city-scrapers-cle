@@ -17,7 +17,9 @@ class CuyaEuclidCreekCouncilSpider(CityScrapersSpider):
         """Start at calendar pages 2 months back and 2 months into the future"""
         this_month = datetime.now().replace(day=1)
         months = [this_month + relativedelta(months=i) for i in range(-2, 3)]
-        return ["https://www.cuyahogaswcd.org/events/" + m.strftime("%Y/%m") for m in months]
+        return [
+            "https://www.cuyahogaswcd.org/events/" + m.strftime("%Y/%m") for m in months
+        ]
 
     def parse(self, response):
         """
@@ -101,7 +103,9 @@ class CuyaEuclidCreekCouncilSpider(CityScrapersSpider):
             loc_addr = addr_str
         return {
             "name": loc_name,
-            "address": re.sub(r"ohio(?= \d)", "OH", loc_addr, flags=re.I),  # Fix Ohio typos
+            "address": re.sub(
+                r"ohio(?= \d)", "OH", loc_addr, flags=re.I
+            ),  # Fix Ohio typos
         }
 
     def _parse_links(self, response):
@@ -114,8 +118,5 @@ class CuyaEuclidCreekCouncilSpider(CityScrapersSpider):
                 link_title = "Agenda"
             elif "minutes" in link_title:
                 link_title = "Minutes"
-            links.append({
-                "title": link_title,
-                "href": response.urljoin(link_href),
-            })
+            links.append({"title": link_title, "href": response.urljoin(link_href)})
         return links

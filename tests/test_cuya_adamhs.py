@@ -22,7 +22,9 @@ freezer = freeze_time("2019-09-16")
 freezer.start()
 
 parsed_items = [item for item in spider._parse_minutes(test_response)]
-parsed_upcoming_items = [item for item in spider._parse_upcoming(test_upcoming_response)]
+parsed_upcoming_items = [
+    item for item in spider._parse_upcoming(test_upcoming_response)
+]
 
 freezer.stop()
 
@@ -56,8 +58,10 @@ def test_time_notes():
 
 def test_id():
     assert parsed_items[0]["id"] == "cuya_adamhs/201809121600/x/executive_committee"
-    assert parsed_upcoming_items[0]["id"
-                                    ] == "cuya_adamhs/201909181600/x/finance_operations_committee"
+    assert (
+        parsed_upcoming_items[0]["id"]
+        == "cuya_adamhs/201909181600/x/finance_operations_committee"
+    )
 
 
 def test_status():
@@ -72,21 +76,29 @@ def test_location():
 
 def test_source():
     assert parsed_items[0]["source"] == "http://adamhscc.org/en-US/board-minutes.aspx"
-    assert parsed_upcoming_items[0]["source"] == "http://adamhscc.org/en-US/board-meetings.aspx"
+    assert (
+        parsed_upcoming_items[0]["source"]
+        == "http://adamhscc.org/en-US/board-meetings.aspx"
+    )
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "href": "http://adamhscc.org/pdf_adamhscc/en-us/Minutes/Exec_091218.pdf",
-        "title": "Minutes"
-    }]
-    assert parsed_upcoming_items[0]["links"] == [{
-        "title": "Agenda",
-        "href": "http://adamhscc.org/pdf_adamhscc/en-US/Finance & Operations Agenda - Sept 2019.pdf"
-    }, {
-        "title": "Meeting Packet",
-        "href": "http://adamhscc.org/pdf_adamhscc/en-US/9.18.19 combined meeting packet.pdf"
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "href": "http://adamhscc.org/pdf_adamhscc/en-us/Minutes/Exec_091218.pdf",
+            "title": "Minutes",
+        }
+    ]
+    assert parsed_upcoming_items[0]["links"] == [
+        {
+            "title": "Agenda",
+            "href": "http://adamhscc.org/pdf_adamhscc/en-US/Finance & Operations Agenda - Sept 2019.pdf",  # noqa
+        },
+        {
+            "title": "Meeting Packet",
+            "href": "http://adamhscc.org/pdf_adamhscc/en-US/9.18.19 combined meeting packet.pdf",  # noqa
+        },
+    ]
 
 
 def test_classification():

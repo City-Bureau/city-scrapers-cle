@@ -55,34 +55,34 @@ def test_location():
 
 
 def test_source():
-    assert parsed_item["source"] == "http://www.cuyahogalandbank.org/board_meetings/20180928/"
+    assert (
+        parsed_item["source"]
+        == "http://www.cuyahogalandbank.org/board_meetings/20180928/"
+    )
 
 
 def test_links():
     assert parsed_item["links"] == [
         {
-            "href":
-                "http://www.cuyahogalandbank.org/board_meetings/20180928/20180928_Notice_of_Meeting.pdf",  # noqa
-            "title": "Notice"
+            "href": "http://www.cuyahogalandbank.org/board_meetings/20180928/20180928_Notice_of_Meeting.pdf",  # noqa
+            "title": "Notice",
         },
         {
-            "href":
-                "http://www.cuyahogalandbank.org/board_meetings/20180928/20180928_agenda_cclrc_board.pdf",  # noqa
-            "title": "Agenda"
+            "href": "http://www.cuyahogalandbank.org/board_meetings/20180928/20180928_agenda_cclrc_board.pdf",  # noqa
+            "title": "Agenda",
         },
         {
-            "href":
-                "http://www.cuyahogalandbank.org/board_meetings/20180928/20180928_Minutes_of_Meeting.pdf",  # noqa
-            "title": "Minutes"
+            "href": "http://www.cuyahogalandbank.org/board_meetings/20180928/20180928_Minutes_of_Meeting.pdf",  # noqa
+            "title": "Minutes",
         },
         {
             "href": "http://www.cuyahogalandbank.org/board_meetings/20180928/20180928_1_adopted.pdf",  # noqa
-            "title": "Resolution 1"
+            "title": "Resolution 1",
         },
         {
             "href": "http://www.cuyahogalandbank.org/board_meetings/20180928/20180928_2_adopted.pdf",  # noqa
-            "title": "Resolution 2"
-        }
+            "title": "Resolution 2",
+        },
     ]
 
 

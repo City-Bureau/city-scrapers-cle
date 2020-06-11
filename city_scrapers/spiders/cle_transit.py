@@ -32,10 +32,14 @@ class CleTransitSpider(CityScrapersSpider):
         """
         for meeting_link in response.css(".field-content a"):
             meeting_title = " ".join(meeting_link.css("*::text").extract())
-            if not any(w in meeting_title for w in ["Board", "Committee", "Community", "CAC"]):
+            if not any(
+                w in meeting_title for w in ["Board", "Committee", "Community", "CAC"]
+            ):
                 continue
             yield response.follow(
-                meeting_link.attrib["href"], callback=self._parse_meeting, dont_filter=True
+                meeting_link.attrib["href"],
+                callback=self._parse_meeting,
+                dont_filter=True,
             )
 
     def _parse_meeting(self, response):
@@ -108,24 +112,27 @@ class CleTransitSpider(CityScrapersSpider):
 
     def _parse_location(self, response):
         """Parse or generate location."""
-        addr_str = " ".join([
-            l.strip() for l in response.css(".adr .street-address *::text").extract()
-        ]).strip()
+        addr_str = " ".join(
+            [l.strip() for l in response.css(".adr .street-address *::text").extract()]
+        ).strip()
         city = response.css(".adr .locality::text").extract_first() or ""
         state = response.css(".adr .region::text").extract_first() or ""
         zip_code = response.css(".adr .postal-code::text").extract_first() or ""
         return {
             "name": (response.css(".adr .fn::text").extract_first() or "").strip(),
-            "address":
-                "{} {}, {} {}".format(addr_str, city.strip(), state.strip(), zip_code.strip()),
+            "address": "{} {}, {} {}".format(
+                addr_str, city.strip(), state.strip(), zip_code.strip()
+            ),
         }
 
     def _parse_links(self, response):
         """Parse or generate links."""
         links = []
         for link in response.css(".field-type-file a"):
-            links.append({
-                "title": " ".join(link.css("*::text").extract()),
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            links.append(
+                {
+                    "title": " ".join(link.css("*::text").extract()),
+                    "href": response.urljoin(link.attrib["href"]),
+                }
+            )
         return links

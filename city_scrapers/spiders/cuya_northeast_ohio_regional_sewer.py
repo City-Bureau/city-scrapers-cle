@@ -16,7 +16,7 @@ class CuyaNortheastOhioRegionalSewerSpider(CityScrapersSpider):
     ]
     location = {
         "name": "George J. McMonagle Building, Public Meeting Room",
-        "address": "3900 Euclid Ave Cleveland, OH 44115"
+        "address": "3900 Euclid Ave Cleveland, OH 44115",
     }
 
     def parse(self, response):
@@ -66,8 +66,7 @@ class CuyaNortheastOhioRegionalSewerSpider(CityScrapersSpider):
                 link_title = "Minutes"
             else:
                 link_title = link_str
-            link_map[link_date].append({
-                "title": link_title,
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            link_map[link_date].append(
+                {"title": link_title, "href": response.urljoin(link.attrib["href"])}
+            )
         return link_map

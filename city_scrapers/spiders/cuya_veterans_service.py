@@ -65,22 +65,30 @@ class CuyaVeteransServiceSpider(CityScrapersSpider):
 
     def _validate_location(self, response):
         description = re.sub(
-            r"\s+", " ", " ".join(response.css(".su-tabs-pane")[:1].css("p::text").extract())
+            r"\s+",
+            " ",
+            " ".join(response.css(".su-tabs-pane")[:1].css("p::text").extract()),
         )
         if "VSC Boardroom" not in description:
             raise ValueError("Meeting location has changed")
 
     def _validate_start_time(self, response):
-        if "9:30" not in " ".join(response.css(".su-tabs-pane")[:1].css("p::text").extract()):
+        if "9:30" not in " ".join(
+            response.css(".su-tabs-pane")[:1].css("p::text").extract()
+        ):
             raise ValueError("Meeting time has changed")
 
     def _parse_links(self, item, response):
         """Parse or generate links."""
         links = []
         for link in item.css("a"):
-            links.append({
-                # Including just in case agendas are added
-                "title": "Agenda" if "agenda" in link.attrib["href"].lower() else "Minutes",
-                "href": response.urljoin(link.attrib["href"]),
-            })
+            links.append(
+                {
+                    # Including just in case agendas are added
+                    "title": "Agenda"
+                    if "agenda" in link.attrib["href"].lower()
+                    else "Minutes",
+                    "href": response.urljoin(link.attrib["href"]),
+                }
+            )
         return links

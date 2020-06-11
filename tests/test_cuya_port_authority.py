@@ -47,8 +47,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[5][
-        "id"] == "cuya_port_authority/201905220830/x/board_of_directors_special_meeting"
+    assert (
+        parsed_items[5]["id"]
+        == "cuya_port_authority/201905220830/x/board_of_directors_special_meeting"
+    )
 
 
 def test_status():
@@ -65,10 +67,12 @@ def test_source():
 
 
 def test_links():
-    assert parsed_items[5]["links"] == [{
-        "href": "http://www.portofcleveland.com/media/1346/minutes-05222019.pdf",
-        "title": "Minutes"
-    }]
+    assert parsed_items[5]["links"] == [
+        {
+            "href": "http://www.portofcleveland.com/media/1346/minutes-05222019.pdf",
+            "title": "Minutes",
+        }
+    ]
 
 
 def test_classification():

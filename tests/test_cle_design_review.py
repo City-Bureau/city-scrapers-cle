@@ -12,7 +12,7 @@ test_response = file_response(
     join(dirname(__file__), "files", "cle_design_review.html"),
     url=(
         "http://clevelandohio.gov/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/MeetingSchedules"  # noqa
-    )
+    ),
 )
 spider = CleDesignReviewSpider()
 
@@ -49,8 +49,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0][
-        "id"] == "cle_design_review/202001020900/x/downtown_flats_design_review_committee"
+    assert (
+        parsed_items[0]["id"]
+        == "cle_design_review/202001020900/x/downtown_flats_design_review_committee"
+    )
 
 
 def test_status():
@@ -69,18 +71,20 @@ def test_location():
 
 
 def test_source():
-    assert parsed_items[0][
-        "source"
-    ] == "http://clevelandohio.gov/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/MeetingSchedules"  # noqa
+    assert (
+        parsed_items[0]["source"]
+        == "http://clevelandohio.gov/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/MeetingSchedules"  # noqa
+    )
 
 
 def test_links():
     assert parsed_items[0]["links"] == []
-    assert parsed_items[1]["links"] == [{
-        'href':
-            'http://clevelandohio.gov/sites/default/files/planning/drc/agenda/2020/DF-DRAC-agenda-1-16-20.pdf',  # noqa
-        'title': 'Agenda'
-    }]
+    assert parsed_items[1]["links"] == [
+        {
+            "href": "http://clevelandohio.gov/sites/default/files/planning/drc/agenda/2020/DF-DRAC-agenda-1-16-20.pdf",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

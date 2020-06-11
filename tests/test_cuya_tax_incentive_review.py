@@ -47,9 +47,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0][
-        "id"
-    ] == "cuya_tax_incentive_review/201907161300/x/tax_incentive_review_council_broadview_hts_"
+    assert (
+        parsed_items[0]["id"]
+        == "cuya_tax_incentive_review/201907161300/x/tax_incentive_review_council_broadview_hts_"  # noqa
+    )
 
 
 def test_status():

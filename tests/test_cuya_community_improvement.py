@@ -6,7 +6,9 @@ from city_scrapers_core.constants import BOARD, PASSED
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
-from city_scrapers.spiders.cuya_community_improvement import CuyaCommunityImprovementSpider
+from city_scrapers.spiders.cuya_community_improvement import (
+    CuyaCommunityImprovementSpider,
+)
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_community_improvement.html"),
@@ -52,9 +54,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item[
-        "id"
-    ] == "cuya_community_improvement/201908140800/x/cuyahoga_county_community_improvement_corporation"  # noqa
+    assert (
+        parsed_item["id"]
+        == "cuya_community_improvement/201908140800/x/cuyahoga_county_community_improvement_corporation"  # noqa
+    )
 
 
 def test_status():
@@ -66,14 +69,19 @@ def test_location():
 
 
 def test_source():
-    assert parsed_item["source"] == "http://bc.cuyahogacounty.us/en-US/081419-CCCIC-meeting.aspx"
+    assert (
+        parsed_item["source"]
+        == "http://bc.cuyahogacounty.us/en-US/081419-CCCIC-meeting.aspx"
+    )
 
 
 def test_links():
-    assert parsed_item["links"] == [{
-        "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=BboqmBFdco6MkRoTABFWig%3d%3d",
-        "title": "Agenda"
-    }]
+    assert parsed_item["links"] == [
+        {
+            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=BboqmBFdco6MkRoTABFWig%3d%3d",  # noqa
+            "title": "Agenda",
+        }
+    ]
 
 
 def test_classification():

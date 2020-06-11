@@ -47,7 +47,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0]["id"] == "cle_mayor_infrastructure/201901021400/x/advisory_committee"
+    assert (
+        parsed_items[0]["id"]
+        == "cle_mayor_infrastructure/201901021400/x/advisory_committee"
+    )
 
 
 def test_status():
@@ -57,13 +60,15 @@ def test_status():
 def test_location():
     assert parsed_items[0]["location"] == {
         "name": "City Hall",
-        "address": "601 Lakeside Ave, Room 514, Cleveland OH 44114"
+        "address": "601 Lakeside Ave, Room 514, Cleveland OH 44114",
     }
 
 
 def test_source():
-    assert parsed_items[0]["source"
-                           ] == "http://planning.city.cleveland.oh.us/designreview/schedule.php"
+    assert (
+        parsed_items[0]["source"]
+        == "http://planning.city.cleveland.oh.us/designreview/schedule.php"
+    )
 
 
 def test_links():

@@ -15,8 +15,12 @@ class CuyaPublicDefendersCommissionSpider(CuyaCountyMixin, CityScrapersSpider):
     classification = COMMISSION
 
     def parse(self, response):
-        for detail_link in response.css(".SearchResults td:nth-child(2) a::attr(href)").extract():
-            yield response.follow(detail_link, callback=self._parse_detail, dont_filter=True)
+        for detail_link in response.css(
+            ".SearchResults td:nth-child(2) a::attr(href)"
+        ).extract():
+            yield response.follow(
+                detail_link, callback=self._parse_detail, dont_filter=True
+            )
 
     def _parse_title(self, response):
         return "Public Defenders Commission"

@@ -63,11 +63,12 @@ def test_source():
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [{
-        "href":
-            "http://www.cccfdc.org/content/pdfs/minutes/2019/1/CCCFDC-Meeting-Minutes-1-25-2019.pdf",  # noqa
-        "title": "Minutes"
-    }]
+    assert parsed_items[0]["links"] == [
+        {
+            "href": "http://www.cccfdc.org/content/pdfs/minutes/2019/1/CCCFDC-Meeting-Minutes-1-25-2019.pdf",  # noqa
+            "title": "Minutes",
+        }
+    ]
 
 
 def test_classification():

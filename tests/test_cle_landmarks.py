@@ -63,14 +63,10 @@ def test_source():
 def test_links():
     assert parsed_items[0]["links"] == [
         {
-            "href":
-                "http://clevelandohio.gov/sites/default/files/planning/landmark/agenda/2020/CLC-1-9-2020-AGENDA.pdf",  # noqa
-            "title": "Agenda"
+            "href": "http://clevelandohio.gov/sites/default/files/planning/landmark/agenda/2020/CLC-1-9-2020-AGENDA.pdf",  # noqa
+            "title": "Agenda",
         },
-        {
-            "href": "http://clevelandohio.gov/node/164775",
-            "title": "Photo Gallery",
-        }
+        {"href": "http://clevelandohio.gov/node/164775", "title": "Photo Gallery"},
     ]
 
 
