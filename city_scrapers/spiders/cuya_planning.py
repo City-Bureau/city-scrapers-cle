@@ -66,7 +66,7 @@ class CuyaPlanningSpider(CityScrapersSpider):
 
     def _validate_location(self, response):
         desc_str = " ".join(response.css(".entry-content .large-12 *::text").extract())
-        if "4-407" not in desc_str:
+        if "4-407" not in desc_str and "virtually" not in desc_str:
             raise ValueError("Meeting location has changed")
 
     def _parse_links(self, response):
