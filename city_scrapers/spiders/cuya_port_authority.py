@@ -50,7 +50,6 @@ class CuyaPortAuthoritySpider(CityScrapersSpider):
                             el_str = " ".join(el.extract())
                         cell_list[cell_idx] += el_str
                 for cell in cell_list:
-                    print(cell)
                     items.append(Selector(text=cell))
             else:
                 items.append(row)

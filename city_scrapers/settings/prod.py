@@ -1,4 +1,6 @@
-from .base import *
+import os
+
+from .base import *  # noqa
 
 USER_AGENT = (
     "City Scrapers [production mode]. Learn more and say hello at cityscrapers.org"
@@ -46,9 +48,3 @@ FEED_URI = (
 )
 
 FEED_PREFIX = "%Y/%m/%d"
-
-if os.getenv("WAYBACK_ENABLED"):
-    SPIDER_MIDDLEWARES = {
-        **SPIDER_MIDDLEWARES,
-        "city_scrapers.middleware.CityScrapersWaybackMiddleware": 500,
-    }
