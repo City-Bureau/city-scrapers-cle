@@ -38,9 +38,12 @@ class CleCityCouncilSpider(LegistarSpider):
 
     def _parse_description(self, item):
         """Parse or generate meeting description."""
-        if "--em--" not in item.get("Meeting Location", ""):
+        location = item.get("Meeting Location", "")
+        if isinstance(location, dict):
+            location = location.get("label", "")
+        if "--em--" not in location:
             return ""
-        return " ".join(item["Meeting Location"].split("--em--")[1:]).strip()
+        return " ".join(location.split("--em--")[1:]).strip()
 
     def _parse_classification(self, item):
         """Parse or generate classification from allowed options."""
@@ -50,8 +53,11 @@ class CleCityCouncilSpider(LegistarSpider):
 
     def _parse_location(self, item):
         """Parse or generate location."""
+        location = item.get("Meeting Location", "")
+        if isinstance(location, dict):
+            location = location.get("label", "")
         return {
             "address": "601 Lakeside Ave Cleveland OH 44114",
             # Might miss rare edge cases, but will be captured in name
-            "name": item["Meeting Location"].split("--em--")[0],
+            "name": location.split("--em--")[0],
         }
