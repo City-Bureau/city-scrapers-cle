@@ -25,6 +25,8 @@ class CuyaLandBankSpider(CityScrapersSpider):
         """
         # Only pull most recent 10 meetings
         for meeting_link in response.css("#center a")[:5]:
+            if ".pdf" in meeting_link.attrib["href"]:
+                continue
             yield response.follow(
                 meeting_link.attrib["href"],
                 dont_filter=True,
