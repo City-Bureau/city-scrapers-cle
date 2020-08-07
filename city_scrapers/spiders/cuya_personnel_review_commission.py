@@ -15,6 +15,9 @@ class CuyaPersonnelReviewCommissionSpider(CuyaCountyMixin, CityScrapersSpider):
         for detail_link in response.css(
             "#contentColumn td:nth-child(3) a::attr(href)"
         ).extract()[:12]:
+            # Ignore links to the live-stream for parsing
+            if detail_link.endswith("Streaming-Video.aspx"):
+                continue
             yield response.follow(
                 detail_link, callback=self._parse_detail, dont_filter=True
             )
