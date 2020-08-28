@@ -11,7 +11,7 @@ class CuyaElectionsSpider(CityScrapersSpider):
     name = "cuya_elections"
     agency = "Cuyahoga County Board of Elections"
     timezone = "America/Detroit"
-    start_urls = ["https://boe.cuyahogacounty.us/en-US/EventsCalendar.aspx"]
+    start_urls = ["https://boe.cuyahogacounty.gov/en-US/EventsCalendar.aspx"]
     location = {
         "name": "Board of Elections",
         "address": "2925 Euclid Ave, Cleveland, OH 44115",
