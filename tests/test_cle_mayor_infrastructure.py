@@ -10,11 +10,11 @@ from city_scrapers.spiders.cle_mayor_infrastructure import CleMayorInfrastructur
 
 test_response = file_response(
     join(dirname(__file__), "files", "cle_mayor_infrastructure.html"),
-    url="http://planning.city.cleveland.oh.us/designreview/schedule.php",
+    url="http://clevelandohio.gov/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/MeetingSchedules",  # noqa
 )
 spider = CleMayorInfrastructureSpider()
 
-freezer = freeze_time("2019-09-11")
+freezer = freeze_time("2020-08-28")
 freezer.start()
 
 parsed_items = [item for item in spider.parse(test_response)]
@@ -35,7 +35,7 @@ def test_description():
 
 
 def test_start():
-    assert parsed_items[0]["start"] == datetime(2019, 1, 2, 14, 0)
+    assert parsed_items[0]["start"] == datetime(2020, 1, 7, 14, 0)
 
 
 def test_end():
@@ -49,7 +49,7 @@ def test_time_notes():
 def test_id():
     assert (
         parsed_items[0]["id"]
-        == "cle_mayor_infrastructure/201901021400/x/advisory_committee"
+        == "cle_mayor_infrastructure/202001071400/x/advisory_committee"
     )
 
 
@@ -58,17 +58,11 @@ def test_status():
 
 
 def test_location():
-    assert parsed_items[0]["location"] == {
-        "name": "City Hall",
-        "address": "601 Lakeside Ave, Room 514, Cleveland OH 44114",
-    }
+    assert parsed_items[0]["location"] == spider.location
 
 
 def test_source():
-    assert (
-        parsed_items[0]["source"]
-        == "http://planning.city.cleveland.oh.us/designreview/schedule.php"
-    )
+    assert parsed_items[0]["source"] == test_response.url
 
 
 def test_links():
