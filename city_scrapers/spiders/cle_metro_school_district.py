@@ -1,9 +1,10 @@
-from datetime import datetime
 import json
-from requests import Session
+from datetime import datetime
+
 from city_scrapers_core.constants import NOT_CLASSIFIED
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
+from requests import Session
 
 
 class CleMetroSchoolDistrictSpider(CityScrapersSpider):
@@ -15,8 +16,9 @@ class CleMetroSchoolDistrictSpider(CityScrapersSpider):
     def parse(self, response):
         session = Session()
         json_response = session.post(
-            url='https://go.boarddocs.com/oh/cmsd/Board.nsf/BD-GetMeetingsList?open&0.01411260163957615',
-            data={'current_committee_id': 'A9HCRJ3251CA'}
+            url="https://go.boarddocs.com/oh/cmsd/Board.nsf"
+            "/BD-GetMeetingsList?open&0.01411260163957615",
+            data={"current_committee_id": "A9HCRJ3251CA"},
         )
         meetings = json.loads(json_response.text)
 
@@ -67,7 +69,7 @@ class CleMetroSchoolDistrictSpider(CityScrapersSpider):
             time_str = time_str.rsplit("- ", 1)[1]
             time_str = time_str.replace(".", "")
 
-        date_obj = datetime.strptime(f'{date_str} {time_str}', "%Y%m%d %I:%M %p")
+        date_obj = datetime.strptime(f"{date_str} {time_str}", "%Y%m%d %I:%M %p")
         return date_obj
 
     def _parse_classification(self, m):
@@ -78,7 +80,8 @@ class CleMetroSchoolDistrictSpider(CityScrapersSpider):
         """Parse or generate links."""
         meeting_id = m.get("unique")
         if meeting_id:
-            url = "https://go.boarddocs.com/oh/cmsd/Board.nsf/goto?open&id=" + meeting_id
+            url = "https://go.boarddocs.com/oh/cmsd/Board.nsf/goto?open&id="
+            url += meeting_id
             return [{"href": url, "title": f"{self._parse_title(m)}"}]
         else:
             return []
