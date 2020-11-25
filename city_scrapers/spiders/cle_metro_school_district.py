@@ -1,10 +1,12 @@
 import json
+import random
 from datetime import datetime
 
 from city_scrapers_core.constants import NOT_CLASSIFIED
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
 from requests import Session
+from scrapy.http import HtmlResponse
 
 
 class CleMetroSchoolDistrictSpider(CityScrapersSpider):
@@ -17,22 +19,10 @@ class CleMetroSchoolDistrictSpider(CityScrapersSpider):
         session = Session()
         json_response = session.post(
             url="https://go.boarddocs.com/oh/cmsd/Board.nsf"
-            "/BD-GetMeetingsList?open&0.01411260163957615",
+            "/BD-GetMeetingsList?open&" + str(random.random()),
             data={"current_committee_id": "A9HCRJ3251CA"},
         )
         meetings = json.loads(json_response.text)
-
-        """
-        Sample JSON item
-
-        {'current': '',
-        'name': 'Cleveland Municipal School District Work Session Meeting - 6:30 '
-                'P.M.',
-        'numberdate': '20090210',
-        'preliveoak': '1',
-        'unid': '49915970A892CAF2852576F5001D114D',
-        'unique': '842LYP1D114D'}
-        """
 
         for m in meetings:
             meeting = Meeting(
@@ -89,3 +79,42 @@ class CleMetroSchoolDistrictSpider(CityScrapersSpider):
     def _parse_source(self, response):
         """Parse or generate source."""
         return response.url
+
+    def _parse_location(self, m, session):
+        """Parse or generate location.
+
+        NOTE: Making these two additional POST requests
+        adds a noticable amount over overhead / reduces speed
+        """
+        meeting_id = m.get("unique")
+
+        # Request the agenda
+        agenda_response = session.post(
+            url="https://go.boarddocs.com/oh/cmsd/Board.nsf/BD-GetAgenda?"
+            "open&" + str(random.random()),
+            data={"current_committee_id": "A9HCRJ3251CA", "id": f"{meeting_id}"},
+        )
+        agenda_response = HtmlResponse(
+            url="agenda html", body=str.encode(agenda_response.text)
+        )
+
+        # Get the id of the first agenda item
+        agenda_item_id = agenda_response.css("div.wrap-category~div::attr(id)").get()
+
+        # Request the first agenda item
+        agenda_item_response = session.post(
+            url="https://go.boarddocs.com/oh/cmsd/Board.nsf/BD-GetAgendaItem?"
+            "open&" + str(random.random()),
+            data={"current_committee_id": "A9HCRJ3251CA", "id": f"{agenda_item_id}"},
+        )
+        agenda_item_response = HtmlResponse(
+            url="agenda item html", body=str.encode(agenda_item_response.text)
+        )
+
+        # Find the address
+        #
+        # TODO: find a more reliable way of locating the address
+        # since the HTML wrapping it isn't always the same
+        address1 = agenda_item_response.css("p font b::text").get()
+
+        return address1
