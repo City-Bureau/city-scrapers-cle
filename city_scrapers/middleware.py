@@ -7,7 +7,7 @@ class CityScrapersWaybackMiddleware(WaybackMiddleware):
         MAX_LINKS = 3
         if isinstance(item, Meeting):
             links = []
-            if "legistar" in item["source"] and "Calendar.aspx" not in item["source"]:
+            if "legistar" in item["source"]:
                 links = [item["source"]]
             links.extend(
                 [link.get("href") for link in item.get("links", [])][:MAX_LINKS]
