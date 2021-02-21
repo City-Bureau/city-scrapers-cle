@@ -1,3 +1,4 @@
+import logging
 import os
 
 # Scrapy settings for city_scrapers project
@@ -55,3 +56,5 @@ AUTOTHROTTLE_TARGET_CONCURRENCY = float(
 )
 
 SPIDER_MIDDLEWARES = {}
+
+logging.getLogger("pdfminer").propagate = False

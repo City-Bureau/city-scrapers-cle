@@ -7,7 +7,7 @@ class CleCityCouncilSpider(LegistarSpider):
     name = "cle_city_council"
     agency = "Cleveland City Council"
     timezone = "America/Detroit"
-    start_urls = ["https://cityofcleveland.legistar.com"]
+    start_urls = ["https://cityofcleveland.legistar.com/Calendar.aspx"]
     link_types = []
 
     def parse_legistar(self, events):
@@ -17,7 +17,7 @@ class CleCityCouncilSpider(LegistarSpider):
         Change the `_parse_title`, `_parse_start`, etc methods to fit your scraping
         needs.
         """
-        for event, _ in events:
+        for event in events:
             meeting = Meeting(
                 title=event["Name"]["label"],
                 description=self._parse_description(event),
