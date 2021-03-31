@@ -56,7 +56,7 @@ class CuyaArtsCultureSpider(CityScrapersSpider):
         `_parse_detail` should always `yield` a Meeting item.
         """
         description = self._parse_description(response)
-        start = self._parse_start(description)
+        start = self._parse_start(description, response)
         if not start:
             return
 
@@ -99,7 +99,7 @@ class CuyaArtsCultureSpider(CityScrapersSpider):
                 desc_list.append(desc_text)
         return "\n\n".join(desc_list).strip()
 
-    def _parse_start(self, description):
+    def _parse_start(self, description, response):
         """Parse start datetime as a naive datetime object."""
         dt_match = re.search(
             r"[a-zA-Z]{3,10} \d{1,2}, \d{4} at \d{1,2}:\d{2} [ap]m", description
@@ -107,11 +107,12 @@ class CuyaArtsCultureSpider(CityScrapersSpider):
         if dt_match:
             return datetime.strptime(dt_match.group(), "%B %d, %Y at %I:%M %p")
 
+        description = response.css("#Content_ceContent h3::text")[1].extract()
         dt_match = re.search(
-            r"[a-zA-Z]{3,10} \d{1,2} at \d{1,2} [ap].m.", description
+            r"[a-zA-Z]{3,10} \d{1,2}, \d{4} at \d{1,2} [ap].m.", description
         )
         if dt_match:
-            return datetime.strptime(dt_match.group().replace(".",""), "%B %d at %I %p")
+            return datetime.strptime(dt_match.group().replace(".",""), "%B %d, %Y at %I %p")
         return
 
     def _parse_location(self, response):
