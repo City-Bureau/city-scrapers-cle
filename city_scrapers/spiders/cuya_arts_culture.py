@@ -112,7 +112,9 @@ class CuyaArtsCultureSpider(CityScrapersSpider):
             r"[a-zA-Z]{3,10} \d{1,2}, \d{4} at \d{1,2} [ap].m.", description
         )
         if dt_match:
-            return datetime.strptime(dt_match.group().replace(".",""), "%B %d, %Y at %I %p")
+            return datetime.strptime(
+                dt_match.group().replace(".", ""), "%B %d, %Y at %I %p"
+            )
         return
 
     def _parse_location(self, response):
