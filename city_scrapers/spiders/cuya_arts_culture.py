@@ -104,9 +104,15 @@ class CuyaArtsCultureSpider(CityScrapersSpider):
         dt_match = re.search(
             r"[a-zA-Z]{3,10} \d{1,2}, \d{4} at \d{1,2}:\d{2} [ap]m", description
         )
-        if not dt_match:
-            return
-        return datetime.strptime(dt_match.group(), "%B %d, %Y at %I:%M %p")
+        if dt_match:
+            return datetime.strptime(dt_match.group(), "%B %d, %Y at %I:%M %p")
+
+        dt_match = re.search(
+            r"[a-zA-Z]{3,10} \d{1,2} at \d{1,2} [ap].m.", description
+        )
+        if dt_match:
+            return datetime.strptime(dt_match.group().replace(".",""), "%B %d at %I %p")
+        return
 
     def _parse_location(self, response):
         """Parse or generate location."""
