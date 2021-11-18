@@ -22,16 +22,23 @@ class CleLandmarksSpider(CityScrapersSpider):
         """
         `parse` should always `yield` Meeting items.
 
-        Change the `_parse_title`, `_parse_start`, etc methods to fit your scraping
-        needs.
+        For this scraper we are looking to extract the following pieces of information:
+        location (for validation)
+        start_time (for validation)
+
+        and for each meeting:
+        year
+        start
+        links
         """
-        page_content = response.css("#content .field-items .field-item")[0]
-        bold_text = " ".join(page_content.css("p strong::text").extract())
-        self._validate_location(bold_text)
-        self._validate_start_time(bold_text)
+        page_content = response.css("#cpcwrapper table")[1]
+        italics_text = " ".join(page_content.css("p em::text").extract())
+        location_text = " ".join(page_content.css("p::text").extract())
+        self._validate_location(location_text)
+        self._validate_start_time(italics_text)
 
         # Should fail if not found
-        year_str = re.search(r"\d{4}(?= Agenda)", bold_text).group()
+        year_str = re.search(r"\d{4}(?= Agenda)", location_text).group()
 
         for item in page_content.css(".report tr"):
             meeting = Meeting(
@@ -55,7 +62,7 @@ class CleLandmarksSpider(CityScrapersSpider):
 
     def _validate_location(self, text):
         """Parse or generate location."""
-        if "514" not in text:
+        if "in a limited capacity using the WebEx Platform" not in text:
             raise ValueError("Meeting location has changed")
 
     def _validate_start_time(self, text):
