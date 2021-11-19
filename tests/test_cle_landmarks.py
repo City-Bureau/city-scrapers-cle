@@ -68,7 +68,7 @@ def test_links():
         },
         {
             "href": "https://planning.clevelandohio.gov/landmark/agenda/2021/PDF/Landmarks-01-14-2021.pdf",  # noqa
-            "title": "Presentation January 14"
+            "title": "Presentation January 14",
         },
     ]
 
