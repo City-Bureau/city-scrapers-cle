@@ -21,7 +21,7 @@ freezer.stop()
 
 
 def test_count():
-    assert len(parsed_items) == 13
+    assert len(parsed_items) == 23
 
 
 def test_title():
@@ -63,10 +63,13 @@ def test_source():
 def test_links():
     assert parsed_items[0]["links"] == [
         {
-            "href": "http://clevelandohio.gov/landmark/agenda/2021/PDF/CLC-1-14-2021-AGENDA.pdf",  # noqa
-            "title": "Agenda",
+            "href": "https://planning.clevelandohio.gov/landmark/agenda/2021/PDF/CLC-1-14-2021-AGENDA.pdf",  # noqa
+            "title": "Agenda January 14",
         },
-        {"href": "http://clevelandohio.gov/landmark/agenda/2021/PDF/Landmarks01-14-2021Presentation.pdf", "title": "Presentation"},
+        {
+            "href": "https://planning.clevelandohio.gov/landmark/agenda/2021/PDF/Landmarks-01-14-2021.pdf", 
+            "title": "Presentation January 14"
+        },
     ]
 
 

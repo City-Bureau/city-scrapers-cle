@@ -31,37 +31,39 @@ class CleLandmarksSpider(CityScrapersSpider):
         start
         links
         """
-        page_content = response.css("#cpcwrapper table")[1]
-        italics_text = " ".join(page_content.css("p em::text").extract())
-        location_text = " ".join(page_content.css("p::text").extract())
+        italics_text = " ".join(response.css("#agendas em::text").extract())
+        location_text = " ".join(response.css(".card-body ::text").extract())
         self._validate_location(location_text)
         self._validate_start_time(italics_text)
 
-        year_texts = page_content.css('.divider::text').extract()
-        date_tables = page_content.css('.clcAgenda')
+        year_text = response.css('.alert h4::text').extract_first()
+        year = re.search(r"\d{4}(?= AGENDAS)", year_text).group()
+        link_dropdowns = response.css('div.dropdown')
+        agenda_links_dict = self._parse_dropdown_links_to_dict(link_dropdowns[0], response) 
+        presentation_links_dict = self._parse_dropdown_links_to_dict(link_dropdowns[1], response)
+        
 
-        for year_text, date_table in zip(year_texts, date_tables):
-            # Should fail if not found
-            year_str = re.search(r"\d{4}(?= AGENDAS)", year_text).group()
+        table_rows = response.css('tr')
 
-            for item in date_table.css("tr td"):
-
-                table_text = item.css("::text").extract_first()
-                date_match = re.search(r"[A-Z][a-z]{2,9}\s\d{1,2}", table_text)
-                if date_match == None:  # some tables have empty rows - we use this check to skip rows without dates
+        for row in table_rows:
+            month = row.css('td:first-child strong::text').extract_first()[:3]
+            for day in row.css('td:not(:first-child)::text').extract():
+                if not self._validate_day(day):
                     continue
-                date_str = date_match.group()
+
+                agenda_links = self._parse_links_from_dict(month, day, agenda_links_dict)
+                presentation_links = self._parse_links_from_dict(month, day, presentation_links_dict)
 
                 meeting = Meeting(
                     title="Landmarks Commission",
                     description="",
                     classification=COMMISSION,
-                    start=self._parse_start(date_str, year_str),
+                    start=self._parse_start(day, month, year),
                     end=None,
                     all_day=False,
                     time_notes="",
                     location=self.location,
-                    links=self._parse_links(item, response),
+                    links=self._parse_links(agenda_links, presentation_links),
                     source=response.url,
                 )
 
@@ -78,17 +80,48 @@ class CleLandmarksSpider(CityScrapersSpider):
         if "9:00 am" not in text:
             raise ValueError("Meeting start time has changed")
 
-    def _parse_start(self, date_str, year_str):
-        return datetime.strptime(" ".join([date_str, "9", year_str]), "%B %d %H %Y")
 
-    def _parse_links(self, item, response):
+    def _validate_day(self, day):
+        """Cancelled days dont show up but are represented by **"""
+        match = re.match(r"[0-9]{1,2}$", day)
+        if match:
+            return True
+        return False
+
+    def _parse_start(self, day, month, year):
+        return datetime.strptime(" ".join(["9", day, month, year]), "%H %d %b %Y")
+
+    def _parse_links(self, agenda_links, presentation_links):
         """Parse or generate links."""
         links = []
-        for link in item.css("a"):
+        for name in agenda_links:
             links.append(
                 {
-                    "title": " ".join(link.css("*::text").extract()).strip(),
-                    "href": response.urljoin(link.attrib["href"]),
+                    "title": " ".join(["Agenda", name]),
+                    "href": agenda_links[name],
+                }
+            )
+        for name in presentation_links:
+            links.append(
+                {
+                    "title": " ".join(["Presentation", name]),
+                    "href": presentation_links[name],
                 }
             )
         return links
+    
+    def _parse_dropdown_links_to_dict(self, item, response):
+        links = {}
+        for link in item.css('.dropdown-item'):
+            links[link.css('::text').extract_first()] = response.urljoin(link.attrib['href'])
+        return links
+
+    def _parse_links_from_dict(self, month, day, links_dict):
+        filtered = {}
+        for name in links_dict:
+            split_name = name.split(" ")
+            name_month = split_name[0]
+            name_day = split_name[1]
+            if (month.lower()[:3] == name_month.lower()[:3]) and name_day == day:
+                filtered[name] = links_dict[name]
+        return filtered
