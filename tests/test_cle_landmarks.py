@@ -14,14 +14,14 @@ test_response = file_response(
 )
 spider = CleLandmarksSpider()
 
-freezer = freeze_time("2020-05-20")
+freezer = freeze_time("2021-11-18")
 freezer.start()
 parsed_items = [item for item in spider.parse(test_response)]
 freezer.stop()
 
 
 def test_count():
-    assert len(parsed_items) == 5
+    assert len(parsed_items) == 13
 
 
 def test_title():
@@ -33,7 +33,7 @@ def test_description():
 
 
 def test_start():
-    assert parsed_items[0]["start"] == datetime(2020, 1, 9, 9, 0)
+    assert parsed_items[0]["start"] == datetime(2021, 1, 14, 9, 0)
 
 
 def test_end():
@@ -45,7 +45,7 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0]["id"] == "cle_landmarks/202001090900/x/landmarks_commission"
+    assert parsed_items[0]["id"] == "cle_landmarks/202101140900/x/landmarks_commission"
 
 
 def test_status():
@@ -63,10 +63,10 @@ def test_source():
 def test_links():
     assert parsed_items[0]["links"] == [
         {
-            "href": "http://clevelandohio.gov/sites/default/files/planning/landmark/agenda/2020/CLC-1-9-2020-AGENDA.pdf",  # noqa
+            "href": "http://clevelandohio.gov/landmark/agenda/2021/PDF/CLC-1-14-2021-AGENDA.pdf",  # noqa
             "title": "Agenda",
         },
-        {"href": "http://clevelandohio.gov/node/164775", "title": "Photo Gallery"},
+        {"href": "http://clevelandohio.gov/landmark/agenda/2021/PDF/Landmarks01-14-2021Presentation.pdf", "title": "Presentation"},
     ]
 
 
