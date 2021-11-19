@@ -37,28 +37,37 @@ class CleLandmarksSpider(CityScrapersSpider):
         self._validate_location(location_text)
         self._validate_start_time(italics_text)
 
-        # Should fail if not found
-        year_str = re.search(r"\d{4}(?= Agenda)", location_text).group()
+        year_texts = page_content.css('.divider::text').extract()
+        date_tables = page_content.css('.clcAgenda')
 
-        for item in page_content.css(".report tr"):
-            meeting = Meeting(
-                title="Landmarks Commission",
-                description="",
-                classification=COMMISSION,
-                start=self._parse_start(item, year_str),
-                end=None,
-                all_day=False,
-                time_notes="",
-                location=self.location,
-                links=self._parse_links(item, response),
-                source=response.url,
-            )
+        for year_text, date_table in zip(year_texts, date_tables):
+            # Should fail if not found
+            year_str = re.search(r"\d{4}(?= AGENDAS)", year_text).group()
 
-            meeting["status"] = self._get_status(
-                meeting, text=" ".join(item.css("* ::text").extract())
-            )
-            meeting["id"] = self._get_id(meeting)
-            yield meeting
+            for item in date_table.css("tr td"):
+
+                table_text = item.css("::text").extract_first()
+                date_match = re.search(r"[A-Z][a-z]{2,9}\s\d{1,2}", table_text)
+                if date_match == None:  # some tables have empty rows - we use this check to skip rows without dates
+                    continue
+                date_str = date_match.group()
+
+                meeting = Meeting(
+                    title="Landmarks Commission",
+                    description="",
+                    classification=COMMISSION,
+                    start=self._parse_start(date_str, year_str),
+                    end=None,
+                    all_day=False,
+                    time_notes="",
+                    location=self.location,
+                    links=self._parse_links(item, response),
+                    source=response.url,
+                )
+
+                meeting["status"] = self._get_status(meeting)
+                meeting["id"] = self._get_id(meeting)
+                yield meeting
 
     def _validate_location(self, text):
         """Parse or generate location."""
@@ -69,9 +78,7 @@ class CleLandmarksSpider(CityScrapersSpider):
         if "9:00 am" not in text:
             raise ValueError("Meeting start time has changed")
 
-    def _parse_start(self, item, year_str):
-        cell_str = " ".join(item.css("td:first-child *::text").extract())
-        date_str = re.search(r"[A-Z][a-z]{2,9}\s\d{1,2}", cell_str).group()
+    def _parse_start(self, date_str, year_str):
         return datetime.strptime(" ".join([date_str, "9", year_str]), "%B %d %H %Y")
 
     def _parse_links(self, item, response):
