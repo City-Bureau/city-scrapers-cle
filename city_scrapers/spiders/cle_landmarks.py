@@ -11,7 +11,7 @@ class CleLandmarksSpider(CityScrapersSpider):
     agency = "Cleveland Landmarks Commission"
     timezone = "America/Detroit"
     start_urls = [
-        "http://clevelandohio.gov/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/LandmarksCommission"  # noqa
+        "https://planning.clevelandohio.gov/landmark/agenda.php"  # noqa
     ]
     location = {
         "name": "City Hall",
