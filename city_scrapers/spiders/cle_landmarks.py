@@ -91,7 +91,7 @@ class CleLandmarksSpider(CityScrapersSpider):
         links = []
         for name in agenda_links:
             links.append(
-                {"title": " ".join(["Agenda", name]), "href": agenda_links[name], }
+                {"title": " ".join(["Agenda", name]), "href": agenda_links[name],}
             )
         for name in presentation_links:
             links.append(
