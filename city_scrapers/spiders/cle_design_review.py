@@ -22,6 +22,34 @@ class CleDesignReviewSpider(CityScrapersSpider):
         Change the `_parse_title`, `_parse_start`, etc methods to fit your scraping
         needs.
         """
+
+        """
+            There's no element that wraps both the committee name/time  and the dropdown containing the
+            agendas.  As such we want to grab each committee name/times and then use the following dropdown
+            to get the agendas.  Luckily all of the committee name/times are (and are the only thing in) divs with 
+            the class '.mt-3' so we can grab all the divs with those classes and then look for the next sibling div with
+            the ".dropdown" class to get the links to all the agendas.
+
+            Note that the city planning meeting is handled by a different scraper so we do look at it here. Luckily
+            the name/times for the city planning meeting are not currently wrapped in a div, so the list of nodes
+            described above won't include it.
+
+            There are three other points to keep in mind for this scraper:
+            1. The way the data is presented doesn't make it easy to know whether or not a meeting happened, but doesn't have an
+               agenda, or whether a meeting is going to happen on a normal meeting date.  The strategy I'm using is to treat
+               the agenda links as authoritative for past (and if listed upcoming) meetings.  So previous meetings are just read off of the
+               agenda links.  For future meetings we take the greater of either: (a) the most recent agenda, or (b) the current day and then
+               calculate the remaining meetings this year from that info.  As dates progress and agendas are added, those tentative meetings
+               will either continue to exist or disappear based on the ways the agendas are updated.
+
+            2. There is no mention of the year anywhere in the text of the site.  We can extract it from the agenda link - at least
+               for now. But it will be important to keep an eye on how the site is changed in January.
+
+            3. Meetings are currently not being held in person but over webex.  I've included this information in the time_notes section of the
+               meeting. Perhaps a more general notes section would make a bit more sense, but given the current fields on the 
+               meeting object, time notes seemed like a reasonable place to put this.       
+        """
+
         page_content = response.css("#content .field-items .field-item")[0]
         bold_text = " ".join(page_content.css("strong *::text").extract())
         year_match = re.search(r"\d{4}(?= Agenda)", bold_text)
