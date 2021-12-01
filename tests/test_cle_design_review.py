@@ -11,12 +11,12 @@ from city_scrapers.spiders.cle_design_review import CleDesignReviewSpider
 test_response = file_response(
     join(dirname(__file__), "files", "cle_design_review.html"),
     url=(
-        "http://clevelandohio.gov/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/MeetingSchedules"  # noqa
+        "https://planning.clevelandohio.gov/designreview/schedule.php"  # noqa
     ),
 )
 spider = CleDesignReviewSpider()
 
-freezer = freeze_time("2020-05-19")
+freezer = freeze_time("2021-12-01")
 freezer.start()
 
 parsed_items = [item for item in spider.parse(test_response)]
@@ -25,7 +25,7 @@ freezer.stop()
 
 
 def test_count():
-    assert len(parsed_items) == 165
+    assert len(parsed_items) == 96
 
 
 def test_title():
@@ -37,7 +37,7 @@ def test_description():
 
 
 def test_start():
-    assert parsed_items[0]["start"] == datetime(2020, 1, 2, 9, 0)
+    assert parsed_items[0]["start"] == datetime(2021, 1, 14, 9, 0)
 
 
 def test_end():
@@ -45,13 +45,13 @@ def test_end():
 
 
 def test_time_notes():
-    assert parsed_items[0]["time_notes"] == ""
+    assert parsed_items[0]["time_notes"] == "Due to Covid meetings are generally being held on WebEx rather than in person. For more information contact asantora@clevelandohio.gov"
 
 
 def test_id():
     assert (
         parsed_items[0]["id"]
-        == "cle_design_review/202001020900/x/downtown_flats_design_review_committee"
+        == "cle_design_review/202101140900/x/downtown_flats_design_review_committee"
     )
 
 
@@ -73,15 +73,14 @@ def test_location():
 def test_source():
     assert (
         parsed_items[0]["source"]
-        == "http://clevelandohio.gov/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/MeetingSchedules"  # noqa
+        == "https://planning.clevelandohio.gov/designreview/schedule.php"  # noqa
     )
 
 
 def test_links():
-    assert parsed_items[0]["links"] == []
-    assert parsed_items[1]["links"] == [
+    assert parsed_items[0]["links"] == [
         {
-            "href": "http://clevelandohio.gov/sites/default/files/planning/drc/agenda/2020/DF-DRAC-agenda-1-16-20.pdf",  # noqa
+            "href": "https://planning.clevelandohio.gov/designreview/drcagenda/2021/PDF/CPC-Agenda-WebEx-meeting-011421.pdf",  # noqa
             "title": "Agenda",
         }
     ]

@@ -12,9 +12,9 @@ class CleDesignReviewSpider(CityScrapersSpider):
     agency = "Cleveland Design Review Advisory Committees"
     timezone = "America/Detroit"
     start_urls = [
-        "http://clevelandohio.gov/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/MeetingSchedules"  # noqa
+        "https://planning.clevelandohio.gov/designreview/schedule.php"  # noqa
     ]
-    time_notes = "fill in more about webex"
+    time_notes = "Due to Covid meetings are generally being held on WebEx rather than in person. For more information contact "
 
     def parse(self, response):
         """
@@ -46,11 +46,11 @@ class CleDesignReviewSpider(CityScrapersSpider):
             2. There is no mention of the year anywhere in the text of the site.  We can extract it from the agenda link - at least
                for now. But it will be important to keep an eye on how the site is changed in January.
 
-            3. Meetings are currently not being held in person but over webex.  I've included this information in the time_notes section of the
+            3. Meetings are currently not being held in person but over webex.  We've included this information in the time_notes section of the
                meeting. Perhaps a more general notes section would make a bit more sense, but given the current fields on the 
                meeting object, time notes seemed like a reasonable place to put this.       
         """
-        committee_metas = response.css("div.mt-3")  # this skips city planning
+        committee_metas = response.css("div.mt-3")  # this skips city planning since it is handled by a separate scraper
         committee_agendas = response.css("div.mt-3 + div.dropdown")
         if len(committee_metas) !=  len(committee_agendas):
             # we haven't sucessfully  extracted matched metas and agendas so we can't safely iterate over them together.
@@ -63,6 +63,7 @@ class CleDesignReviewSpider(CityScrapersSpider):
                 continue
             location = self._parse_location(committee_meta)
             time_str = self._parse_time_str(committee_meta)
+            email_contact = self._parse_email_contact(committee_meta)
             for agenda in commitee_agenda_list.css("div.dropdown-menu a.dropdown-item"):
                 month_str, day_str = agenda.css("*::text").extract_first().strip().split(" ")
                 year_str = self._parse_year_from_agenda_link(agenda)
@@ -77,7 +78,7 @@ class CleDesignReviewSpider(CityScrapersSpider):
                     start=start,
                     end=None,
                     all_day=False,
-                    time_notes=self.time_notes,
+                    time_notes=self.time_notes + email_contact,
                     location=location,
                     links=self._parse_links(agenda, response),
                     source=response.url,
@@ -114,9 +115,22 @@ class CleDesignReviewSpider(CityScrapersSpider):
         """Parse or generate location."""
         desc_str = " ".join(item.css("p.mb-1::text").extract())
         loc_str = re.sub(r"\s+", " ", re.split(r"(\sin\s|\sat\s)", desc_str)[-1])
-        split_loc = loc_str.split("-")
-        loc_name = "-".join(split_loc[:-1])
-        loc_addr = split_loc[-1]
+        # The downtown/flats commission doesn't give the full address - it just says
+        # city hall so we need a special case to add the street address
+        if "City Hall" in loc_str:
+            loc_name = "City Hall"
+            room_match = re.search(r"(?<=Room )\d+", loc_str)
+            if room_match:
+                loc_addr = "601 Lakeside Ave, Room {}, Cleveland OH 44114".format(
+                    room_match.group()
+                )
+            else:
+                loc_addr = "601 Lakeside Ave, Cleveland OH 44114"
+        else:
+            split_loc = loc_str.split("-")
+            loc_name = "-".join(split_loc[:-1])
+            loc_addr = split_loc[-1]
+        # We need to make sure that the address ends with the city and state    
         if "Cleveland" not in loc_addr:
             loc_addr = loc_addr.strip() + " Cleveland, OH"
         return {
@@ -128,7 +142,7 @@ class CleDesignReviewSpider(CityScrapersSpider):
         links = []
         links.append(
             {
-                "title": " ".join(item.css("*::text").extract()).strip(),
+                "title": "Agenda",
                 "href": response.urljoin(item.attrib["href"]),
             }
         )
@@ -140,3 +154,8 @@ class CleDesignReviewSpider(CityScrapersSpider):
         if year_match:
             return year_match.group(1)
         return "2021"
+
+    def _parse_email_contact(self, item):
+        email_str = item.css("p.mt-1::text").extract()[2]
+        return email_str.replace(": ", "")
+      
