@@ -10,9 +10,7 @@ from city_scrapers.spiders.cle_design_review import CleDesignReviewSpider
 
 test_response = file_response(
     join(dirname(__file__), "files", "cle_design_review.html"),
-    url=(
-        "https://planning.clevelandohio.gov/designreview/schedule.php"  # noqa
-    ),
+    url=("https://planning.clevelandohio.gov/designreview/schedule.php"),  # noqa
 )
 spider = CleDesignReviewSpider()
 
@@ -45,7 +43,10 @@ def test_end():
 
 
 def test_time_notes():
-    assert parsed_items[0]["time_notes"] == "Due to Covid meetings are generally being held on WebEx rather than in person. For more information contact asantora@clevelandohio.gov"
+    assert (
+        parsed_items[0]["time_notes"]
+        == "Due to Covid meetings are generally being held on WebEx rather than in person. For more information contact asantora@clevelandohio.gov"  # noqa
+    )
 
 
 def test_id():
@@ -64,7 +65,7 @@ def test_location():
         "name": "City Hall",
         "address": "601 Lakeside Ave, Room 514, Cleveland OH 44114",
     }
- 
+
 
 def test_source():
     assert (
@@ -89,7 +90,10 @@ def test_classification():
 def test_all_day():
     assert parsed_items[0]["all_day"] is False
 
-# There's a second set of tests to make sure that we're correclty parsing out details for meetings based on calculated times
+
+""" There's a second set of tests to make sure that we're correctly parsing
+out details for meetings based on calculated times"""
+
 
 def test_future_meeting_title():
     assert parsed_items[-1]["title"] == "Southeast  Design Review Committee"
@@ -108,7 +112,10 @@ def test_future_meeting_end():
 
 
 def test_future_meeting_time_notes():
-    assert parsed_items[-1]["time_notes"] == "Due to Covid meetings are generally being held on WebEx rather than in person. For more information contact mfields@clevelandohio.gov"
+    assert (
+        parsed_items[-1]["time_notes"]
+        == "Due to Covid meetings are generally being held on WebEx rather than in person. For more information contact mfields@clevelandohio.gov"  # noqa
+    )
 
 
 def test_future_meeting_id():
@@ -127,6 +134,7 @@ def test_future_meeting_location():
         "name": "York-Rite Mason Temple",
         "address": "13512 Kinsman Road Cleveland, OH",
     }
+
 
 def test_future_meeting_source():
     assert (
