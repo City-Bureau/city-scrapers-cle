@@ -1,7 +1,7 @@
-import re
 import calendar
+import re
 import time
-from datetime import datetime, date, timedelta
+from datetime import date, datetime, timedelta
 
 from city_scrapers_core.constants import ADVISORY_COMMITTEE
 from city_scrapers_core.items import Meeting
