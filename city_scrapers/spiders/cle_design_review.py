@@ -38,16 +38,16 @@ class CleDesignReviewSpider(CityScrapersSpider):
                not a meeting occurred but doesn't have an agenda, or whether a meeting
                is going to happen on a normal meeting date.  The strategy I'm using is
                to treat the agenda links as authoritative for past (and if listed
-               upcoming) meetings.  So previous meetings are just read off of the agenda
-               links.  For future meetings we take the date of the most recent agenda
-               and then calculate the remaining meetings this year from that date. As
-               dates progress and agendas are added, those tentative meetings will
-               either be confirmed to exist or disappear based on the ways the agendas
-               are updated.
+               upcoming) meetings. So previous meetings are just read off of the agenda
+               links. For future meetings we take the date of the most recent agenda
+               and then calculate meetings for 60 days from that date. As dates
+               progress and agendas are added, those tentative meetings will either be
+               confirmed to exist or disappear based on the ways the agendas are
+               updated.
 
-            2.  There is no mention of the year anywhere in the text of the site. We
-                can extract it from the agenda link - at least for now. But it will
-                be important to keep an eye on how the site is changed in January.
+            2. There is no mention of the year anywhere in the text of the site. We
+               can extract it from the agenda link - at least for now. But it will
+               be important to keep an eye on how the site is changed in January.
 
             3. Meetings are currently not being held in person but over webex. We've
                included this information in the time_notes section of the meeting.
@@ -327,8 +327,7 @@ class CleDesignReviewSpider(CityScrapersSpider):
             for day, weekday in days_of_the_month
             if day != 0 and weekday == chosen_weekday
         ]
-        # we then add one to the index and see if the resulting number is in the
-        # chosen_weeks array
+        # we then see if the resulting number is in the chosen_weeks array
         chosen_days = [
             day for i, day in enumerate(potential_days) if (i) in chosen_weeks
         ]
