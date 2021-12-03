@@ -1,608 +1,0 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
-  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr"
-  xmlns:content="http://purl.org/rss/1.0/modules/content/"
-  xmlns:dc="http://purl.org/dc/terms/"
-  xmlns:foaf="http://xmlns.com/foaf/0.1/"
-  xmlns:og="http://ogp.me/ns#"
-  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-  xmlns:sioc="http://rdfs.org/sioc/ns#"
-  xmlns:sioct="http://rdfs.org/sioc/types#"
-  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-  xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
-
-<head profile="http://www.w3.org/1999/xhtml/vocab">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="shortcut icon" href="http://clevelandohio.gov/sites/default/files/favicon.ico" type="image/vnd.microsoft.icon" />
-<link rel="shortlink" href="/node/164760" />
-<link rel="canonical" href="/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/MeetingSchedules" />
-<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
-  <title>Design Review Meeting Schedules | City of Cleveland</title>
-  <link type="text/css" rel="stylesheet" href="http://clevelandohio.gov/sites/default/files/css/css_xE-rWrJf-fncB6ztZfd2huxqgxu4WO-qwma6Xer30m4.css" media="all" />
-<link type="text/css" rel="stylesheet" href="http://clevelandohio.gov/sites/default/files/css/css_HVgHwd8HAx42UpxYqgDB2gJTgc3n5lqvQNVBiGeRats.css" media="all" />
-<link type="text/css" rel="stylesheet" href="http://clevelandohio.gov/sites/default/files/css/css_lBGMedYDMS70T_yE3IuuHCjT6YURIFxNxHjuvxMkcSI.css" media="all" />
-<link type="text/css" rel="stylesheet" href="http://clevelandohio.gov/sites/default/files/css/css_CGzaeWAyAL0UKkI6hfdhoHdw6S1SZTCzTBxPG4v28WY.css" media="all" />
-<link type="text/css" rel="stylesheet" href="http://clevelandohio.gov/sites/default/files/css/css_2THG1eGiBIizsWFeexsNe1iDifJ00QRS9uSd03rY9co.css" media="print" />
-<link type="text/css" rel="stylesheet" href="http://clevelandohio.gov/sites/default/files/css/css_htbL7tJqk2NfN5xdWlvvZh5dSVPTDdEJsAahrQVAk7w.css" media="all" />
-<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:regular&amp;subset=latin" media="all" />
-
-<!--[if lte IE 7]>
-<link type="text/css" rel="stylesheet" href="http://clevelandohio.gov/sites/all/themes/CityOfCleveland/css/ie.css?q9x9m9" media="all" />
-<![endif]-->
-
-<!--[if IE 6]>
-<link type="text/css" rel="stylesheet" href="http://clevelandohio.gov/sites/all/themes/CityOfCleveland/css/ie6.css?q9x9m9" media="all" />
-<![endif]-->
-  <script type="text/javascript" src="http://clevelandohio.gov/sites/default/files/js/js_qikmINIYTWe4jcTUn8cKiMr8bmSDiZB9LQqvceZ6wlM.js"></script>
-<script type="text/javascript" src="http://clevelandohio.gov/sites/default/files/js/js_mBRozGUQTQ0sXKI14AN9oIU6u2XMJugI1rH7gbJ02So.js"></script>
-<script type="text/javascript" src="http://clevelandohio.gov/sites/default/files/js/js_8Vq-Awikon0hJn1YHjujVonNFrJ2eNDkqj0wU47Vun0.js"></script>
-<script type="text/javascript">
-<!--//--><![CDATA[//><!--
-jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"CityOfCleveland","theme_token":"Zzg9rPn-gOpXUcHLInVNX9kUpItWEq3N-6t6iKbY5G4","js":{"misc\/jquery.js":1,"misc\/jquery-extend-3.4.0.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/video\/js\/video.js":1,"sites\/all\/modules\/ctools\/js\/jump-menu.js":1,"sites\/all\/themes\/CityOfCleveland\/js\/script.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"sites\/all\/modules\/calendar\/css\/calendar_multiday.css":1,"sites\/all\/modules\/cck_multiple_field_remove\/css\/cck_multiple_field_remove.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"sites\/all\/modules\/domain\/domain_nav\/domain_nav.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/video\/css\/video.css":1,"sites\/all\/themes\/CityOfCleveland\/css\/layout.css":1,"sites\/all\/themes\/CityOfCleveland\/css\/style.css":1,"sites\/all\/themes\/CityOfCleveland\/css\/colors.css":1,"sites\/all\/themes\/CityOfCleveland\/css\/styles.css.less":1,"sites\/all\/themes\/CityOfCleveland\/css\/custom_mr.css":1,"sites\/all\/themes\/CityOfCleveland\/css\/print.css":1,"sites\/default\/files\/fontyourface\/font.css":1,"http:\/\/fonts.googleapis.com\/css?family=Open+Sans:regular\u0026subset=latin":1,"sites\/all\/themes\/CityOfCleveland\/css\/ie.css":1,"sites\/all\/themes\/CityOfCleveland\/css\/ie6.css":1}},"urlIsAjaxTrusted":{"\/CityofCleveland\/Home\/Government\/CityAgencies\/CityPlanningCommission\/MeetingSchedules":true}});
-//--><!]]>
-</script>
-</head>
-<body class="html not-front not-logged-in one-sidebar sidebar-first page-node page-node- page-node-164760 node-type-sub-page domain-www-cleveland-oh-gov" >
-  <div id="skip-link">
-    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
-  </div>
-    <div id="page-wrapper" class="sub_page"><div id="page">  <!--**   *   * 1-A) HEADER   *   * This is the header region of the page.   *   * The header contains:   *    1-A-1) BACKGROUND IMAGES   *			- Randomized header background images   *   *    1-A-2) LOGO    *			- The City of Cleveland Logo - Configurable at: admin/appearance/settings/CityOfCleveland   *   *    1-A-3) SITE NAME / SLOGAN   *			- The sites name and slogan - "City of Cleveland" (hidden) - Configurable at: admin/config/system/site-information   *   *    1-A-4) MAIN NAVIGATION MENU   *			- Configurable at: admin/structure/menu   *   *    1-A-5) SECONDARY NAVIGATION MENU (not used)   *  **-->  <div id="header" class="without-secondary-menu"><div class="clearfix">	  	<!-- 1-A-1) BACKGROUND IMAGES -->	<div id="header-images">		<div id="header-main-group">			<img id="header-main" src="/sites/all/themes/CityOfCleveland/images/banner_community1.png" alt=" ">						<img id="header-rand" src="http://clevelandohio.gov/sites/default/files/banner_visitors1.jpg" alt=" ">		</div>		<img id="header-stars" src="/sites/all/themes/CityOfCleveland/images/header-stars.png" alt=" ">	</div>	<!-- 1-A-2) LOGO - Configurable at: admin/appearance/settings/CityOfCleveland -->          <a href="/" title="Home" rel="home" id="logo">        <img src="http://clevelandohio.gov/sites/default/files/clndlogo.gif" alt="Home" />      </a>        <!-- 1-A-3) SITE NAME / SLOGAN - Configurable at: admin/config/system/site-information -->          <div id="name-and-slogan" class="element-invisible">                              <div id="site-name" class="element-invisible">              <strong>                <a href="/" title="Home" rel="home"><span>City of Cleveland</span></a>              </strong>            </div>                                </div> <!-- /#name-and-slogan -->          <div class="region region-header">
-    <div id="block-menu-block-1" class="block block-menu-block">
-
-    
-  <div class="content">
-    <div class="menu-block-wrapper menu-block-1 menu-name-main-menu parent-mlid-0 menu-level-1">
-  <ul class="menu clearfix"><li class="first leaf menu-mlid-218"><a href="/">Home</a></li>
-<li class="expanded menu-mlid-302"><a href="/CityofCleveland/Home/Community">Community</a><ul class="menu clearfix"><li class="first leaf menu-mlid-373"><a href="/CityofCleveland/Home/Community/AnimalsandPets">Animals &amp; Pets</a></li>
-<li class="leaf has-children menu-mlid-685"><a href="/CityofCleveland/Home/Community/CareerCenter">Career Center</a></li>
-<li class="leaf has-children menu-mlid-1064"><a href="/CityofCleveland/Home/Community/EducationandLearning">Education and Learning</a></li>
-<li class="leaf has-children menu-mlid-832"><a href="/CityofCleveland/Home/Community/Environment">Environment</a></li>
-<li class="leaf has-children menu-mlid-1106"><a href="/CityofCleveland/Home/Community/GettingAround">Getting Around</a></li>
-<li class="leaf menu-mlid-1073"><a href="/CityofCleveland/Home/Community/HealthHumanServices">Health &amp; Human Services</a></li>
-<li class="leaf has-children menu-mlid-1074"><a href="/CityofCleveland/Home/Community/HousingandHomeImprovement">Housing and Home Improvement</a></li>
-<li class="leaf menu-mlid-1085"><a href="/CityofCleveland/Home/Community/Neighborhoods">Neighborhoods</a></li>
-<li class="leaf has-children menu-mlid-1083"><a href="/CityofCleveland/Home/Community/ResidentsInformationCenter">Residents Information Center</a></li>
-<li class="leaf has-children menu-mlid-1086"><a href="/CityofCleveland/Home/Community/SafetyandEmergency">Safety and Emergency</a></li>
-<li class="leaf has-children menu-mlid-1088"><a href="/CityofCleveland/Home/Community/Seniors">Seniors</a></li>
-<li class="leaf has-children menu-mlid-1094"><a href="/CityofCleveland/Home/Community/ThingsToDo">Things To Do</a></li>
-<li class="last leaf menu-mlid-2002"><a href="/CityofCleveland/Home/Community/VolunteerOpportunities">Volunteer Opportunities</a></li>
-</ul></li>
-<li class="expanded menu-mlid-303"><a href="/CityofCleveland/Home/Business">Business</a><ul class="menu clearfix"><li class="first leaf has-children menu-mlid-913"><a href="/CityofCleveland/Home/Business/BusinessResources">Business Resources</a></li>
-<li class="leaf has-children menu-mlid-917"><a href="/CityofCleveland/Home/Business/ContractorsandBuilders">Contractors and Builders</a></li>
-<li class="leaf has-children menu-mlid-924"><a href="/CityofCleveland/Home/Business/BusinesswithCOC">Doing Business With The City</a></li>
-<li class="leaf menu-mlid-1020"><a href="/CityofCleveland/Home/Business/Environment">Environment</a></li>
-<li class="leaf menu-mlid-1022"><a href="/CityofCleveland/Home/Business/EqualOpportunity">Equal Opportunity</a></li>
-<li class="leaf menu-mlid-1023"><a href="/CityofCleveland/Home/Business/Initiatives">Initiatives</a></li>
-<li class="leaf menu-mlid-1024"><a href="/CityofCleveland/Home/Business/Landlords">Landlords</a></li>
-<li class="leaf menu-mlid-1025"><a href="/CityofCleveland/Home/Business/TaxServices">Taxes</a></li>
-<li class="last leaf menu-mlid-1026"><a href="/CityofCleveland/Home/Business/TransportationandStreets">Transportation and Streets</a></li>
-</ul></li>
-<li class="leaf menu-mlid-304"><a href="/CityofCleveland/Home/Visitors">Visitors</a></li>
-<li class="expanded menu-mlid-305"><a href="/CityofCleveland/Home/KidsTeens">Kids &amp; Teens</a><ul class="menu clearfix"><li class="first leaf menu-mlid-1015"><a href="/CityofCleveland/Home/KidsTeens/Animals">Animals &amp; Pets</a></li>
-<li class="leaf menu-mlid-1016"><a href="/CityofCleveland/Home/KidsTeens/Education">Education</a></li>
-<li class="leaf menu-mlid-1018"><a href="/CityofCleveland/Home/KidsTeens/EmploymentTrainingandPreparation">Employment Preparation</a></li>
-<li class="leaf menu-mlid-1017"><a href="/CityofCleveland/Home/KidsTeens/Environment">Environment</a></li>
-<li class="leaf menu-mlid-1019"><a href="/CityofCleveland/Home/KidsTeens/EspeciallyForYou">Especially For You</a></li>
-<li class="leaf menu-mlid-1021"><a href="/CityofCleveland/Home/KidsTeens/Health">Health &amp; Safety</a></li>
-<li class="leaf has-children menu-mlid-1027"><a href="/CityofCleveland/Home/KidsTeens/recreation">Recreational Activities</a></li>
-<li class="last leaf menu-mlid-1029"><a href="/CityofCleveland/Home/KidsTeens/Arts_Kids">The Arts</a></li>
-</ul></li>
-<li class="last expanded menu-mlid-306"><a href="/CityofCleveland/Home/Government">Government</a><ul class="menu clearfix"><li class="first leaf has-children menu-mlid-967"><a href="/CityofCleveland/Home/Government/MayorsOffice">Office of the Mayor</a></li>
-<li class="leaf has-children menu-mlid-914"><a href="/CityofCleveland/Home/Government/Cabinet">Mayor&#039;s Cabinet</a></li>
-<li class="leaf has-children menu-mlid-1012"><a href="/CityofCleveland/Home/Government/CityAgencies">City Departments</a></li>
-<li class="leaf menu-mlid-915"><a href="/CityofCleveland/Home/Government/CityCouncil">City Council</a></li>
-<li class="leaf menu-mlid-926"><a href="/CityofCleveland/Home/Government/ClevelandCourts">Cleveland Courts</a></li>
-<li class="leaf menu-mlid-919"><a href="/CityofCleveland/Home/Government/MayorsOffice/CMSD_Board_Application">Cleveland Municipal School District</a></li>
-<li class="leaf has-children menu-mlid-678"><a href="/CityofCleveland/Home/media-gallery">Media Gallery</a></li>
-<li class="last leaf menu-mlid-972"><a href="/CityofCleveland/Home/contact">Contact the City</a></li>
-</ul></li>
-</ul></div>
-  </div>
-</div>
-  </div>
-    <!-- 1-A-4) MAIN NAVIGATION MENU - Configurable at: admin/structure/menu -->        <!-- 1-A-5) SECONDARY NAVIGATION MENU (not used) -->      </div></div> <!-- /.section, /#header -->      <div id="main-wrapper"><div id="main">  	   <!--**  	    *  	    * 1-B) SIDEBAR FIRST  	    *  	    * This is the Sidebar First region of the page.  	    * The Sidebar First region is the left column of the page  	    *  	    * The Sidebar First contains:	    *    1-B-1) SIDEBAR FIRST (block region) - Configurable at: NATE	    *			- The first block region in sidebar first. This region is	    *             at the top of the sidebar first region and can only contain	    *             blocks. Blocks that are currently in this region are the	    *             search block and the departments dropdown menu.	    *	    *    1-B-2) PROGRAMED SIDBAR LEFT NODES	    *			- Section where nodes are programatically added to sidebar first	    *             based on node type and/or department.	    *	    *    1-B-3) ASSOCIATED SIDEBAR LEFT NODES	    *			- Section where associated sidebar left nodes are added to	    *             sidebar first. Nodes are associated on each node.	    *	    *    1-B-4) SIDEBAR FIRST BOTTOM (block region) - Configurable at: NATE	    *			- The second block region in sidebar first. This region is	    *             at the bottom of the sidebar first region and can only contain	    *             blocks. Blocks that are currently in this region are the	    *             weather block (home page only).	    *  	   **-->      <div id="sidebar-first" class="column sidebar"><div class="section">	  		<div id="google_translate_element"></div>		<script type="text/javascript">			function googleTranslateElementInit() {				new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');			}		</script>		<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>				      	<!--       	1-B-1) SIDEBAR FIRST (block region) - Configurable at: NATE      		- The first block region in sidebar first. This      		region is at the top of the sidebar first region      		and can only contain blocks. Blocks that are       		currently in this region are the search block       		and the departments dropdown menu.      	-->                    <div class="region region-sidebar-first">
-    <div id="block-block-3" class="block block-block">
-
-    <h2>Search block title</h2>
-  
-  <div class="content">
-     <p><span style="font-size: small;"><strong><span style="color: #a42304;">Search</span> <span style="color: #0b152e;">Site...</span></strong></span></p>
-   </div>
-</div>
-<div id="block-search-form" class="block block-search">
-
-    <h2>Search Site...</h2>
-  
-  <div class="content">
-    <form action="/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/MeetingSchedules" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
-    <div class="form-item form-type-textfield form-item-search-block-form">
-  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
- <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" />
-</div>
-<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Search" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form-adIoUFs0Yg4qYqr7PyG8XNBRrlM9rSBKxUdKllZ7ZzU" />
-<input type="hidden" name="form_id" value="search_block_form" />
-<input type="hidden" name="cck_multiple_field_remove_fields" />
-</div>
-</div></form>  </div>
-</div>
-<div id="block-block-4" class="block block-block">
-
-    <h2>City Department Title</h2>
-  
-  <div class="content">
-     <p><span style="font-size: medium;"><strong><span style="color: #a71e25;">City</span><span style="color: #0b152e;"> Departments</span></strong></span></p>
-   </div>
-</div>
-<div id="block-jump-menu-jump-menu-m-menu-city-department" class="block block-jump-menu">
-
-    <h2>City Departments</h2>
-  
-  <div class="content">
-    <form action="/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/MeetingSchedules" method="post" id="ctools-jump-menu" accept-charset="UTF-8"><div><div class="container-inline"><div class="form-item form-type-select form-item-jump">
- <select class="ctools-jump-menu-select ctools-jump-menu-change form-select" id="edit-jump" name="jump"><option value="" selected="selected">City Departments</option><option value="/CityofCleveland/Home/Government/CityAgencies/Aging" class="d-1">Aging</option><option value="/CityofCleveland/Home/Government/CityAgencies/PublicSafety/AnimalControl" class="d-1">Animal Control Services</option><option value="/CityofCleveland/Home/Government/CityAgencies/BoardofZoningAppeals" class="d-1">Board of Zoning Appeals</option><option value="/CityofCleveland/Home/Government/CityAgencies/BuildingHousing" class="d-1">Building &amp; Housing</option><option value="/CityofCleveland/Home/Government/CityAgencies/BoardofBuildingStandardsandAppeals" class="d-1">Building Standards...</option><option value="/CityofCleveland/Home/Government/CityAgencies/PublicService" class="d-1">Capital Projects</option><option value="/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission" class="d-1">City Planning Commission </option><option value="/CityofCleveland/Home/Government/CityAgencies/CivilServiceCommission" class="d-1">Civil Service Commission</option><option value="/CityofCleveland/Home/Government/MayorsOffice/MayorsOffice" class="d-1">Communications</option><option value="/CityofCleveland/Home/Government/CityAgencies/CommunityDevelopment" class="d-1">Community Development</option><option value="/CityofCleveland/Home/Government/CityAgencies/CommunityRelationsBoard" class="d-1">Community Relations Board</option><option value="/CityofCleveland/Home/Government/CityAgencies/ConsumerAffairs" class="d-1">Consumer Affairs</option><option value="/CityofCleveland/Home/Government/CityAgencies/PublicSafety/EMS" class="d-1">EMS</option><option value="/CityofCleveland/Home/Government/CityAgencies/EconomicDevelopment" class="d-1">Economic Development</option><option value="/CityofCleveland/Home/Government/CityAgencies/OfficeofEqualOpportunity" class="d-1">Equal Opportunity</option><option value="/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/CityPlanningFAQ" class="d-1">FAQs</option><option value="/CityofCleveland/Home/Government/CityAgencies/Finance" class="d-1">Finance</option><option value="/CityofCleveland/Home/Government/CityAgencies/PublicSafety/Fire" class="d-1">Fire</option><option value="/CityofCleveland/Home/Government/CityAgencies/PersonnelandHumanResources" class="d-1">Human Resources</option><option value="/CityofCleveland/Home/Government/CityAgencies/Law" class="d-1">Law</option><option value="/CityofCleveland/Home/Government/MayorsOffice/MayorsOffice" class="d-1">Mayor&#039;s Action Center</option><option value="/CityofCleveland/Home/Government/CityAgencies/PublicSafety/Police" class="d-1">Police</option><option value="/CityofCleveland/Home/Government/CityAgencies/PortControl" class="d-1">Port Control</option><option value="/CityofCleveland/Home/Government/CityAgencies/OPS" class="d-1">Professional Standards</option><option value="/CityofCleveland/Home/Government/CityAgencies/PublicHealth" class="d-1">Public Health</option><option value="/CityofCleveland/Home/Government/CityAgencies/PublicSafety" class="d-1">Public Safety</option><option value="/CityofCleveland/Home/Government/CityAgencies/PublicUtilities" class="d-1">Public Utilities</option><option value="/CityofCleveland/Home/Government/CityAgencies/ParksRecreationandProperties" class="d-1">Public Works</option><option value="/CityofCleveland/Home/Government/CityAgencies/OfficeOfSustainability" class="d-1">Sustainability</option><option value="/CityofCleveland/Home/Government/MayorsOffice/tv20" class="d-1">TV20</option><option value="/CityofCleveland/Home/Government/CityAgencies/ParksRecreationandProperties/Waste" class="d-1">Waste Collection &amp; Disposal</option></select>
-</div>
-<input class="ctools-jump-menu-button ctools-jump-menu-hide form-submit" type="submit" id="edit-go" name="op" value="Go" /></div><input type="hidden" name="form_build_id" value="form-Jh-nWiMAzvBc3Bge6WXEU1G918z70p6ROBH3aMsnplw" />
-<input type="hidden" name="form_id" value="ctools_jump_menu" />
-<input type="hidden" name="cck_multiple_field_remove_fields" />
-</div></form>  </div>
-</div>
-  </div>
-        		<!--		1-B-2) PROGRAMED SIDBAR LEFT NODES			- Section where nodes are programatically added to the sidebar based on			  node type and/or department. Some nodes do not have the option to			  have associate nodes in the sidebar. These nodes can have the sidebar			  nodes set to them programatically here.			- First, if the node is not empty: if (!empty($node)) {}			- Next, if the node is of type (machine name):			  switch ($node->type) { case "CONTENT TYPE MACHINE NAME": }			- Departments assigned to the node can also be nested for more granulariy (term ID):			  switch ($node->field_department_list[und][0][tid]) { case TERM ID: }			- Print the node: print render(node_view(node_load(NODE ID), 'default'));		-->                <!--         1-B-3) ASSOCIATED SIDEBAR LEFT NODES - Configurable on each node in Sidebar Left field        	- Section where sidebar left nodes associated with the main node are added        	  to sidebar first. Nodes are added to the array $associatedArrayLeft        	  and each is printed out here.    	-->		        <div id="node-5170" class="node node-sidebar-navigation-menu sidebar_navigation_menu clearfix" about="/node/5170" typeof="sioc:Item foaf:Document">
-
-        <h2>
-      <a href="/node/5170">Sidebar Nav - Government_Departments_City Planning</a>
-    </h2>
-    <span property="dc:title" content="Sidebar Nav - Government_Departments_City Planning" class="rdf-meta element-hidden"></span>
-  
-  <div class="content clearfix">
-    <div class="field field-name-field-nav-links field-type-link-field field-label-hidden"><div class="field-items"><div class="field-item even"><a href="/CityPlanningCommission" class="nav-links">City Planning Commission</a></div><div class="field-item odd"><a href="/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/ZoningAppeals" class="nav-links">Board of Zoning Appeals </a></div><div class="field-item even"><a href="/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/BuildingStandards" class="nav-links">Board of Building Standards and Appeals</a></div><div class="field-item odd"><a href="/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/LandmarksCommission" class="nav-links">Landmarks Commission</a></div><div class="field-item even"><a href="/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/CityPlanningFAQ" class="nav-links">Frequently Asked Questions</a></div></div></div>  </div>
-
-  
-  
-</div>
-<div id="node-164765" class="node node-sidebar-left-content sidebar_left_content clearfix" about="/node/164765" typeof="sioc:Item foaf:Document">
-
-        <h2>
-      <a href="/node/164765">Clone of Most Requested - City Planning</a>
-    </h2>
-    <span property="dc:title" content="Clone of Most Requested - City Planning" class="rdf-meta element-hidden"></span>
-  
-  <div class="content clearfix">
-    <div class="field field-name-field-banner-title field-type-text field-label-hidden"><div class="field-items"><div class="field-item even">Most Requested </div></div></div><div class="field field-name-field-links field-type-link-field field-label-hidden"><div class="field-items"><div class="field-item even"><a href="/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/MeetingSchedules">Design Review Agenda</a></div><div class="field-item odd"><a href="/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/LandmarksCommission">Landmarks Commission Agenda</a></div><div class="field-item even"><a href="/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/ZoningAppeals">Board of Zoning Appeals Agenda</a></div><div class="field-item odd"><a href="/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/BuildingStandards">Board of Building Standards</a></div><div class="field-item even"><a href="http://clevelandgis.maps.arcgis.com/apps/webappviewer/index.html?id=f15dec13ee6648bcb218d4f5c8290691" target="_blank">Interactive Map</a></div></div></div>  </div>
-
-  
-  
-</div>
-        <!--         1-B-4) SIDEBAR FIRST BOTTOM (block region)	        - The second block region in sidebar first. This region is	          at the bottom of the sidebar first region and can only	          contain blocks. Blocks that are currently in this region	          are the weather block (home page only).    	-->              </div></div> <!-- /.section, /#sidebar-first -->    <div id="spacer1" class="column">&nbsp;</div> <!-- Spacer between sidebar first and content -->       <!--**  	    *  	    * 1-C) CONTENT  	    *  	    * This is the Content region of the page.  	    * The Content region is the center column of the page  	    *  	    * The Content contains:	    *    1-C-1) BREADCRUMBS	    *			- Breadcrumbs are dynamically created based on the node	    *             depth in: 1-A-4) MAIN NAVIGATION MENU	    *	    *    1-C-2) MAIN CONTENT	    *			- Section that contains the editable content of the	    *             current node being viewed.	    *	    *        1-C-2-a) TITLE	    *                 - The value of the Title field on the node.	    *	    *        1-C-2-b) TABS	    *                 - Tabs linking to admin sub-pages beneath the current page	    *                   (e.g., the view and edit tabs when displaying a node)	    *                   These are not tabs found in the Landing Page Lvl 1 content type	    *	    *        1-C-2-c) ACTION LINKS	    *                 - Actions local to the page, such as 'Add menu' on the menu	    *                   administration interface.	    *	    *        1-C-2-d) CONTENT	    *                 - The main content of the node.	    *	    *  	   **-->    <div id="content" class="column"><div class="section">          	<!--         1-C-1) BREADCRUMBS        	- Breadcrumbs are dynamically created based on the node        	  depth in: 1-A-4) MAIN NAVIGATION MENU    	-->	  	      <div id="breadcrumb"><h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="/">Home</a> » Design Review Meeting Schedules</div></div>	    	            	<!--         1-C-2) MAIN CONTENT        	- Section that contains the editable content of the        	  current node being viewed.    	-->      <a id="main-content"></a>            	<!--  1-C-2-a) TITLE - The value of the Title field on the node. -->              <h1 class="title" id="page-title">          Design Review Meeting Schedules        </h1>                	<!--         1-C-2-b) TABS        	- Tabs linking to admin sub-pages beneath the current page        	  (e.g., the view and edit tabs when displaying a node)        	  These are not tabs found in the Landing Page Lvl 1 content type    	-->              <div class="tabs">                  </div>                	<!--         1-C-2-c) ACTION LINKS        	- Actions local to the page, such as 'Add menu' on the menu        	  administration interface.    	-->            <!-- 1-C-2-d) CONTENT - The main content of the node. -->        <div class="region region-content">
-    <div id="block-system-main" class="block block-system">
-
-    
-  <div class="content">
-    <div id="node-164760" class="node node-sub-page node-full sub_page clearfix" about="/CityofCleveland/Home/Government/CityAgencies/CityPlanningCommission/MeetingSchedules" typeof="sioc:Item foaf:Document">
-
-      <span property="dc:title" content="Design Review Meeting Schedules" class="rdf-meta element-hidden"></span>
-  
-  <div class="content clearfix">
-    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"> <p style="text-align: center;"><span style="display: inline !important; float: none; background-color: transparent; color: #000000; font-family: 'Lucida Grande','Lucida Sans Unicode',sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;">Design Review Committee Agendas</span><br style="background-color: transparent; border-image-outset: 0; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; color: #000000; font-family: &amp;quot; lucida grande&amp;quot;,&amp;quot;lucida sans unicode&amp;quot;,sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; vertical-align: baseline; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px; border-width: 0px; border-color: #000000; border-style: none; padding: 0px; margin: 0px;" /><span style="display: inline !important; float: none; background-color: transparent; color: #000000; font-family: 'Lucida Grande','Lucida Sans Unicode',sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;"> </span><a href="#drc" style="background-color: transparent; border-image-outset: 0; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; color: #0074bd; font-family: &amp;quot; lucida grande&amp;quot;,&amp;quot;lucida sans unicode&amp;quot;,sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; vertical-align: baseline; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px; border-width: 0px; border-color: #0074bd; border-style: none; padding: 0px; margin: 0px;">Downtown/Flats</a><span style="display: inline !important; float: none; background-color: transparent; color: #000000; font-family: 'Lucida Grande','Lucida Sans Unicode',sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;"> | </span><a href="#east" style="background-color: transparent; border-image-outset: 0; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; color: #0074bd; font-family: &amp;quot; lucida grande&amp;quot;,&amp;quot;lucida sans unicode&amp;quot;,sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; vertical-align: baseline; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px; border-width: 0px; border-color: #0074bd; border-style: none; padding: 0px; margin: 0px;">East</a><span style="display: inline !important; float: none; background-color: transparent; color: #000000; font-family: 'Lucida Grande','Lucida Sans Unicode',sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;"> | </span><a href="#euclid" style="background-color: transparent; border-image-outset: 0; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; color: #0074bd; font-family: &amp;quot; lucida grande&amp;quot;,&amp;quot;lucida sans unicode&amp;quot;,sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; vertical-align: baseline; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px; border-width: 0px; border-color: #0074bd; border-style: none; padding: 0px; margin: 0px;">Euclid Corridor</a><span style="display: inline !important; float: none; background-color: transparent; color: #000000; font-family: 'Lucida Grande','Lucida Sans Unicode',sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;"> | </span><a href="#farwest" style="background-color: transparent; border-image-outset: 0; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; color: #0074bd; font-family: &amp;quot; lucida grande&amp;quot;,&amp;quot;lucida sans unicode&amp;quot;,sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; vertical-align: baseline; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px; border-width: 0px; border-color: #0074bd; border-style: none; padding: 0px; margin: 0px;">Far West</a><span style="display: inline !important; float: none; background-color: transparent; color: #000000; font-family: 'Lucida Grande','Lucida Sans Unicode',sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;"> | </span><a href="#nearwest" style="background-color: transparent; border-image-outset: 0; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; color: #0074bd; font-family: &amp;quot; lucida grande&amp;quot;,&amp;quot;lucida sans unicode&amp;quot;,sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; vertical-align: baseline; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px; border-width: 0px; border-color: #0074bd; border-style: none; padding: 0px; margin: 0px;">Near West</a><span style="display: inline !important; float: none; background-color: transparent; color: #000000; font-family: 'Lucida Grande','Lucida Sans Unicode',sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;"> | </span><a href="#northeast" style="background-color: transparent; border-image-outset: 0; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; color: #0074bd; font-family: &amp;quot; lucida grande&amp;quot;,&amp;quot;lucida sans unicode&amp;quot;,sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; vertical-align: baseline; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px; border-width: 0px; border-color: #0074bd; border-style: none; padding: 0px; margin: 0px;">Northeast</a><span style="display: inline !important; float: none; background-color: transparent; color: #000000; font-family: 'Lucida Grande','Lucida Sans Unicode',sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;"> | </span><a href="#southeast" style="background-color: transparent; border-image-outset: 0; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; color: #0074bd; font-family: &amp;quot; lucida grande&amp;quot;,&amp;quot;lucida sans unicode&amp;quot;,sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; vertical-align: baseline; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px; border-width: 0px; border-color: #0074bd; border-style: none; padding: 0px; margin: 0px;">Southeast</a><span style="display: inline !important; float: none; background-color: transparent; color: #000000; font-family: 'Lucida Grande','Lucida Sans Unicode',sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;"> | </span><a href="#streets" style="background-color: transparent; border-image-outset: 0; border-image-repeat: stretch; border-image-slice: 100%; border-image-source: none; border-image-width: 1; color: #0074bd; font-family: &amp;quot; lucida grande&amp;quot;,&amp;quot;lucida sans unicode&amp;quot;,sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; vertical-align: baseline; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px; border-width: 0px; border-color: #0074bd; border-style: none; padding: 0px; margin: 0px;">Mayor's Streetscape</a></p>
-<p style="text-align: center;"></p>
-<p style="text-align: center;"><strong>CITY PLANNING</strong></p>
-<p style="text-align: center;">The City Planning Commission meets at 9am, every 1st &amp; 3rd <strong>Friday</strong> of the month in Room 514, City Hall.</p>
-<table><tbody><tr><td style="background: #ddd;">
-<p>Under the conditions specified by law, the Cleveland Planning Commission will be conducting virtual meetings in a limited capacity using the WebEx Platform. This will include limited agenda items to initiate the process to ensure we can appropriately evaluate the process.</p>
-<p>The Planning Commission will also be live streamed on YouTube and TV 20. The links for the live streams will be available before the meeting.</p>
-<p>In order to keep the WebEx session to a manageable size we are asking individuals that wish to participate in the meeting to contact the City Planning office by phone or email. Those individuals not planning to comment on any agenda item during the WebEx session are encouraged to view one of the live streams.</p>
-<p>To contact the City Planning office and request access to the WebEx City Planning Meeting please call 216.664.3826 or email us at <a href="mailto:cityplanning@clevelandohio.gov">cityplanning@clevelandohio.gov</a>.</p>
-<p>We ask that you include the name of the project you plan to comment on when requesting access to the WebEx meeting</p>
-<p style="text-align: center;"><a href="/sites/default/files/forms_publications/Webex-instructions-for-boards-commisisons.pdf">WebEx Help</a> | <a href="https://www.webex.com/downloads.html/" target="_blank">WebEx Website (App Download)</a></p>
-<p style="text-align: center;"><a href="https://youtu.be/FemnYBGvSbg">YouTube Live Stream</a> | <a href="http://www.tv20cleveland.com/watch-now/">TV 20 Live Stream</a></p>
-</td>
-</tr></tbody></table><p style="text-align: center;"></p>
-<hr /><p><strong>2020 Agendas:</strong></p>
-<table class="report" style="width: 35%;"><tbody><tr><td>JAN.</td>
-<td>03 - <a href="/sites/default/files/planning/drc/agenda/2020/CPC-Agenda-010320.pdf">Agenda</a></td>
-<td>17 - <a href="/sites/default/files/planning/drc/agenda/2020/CPC-Agenda011720.pdf">Agenda</a> - <a href="/node/164772">Photo Gallery</a></td>
-</tr><tr><td>FEB.</td>
-<td>07 - <a href="/sites/default/files/planning/drc/agenda/2020/CPC-Agenda-020720.pdf">Agenda</a> - <a href="/node/164773">Photo Gallery</a></td>
-<td>21 - <a href="/sites/default/files/planning/drc/agenda/2020/CPC-Agenda-022120.pdf">Agenda</a></td>
-</tr><tr><td>MAR.</td>
-<td>06 - <a href="/sites/default/files/planning/drc/agenda/2020/CPC-Agenda-030620.pdf">Agenda</a> - <a href="/node/164774">Photo Gallery</a></td>
-<td>20</td>
-</tr><tr><td>APR.</td>
-<td>03</td>
-<td>17</td>
-</tr><tr><td>MAY</td>
-<td>01</td>
-<td>15 - <a href="/sites/default/files/planning/drc/agenda/2020/CPC-Agenda-WebEx-meeting-051520.pdf">Agenda</a></td>
-</tr><tr><td>JUN.</td>
-<td>05</td>
-<td>19</td>
-</tr><tr><td>JUL.</td>
-<td>03</td>
-<td>17</td>
-</tr><tr><td>AUG.</td>
-<td>07</td>
-<td>21</td>
-</tr><tr><td>SEP.</td>
-<td>04</td>
-<td>18</td>
-</tr><tr><td>OCT.</td>
-<td>02</td>
-<td>16</td>
-</tr><tr><td>NOV.</td>
-<td>06</td>
-<td>20</td>
-</tr><tr><td>DEC.</td>
-<td>04</td>
-<td>18</td>
-</tr></tbody></table><hr /><p id="drc" style="text-align: center;">CITYWIDE DESIGN REVIEW ADVISORY COMMITTEES</p>
-<p style="text-align: center;"><strong>***Please Note***</strong><br /><strong>All Design Review Committee meetings are being conducted virtually using the WebEx Platform. Please contact the staff planner for meeting information.DOWNTOWN/FLATS</strong></p>
-<p style="text-align: center;"></p>
-<p style="text-align: center;"><strong>Downtown/Flats Design Review Committee</strong></p>
-<p style="text-align: center;">The Committee meets at 9:00 am, <strong>Thursday</strong> prior to the City Planning Commission meeting on Fridays in Room 514, City Hall</p>
-<p><strong>Contact:</strong> Anthony Santora Phone: 216.664.3815 <strong>Email:</strong> <a href="mailto:asantora@clevelandohio.gov">asantora@clevelandohio.gov</a></p>
-<p style="text-align: left;"><strong>Click on the meeting date for agenda (PDF)</strong></p>
-<table class="report" style="width: 25%;"><tbody><tr><td>JAN.</td>
-<td>02</td>
-<td>16 - <a href="/sites/default/files/planning/drc/agenda/2020/DF-DRAC-agenda-1-16-20.pdf">Agenda</a></td>
-</tr><tr><td>FEB.</td>
-<td>06 - <a href="/sites/default/files/planning/drc/agenda/2020/DF-DRAC2-06-20.pdf">Agenda</a></td>
-<td>20 - <a href="/sites/default/files/planning/drc/agenda/2020/DF-DRAC-agenda-2-20-20.pdf">Agenda</a></td>
-</tr><tr><td>MAR.</td>
-<td>05 - <a href="/sites/default/files/planning/drc/agenda/2020/DF-DRAC-agenda-3-05-20.pdf">Agenda</a></td>
-<td>19</td>
-</tr><tr><td>APR.</td>
-<td>02</td>
-<td>16</td>
-</tr><tr><td>MAY</td>
-<td>April 30</td>
-<td>14*</td>
-</tr><tr><td>JUN.</td>
-<td>04</td>
-<td>18</td>
-</tr><tr><td>JUL.</td>
-<td>02 - No meeting</td>
-<td>16</td>
-</tr><tr><td>AUG.</td>
-<td>06</td>
-<td>20</td>
-</tr><tr><td>SEP.</td>
-<td>03</td>
-<td>17</td>
-</tr><tr><td>OCT.</td>
-<td>01</td>
-<td>15</td>
-</tr><tr><td>NOV.</td>
-<td>05</td>
-<td>19</td>
-</tr><tr><td>DEC.</td>
-<td>03</td>
-<td>17</td>
-</tr></tbody></table><hr /><p id="east" style="text-align: center;"><strong>EAST DESIGN REVIEW COMMITTEE</strong><br />The Committee meets on the 2nd &amp; 4th <strong>Tuesdays</strong> @ 8:30 am in Cornucopia Place, 7201 Kinsman Road, Suite 103B</p>
-<p>Contact: Nickol Calhoun Phone: 216.664.3817 Email: <a href="mailto:ncalhoun@clevelandohio.gov">ncalhoun@clevelandohio.gov</a></p>
-<p style="text-align: left;"><strong>Click on the meeting date for agenda (PDF)</strong></p>
-<table class="report" style="width: 25%;"><tbody><tr><td>JAN.</td>
-<td>14 - <a href="/sites/default/files/planning/drc/agenda/2020/East-Agenda1-14-20.pdf">Agenda</a></td>
-<td>28 - <a href="/sites/default/files/planning/drc/agenda/2020/East-Agenda2-11-20.pdf">Agenda</a></td>
-</tr><tr><td>FEB.</td>
-<td>11</td>
-<td>25</td>
-</tr><tr><td>MAR.</td>
-<td>10</td>
-<td>24</td>
-</tr><tr><td>APR.</td>
-<td>14</td>
-<td>28</td>
-</tr><tr><td>MAY</td>
-<td>12</td>
-<td>26</td>
-</tr><tr><td>JUN.</td>
-<td>09</td>
-<td>23</td>
-</tr><tr><td>JUL.</td>
-<td>14</td>
-<td>28</td>
-</tr><tr><td>AUG.</td>
-<td>11</td>
-<td>25</td>
-</tr><tr><td>SEP.</td>
-<td>08</td>
-<td>22</td>
-</tr><tr><td>OCT.</td>
-<td>13</td>
-<td>27</td>
-</tr><tr><td>NOV.</td>
-<td>10</td>
-<td>24</td>
-</tr><tr><td>DEC.</td>
-<td>08</td>
-<td>22</td>
-</tr></tbody></table><hr /><p id="euclid" style="text-align: center;"><strong>EUCLID CORRIDOR DESIGN REVIEW COMMITTEE</strong><br />The Committee meets on the 1st &amp; 3rd <strong>Thursdays</strong> @ 8:00 am in The Agora Building- 5000 Euclid Ave</p>
-<p><strong>Contact</strong>: Kim Scott <strong>Phone</strong>: 216.664.3803 <strong>Email</strong>: <a href="mailto:kscott@clevelandohio.gov">kscott@clevelandohio.gov</a></p>
-<p style="text-align: left;"><b>Click on the meeting date for agenda (PDF)</b></p>
-<table class="report" style="width: 25%;"><tbody><tr><td>JAN.</td>
-<td>02</td>
-<td>16 - <a href="/sites/default/files/planning/drc/agenda/2020/EC-Agenda-1-16-20.pdf">Agenda</a></td>
-</tr><tr><td>FEB.</td>
-<td>6 - <a href="/sites/default/files/planning/drc/agenda/2020/EC-Agenda2-6-20.pdf">Agenda</a></td>
-<td>20</td>
-</tr><tr><td>MAR.</td>
-<td>5 - <a href="/sites/default/files/planning/drc/agenda/2020/EC-Agenda3-5-20.pdf">Agenda</a></td>
-<td>19</td>
-</tr><tr><td>APR.</td>
-<td>02</td>
-<td>16</td>
-</tr><tr><td>MAY</td>
-<td>April 30</td>
-<td>14</td>
-</tr><tr><td>JUN.</td>
-<td>04</td>
-<td>18</td>
-</tr><tr><td>JUL.</td>
-<td>2 -No meeting</td>
-<td>16</td>
-</tr><tr><td>AUG.</td>
-<td>06</td>
-<td>20</td>
-</tr><tr><td>SEP.</td>
-<td>03</td>
-<td>17</td>
-</tr><tr><td>OCT.</td>
-<td>01</td>
-<td>15</td>
-</tr><tr><td>NOV.</td>
-<td>5</td>
-<td>19</td>
-</tr><tr><td>DEC.</td>
-<td>03</td>
-<td>17</td>
-</tr></tbody></table><hr /><p id="farwest" style="text-align: center;"><strong>FAR WEST DESIGN REVIEW COMMITTEE</strong><br />The Committee meets on the 1st &amp; 3rd <strong>Wednesdays</strong> @ 8:00 am at St. Mel's Catholic Church - 14436 Triskett</p>
-<p><strong>Contact</strong>: Adam Davenport <strong>Phone</strong>: 216.664.3800 <strong>Email</strong>: <a href="mailto:adavenport@clevelandohio.gov">adavenport@clevelandohio.gov</a></p>
-<p style="text-align: left;"><b>Click on the meeting date for agenda (PDF)</b></p>
-<table class="report" style="width: 25%;"><tbody><tr><td>JAN.</td>
-<td>1 -No meeting</td>
-<td>15</td>
-</tr><tr><td>FEB.</td>
-<td>05</td>
-<td>19</td>
-</tr><tr><td>MAR.</td>
-<td>04</td>
-<td>18</td>
-</tr><tr><td>APR.</td>
-<td>01</td>
-<td>15</td>
-</tr><tr><td>MAY</td>
-<td>06</td>
-<td>20</td>
-</tr><tr><td>JUN.</td>
-<td>03</td>
-<td>17</td>
-</tr><tr><td>JUL.</td>
-<td>01</td>
-<td>15</td>
-</tr><tr><td>AUG.</td>
-<td>05</td>
-<td>19</td>
-</tr><tr><td>SEP.</td>
-<td>02</td>
-<td>16</td>
-</tr><tr><td>OCT.</td>
-<td>07</td>
-<td>21</td>
-</tr><tr><td>NOV.</td>
-<td>04</td>
-<td>18</td>
-</tr><tr><td>DEC.</td>
-<td>02</td>
-<td>16</td>
-</tr></tbody></table><hr /><p id="nearwest" style="text-align: center;"><strong>NEAR WEST DESIGN REVIEW COMMITTEE</strong><br />The Committee meets on the 2nd &amp; 4th <strong>Wednesdays</strong> @ 8:30 am at South Branch Library, 3096 Scranton Rd.</p>
-<p><strong>Contact</strong>: Matt Moss <strong>Phone</strong>: 216.664.3807 <strong>Email</strong>: <a href="mailto:mmoss@clevelandohio.gov">mmoss@clevelandohio.gov</a></p>
-<p style="text-align: left;"><b>Click on the meeting date for agenda (PDF)</b></p>
-<table class="report" style="width: 25%;"><tbody><tr><td>JAN.</td>
-<td>08 - <a href="/sites/default/files/planning/drc/agenda/2020/NW-Agenda-1_8_20.pdf">Agenda</a></td>
-<td>22</td>
-</tr><tr><td>FEB.</td>
-<td>12 - <a href="/sites/default/files/planning/drc/agenda/2020/NW-Agenda-2_12_20.pdf">Agenda</a></td>
-<td>26 - <a href="/sites/default/files/planning/drc/agenda/2020/NW-Agenda-2_26_20.pdf">Agenda</a></td>
-</tr><tr><td>MAR.</td>
-<td>11 - <a href="/sites/default/files/planning/drc/agenda/2020/NW-Agenda-3_11_20.pdf">Agenda</a></td>
-<td>25</td>
-</tr><tr><td>APR.</td>
-<td>08</td>
-<td>22</td>
-</tr><tr><td>MAY</td>
-<td>13 - <a href="/sites/default/files/planning/drc/agenda/2020/NW-Agenda-5-13-2020.pdf">Agenda</a></td>
-<td>27</td>
-</tr><tr><td>JUN.</td>
-<td>10</td>
-<td>24</td>
-</tr><tr><td>JUL.</td>
-<td>08</td>
-<td>22</td>
-</tr><tr><td>AUG.</td>
-<td>12</td>
-<td>26</td>
-</tr><tr><td>SEP.</td>
-<td>09</td>
-<td>23</td>
-</tr><tr><td>OCT.</td>
-<td>14</td>
-<td>28</td>
-</tr><tr><td>NOV.</td>
-<td>11</td>
-<td>25</td>
-</tr><tr><td>DEC.</td>
-<td>09</td>
-<td>23</td>
-</tr></tbody></table><hr /><p id="northeast" style="text-align: center;"><strong>NORTHEAST DESIGN REVIEW COMMITTEE</strong><br />The Committee meets on the 1st &amp; 3rd <strong>Tuesdays</strong> @ 8:00 am at CPL Memorial-Nottingham Branch - 17109 Lakeshore Blvd.</p>
-<p><strong>Contact</strong>: Sharonda Whatley <strong>Phone</strong>: 216.664.3806 <strong>Email</strong>: <a href="mailto:swhatley@clevelandohio.gov">swhatley@clevelandohio.gov</a></p>
-<p style="text-align: left;"><b>Click on the meeting date for agenda (PDF)</b></p>
-<table class="report" style="width: 25%;"><tbody><tr><td>JAN.</td>
-<td>07</td>
-<td>21</td>
-</tr><tr><td>FEB.</td>
-<td>04</td>
-<td>18 - <a href="/sites/default/files/planning/drc/agenda/2020/NE_Agenda_2-18-20.pdf">Agenda</a></td>
-</tr><tr><td>MAR.</td>
-<td>03</td>
-<td>17 - <a href="/sites/default/files/planning/drc/agenda/2020/NE_Agenda_3-17-20.pdf">Agenda</a></td>
-</tr><tr><td>APR.</td>
-<td>07</td>
-<td>21</td>
-</tr><tr><td>MAY</td>
-<td>05 - <a href="/sites/default/files/planning/drc/agenda/2020/NE_Agenda_5-5-20.pdf">Agenda</a></td>
-<td>19 - <a href="/sites/default/files/planning/drc/agenda/2020/NE_Agenda_5-19-20.pdf">Agenda</a></td>
-</tr><tr><td>JUN.</td>
-<td>02</td>
-<td>16</td>
-</tr><tr><td>JUL.</td>
-<td>07</td>
-<td>21</td>
-</tr><tr><td>AUG.</td>
-<td>04</td>
-<td>18</td>
-</tr><tr><td>SEP.</td>
-<td>01</td>
-<td>15</td>
-</tr><tr><td>OCT.</td>
-<td>06</td>
-<td>20</td>
-</tr><tr><td>NOV.</td>
-<td>03</td>
-<td>17</td>
-</tr><tr><td>DEC.</td>
-<td>01</td>
-<td>15</td>
-</tr></tbody></table><hr /><p id="southeast" style="text-align: center;"><strong>SOUTHEAST DESIGN REVIEW COMMITTEE</strong><br />The Committee meets on the 2nd &amp; 4th <strong>Wednesdays</strong> @ 5:00 pm at York-Rite Mason Temple - 13512 Kinsman Road</p>
-<p><strong>Contact</strong>: Marka Fields <strong>Phone</strong>: 216.664.3465 <strong>Email</strong>: <a href="mailto:mfields@clevelandohio.gov">mfields@clevelandohio.gov</a></p>
-<p style="text-align: left;"><b>Click on the meeting date for agenda (PDF)</b></p>
-<table class="report" style="width: 25%;"><tbody><tr><td>JAN.</td>
-<td>08 - <a href="/sites/default/files/planning/drc/agenda/2020/SE-2020-01-08-Agenda.pdf">Agenda</a></td>
-<td>22 - <a href="/sites/default/files/planning/drc/agenda/2020/SE-2020-01-22-Agenda.pdf">Agenda</a></td>
-</tr><tr><td>FEB.</td>
-<td>12</td>
-<td>26</td>
-</tr><tr><td>MAR.</td>
-<td>11 - <a href="/sites/default/files/planning/drc/agenda/2020/SE-2020-03-11-Agenda.pdf">Agenda</a></td>
-<td>25</td>
-</tr><tr><td>APR.</td>
-<td>08</td>
-<td>22</td>
-</tr><tr><td>MAY</td>
-<td>13</td>
-<td>27</td>
-</tr><tr><td>JUN.</td>
-<td>10</td>
-<td>24</td>
-</tr><tr><td>JUL.</td>
-<td>08</td>
-<td>22</td>
-</tr><tr><td>AUG.</td>
-<td>12</td>
-<td>26</td>
-</tr><tr><td>SEP.</td>
-<td>09</td>
-<td>23</td>
-</tr><tr><td>OCT.</td>
-<td>14</td>
-<td>28</td>
-</tr><tr><td>NOV.</td>
-<td>11</td>
-<td>25</td>
-</tr><tr><td>DEC.</td>
-<td>09</td>
-<td>23</td>
-</tr></tbody></table><hr /><p style="text-align: center;"><span style="display: inline !important; float: none; background-color: transparent; color: #993300; font-family: Times New Roman; font-size: 16px; font-style: normal; font-variant: normal; font-weight: bold; letter-spacing: normal; line-height: 18px; orphans: 2; text-align: center; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;">OTHER REVIEW COMMITTEES</span></p>
-<p id="streets" style="text-align: center;"><strong>MAYOR'S INFRASTRUCTURE &amp; STREETSCAPE ADVISORY COMMITTEE</strong><br />The Committee meets on the 1st &amp; 3rd Tuesdays @ 2:00 pm in Room 514, City Hall</p>
-<table class="report" style="width: 25%;"><tbody><tr><td>JAN.</td>
-<td>07</td>
-<td>21</td>
-</tr><tr><td>FEB.</td>
-<td>04</td>
-<td>18</td>
-</tr><tr><td>MAR.</td>
-<td>03</td>
-<td>17</td>
-</tr><tr><td>APR.</td>
-<td>07</td>
-<td>21</td>
-</tr><tr><td>MAY</td>
-<td>05</td>
-<td>19</td>
-</tr><tr><td>JUN.</td>
-<td>02</td>
-<td>16</td>
-</tr><tr><td>JUL.</td>
-<td>07</td>
-<td>21</td>
-</tr><tr><td>AUG.</td>
-<td>04</td>
-<td>18</td>
-</tr><tr><td>SEP.</td>
-<td>01</td>
-<td>15</td>
-</tr><tr><td>OCT.</td>
-<td>06</td>
-<td>20</td>
-</tr><tr><td>NOV.</td>
-<td>03</td>
-<td>17</td>
-</tr><tr><td>DEC.</td>
-<td>01</td>
-<td>15</td>
-</tr></tbody></table><hr /></div></div></div><div class="field field-name-field-sidebar-left field-type-entityreference field-label-hidden"><div class="field-items"><div class="field-item even">5170</div><div class="field-item odd">164765</div></div></div><div class="field field-name-field-sidebar-right field-type-entityreference field-label-hidden"><div class="field-items"><div class="field-item even">1613</div><div class="field-item odd">5166</div></div></div>  </div>
-
-  
-  
-</div>
-  </div>
-</div>
-  </div>
-          </div></div> <!-- /.section, /#content -->    <div id="spacer2" class="column">&nbsp;</div> <!-- Spacer between content and sidebar second -->    	<!--**  	    *  	    * 1-D) SIDEBAR SECOND  	    *  	    * This is the Sidebar Second region of the page.  	    * The Sidebar Second region is the right column of the page  	    *  	    * The Sidebar Second contains:	    *    1-D-1) SIDEBAR SECOND (block region) - Configurable at: NATE	    *			- The first block region in sidebar second. This region is	    *             at the top of the sidebar second region and can only contain	    *             blocks. There are no blocks currently in this region.	    *	    *    1-D-2) PROGRAMED SIDBAR RIGHT NODES	    *			- Section where nodes are programatically added to sidebar second	    *             based on node type and/or department.	    *	    *    1-D-3) ASSOCIATED SIDEBAR RIGHT NODES	    *			- Section where associated sidebar right nodes are added to	    *             sidebar second. Nodes are associated on each node.	    *	    *    1-B-4) SIDEBAR SECOND BOTTOM (block region) - Configurable at: NATE	    *			- The second block region in sidebar second. This region is	    *             at the bottom of the sidebar second region and can only contain	    *             blocks. There are no blocks currently in this region.	    *  	   **-->      <div id="sidebar-second" class="column sidebar"><div class="section">      	<!--       	1-D-1) SIDEBAR SECOND (block region) - Configurable at: NATE      		- The first block region in sidebar second. This      		region is at the top of the sidebar second region      		and can only contain blocks. There are no blocks      		currently in this region.      	-->                <!--		1-D-2) PROGRAMED SIDBAR RIGHT NODES			- Section where nodes are programatically added to the sidebar based on			  node type and/or department. Some nodes do not have the option to			  have associate nodes in the sidebar. These nodes can have the sidebar			  nodes set to them programatically here.			- First, if the node is not empty: if (!empty($node)) {}			- Next, if the node is of type (machine name):			  switch ($node->type) { case "CONTENT TYPE MACHINE NAME": }			- Departments assigned to the node can also be nested for more granulariy (term ID):			  switch ($node->field_department_list[und][0][tid]) { case TERM ID: }			- Print the node: print render(node_view(node_load(NODE ID), 'default'));		-->                <!--         1-D-3) ASSOCIATED SIDEBAR RIGHT NODES - Configurable on each node in Sidebar Left field        	- Section where sidebar left nodes associated with the main node are added        	  to sidebar first. Nodes are added to the array $associatedArrayLeft        	  and each is printed out here.    	-->        <div id="node-1613" class="node node-sidebar-right-content node-promoted sidebar_right_content clearfix" about="/node/1613" typeof="sioc:Item foaf:Document">
-
-        <h2>
-      <a href="/node/1613">Director of City Planning - Contact Info</a>
-    </h2>
-    <span property="dc:title" content="Director of City Planning - Contact Info" class="rdf-meta element-hidden"></span>
-  
-  <div class="content clearfix">
-    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"> <p><b style="color: #030536; font-family: Verdana; font-size: 12px; line-height: 16px; widows: 1;">City Planning Commission</b><br style="color: #030536; font-family: Verdana; font-size: 12px; line-height: 16px; widows: 1;" /><a href="/CityofCleveland/Home/Government/Cabinet/DirectorCityPlanning" style="font-size: 12px; color: #942232; font-family: Verdana; line-height: 16px; widows: 1;">Freddy L. Collier, Director</a><br style="color: #030536; font-family: Verdana; font-size: 12px; line-height: 16px; widows: 1;" /><span style="color: #030536; font-family: Verdana; font-size: 12px; line-height: 16px; widows: 1;">601 Lakeside Ave., Rm 501</span><br style="color: #030536; font-family: Verdana; font-size: 12px; line-height: 16px; widows: 1;" /><span style="color: #030536; font-family: Verdana; font-size: 12px; line-height: 16px; widows: 1;">Cleveland, Ohio 44114</span><br style="color: #030536; font-family: Verdana; font-size: 12px; line-height: 16px; widows: 1;" /><br style="color: #030536; font-family: Verdana; font-size: 12px; line-height: 16px; widows: 1;" /><span style="color: #030536; font-family: Verdana; font-size: 12px; line-height: 16px; widows: 1;">P: 216.664.2210</span><br style="color: #030536; font-family: Verdana; font-size: 12px; line-height: 16px; widows: 1;" /><span style="color: #030536; font-family: Verdana; font-size: 12px; line-height: 16px; widows: 1;">F: 216.664.3281</span><br style="color: #030536; font-family: Verdana; font-size: 12px; line-height: 16px; widows: 1;" /><span style="color: #030536; font-family: Verdana; font-size: 12px; line-height: 16px; widows: 1;">Ohio Relay: 711</span><br style="color: #030536; font-family: Verdana; font-size: 12px; line-height: 16px; widows: 1;" /><a href="/CityofCleveland/Home/contact/department?code=99" style="font-size: 12px; color: #942232; font-family: Verdana; line-height: 16px; widows: 1;">Send Email</a></p>
-<table align="center" border="0"><tbody><tr><td style="text-align: center;"><a href="https://www.facebook.com/ClevelandPlanningCommission" target="_blank" style="background: none;"><img alt="" class="media-image" height="35" width="35" typeof="foaf:Image" src="http://clevelandohio.gov/sites/default/files/Facebook35.png" /></a></td>
-<td style="text-align: center;"><a href="https://twitter.com/CLEcityplanning" target="_blank" style="background: none;"><img alt="" class="media-image" height="35" width="35" typeof="foaf:Image" src="http://clevelandohio.gov/sites/default/files/Twitter35.png" /></a></td>
-</tr></tbody></table></div></div></div>  </div>
-
-  
-  
-</div>
-<div id="node-5166" class="node node-sidebar-right-content node-promoted sidebar_right_content clearfix" about="/node/5166" typeof="sioc:Item foaf:Document">
-
-        <h2>
-      <a href="/node/5166">City Planning Commission Mission Statement</a>
-    </h2>
-    <span property="dc:title" content="City Planning Commission Mission Statement" class="rdf-meta element-hidden"></span>
-  
-  <div class="content clearfix">
-    <div class="field field-name-field-banner-title-right field-type-text field-label-hidden"><div class="field-items"><div class="field-item even">Mission Statement</div></div></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"> <p style="font-size: 12px; color: #030536; margin: 0px; padding: 3px 5px 15px; line-height: 12pt; font-family: Verdana; font-weight: 700 !important;">Dedicated to improving the quality of life for all Clevelanders and creating economic vitality throughout the city and its region. The Commission and its staff pursue these goals by promoting the highest standards for development and revitalization in all of Cleveland's neighborhoods and employment centers.</p>
-<p><br style="color: #333333; font-family: Verdana; font-size: 12px;" /><span style="color: #333333; font-family: Verdana; font-size: 12px;">– The City Planning Commission</span></p>
- </div></div></div>  </div>
-
-  
-  
-</div>
-        <!--         1-D-4) SIDEBAR SECOND BOTTOM (block region)	        - The second block region in sidebar second. This region is	          at the bottom of the sidebar second region and can only	          contain blocks. There are no blocks currently in this region.    	-->              </div></div> <!-- /.section, /#sidebar-second -->  </div></div> <!-- /#main, /#main-wrapper -->  <!-- 1-E) TRIPTYCH (not used) - A three column section for featured content -->    <!--**    *    * 1-F) FOOTER    *    * This is the Footer region of the page.    * The Footer region is the bottom of the page    *    * The Footer contains:    *    *    1-F-1) FOOTER IMAGE BACKGROUND    *           - Code for the flag background image in the footer.    *	*    1-F-2) FOOTER COLUMNS (not used)	*        1-F-2-a) FOOTER FIRST COLUMN (not used)	*        1-F-2-b) FOOTER SECOND COLUMN (not used)	*        1-F-2-c) FOOTER THIRD COLUMN (not used)	*        1-F-2-d) FOOTER FOURTH COLUMN (not used)	*	*    1-F-3) FOOTER (block region)	*           - Section where the footer information is printed out.	*             Only blocks can be placed in this region	*	*    1-F-4) BACK TO TOP	*           - Code for the back to top button    *  **-->  <div id="footer-wrapper"><div class="section">  	<!-- 1-F-1) FOOTER IMAGE BACKGROUND - Code for the flag background image in the footer. -->    <div class="footerImgBG">      <div class="footerImg">        <img src="/sites/all/themes/CityOfCleveland/images/footerimg_left.jpg">      </div>    </div>    <!-- 1-F-2) FOOTER COLUMNS (not used) -->        <!-- 1-F-3) FOOTER (block region) - Section where the footer information is printed out. Only blocks can be placed in this region -->          <div id="footer" class="clearfix">          <div class="region region-footer">
-    <div id="block-menu-menu-footer-links" class="block block-menu">
-
-    
-  <div class="content">
-    <ul class="menu clearfix"><li class="first leaf"><a href="/home">Home</a></li>
-<li class="leaf"><a href="/CityofCleveland/Home/Community">Community</a></li>
-<li class="leaf"><a href="/CityofCleveland/Home/Business">Business</a></li>
-<li class="leaf"><a href="/CityofCleveland/Home/Visitors">Visitors</a></li>
-<li class="leaf"><a href="/CityofCleveland/Home/KidsTeens">Kids &amp; Teens</a></li>
-<li class="collapsed"><a href="/CityofCleveland/Home/Government">Government</a></li>
-<li class="leaf"><a href="/CityofCleveland/Home/SecurityPolicy">Privacy Policy</a></li>
-<li class="last leaf"><a href="/CityofCleveland/Home/contact">Contact Us</a></li>
-</ul>  </div>
-</div>
-  </div>
-      </div> <!-- /#footer -->        <!-- 1-F-4) BACK TO TOP - Code for the back to top button -->	<a href="javascript:void(0)" class="cd-top">Top of Page</a>  </div></div> <!-- /.section, /#footer-wrapper --></div></div> <!-- /#page, /#page-wrapper -->  </body>
-</html>
