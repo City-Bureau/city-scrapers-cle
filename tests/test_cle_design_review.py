@@ -23,7 +23,7 @@ freezer.stop()
 
 
 def test_count():
-    assert len(parsed_items) == 118
+    assert len(parsed_items) == 117
 
 
 def test_title():
@@ -31,7 +31,10 @@ def test_title():
 
 
 def test_description():
-    assert parsed_items[0]["description"] == ""
+    assert (
+        parsed_items[0]["description"]
+        == "Due to Covid meetings are being held on WebEx rather than in person. For more information contact asantora@clevelandohio.gov"  # noqa
+    )
 
 
 def test_start():
@@ -43,10 +46,7 @@ def test_end():
 
 
 def test_time_notes():
-    assert (
-        parsed_items[0]["time_notes"]
-        == "Due to Covid meetings are generally being held on WebEx rather than in person. For more information contact asantora@clevelandohio.gov"  # noqa
-    )
+    assert parsed_items[0]["time_notes"] == ""
 
 
 def test_id():
@@ -100,7 +100,10 @@ def test_future_meeting_title():
 
 
 def test_future_meeting_description():
-    assert parsed_items[-1]["description"] == ""
+    assert (
+        parsed_items[-1]["description"]
+        == "This is an upcoming meeting - please verify it with staff if you want attend. Due to Covid meetings are being held on WebEx rather than in person. For more information contact mfields@clevelandohio.gov"  # noqa
+    )
 
 
 def test_future_meeting_start():
@@ -112,10 +115,7 @@ def test_future_meeting_end():
 
 
 def test_future_meeting_time_notes():
-    assert (
-        parsed_items[-1]["time_notes"]
-        == "Due to Covid meetings are generally being held on WebEx rather than in person. For more information contact mfields@clevelandohio.gov"  # noqa
-    )
+    assert parsed_items[-1]["time_notes"] == ""
 
 
 def test_future_meeting_id():

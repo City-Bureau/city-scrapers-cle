@@ -15,7 +15,8 @@ class CleDesignReviewSpider(CityScrapersSpider):
     start_urls = [
         "https://planning.clevelandohio.gov/designreview/schedule.php"  # noqa
     ]
-    time_notes = "Due to Covid meetings are generally being held on WebEx rather than in person. For more information contact "  # noqa
+    description = "Due to Covid meetings are being held on WebEx rather than in person. For more information contact "  # noqa
+    calculated_description = "This is an upcoming meeting - please verify it with staff if you want attend. Due to Covid meetings are being held on WebEx rather than in person. For more information contact "  # noqa
 
     def parse(self, response):
         """
@@ -43,17 +44,16 @@ class CleDesignReviewSpider(CityScrapersSpider):
                and then calculate meetings for 60 days from that date. As dates
                progress and agendas are added, those tentative meetings will either be
                confirmed to exist or disappear based on the ways the agendas are
-               updated.
+               updated.  For calculated meetings we add a line to the description
+               encouraging users to verify the meeting with staff before attempting to
+               attend.
 
             2. There is no mention of the year anywhere in the text of the site. We
                can extract it from the agenda link - at least for now. But it will
                be important to keep an eye on how the site is changed in January.
 
             3. Meetings are currently not being held in person but over webex. We've
-               included this information in the time_notes section of the meeting.
-               Perhaps a more general notes section would make a bit more sense, but
-               given the current fields on the meeting object, time notes seemed like
-               a reasonable place to put this.
+               included this information in the meeting description.
         """
         committee_metas = response.css(
             "div.mt-3"
@@ -92,12 +92,12 @@ class CleDesignReviewSpider(CityScrapersSpider):
                     continue
                 meeting = Meeting(
                     title=title,
-                    description="",
+                    description=self.description + email_contact,
                     classification=ADVISORY_COMMITTEE,
                     start=start,
                     end=None,
                     all_day=False,
-                    time_notes=self.time_notes + email_contact,
+                    time_notes="",
                     location=location,
                     links=self._parse_links(agenda, response),
                     source=response.url,
@@ -111,26 +111,31 @@ class CleDesignReviewSpider(CityScrapersSpider):
             # next we calculate upcoming meeting dates for 60 days after the
             # last agenda date
             calc_start = most_recent_start + timedelta(days=1)
+            # since downtown meetings are calculated based on the city planning
+            # meeting one day ahead, we need to add an extra day to avoid
+            if is_downtown:
+                calc_start = calc_start + timedelta(days=1)
+
             calc_end = calc_start + timedelta(days=60)
+
             upcoming_meetings = self._calculate_upcoming_meeting_days(
                 weekday, chosen_weeks, calc_start, calc_end
             )
             if is_downtown:  # downtown meetings are a day before the one calculated
-                # this tmp is just to make sure we weren't mutating the list as
-                # we used it in a comprehension
-                tmp = [day + timedelta(days=-1) for day in upcoming_meetings]
-                upcoming_meetings = tmp
+                upcoming_meetings = [
+                    day + timedelta(days=-1) for day in upcoming_meetings
+                ]
 
             for day in upcoming_meetings:
                 start = self._parse_calculated_start(day, time_str)
                 meeting = Meeting(
                     title=title,
-                    description="",
+                    description=self.calculated_description + email_contact,
                     classification=ADVISORY_COMMITTEE,
                     start=start,
                     end=None,
                     all_day=False,
-                    time_notes=self.time_notes + email_contact,
+                    time_notes="",
                     location=location,
                     links=[],
                     source=response.url,
