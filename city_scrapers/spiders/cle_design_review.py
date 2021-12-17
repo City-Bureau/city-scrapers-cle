@@ -120,7 +120,7 @@ class CleDesignReviewSpider(CityScrapersSpider):
             calc_end = calc_start + timedelta(days=60)
 
             upcoming_meetings = calculate_upcoming_meeting_days(
-                weekday, chosen_ordinals, calc_start, calc_end
+                weekday, chosen_ordinals, calc_start.date(), calc_end.date()
             )
             if is_downtown:  # downtown meetings are a day before the one calculated
                 upcoming_meetings = [

@@ -52,9 +52,7 @@ def calculate_upcoming_meeting_days(chosen_weekday, chosen_ordinals, start, end)
     # we now have all the relevant dates for the given months but we need to
     # filter out days before and after start and end
     return [
-        current_date
-        for current_date in raw_dates
-        if (start.date() <= current_date <= end.date())
+        current_date for current_date in raw_dates if (start <= current_date <= end)
     ]
 
 

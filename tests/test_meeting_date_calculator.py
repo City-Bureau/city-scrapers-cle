@@ -1,11 +1,11 @@
-from datetime import date, datetime
+from datetime import date
 
 import pytest  # noqa
 
 from city_scrapers.utils import calculate_upcoming_meeting_days
 
-start = datetime(2021, 12, 1)
-end = datetime(2022, 1, 1)
+start = date(2021, 12, 1)
+end = date(2022, 1, 1)
 
 
 # test a random input - 1 and 3rd tuesday (1)
@@ -24,7 +24,7 @@ def test_single_day():
 
 
 def test_multiple_months():
-    end = datetime(2022, 2, 1)
+    end = date(2022, 2, 1)
     expected = [
         date(2021, 12, 14),
         date(2021, 12, 28),
@@ -37,7 +37,7 @@ def test_multiple_months():
 
 
 def test_start():
-    start = datetime(2021, 12, 8)
+    start = date(2021, 12, 8)
     expected = [date(2021, 12, 21)]
 
     out = calculate_upcoming_meeting_days(1, [0, 2], start, end)
@@ -45,7 +45,7 @@ def test_start():
 
 
 def test_start_is_inclusive():
-    start = datetime(2021, 12, 7)
+    start = date(2021, 12, 7)
     expected = [date(2021, 12, 7), date(2021, 12, 21)]
 
     out = calculate_upcoming_meeting_days(1, [0, 2], start, end)
@@ -53,7 +53,7 @@ def test_start_is_inclusive():
 
 
 def test_end():
-    end = datetime(2021, 12, 20)
+    end = date(2021, 12, 20)
     expected = [date(2021, 12, 7)]
 
     out = calculate_upcoming_meeting_days(1, [0, 2], start, end)
@@ -61,7 +61,7 @@ def test_end():
 
 
 def test_end_is_inclusive():
-    end = datetime(2021, 12, 21)
+    end = date(2021, 12, 21)
     expected = [date(2021, 12, 7), date(2021, 12, 21)]
 
     out = calculate_upcoming_meeting_days(1, [0, 2], start, end)
