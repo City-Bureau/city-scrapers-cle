@@ -5,7 +5,8 @@ from datetime import datetime, timedelta
 from city_scrapers_core.constants import ADVISORY_COMMITTEE
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
-from city_scrapers.utils import MeetingDateCalculator
+
+from city_scrapers.utils import calculate_upcoming_meeting_days
 
 
 class CleDesignReviewSpider(CityScrapersSpider):
@@ -118,7 +119,7 @@ class CleDesignReviewSpider(CityScrapersSpider):
 
             calc_end = calc_start + timedelta(days=60)
 
-            upcoming_meetings = MeetingDateCalculator.calculate_upcoming_meeting_days(
+            upcoming_meetings = calculate_upcoming_meeting_days(
                 weekday, chosen_ordinals, calc_start, calc_end
             )
             if is_downtown:  # downtown meetings are a day before the one calculated
@@ -250,5 +251,3 @@ class CleDesignReviewSpider(CityScrapersSpider):
         """Parses ordinals as their integer equivalent beginning from 0"""
         ordinal_lookup = {"1st": 0, "2nd": 1, "3rd": 2, "4th": 3}
         return ordinal_lookup[ordinal_str.lower()]
-
-   
