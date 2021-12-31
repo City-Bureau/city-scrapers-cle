@@ -63,6 +63,8 @@ class ClePlanningCommissionSpider(CityScrapersSpider):
             "div.container div.container div.container div.dropdown"
         )
         commission_agendas = dropdowns[0]
+        # get a dict of presentaiton links so we can look them up quicly for
+        # individual meetins
         commission_presentations = self._parse_presentations(dropdowns[1])
 
         # Start by looking through the agendas for existing meetings
@@ -163,6 +165,9 @@ class ClePlanningCommissionSpider(CityScrapersSpider):
         links.append(
             {"title": "Agenda", "href": response.urljoin(agenda.attrib["href"])}
         )
+        # since the key is the same for the agenda and presentation we can generate
+        # a key from the agenda and then use that key to see if there's a matching
+        # presentation in the presentation dict.
         key = self._dropdown_to_key(agenda)
         if key in presentations:
             links.append(
@@ -180,6 +185,10 @@ class ClePlanningCommissionSpider(CityScrapersSpider):
         return "2021"
 
     def _parse_presentations(self, items):
+        """
+        Parse the presentations dropdown into a dict whose keys are string
+        representations of the dates and whose values are the links.
+        """
         presentations = {}
         for presentation in items.css("div.dropdown-menu a.dropdown-item"):
             key = self._dropdown_to_key(presentation)
@@ -187,6 +196,10 @@ class ClePlanningCommissionSpider(CityScrapersSpider):
         return presentations
 
     def _dropdown_to_key(self, item):
+        """
+        Transform a dropdown item into a text key representing the date in the format:
+        year-month-day such as 2021-dec-3rd.
+        """
         name = item.css("::text").extract_first()
         [month, day] = name.split(" ")
         month = month[0:3].lower()
