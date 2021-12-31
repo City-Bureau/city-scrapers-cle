@@ -1,24 +1,28 @@
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 
-import scrapy
 from city_scrapers_core.constants import COMMISSION
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
+
+from city_scrapers.utils import calculate_upcoming_meeting_days
 
 
 class ClePlanningCommissionSpider(CityScrapersSpider):
     name = "cle_planning_commission"
     agency = "Cleveland City Planning Commission"
-    location = "601 Lakeside Ave, Room 514, Cleveland OH 44114"
+    title = "City Planning Commission"
+    location = {
+        "name": "City Hall",
+        "address": "601 Lakeside Ave, Room 514, Cleveland OH 44114",
+    }
     time_str = "9:00am"
     timezone = "America/Detroit"
     start_urls = [
-       "https://planning.clevelandohio.gov/designreview/schedule.php"  # noqa
+        "https://planning.clevelandohio.gov/designreview/schedule.php"  # noqa
     ]
-    description = "Due to Covid meetings are being held on WebEx rather than in person. For more information contact "  # noqa
-    calculated_description = "This is an upcoming meeting - please verify it with staff if you want attend. Due to Covid meetings are being held on WebEx rather than in person. For more information contact "  # noqa
-   
+    description = "Due to Covid meetings are being held on WebEx rather than in person. For more information contact cityplanning@clevelandohio.gov"  # noqa
+    calculated_description = "This is an upcoming meeting - please verify it with staff if you want attend. Due to Covid meetings are being held on WebEx rather than in person. For more information contact cityplanning@clevelandohio.gov"  # noqa
 
     def parse(self, response):
         """
@@ -55,15 +59,19 @@ class ClePlanningCommissionSpider(CityScrapersSpider):
         self._validate_schedule(meeting_time_schedule_str)
         most_recent_start = datetime.today()
 
-        email_contact = self._parse_email_contact(response)
-        
-        commission_agendas = response.css("div.container div.container div.container div.dropdown")
+        dropdowns = response.css(
+            "div.container div.container div.container div.dropdown"
+        )
+        commission_agendas = dropdowns[0]
+        commission_presentations = self._parse_presentations(dropdowns[1])
+
+        # Start by looking through the agendas for existing meetings
         for agenda in commission_agendas.css("div.dropdown-menu a.dropdown-item"):
             month_str, day_str = (
                 agenda.css("*::text").extract_first().strip().split(" ")
             )
 
-            year_str = self._parse_year_from_agenda_link(agenda)
+            year_str = self._parse_year_from_link(agenda)
 
             start = self._parse_start(year_str, month_str, day_str, self.time_str)
             # most_recent_start will be used to calculate upcoming meetings
@@ -73,15 +81,51 @@ class ClePlanningCommissionSpider(CityScrapersSpider):
                 continue
 
             meeting = Meeting(
-                title="City Planning Commission",
-                description=self.description + email_contact,
+                title=self.title,
+                description=self.description,
                 classification=COMMISSION,
                 start=start,
                 end=None,
                 all_day=False,
                 time_notes="",
                 location=self.location,
-                links=self._parse_links(agenda, response),
+                links=self._parse_links(agenda, commission_presentations, response),
+                source=response.url,
+            )
+
+            meeting["status"] = self._get_status(meeting)
+            meeting["id"] = self._get_id(meeting)
+
+            yield meeting
+
+        # next we calculate upcoming meeting dates for 60 days after the
+        # last agenda date
+        calc_start = most_recent_start + timedelta(days=1)
+        # since downtown meetings are calculated based on the city planning
+        # meeting one day ahead, we need to add an extra day to avoid
+        calc_end = calc_start + timedelta(days=60)
+
+        upcoming_meetings = calculate_upcoming_meeting_days(
+            # we can safely hardcode the first and thrid friday, since we
+            # validate the meeting schedule with _validate_schedule
+            4,
+            [0, 2],
+            calc_start.date(),
+            calc_end.date(),
+        )
+
+        for day in upcoming_meetings:
+            start = self._parse_calculated_start(day, "9:00am")
+            meeting = Meeting(
+                title=self.title,
+                description=self.calculated_description,
+                classification=COMMISSION,
+                start=start,
+                end=None,
+                all_day=False,
+                time_notes="",
+                location=self.location,
+                links=[],
                 source=response.url,
             )
 
@@ -108,27 +152,43 @@ class ClePlanningCommissionSpider(CityScrapersSpider):
         date_str = " ".join([year_str, month_str[0:3], day_str, time_str])
         return datetime.strptime(date_str, "%Y %b %d %I:%M%p")
 
-
     def _parse_calculated_start(self, day, time_str):
         """Parse start datetime from python date and a string with the time."""
         date_str = " ".join([day.strftime("%Y %B %d"), time_str])
         return datetime.strptime(date_str, "%Y %B %d %I:%M%p")
 
-    def _parse_links(self, item, response):
+    def _parse_links(self, agenda, presentations, response):
         """Parse out the links for the meeting"""
         links = []
-        links.append({"title": "Agenda", "href": response.urljoin(item.attrib["href"])})
+        links.append(
+            {"title": "Agenda", "href": response.urljoin(agenda.attrib["href"])}
+        )
+        key = self._dropdown_to_key(agenda)
+        if key in presentations:
+            links.append(
+                {"title": "Presentation", "href": response.urljoin(presentations[key])}
+            )
+
         return links
 
-    def _parse_year_from_agenda_link(self, item):
-        """Parse the year as a string from a link containing the agenda"""
+    def _parse_year_from_link(self, item):
+        """Parse the year as a string from a link"""
         link = item.attrib["href"]
         year_match = re.search(r"\/(20\d{2})\/", link)
         if year_match:
             return year_match.group(1)
         return "2021"
 
-    def _parse_email_contact(self, item):
-        """Parses the email for a committee's contact"""
-        email_str = item.css("p.mt-0::text").extract()[2]
-        return email_str.replace(": ", "")
+    def _parse_presentations(self, items):
+        presentations = {}
+        for presentation in items.css("div.dropdown-menu a.dropdown-item"):
+            key = self._dropdown_to_key(presentation)
+            presentations[key] = presentation.attrib["href"]
+        return presentations
+
+    def _dropdown_to_key(self, item):
+        name = item.css("::text").extract_first()
+        [month, day] = name.split(" ")
+        month = month[0:3].lower()
+        year = self._parse_year_from_link(item)
+        return f"{year}-{month}-{day}"
