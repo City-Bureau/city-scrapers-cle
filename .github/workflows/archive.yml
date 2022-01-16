@@ -57,3 +57,14 @@ jobs:
         run: |
           export PYTHONPATH=$(pwd):$PYTHONPATH
           ./.deploy.sh
+
+       - name: Notify slack on job failure
+         id: slack
+         uses: slackapi/slack-github-action@v1.17.0
+         with:
+           channel-id: 'C02UY3P8BQQ'
+           slack-message: 'Archive Cronjob Failed'
+         env:
+           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+         if: ${{ failure() }}
+
