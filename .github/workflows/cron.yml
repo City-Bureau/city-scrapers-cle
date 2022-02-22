@@ -67,3 +67,13 @@ jobs:
         run: |
           export PYTHONPATH=$(pwd):$PYTHONPATH
           pipenv run scrapy combinefeeds -s LOG_ENABLED=False
+      
+      - name: Notify slack on job failure
+        id: slack
+        uses: slackapi/slack-github-action@v1.17.0
+        with:
+          channel-id: 'C01A6HC2FU6'
+          slack-message: 'Cronjob Failed'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        if: ${{ failure() }}
