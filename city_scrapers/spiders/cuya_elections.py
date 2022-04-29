@@ -1,128 +1,166 @@
-import re
-from datetime import datetime, timedelta
-
 from city_scrapers_core.constants import BOARD
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
-from scrapy import FormRequest
+from urllib.parse import urljoin
 
+import logging
+from datetime import datetime
+from typing import Tuple, List
+    # #datetime(year, month, day)
+    # a = datetime(2018, 11, 28)
+    # print(a)
+
+    # # datetime(year, month, day, hour, minute, second, microsecond)
+    # b = datetime(2017, 11, 28, 23, 55, 59, 342380)
+    # print(b)
+
+logger = logging.getLogger('alex-scraper')
+# logger.debug("some string")
 
 class CuyaElectionsSpider(CityScrapersSpider):
     name = "cuya_elections"
     agency = "Cuyahoga County Board of Elections"
-    timezone = "America/Detroit"
-    start_urls = ["https://boe.cuyahogacounty.gov/en-US/EventsCalendar.aspx"]
-    location = {
-        "name": "Board of Elections",
-        "address": "2925 Euclid Ave, Cleveland, OH 44115",
+    timezone = "America/Chicago"
+    start_urls = ["https://boe.cuyahogacounty.gov/calendar?it=Current%20Events&mpp=96"]
+    _month_dict = {
+            "January": 1,
+            "February": 2,
+            "March": 3,
+            "April": 4,
+            "May": 5,
+            "June": 6,
+            "July": 7,
+            "August": 8,
+            "September": 9,
+            "October": 10,
+            "November": 11,
+            "December": 12
     }
 
     def parse(self, response):
-        today = datetime.now()
-        payload = {
-            "ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$ctl00": "ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$EventsCalendar1$updMainPanel|ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$EventsCalendar1$TabContainer1$tbpDateRange$btnShowDateRange",  # noqa
-            "__EVENTTARGET": "ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$EventsCalendar1$TabContainer1",  # noqa
-            "__EVENTARGUMENT": "activeTabChanged:3",
-            "__VIEWSTATE": response.css("#__VIEWSTATE::attr(value)").extract_first(),
-            "__VIEWSTATEGENERATOR": response.css(
-                "#__VIEWSTATEGENERATOR::attr(value)"
-            ).extract_first(),
-            "__EVENTVALIDATION": response.css(
-                "#__EVENTVALIDATION::attr(value)"
-            ).extract_first(),
-            "__AjaxControlToolkitCalendarCssLoaded": "",
-            "ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$EventsCalendar1$TabContainer1$tbpDateRange$txtStartDate": (  # noqa
-                today - timedelta(days=200)
-            ).strftime(
-                "%m/%d/%Y"
-            ),
-            "ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderMain$EventsCalendar1$TabContainer1$tbpDateRange$txtEndDate": (  # noqa
-                today + timedelta(days=10)
-            ).strftime(
-                "%m/%d/%Y"
-            ),
-            "ContentPlaceHolder1_ContentPlaceHolderMain_EventsCalendar1_TabContainer1_ClientState": '{"ActiveTabIndex":3,"TabState":[true,true,true,true]}',  # noqa
-        }
-        yield FormRequest(
-            response.url, formdata=payload, callback=self._parse_form_response
-        )
-
-    def _parse_form_response(self, response):
-        for link in response.css(".SearchResults td:nth-child(2) a"):
-            link_text = " ".join(link.css("*::text").extract())
-            # TODO: Include other notices?
-            if "Board" not in link_text:
-                continue
-            yield response.follow(
-                link.attrib["href"], callback=self._parse_detail, dont_filter=True
-            )
-
-    def _parse_detail(self, response):
         """
-        `_parse_detail` should always `yield` Meeting items.
+        `parse` should always `yield` Meeting items.
 
         Change the `_parse_title`, `_parse_start`, etc methods to fit your scraping
         needs.
         """
-        start, end = self._parse_start_end(response)
+        # Go through each of the links from the calendar landing page and add them to callbacks.
+        for link in response.css('a.item-link::attr(href)'):
+            yield response.follow(link.get(), callback=self._parse_detail)                        
+            
+    def _parse_detail(self, item):
         meeting = Meeting(
-            title=self._parse_title(response),
-            description="",
-            classification=BOARD,
-            start=start,
-            end=end,
-            all_day=False,
-            time_notes="",
-            location=self._parse_location(response),
-            links=self._parse_links(response),
-            source=response.url,
-        )
-
-        meeting["status"] = self._get_status(
-            meeting, text=" ".join(response.css(".padding *::text").extract())
-        )
+                title=self._parse_title(item),
+                description=self._parse_description(item),
+                classification=self._parse_classification(item),
+                start=self._parse_start(item),
+                end=self._parse_end(item),
+                all_day=self._parse_all_day(item),
+                time_notes=self._parse_time_notes(item),
+                location=self._parse_location(item),
+                links=self._parse_links(item),
+                source=self._parse_source(item),
+            )
+        meeting["status"] = self._get_status(meeting)
         meeting["id"] = self._get_id(meeting)
-
         yield meeting
 
-    def _parse_title(self, response):
+    def _parse_title(self, item) -> str:
         """Parse or generate meeting title."""
-        title_str = " ".join(response.css(".padding h1 *::text").extract())
-        if "Special" in title_str:
-            return title_str
-        return "Board of Elections"
+        title = item.css('h3.sf-event-title span::text').get()
+        if title is None:
+            return ""        
+        return title.strip()        
 
-    def _parse_start_end(self, response):
-        """Parse start, end datetimes as naive datetime objects."""
-        dt_list = []
-        for item_str in response.css(".padding dd::text").extract():
-            dt_match = re.search(
-                r"\d{1,2}/\d{1,2}/\d{4}-\d{1,2}:\d{2} [APM]{2}", item_str
-            )
-            if dt_match:
-                dt_list.append(datetime.strptime(dt_match.group(), "%m/%d/%Y-%I:%M %p"))
-        end = None
-        if len(dt_list) > 1:
-            end = dt_list[1]
-        return dt_list[0], end
+    def _parse_description(self, item) -> str:
+        """Parse or generate meeting description."""
+        description = item.css('.sf_colsIn.col-lg-12 p::text').get()
+        if description is None:
+            return ""
+        return description
 
-    def _parse_location(self, response):
+    def _parse_classification(self, item):
+        """Parse or generate classification from allowed options."""
+        return BOARD
+    
+    def _to_24h_time(self, time_s: str) -> Tuple[int, int]:
+        """Convert 12-hour time to 24-hour time"""
+        time_s = time_s.strip()
+        time_tokens = time_s.split(':')
+        hour = int(time_tokens[0])
+        minute = int(time_tokens[1].split(' ')[0])
+        if (time_s[-2] == 'P' and hour != 12):        
+            hour += 12
+        return (hour, minute)    
+
+    def _parse_start(self, item) -> datetime:
+        """Parse start datetime as a naive datetime object."""
+        # '<em>April 29, 2022 9:30 AM<span> - </span> 10:30 AM</em>'
+        _parsed_datetime = item.css('.sf_colsIn.col-lg-12 .meta em').get()
+        # ['<em>April 29, 2022 9:30 AM', '- </span> 10:30 AM</em>']
+        _parsed_datetime = _parsed_datetime.split('<span>')
+        _parsed_date = _parsed_datetime[0][4:-8].strip().split(' ')    # "April 29, 2022" -> ["April", "29,", "2022"]  
+        _parsed_start = _parsed_datetime[0][-8:].strip()               # 9:30 AM        
+        _year = int(_parsed_date[2])
+        _month = int(self._month_dict.get(_parsed_date[0]))
+        _date = int(_parsed_date[1][:-1])
+        _start_time: Tuple[int, int] = self._to_24h_time(_parsed_start)        
+        return datetime(_year, _month, _date, _start_time[0], _start_time[1])        
+
+    def _parse_end(self, item):
+        """Parse end datetime as a naive datetime object. Added by pipeline if None"""
+        # '<em>April 29, 2022 9:30 AM<span> - </span> 10:30 AM</em>'
+        _parsed_datetime = item.css('.sf_colsIn.col-lg-12 .meta em').get()
+        # ['<em>April 29, 2022 9:30 AM', '- </span> 10:30 AM</em>']
+        _parsed_datetime = _parsed_datetime.split('<span>')
+        _parsed_date = _parsed_datetime[0][4:-8].strip().split(' ')    # "April 29, 2022" -> ["April", "29,", "2022"]  
+        _parsed_end = _parsed_datetime[1][-13:-5].strip()              # 10:30 AM
+        _year = int(_parsed_date[2])
+        _month = int(self._month_dict.get(_parsed_date[0]))
+        _date = int(_parsed_date[1][:-1])
+        _end_time: Tuple[int, int] = self._to_24h_time(_parsed_end)
+        return datetime(_year, _month, _date, _end_time[0], _end_time[1])
+
+    def _parse_time_notes(self, item):
+        """Parse any additional notes on the timing of the meeting"""
+        return ""
+
+    def _parse_all_day(self, item):
+        """Parse or generate all-day status. Defaults to False."""
+        return False
+
+    def _parse_location(self, item):
         """Parse or generate location."""
-        detail_strs = response.css(".padding blockquote dd::text").extract()
-        loc_str = None
-        for detail_str in detail_strs:
-            if re.search(r" \d{3}", detail_str):
-                loc_str = re.sub(r"\s+", " ", detail_str).strip()
-        if loc_str:
-            return {"name": "", "address": loc_str}
-        return self.location
+        _parsed_address = item.css('address::text').get()
+        if _parsed_address is None:
+            _parsed_address = ""
+        else:
+            _parsed_address = _parsed_address.strip()
+        location: dict = {
+            "name": "",
+            "address": _parsed_address
+        }
+        if location.get("address") == "":
+            location["address"] = "see links and/or source"
+            
+        return location
 
-    def _parse_links(self, response):
+    def _parse_links(self, item) -> List:
         """Parse or generate links."""
-        links = []
-        for link in response.css(".padding blockquote a"):
-            link_title = " ".join(link.css("*::text").extract()).strip()
-            links.append(
-                {"title": link_title, "href": response.urljoin(link.attrib["href"])}
-            )
+        # Exclude first 9 elements (various nav bar links)
+        _parsed_links_titles = item.css('.sf_colsIn.col-lg-12 a::text')[9:]
+        _parsed_links_hrefs = item.css('.sf_colsIn.col-lg-12 a::attr(href)')[9:]
+        links: list = []
+        for i in range(len(_parsed_links_hrefs)):
+            temp = {"title": _parsed_links_titles[i].get(), 
+                    "href": urljoin(item.url, _parsed_links_hrefs[i].get())}
+            links.append(temp)
+        # [{"title": "",
+        #   "href": ""
+        #  }]
         return links
+        # A list of dictionaries including values title and href for any relevant links like agendas, minutes or other materials. The href property should always return the full URL and not relative paths like /doc.pdf.
+
+    def _parse_source(self, item):
+        """Parse or generate source."""
+        return item.url
