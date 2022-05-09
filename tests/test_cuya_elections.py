@@ -10,7 +10,7 @@ from city_scrapers.spiders.cuya_elections import CuyaElectionsSpider
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_elections.html"),
-    url="https://boe.cuyahogacounty.gov/calendar/event-details/2022/05/24/default-calendar/board-meeting",
+    url="https://boe.cuyahogacounty.gov/calendar/event-details/2022/05/24/default-calendar/board-meeting",  # noqa
 )
 spider = CuyaElectionsSpider()
 
@@ -20,12 +20,6 @@ freezer.start()
 parsed_items = [item for item in spider._parse_detail(test_response)]
 
 freezer.stop()
-
-
-
-"""
-Uncomment below
-"""
 
 
 def test_title():
@@ -70,7 +64,7 @@ def test_location():
 def test_source():
     assert (
         parsed_items[0]["source"]
-        == "https://boe.cuyahogacounty.gov/calendar/event-details/2022/05/24/default-calendar/board-meeting"
+        == "https://boe.cuyahogacounty.gov/calendar/event-details/2022/05/24/default-calendar/board-meeting"  # noqa
     )
 
 
@@ -81,15 +75,15 @@ def test_links():
             "title": "See Board Meeting Documents on our About Us page",
         },
         {
-            "href": "https://boe.cuyahogacounty.gov/Sitefinity/Public/Services/ICalanderService/file.ics/?id=c6380639-23da-4c05-b387-d7e9f13f8928&provider=&uiculture=en",
+            "href": "https://boe.cuyahogacounty.gov/Sitefinity/Public/Services/ICalanderService/file.ics/?id=c6380639-23da-4c05-b387-d7e9f13f8928&provider=&uiculture=en",  # noqa
             "title": "Outlook",
         },
         {
-            "href": "https://boe.cuyahogacounty.gov/Sitefinity/Public/Services/ICalanderService/file.ics/?id=c6380639-23da-4c05-b387-d7e9f13f8928&provider=&uiculture=en",
+            "href": "https://boe.cuyahogacounty.gov/Sitefinity/Public/Services/ICalanderService/file.ics/?id=c6380639-23da-4c05-b387-d7e9f13f8928&provider=&uiculture=en",  # noqa
             "title": "ICal",
         },
         {
-            "href": "http://www.google.com/calendar/event?action=TEMPLATE&text=Board+Meeting&dates=20220524T133000Z/20220524T143000Z&location=Ohio%2cCleveland%2c2925+Euclid+Ave&sprop=website:https://boe.cuyahogacounty.gov&sprop=name:Board+Meeting&details=Certification+of+the+May+3%2c+2022+Primary+Election%0a%0aSee+Board+Meeting+Documents+on+our+About+Us+page&recur=",
+            "href": "http://www.google.com/calendar/event?action=TEMPLATE&text=Board+Meeting&dates=20220524T133000Z/20220524T143000Z&location=Ohio%2cCleveland%2c2925+Euclid+Ave&sprop=website:https://boe.cuyahogacounty.gov&sprop=name:Board+Meeting&details=Certification+of+the+May+3%2c+2022+Primary+Election%0a%0aSee+Board+Meeting+Documents+on+our+About+Us+page&recur=",  # noqa
             "title": "Google Calendar",
         },
     ]

@@ -1,4 +1,3 @@
-import logging
 from datetime import datetime
 from typing import List, Tuple
 from urllib.parse import urljoin
@@ -7,13 +6,11 @@ from city_scrapers_core.constants import BOARD
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
 
-logger = logging.getLogger("alex-scraper")
-
 
 class CuyaElectionsSpider(CityScrapersSpider):
     name = "cuya_elections"
     agency = "Cuyahoga County Board of Elections"
-    timezone = "America/Chicago"
+    timezone = "America/Detroit"
     start_urls = ["https://boe.cuyahogacounty.gov/calendar?it=Current%20Events&mpp=96"]
     _month_dict = {
         "January": 1,
@@ -91,9 +88,7 @@ class CuyaElectionsSpider(CityScrapersSpider):
         """Parse start datetime as a naive datetime object."""
         _parsed_datetime = item.css(".sf_colsIn.col-lg-12 .meta em").get()
         _parsed_datetime = _parsed_datetime.split("<span>")
-        _parsed_date = (
-            _parsed_datetime[0][4:-8].strip().split(" ")
-        )
+        _parsed_date = _parsed_datetime[0][4:-8].strip().split(" ")
         _parsed_start = _parsed_datetime[0][-8:].strip()
         _year = int(_parsed_date[2])
         _month = int(self._month_dict.get(_parsed_date[0]))
@@ -105,9 +100,7 @@ class CuyaElectionsSpider(CityScrapersSpider):
         """Parse end datetime as a naive datetime object. Added by pipeline if None"""
         _parsed_datetime = item.css(".sf_colsIn.col-lg-12 .meta em").get()
         _parsed_datetime = _parsed_datetime.split("<span>")
-        _parsed_date = (
-            _parsed_datetime[0][4:-8].strip().split(" ")
-        )
+        _parsed_date = _parsed_datetime[0][4:-8].strip().split(" ")
         _parsed_end = _parsed_datetime[1][-13:-5].strip()
         _year = int(_parsed_date[2])
         _month = int(self._month_dict.get(_parsed_date[0]))
