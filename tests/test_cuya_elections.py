@@ -1,8 +1,8 @@
 from datetime import datetime
 from os.path import dirname, join
 
-import pytest  # noqa
-from city_scrapers_core.constants import BOARD, PASSED
+import pytest
+from city_scrapers_core.constants import BOARD
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
@@ -10,66 +10,89 @@ from city_scrapers.spiders.cuya_elections import CuyaElectionsSpider
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_elections.html"),
-    url="https://boe.cuyahogacounty.us/en-US/08272019meeting.aspx",
+    url="https://boe.cuyahogacounty.gov/calendar/event-details/2022/05/24/default-calendar/board-meeting",  # noqa
 )
 spider = CuyaElectionsSpider()
 
-freezer = freeze_time("2019-10-03")
+freezer = freeze_time("2022-04-28")
 freezer.start()
 
-parsed_item = [item for item in spider._parse_detail(test_response)][0]
+parsed_items = [item for item in spider._parse_detail(test_response)]
 
 freezer.stop()
 
 
 def test_title():
-    assert parsed_item["title"] == "Board of Elections"
+    print(parsed_items[0]["title"])
+    assert parsed_items[0]["title"] == "Board Meeting"
 
 
 def test_description():
-    assert parsed_item["description"] == ""
+    assert (
+        parsed_items[0]["description"]
+        == "Certification of the May 3, 2022 Primary Election"
+    )
 
 
 def test_start():
-    assert parsed_item["start"] == datetime(2019, 8, 27, 14, 0)
+    assert parsed_items[0]["start"] == datetime(2022, 5, 24, 9, 30)
 
 
 def test_end():
-    assert parsed_item["end"] == datetime(2019, 8, 27, 15, 0)
+    assert parsed_items[0]["end"] == datetime(2022, 5, 24, 10, 30)
 
 
 def test_time_notes():
-    assert parsed_item["time_notes"] == ""
+    assert parsed_items[0]["time_notes"] == ""
 
 
 def test_id():
-    assert parsed_item["id"] == "cuya_elections/201908271400/x/board_of_elections"
+    assert parsed_items[0]["id"] == "cuya_elections/202205240930/x/board_meeting"
 
 
 def test_status():
-    assert parsed_item["status"] == PASSED
+    assert parsed_items[0]["status"] == "tentative"
 
 
 def test_location():
-    assert parsed_item["location"] == spider.location
+    assert parsed_items[0]["location"] == {
+        "name": "",
+        "address": "2925 Euclid Ave\nCleveland",
+    }
 
 
 def test_source():
-    assert parsed_item["source"] == test_response.url
+    assert (
+        parsed_items[0]["source"]
+        == "https://boe.cuyahogacounty.gov/calendar/event-details/2022/05/24/default-calendar/board-meeting"  # noqa
+    )
 
 
 def test_links():
-    assert parsed_item["links"] == [
+    assert parsed_items[0]["links"] == [
         {
-            "href": "http://boe.cuyahogacounty.us/ViewFile.aspx?file=9Fsk2MKlT8E%3d",
-            "title": "Board Agenda",
-        }
+            "href": "https://boe.cuyahogacounty.gov/about-us/board-meeting-documents",
+            "title": "See Board Meeting Documents on our About Us page",
+        },
+        {
+            "href": "https://boe.cuyahogacounty.gov/Sitefinity/Public/Services/ICalanderService/file.ics/?id=c6380639-23da-4c05-b387-d7e9f13f8928&provider=&uiculture=en",  # noqa
+            "title": "Outlook",
+        },
+        {
+            "href": "https://boe.cuyahogacounty.gov/Sitefinity/Public/Services/ICalanderService/file.ics/?id=c6380639-23da-4c05-b387-d7e9f13f8928&provider=&uiculture=en",  # noqa
+            "title": "ICal",
+        },
+        {
+            "href": "http://www.google.com/calendar/event?action=TEMPLATE&text=Board+Meeting&dates=20220524T133000Z/20220524T143000Z&location=Ohio%2cCleveland%2c2925+Euclid+Ave&sprop=website:https://boe.cuyahogacounty.gov&sprop=name:Board+Meeting&details=Certification+of+the+May+3%2c+2022+Primary+Election%0a%0aSee+Board+Meeting+Documents+on+our+About+Us+page&recur=",  # noqa
+            "title": "Google Calendar",
+        },
     ]
 
 
 def test_classification():
-    assert parsed_item["classification"] == BOARD
+    assert parsed_items[0]["classification"] == BOARD
 
 
-def test_all_day():
-    assert parsed_item["all_day"] is False
+@pytest.mark.parametrize("item", parsed_items)
+def test_all_day(item):
+    assert item["all_day"] is False
