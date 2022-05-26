@@ -9,7 +9,9 @@ class CuyaMentalHealthResponseSpider(CityScrapersSpider):
     name = "cuya_mental_health_response"
     agency = "Mental Health Response Advisory Committee"
     timezone = "America/Chicago"
-    start_urls = ["https://www.adamhscc.org/about-us/current-initiatives/task-forces-and-coalitions/mental-health-response-advisory-committee-mhrac"]
+    start_urls = [
+        "https://www.adamhscc.org/about-us/current-initiatives/task-forces-and-coalitions/mental-health-response-advisory-committee-mhrac"  # noqa
+    ]
 
     def parse(self, response):
         """
@@ -19,7 +21,8 @@ class CuyaMentalHealthResponseSpider(CityScrapersSpider):
         needs.
         """
         for i in range(len(response.css("tr"))):
-            if i == 0: continue         # Skip the first element (table header)
+            if i == 0:
+                continue  # Skip the first element (table header)
             item = response.css("tr")[i]
             meeting = Meeting(
                 title=self._parse_title(item),
@@ -60,21 +63,24 @@ class CuyaMentalHealthResponseSpider(CityScrapersSpider):
         if time_s[-2] == "P" and hour != 12:
             hour += 12
         return (hour, minute)
-    
+
     def _parse_start_end(self, item) -> dict:
         """Helper function to generate start and end time."""
-        parsed_raw_l = item.css('td.event_datetime::text').get().split(' ')
-        start_time_24_t = self._to_24h_time(' '.join(parsed_raw_l[1:3]))
-        end_time_24_t = self._to_24h_time(' '.join(parsed_raw_l[4:6]))
-        parsed_raw_date_l = parsed_raw_l[0].split('/')
+        parsed_raw_l = item.css("td.event_datetime::text").get().split(" ")
+        start_time_24_t = self._to_24h_time(" ".join(parsed_raw_l[1:3]))
+        end_time_24_t = self._to_24h_time(" ".join(parsed_raw_l[4:6]))
+        parsed_raw_date_l = parsed_raw_l[0].split("/")
         year_i = int(parsed_raw_date_l[2])
         month_i = int(parsed_raw_date_l[0])
         day_i = int(parsed_raw_date_l[1])
-        start_time_dt = datetime(year_i, month_i, day_i, start_time_24_t[0], start_time_24_t[1])
-        end_time_dt = datetime(year_i, month_i, day_i, end_time_24_t[0], end_time_24_t[1])
-        return {"start": start_time_dt,
-                "end": end_time_dt}
-    
+        start_time_dt = datetime(
+            year_i, month_i, day_i, start_time_24_t[0], start_time_24_t[1]
+        )
+        end_time_dt = datetime(
+            year_i, month_i, day_i, end_time_24_t[0], end_time_24_t[1]
+        )
+        return {"start": start_time_dt, "end": end_time_dt}
+
     def _parse_start(self, item):
         """Parse start datetime as a naive datetime object."""
         return self._parse_start_end(item)["start"]
@@ -100,7 +106,7 @@ class CuyaMentalHealthResponseSpider(CityScrapersSpider):
 
     def _parse_links(self, item):
         """Parse or generate links."""
-        href: str = 'https://www.adamhscc.org' + item.css('a').attrib['href']
+        href: str = "https://www.adamhscc.org" + item.css("a").attrib["href"]
         return [{"href": href, "title": "Meeting details"}]
 
     def _parse_source(self, response):
