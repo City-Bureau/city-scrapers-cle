@@ -9,7 +9,7 @@ from city_scrapers_core.spiders import CityScrapersSpider
 class CuyaMentalHealthResponseSpider(CityScrapersSpider):
     name = "cuya_mental_health_response"
     agency = "Mental Health Response Advisory Committee"
-    timezone = "America/Chicago"
+    timezone = "America/Detroit"
     start_urls = [
         "https://www.adamhscc.org/about-us/current-initiatives/task-forces-and-coalitions/mental-health-response-advisory-committee-mhrac"  # noqa
     ]
