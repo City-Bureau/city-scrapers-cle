@@ -80,8 +80,11 @@ class CleDesignReviewSpider(CityScrapersSpider):
 
             # Start by looking through the agendas for existing meetings
             for agenda in commitee_agenda_list.css("div.dropdown-menu a.dropdown-item"):
-                month_str, day_str = (
-                    agenda.css("*::text").extract_first().strip().split(" ")
+                month_str = (
+                    agenda.css("*::text").extract_first().strip().split(" ")[0]
+                )
+                day_str = (
+                    agenda.css("*::text").extract_first().strip().split(" ")[1]
                 )
                 year_str = self._parse_year_from_agenda_link(agenda)
 
