@@ -18,7 +18,7 @@ class CleCityCouncilSpider(LegistarSpider):
         needs.
         """
         for event in events:
-            if (self.legistar_start(event) is NoneType):
+            if (self.legistar_start(event) is None):
                 return
             else:
                 meeting = Meeting(
