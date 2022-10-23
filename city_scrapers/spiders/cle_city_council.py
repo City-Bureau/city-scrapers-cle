@@ -1,5 +1,5 @@
 from datetime import datetime
-from tracemalloc import start
+
 from city_scrapers_core.constants import CITY_COUNCIL, COMMITTEE
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import LegistarSpider
@@ -20,12 +20,12 @@ class CleCityCouncilSpider(LegistarSpider):
         needs.
         """
         for event in events:
-            
-            if (self.legistar_start(event) is None):
-                start = datetime.strptime("01-01-01 00:00:00", '%y-%m-%d %H:%M:%S')
+
+            if self.legistar_start(event) is None:
+                start = datetime.strptime("01-01-01 00:00:00", "%y-%m-%d %H:%M:%S")
             else:
                 start = self.legistar_start(event)
-            
+
             print(self.legistar_start(event))
             meeting = Meeting(
                 title=event["Name"]["label"],
