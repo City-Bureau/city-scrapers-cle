@@ -1,3 +1,5 @@
+from datetime import datetime
+from tracemalloc import start
 from city_scrapers_core.constants import CITY_COUNCIL, COMMITTEE
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import LegistarSpider
@@ -18,26 +20,30 @@ class CleCityCouncilSpider(LegistarSpider):
         needs.
         """
         for event in events:
+            
             if (self.legistar_start(event) is None):
-                return
+                start = datetime.strptime("01-01-01 00:00:00", '%y-%m-%d %H:%M:%S')
             else:
-                meeting = Meeting(
-                    title=event["Name"]["label"],
-                    description=self._parse_description(event),
-                    classification=self._parse_classification(event),
-                    start=self.legistar_start(event),
-                    end=None,
-                    all_day=False,
-                    time_notes="",
-                    location=self._parse_location(event),
-                    links=self.legistar_links(event),
-                    source=self.legistar_source(event),
-                )
+                start = self.legistar_start(event)
+            
+            print(self.legistar_start(event))
+            meeting = Meeting(
+                title=event["Name"]["label"],
+                description=self._parse_description(event),
+                classification=self._parse_classification(event),
+                start=start,
+                end=None,
+                all_day=False,
+                time_notes="",
+                location=self._parse_location(event),
+                links=self.legistar_links(event),
+                source=self.legistar_source(event),
+            )
 
-                meeting["status"] = self._get_status(meeting)
-                meeting["id"] = self._get_id(meeting)
+            meeting["status"] = self._get_status(meeting)
+            meeting["id"] = self._get_id(meeting)
 
-                yield meeting
+            yield meeting
 
     def _parse_description(self, item):
         """Parse or generate meeting description."""
