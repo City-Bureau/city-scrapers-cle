@@ -18,23 +18,25 @@ class CleCityCouncilSpider(LegistarSpider):
         needs.
         """
         for event in events:
-            meeting = Meeting(
-                title=event["Name"]["label"],
-                description=self._parse_description(event),
-                classification=self._parse_classification(event),
-                start=self.legistar_start(event),
-                end=None,
-                all_day=False,
-                time_notes="",
-                location=self._parse_location(event),
-                links=self.legistar_links(event),
-                source=self.legistar_source(event),
-            )
+            start = self.legistar_start(event)
+            if start:
+                meeting = Meeting(
+                    title=event["Name"]["label"],
+                    description=self._parse_description(event),
+                    classification=self._parse_classification(event),
+                    start=start,
+                    end=None,
+                    all_day=False,
+                    time_notes="",
+                    location=self._parse_location(event),
+                    links=self.legistar_links(event),
+                    source=self.legistar_source(event),
+                )
 
-            meeting["status"] = self._get_status(meeting)
-            meeting["id"] = self._get_id(meeting)
+                meeting["status"] = self._get_status(meeting)
+                meeting["id"] = self._get_id(meeting)
 
-            yield meeting
+                yield meeting
 
     def _parse_description(self, item):
         """Parse or generate meeting description."""
