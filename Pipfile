@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 twisted = "*"
 scrapy = "*"
-scrapy-sentry = "*"
+scrapy-sentry = {ref = "v1", git = "https://github.com/City-Bureau/scrapy-sentry.git"}
 city-scrapers-core = {extras = ["azure"],version = "*"}
 scrapy-wayback-middleware = "*"
 python-dateutil = "*"
@@ -19,4 +19,4 @@ freezegun = "*"
 pytest = "*"
 "flake8" = "*"
 isort = "*"
-black = "==19.10b0"
+black = "*"

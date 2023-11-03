@@ -21,40 +21,40 @@ class CleDesignReviewSpider(CityScrapersSpider):
 
     def parse(self, response):
         """
-            There's no element that wraps both the committee name/time and
-            the dropdown containing the agendas.  As such we want to grab
-            each committee name/times and then use the following dropdown
-            to get the agendas.  Luckily all of the committee name/times are
-            (and are the only thing in) divs with the class '.mt-3' so we can
-            grab all the divs with those classes and then look for the next sibling
-            div with the ".dropdown" class to get the links to all the agendas.
+        There's no element that wraps both the committee name/time and
+        the dropdown containing the agendas.  As such we want to grab
+        each committee name/times and then use the following dropdown
+        to get the agendas.  Luckily all of the committee name/times are
+        (and are the only thing in) divs with the class '.mt-3' so we can
+        grab all the divs with those classes and then look for the next sibling
+        div with the ".dropdown" class to get the links to all the agendas.
 
-            Note that the city planning meeting is handled by a different scraper so
-            we do look at it here. Luckily the name/times for the city planning
-            meeting are not currently wrapped in a div, so the list of nodes described
-            above won't include it.
+        Note that the city planning meeting is handled by a different scraper so
+        we do look at it here. Luckily the name/times for the city planning
+        meeting are not currently wrapped in a div, so the list of nodes described
+        above won't include it.
 
-            There are three other points to keep in mind for this scraper:
+        There are three other points to keep in mind for this scraper:
 
-            1. The way the data is presented doesn't make it easy to know whether or
-               not a meeting occurred but doesn't have an agenda, or whether a meeting
-               is going to happen on a normal meeting date.  The strategy I'm using is
-               to treat the agenda links as authoritative for past (and if listed
-               upcoming) meetings. So previous meetings are just read off of the agenda
-               links. For future meetings we take the date of the most recent agenda
-               and then calculate meetings for 60 days from that date. As dates
-               progress and agendas are added, those tentative meetings will either be
-               confirmed to exist or disappear based on the ways the agendas are
-               updated.  For calculated meetings we add a line to the description
-               encouraging users to verify the meeting with staff before attempting to
-               attend.
+        1. The way the data is presented doesn't make it easy to know whether or
+           not a meeting occurred but doesn't have an agenda, or whether a meeting
+           is going to happen on a normal meeting date.  The strategy I'm using is
+           to treat the agenda links as authoritative for past (and if listed
+           upcoming) meetings. So previous meetings are just read off of the agenda
+           links. For future meetings we take the date of the most recent agenda
+           and then calculate meetings for 60 days from that date. As dates
+           progress and agendas are added, those tentative meetings will either be
+           confirmed to exist or disappear based on the ways the agendas are
+           updated.  For calculated meetings we add a line to the description
+           encouraging users to verify the meeting with staff before attempting to
+           attend.
 
-            2. There is no mention of the year anywhere in the text of the site. We
-               can extract it from the agenda link - at least for now. But it will
-               be important to keep an eye on how the site is changed in January.
+        2. There is no mention of the year anywhere in the text of the site. We
+           can extract it from the agenda link - at least for now. But it will
+           be important to keep an eye on how the site is changed in January.
 
-            3. Meetings are currently not being held in person but over webex. We've
-               included this information in the meeting description.
+        3. Meetings are currently not being held in person but over webex. We've
+           included this information in the meeting description.
         """
         committee_metas = response.css(
             "div.mt-3"
@@ -80,12 +80,8 @@ class CleDesignReviewSpider(CityScrapersSpider):
 
             # Start by looking through the agendas for existing meetings
             for agenda in commitee_agenda_list.css("div.dropdown-menu a.dropdown-item"):
-                month_str = (
-                    agenda.css("*::text").extract_first().strip().split(" ")[0]
-                )
-                day_str = (
-                    agenda.css("*::text").extract_first().strip().split(" ")[1]
-                )
+                month_str = agenda.css("*::text").extract_first().strip().split(" ")[0]
+                day_str = agenda.css("*::text").extract_first().strip().split(" ")[1]
                 year_str = self._parse_year_from_agenda_link(agenda)
 
                 start = self._parse_start(year_str, month_str, day_str, time_str)
