@@ -66,7 +66,7 @@ jobs:
       - name: Combine output feeds
         run: |
           export PYTHONPATH=$(pwd):$PYTHONPATH
-          pipenv run scrapy combinefeeds -s LOG_ENABLED=False
+          pipenv run scrapy combinefeeds -s LOG_ENABLED=True
 
       - name: Notify slack on job failure
         id: slack
