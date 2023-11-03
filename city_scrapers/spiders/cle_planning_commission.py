@@ -69,17 +69,13 @@ class ClePlanningCommissionSpider(CityScrapersSpider):
 
         # Start by looking through the agendas for existing meetings
         for agenda in commission_agendas.css("div.dropdown-menu a.dropdown-item"):
-            '''
+            """
             month_str, day_str = (
                 agenda.css("*::text").extract_first().strip().split(" ")
             )
-            '''
-            month_str = (
-                agenda.css("*::text").extract_first().strip().split(" ")[0]
-            )
-            day_str = (
-                agenda.css("*::text").extract_first().strip().split(" ")[1]
-            )
+            """
+            month_str = agenda.css("*::text").extract_first().strip().split(" ")[0]
+            day_str = agenda.css("*::text").extract_first().strip().split(" ")[1]
 
             year_str = self._parse_year_from_link(agenda)
 
@@ -208,14 +204,7 @@ class ClePlanningCommissionSpider(CityScrapersSpider):
         Transform a dropdown item into a text key representing the date in the format:
         year-month-day such as 2021-dec-3rd.
         """
-        name = item.css("::text").extract_first()
-        #[month, day] = name.split(" ")
-        #month = month[0:3].lower()
-        month_str = (
-            item.css("*::text").extract_first().strip().split(" ")[0]
-        )
-        day_str = (
-            item.css("*::text").extract_first().strip().split(" ")[1]
-        )
+        month_str = item.css("*::text").extract_first().strip().split(" ")[0]
+        day_str = item.css("*::text").extract_first().strip().split(" ")[1]
         year = self._parse_year_from_link(item)
         return f"{year}-{month_str}-{day_str}"
