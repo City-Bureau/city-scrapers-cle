@@ -1,6 +1,5 @@
 from datetime import datetime
-from typing import List, Tuple
-from urllib.parse import urljoin
+from typing import Tuple
 
 from city_scrapers_core.constants import BOARD
 from city_scrapers_core.items import Meeting
@@ -11,7 +10,9 @@ class CuyaElectionsSpider(CityScrapersSpider):
     name = "cuya_elections"
     agency = "Cuyahoga County Board of Elections"
     timezone = "America/Detroit"
-    start_urls = ["https://boe.cuyahogacounty.gov/calendar?it=Current%20Events&categories=1%7CBoard%20Meeting"]
+    start_urls = [
+        "https://boe.cuyahogacounty.gov/calendar?it=Current%20Events&categories=1%7CBoard%20Meeting"  #noqa
+    ]
     _month_dict = {
         "January": 1,
         "February": 2,
