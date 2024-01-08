@@ -26,6 +26,10 @@ class CuyaElectionsSpider(CityScrapersSpider):
         "November": 11,
         "December": 12,
     }
+    attachments_page = {
+        "title": "Board meeting documents",
+        "href": "https://boe.cuyahogacounty.gov/about-us/board-meeting-documents",
+    }
 
     def parse(self, response):
         for link in response.css("a.item-link::attr(href)"):
@@ -43,7 +47,7 @@ class CuyaElectionsSpider(CityScrapersSpider):
             all_day=self._parse_all_day(item),
             time_notes=self._parse_time_notes(item),
             location=self._parse_location(item),
-            links=self._parse_links(item),
+            links=[self.attachments_page],
             source=self._parse_source(item),
         )
         meeting["status"] = self._get_status(meeting)
@@ -122,19 +126,6 @@ class CuyaElectionsSpider(CityScrapersSpider):
             location["address"] = "see links and/or source"
 
         return location
-
-    def _parse_links(self, item) -> List:
-        """Parse or generate links."""
-        _parsed_links_titles = item.css(".sf_colsIn.col-lg-12 a::text")[9:]
-        _parsed_links_hrefs = item.css(".sf_colsIn.col-lg-12 a::attr(href)")[9:]
-        links: list = []
-        for i in range(len(_parsed_links_hrefs)):
-            temp = {
-                "title": _parsed_links_titles[i].get(),
-                "href": urljoin(item.url, _parsed_links_hrefs[i].get()),
-            }
-            links.append(temp)
-        return links
 
     def _parse_source(self, item):
         """Parse or generate source."""
