@@ -28,16 +28,10 @@ class CuyaElectionsSpider(CityScrapersSpider):
     }
 
     def parse(self, response):
-        """
-        `parse` should always `yield` Meeting items.
-
-        Change the `_parse_title`, `_parse_start`, etc methods to fit your scraping
-        needs.
-        """
-        # Go through each of the links from the calendar landing page and add them
-        #   to callbacks.
         for link in response.css("a.item-link::attr(href)"):
-            yield response.follow(link.get(), callback=self._parse_detail)
+            # The link path is incorrect, so we need to update it
+            correct_link = link.get().replace("boe-events/", "calendar/event-details/")
+            yield response.follow(correct_link, callback=self._parse_detail)
 
     def _parse_detail(self, item):
         meeting = Meeting(
