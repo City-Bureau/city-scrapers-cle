@@ -52,7 +52,7 @@ class CuyaElectionsSpider(CityScrapersSpider):
 
     def _parse_title(self, item) -> str:
         """Parse or generate meeting title."""
-        title = item.css("h3.sf-event-title span::text").get()
+        title = item.css("h1.sf-event-title span::text").get()
         if title is None:
             return ""
         return title.strip()
