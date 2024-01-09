@@ -64,7 +64,7 @@ class CuyaElectionsSpider(CityScrapersSpider):
 
     def _parse_description(self, item) -> str:
         """Parse or generate meeting description."""
-        description = item.css(".sf_colsIn.col-lg-12 p::text").get()
+        description = item.css(".sf_colsIn.col-lg-12 p::text").get().strip()
         if description is None:
             return ""
         return description
