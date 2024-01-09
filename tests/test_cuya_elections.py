@@ -30,7 +30,7 @@ def test_title():
 def test_description():
     assert (
         parsed_items[0]["description"]
-        == "Certification of remaining issues, charter amendments, and write-in candidates for the\nMarch 19, 2024 Primary Election"
+        == "Certification of remaining issues, charter amendments, and write-in candidates for the\nMarch 19, 2024 Primary Election"  # noqa
     )
 
 
