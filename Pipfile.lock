@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "8a20589388ef97f63e274771549b397f6605cd798779f0a7b7725897408717a4"
+            "sha256": "63e7cc0785cbb7e135e5bb1ab4eeced2dc54594a7ebf02ac52013d670ce38c0e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -675,8 +675,8 @@
             "version": "==2.11.0"
         },
         "scrapy-sentry": {
-            "git": "https://github.com/City-Bureau/scrapy-sentry.git",
-            "ref": "5da919f716d981e5c7926994f27676a285da39a3"
+            "git": "git+https://github.com/City-Bureau/scrapy-sentry.git",
+            "ref": "8f660cda2fb155f998756bea63a3f1259e31360c"
         },
         "scrapy-wayback-middleware": {
             "hashes": [
