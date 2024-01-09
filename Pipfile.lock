@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "8a20589388ef97f63e274771549b397f6605cd798779f0a7b7725897408717a4"
+            "sha256": "1e157fd63eb465196c0bb3d3bde6f6855830207b8ce66f83e203202595c0eb34"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -530,13 +530,6 @@
             "markers": "python_version >= '3.5'",
             "version": "==1.6.2"
         },
-        "raven": {
-            "hashes": [
-                "sha256:3fa6de6efa2493a7c827472e984ce9b020797d0da16f1db67197bcc23c8fae54",
-                "sha256:44a13f87670836e153951af9a3c80405d36b43097db869a36e92809673692ce4"
-            ],
-            "version": "==6.10.0"
-        },
         "referencing": {
             "hashes": [
                 "sha256:3c57da0513e9563eb7e203ebe9bb3a1b509b042016433bd1e45a2853466c3dd3",
@@ -673,10 +666,6 @@
             "index": "pypi",
             "markers": "python_version >= '3.8'",
             "version": "==2.11.0"
-        },
-        "scrapy-sentry": {
-            "git": "https://github.com/City-Bureau/scrapy-sentry.git",
-            "ref": "5da919f716d981e5c7926994f27676a285da39a3"
         },
         "scrapy-wayback-middleware": {
             "hashes": [
