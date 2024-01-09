@@ -42,7 +42,7 @@ jobs:
           python-version: 3.9
 
       - name: Install Pipenv
-        run: pip install --user pipenv
+        uses: dschep/install-pipenv-action@v1
 
       - name: Cache Python dependencies
         uses: actions/cache@v1
