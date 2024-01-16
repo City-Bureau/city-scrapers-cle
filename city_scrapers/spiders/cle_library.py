@@ -30,25 +30,9 @@ class CleLibrarySpider(CityScrapersSpider):
         self.minutes_map = self._parse_minutes(response)
         yield scrapy.Request(
             "https://cpl.org/category/meeting/",
-            callback=self._parse_meetings_page,
+            callback=self._parse_meetings,
             dont_filter=True,
         )
-
-    def _parse_meetings_page(self, response):
-        """Parse meetings from results pages"""
-        yield from self._parse_meetings(response)
-
-        page_num = response.url.split("/")[-2]
-        if page_num.isdigit():
-            page_num = int(page_num) + 1
-        else:
-            page_num = 2
-        if page_num <= 3:
-            yield scrapy.Request(
-                "https://cpl.org/category/meeting/page/{}/".format(page_num),
-                callback=self._parse_meetings_page,
-                dont_filter=True,
-            )
 
     def _parse_meetings(self, response):
         for item in response.css("article"):
