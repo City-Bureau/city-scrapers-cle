@@ -11,7 +11,7 @@ class CuyaElectionsSpider(CityScrapersSpider):
     agency = "Cuyahoga County Board of Elections"
     timezone = "America/Detroit"
     start_urls = [
-        "https://boe.cuyahogacounty.gov/calendar?it=Current%20Events&categories=1%7CBoard%20Meeting"  #noqa
+        "https://boe.cuyahogacounty.gov/calendar?it=Current%20Events&categories=1%7CBoard%20Meeting"  # noqa
     ]
     _month_dict = {
         "January": 1,
