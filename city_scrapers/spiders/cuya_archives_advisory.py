@@ -8,6 +8,6 @@ class CuyaArchivesAdvisorySpider(CuyaCountyMixin2, CityScrapersSpider):
     name = "cuya_archives_advisory"
     agency = "Cuyahoga County Archives Advisory Commission"
     start_urls = [
-        "https://cuyahogacounty.gov/boards-and-commissions/board-details/external/archives-advisory-commission" # noqa
+        "https://cuyahogacounty.gov/boards-and-commissions/board-details/external/archives-advisory-commission"  # noqa
     ]
     classification = ADVISORY_COMMITTEE

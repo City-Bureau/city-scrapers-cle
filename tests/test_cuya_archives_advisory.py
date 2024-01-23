@@ -80,7 +80,7 @@ def test_links():
     assert parsed_item["links"] == [
         {
             "title": "Agenda",
-            "href": "https://cuyahogacms.blob.core.windows.net/home/docs/default-source/boards-and-commissions/external/ccaac/07202023-ccaacagenda.pdf?sfvrsn=43c01061_1", # noqa
+            "href": "https://cuyahogacms.blob.core.windows.net/home/docs/default-source/boards-and-commissions/external/ccaac/07202023-ccaacagenda.pdf?sfvrsn=43c01061_1",  # noqa
         }
     ]
 
