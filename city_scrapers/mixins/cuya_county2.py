@@ -6,6 +6,13 @@ from city_scrapers_core.items import Meeting
 
 
 class CuyaCountyMixin2:
+    """
+    This is a newer version of CuyaCountyMixin that handles page structure
+    changes to the Cuyahoga County site that occured in 2023. It is not yet
+    used in all spiders. When it is, the old mixin can be removed and this
+    one renamed to CuyaCountyMixin.
+    """
+
     timezone = "America/Detroit"
 
     def parse(self, response):
