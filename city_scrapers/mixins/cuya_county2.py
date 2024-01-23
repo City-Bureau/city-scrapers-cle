@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 
 import dateutil.parser
@@ -16,12 +17,13 @@ class CuyaCountyMixin2:
 
     def _parse_detail(self, response):
         main_el = response.css("div.moudle")
+        start_date, end_date = self._parse_dates(main_el)
         meeting = Meeting(
             title=self._parse_title(main_el),
             description=self._parse_description(main_el),
             classification=self.classification,
-            start=self._parse_start(main_el),
-            end=None,
+            start=start_date,
+            end=end_date,
             time_notes="",
             all_day=False,
             location=self._parse_location(main_el),
@@ -42,7 +44,7 @@ class CuyaCountyMixin2:
         full_text = " ".join(cleaned_texts)
         return full_text
 
-    def _parse_start(self, selector):
+    def _parse_dates(self, selector):
         # Extract the start date from the 'content' attribute
         start_date_str = selector.css(
             '.meta-item[itemprop="startDate"] ::attr(content)'
@@ -51,19 +53,35 @@ class CuyaCountyMixin2:
             raise ValueError("Could not find start date")
         start_date = dateutil.parser.parse(start_date_str).date()
 
-        # Extract the time text
+        # Extract the start time text
         text_nodes = selector.css(
             ".meta-item[itemprop='startDate'] > p::text"
         ).extract()
-        time_str = text_nodes[1].strip()
-        if not time_str:
+        start_time_str = text_nodes[1].strip()
+        if not start_time_str:
             raise ValueError("Could not find start time")
-        start_time = dateutil.parser.parse(time_str).time()
+        start_time = dateutil.parser.parse(start_time_str).time()
 
-        # Combine the start date and time to get the start datetime
+        # Extract the end time text
+        time_text = " ".join(selector.css(".meta-item p ::text").extract()).strip()
+        time_text_parts = time_text.split(" - ")
+        if len(time_text_parts) > 1:
+            end_time_str = time_text_parts[1].strip()
+            pattern = r"\b([1-9]|1[0-2]):[0-5][0-9]\s*(AM|PM)\b"
+            match = re.search(pattern, end_time_str, re.IGNORECASE)
+            if match:
+                refined_end_time_str = match.group()
+                end_time = dateutil.parser.parse(refined_end_time_str).time()
+            else:
+                raise ValueError("Could not find end time")
+        else:
+            raise ValueError("Could not find end time")
+
+        # combine
         start_datetime = datetime.combine(start_date, start_time)
+        end_datetime = datetime.combine(start_date, end_time)
 
-        return start_datetime
+        return start_datetime, end_datetime
 
     def _parse_location(self, selector):
         address = (
