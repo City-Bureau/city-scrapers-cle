@@ -8,6 +8,6 @@ class CuyaInvestmentAdvisoryCommitteeSpider(CuyaCountyMixin2, CityScrapersSpider
     name = "cuya_investment_advisory_committee"
     agency = "Cuyahoga County Investment Advisory Committee"
     start_urls = [
-        "https://cuyahogacounty.gov/boards-and-commissions/board-details/internal/investment-advisory-committee" # noqa
+        "https://cuyahogacounty.gov/boards-and-commissions/board-details/internal/investment-advisory-committee"  # noqa
     ]
     classification = ADVISORY_COMMITTEE

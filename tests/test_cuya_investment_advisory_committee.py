@@ -58,7 +58,7 @@ def test_time_notes():
 def test_id():
     assert (
         parsed_item["id"]
-        == "cuya_investment_advisory_committee/202401251000/x/investment_advisory_committee_meeting_1_25_24" # noqa
+        == "cuya_investment_advisory_committee/202401251000/x/investment_advisory_committee_meeting_1_25_24"  # noqa
     )
 
 
@@ -76,7 +76,7 @@ def test_location():
 def test_source():
     assert (
         parsed_item["source"]
-        == "https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2024/01/25/boards-and-commissions/investment-advisory-committee-meeting---1-25-24" # noqa
+        == "https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2024/01/25/boards-and-commissions/investment-advisory-committee-meeting---1-25-24"  # noqa
     )
 
 
