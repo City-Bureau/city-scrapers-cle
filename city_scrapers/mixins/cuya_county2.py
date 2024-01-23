@@ -1,22 +1,11 @@
-import datetime
-from typing import Any
+from datetime import datetime
 
 import dateutil.parser
-from city_scrapers_core.constants import ADVISORY_COMMITTEE
 from city_scrapers_core.items import Meeting
-from city_scrapers_core.spiders import CityScrapersSpider
-from scrapy.http import Response
-
-from city_scrapers.mixins import CuyaCountyMixin2
 
 
-class CuyaChildrenFamilyAdvisorySpider(CuyaCountyMixin2, CityScrapersSpider):
-    name = "cuya_children_family_advisory"
-    agency = "Cuyahoga County Children and Family Services Advisory Board"
-    start_urls = [
-        "https://cuyahogacounty.gov/boards-and-commissions/board-details/external/children-and-family-services-planning-committee"  # noqa
-    ]
-    classification = ADVISORY_COMMITTEE
+class CuyaCountyMixin2:
+    timezone = "America/Detroit"
 
     def parse(self, response):
         links = response.css(
@@ -25,7 +14,7 @@ class CuyaChildrenFamilyAdvisorySpider(CuyaCountyMixin2, CityScrapersSpider):
         for link in links:
             yield response.follow(link, callback=self._parse_detail, dont_filter=True)
 
-    def _parse_detail(self, response: Response) -> Any:
+    def _parse_detail(self, response):
         main_el = response.css("div.moudle")
         meeting = Meeting(
             title=self._parse_title(main_el),
@@ -58,6 +47,8 @@ class CuyaChildrenFamilyAdvisorySpider(CuyaCountyMixin2, CityScrapersSpider):
         start_date_str = selector.css(
             '.meta-item[itemprop="startDate"] ::attr(content)'
         ).get()
+        if not start_date_str:
+            raise ValueError("Could not find start date")
         start_date = dateutil.parser.parse(start_date_str).date()
 
         # Extract the time text
@@ -65,10 +56,12 @@ class CuyaChildrenFamilyAdvisorySpider(CuyaCountyMixin2, CityScrapersSpider):
             ".meta-item[itemprop='startDate'] > p::text"
         ).extract()
         time_str = text_nodes[1].strip()
+        if not time_str:
+            raise ValueError("Could not find start time")
         start_time = dateutil.parser.parse(time_str).time()
 
         # Combine the start date and time to get the start datetime
-        start_datetime = datetime.datetime.combine(start_date, start_time)
+        start_datetime = datetime.combine(start_date, start_time)
 
         return start_datetime
 
