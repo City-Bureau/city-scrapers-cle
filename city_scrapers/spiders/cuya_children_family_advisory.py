@@ -1,18 +1,18 @@
+import datetime
 from typing import Any
+
+import dateutil.parser
 from city_scrapers_core.constants import ADVISORY_COMMITTEE
+from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
 from scrapy.http import Response
-import dateutil.parser
-import datetime
-from city_scrapers.mixins import CuyaCountyMixin
-from city_scrapers_core.items import Meeting
 
 
 class CuyaChildrenFamilyAdvisorySpider(CityScrapersSpider):
     name = "cuya_children_family_advisory"
     agency = "Cuyahoga County Children and Family Services Advisory Board"
     start_urls = [
-        "https://cuyahogacounty.gov/boards-and-commissions/board-details/external/children-and-family-services-planning-committee"
+        "https://cuyahogacounty.gov/boards-and-commissions/board-details/external/children-and-family-services-planning-committee"  # noqa
     ]
     classification = ADVISORY_COMMITTEE
 
@@ -37,6 +37,8 @@ class CuyaChildrenFamilyAdvisorySpider(CityScrapersSpider):
             links=self._parse_links(main_el),
             source=response.url,
         )
+        meeting["status"] = self._get_status(meeting)
+        meeting["id"] = self._get_id(meeting)
         yield meeting
 
     def _parse_title(self, selector):
@@ -69,11 +71,12 @@ class CuyaChildrenFamilyAdvisorySpider(CityScrapersSpider):
         return start_datetime
 
     def _parse_location(self, selector):
-        return (
+        address = (
             selector.css('div[itemprop="location"] [itemprop="streetAddress"]::text')
             .get()
             .strip()
         )
+        return {"name": "", "address": address}
 
     def _parse_links(self, selector):
         links = selector.css(".related-content a")
