@@ -14,11 +14,11 @@ test_response = file_response(
 )
 test_detail_response = file_response(
     join(dirname(__file__), "files", "cuya_archives_advisory_detail.html"),
-    url="http://bc.cuyahogacounty.us/en-US/032918-CCAAC-meeting.aspx",
+    url="https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2023/07/20/boards-and-commissions/07-20-23-archives-advisory-commission",  # noqa
 )
 spider = CuyaArchivesAdvisorySpider()
 
-freezer = freeze_time("2019-09-16")
+freezer = freeze_time("2024-01-16")
 freezer.start()
 
 parsed_items = [item for item in spider.parse(test_response)]
@@ -28,11 +28,11 @@ freezer.stop()
 
 
 def test_count():
-    assert len(parsed_items) == 0
+    assert len(parsed_items) == 3
 
 
 def test_title():
-    assert parsed_item["title"] == "Archives Advisory Commission"
+    assert parsed_item["title"] == "07/20/23 Archives Advisory Commission"
 
 
 def test_description():
@@ -40,11 +40,11 @@ def test_description():
 
 
 def test_start():
-    assert parsed_item["start"] == datetime(2018, 3, 29, 10, 0)
+    assert parsed_item["start"] == datetime(2023, 7, 20, 10, 0)
 
 
 def test_end():
-    assert parsed_item["end"] == datetime(2018, 3, 29, 11, 0)
+    assert parsed_item["end"] == datetime(2023, 7, 20, 11, 0)
 
 
 def test_time_notes():
@@ -54,7 +54,7 @@ def test_time_notes():
 def test_id():
     assert (
         parsed_item["id"]
-        == "cuya_archives_advisory/201803291000/x/archives_advisory_commission"
+        == "cuya_archives_advisory/202307201000/x/07_20_23_archives_advisory_commission"
     )
 
 
@@ -63,21 +63,24 @@ def test_status():
 
 
 def test_location():
-    assert parsed_item["location"] == spider.location
+    assert parsed_item["location"] == {
+        "name": "",
+        "address": "County Archives Building, 3951 Perkins Ave. Cleveland, Ohio 44114",
+    }
 
 
 def test_source():
     assert (
         parsed_item["source"]
-        == "http://bc.cuyahogacounty.us/en-US/032918-CCAAC-meeting.aspx"
+        == "https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2023/07/20/boards-and-commissions/07-20-23-archives-advisory-commission"  # noqa
     )
 
 
 def test_links():
     assert parsed_item["links"] == [
         {
-            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=PKQtl2S6yv5XIN4J3EO3XA%3d%3d",  # noqa
             "title": "Agenda",
+            "href": "https://cuyahogacms.blob.core.windows.net/home/docs/default-source/boards-and-commissions/external/ccaac/07202023-ccaacagenda.pdf?sfvrsn=43c01061_1", # noqa
         }
     ]
 
