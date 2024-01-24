@@ -12,15 +12,15 @@ from city_scrapers.spiders.cuya_workforce_development import (
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_workforce_development.html"),
-    url="http://bc.cuyahogacounty.us/en-US/Workforce-Development.aspx",
+    url="https://cuyahogacounty.gov/boards-and-commissions/board-details/external/cleveland-cuyahoga-county-workforce-development-board",  # noqa
 )
 test_detail_response = file_response(
     join(dirname(__file__), "files", "cuya_workforce_development_detail.html"),
-    url="http://bc.cuyahogacounty.us/en-US/081619-WD-Board-Meeting.aspx",
+    url="https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2023/11/17/boards-and-commissions/wd-board-meeting-111723",  # noqa
 )
 spider = CuyaWorkforceDevelopmentSpider()
 
-freezer = freeze_time("2019-09-17")
+freezer = freeze_time("2024-01-17")
 freezer.start()
 
 parsed_items = [item for item in spider.parse(test_response)]
@@ -30,11 +30,11 @@ freezer.stop()
 
 
 def test_count():
-    assert len(parsed_items) == 3
+    assert len(parsed_items) == 6
 
 
 def test_title():
-    assert parsed_item["title"] == "Board Meetings “Retreat”"
+    assert parsed_item["title"] == "Workforce Development Board Meeting - 11/17/23"
 
 
 def test_description():
@@ -42,11 +42,11 @@ def test_description():
 
 
 def test_start():
-    assert parsed_item["start"] == datetime(2019, 8, 16, 8, 0)
+    assert parsed_item["start"] == datetime(2023, 11, 17, 8, 0)
 
 
 def test_end():
-    assert parsed_item["end"] == datetime(2019, 8, 16, 13, 0)
+    assert parsed_item["end"] == datetime(2023, 11, 17, 10, 0)
 
 
 def test_time_notes():
@@ -56,8 +56,8 @@ def test_time_notes():
 def test_id():
     assert (
         parsed_item["id"]
-        == "cuya_workforce_development/201908160800/x/board_meetings_retreat_"
-    )
+        == "cuya_workforce_development/202311170800/x/workforce_development_board_meeting_11_17_23"  # noqa
+    )  # noqa
 
 
 def test_status():
@@ -67,27 +67,23 @@ def test_status():
 def test_location():
     assert parsed_item["location"] == {
         "name": "",
-        "address": "6161 Oak Tree Boulevard, Independence, OH 44131",
+        "address": "1910 Carnegie Avenue, Cleveland, OH 44115",
     }
 
 
 def test_source():
     assert (
         parsed_item["source"]
-        == "http://bc.cuyahogacounty.us/en-US/081619-WD-Board-Meeting.aspx"
-    )
+        == "https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2023/11/17/boards-and-commissions/wd-board-meeting-111723"  # noqa
+    )  # noqa
 
 
 def test_links():
     assert parsed_item["links"] == [
         {
-            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=yC5L9gSioQoiqlSvaiowPg%3d%3d",  # noqa
-            "title": "Minutes",
-        },
-        {
-            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=yC5L9gSioQps7O0IXojwYQ%3d%3d",  # noqa
+            "href": "https://cuyahogacms.blob.core.windows.net/home/docs/default-source/boards-and-commissions/external/wdb/2023/111723-ccwdbagenda.pdf?sfvrsn=740b923b_1",  # noqa
             "title": "Agenda",
-        },
+        }
     ]
 
 
