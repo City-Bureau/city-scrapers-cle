@@ -77,3 +77,9 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         if: ${{ failure() }}
+
+      - name: Prevent workflow deactivation
+        uses: gautamkrishnar/keepalive-workflow@v1
+        with:
+          committer_username: "citybureau-bot"
+          committer_email: "documenters@citybureau.org"
