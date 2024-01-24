@@ -10,15 +10,15 @@ from city_scrapers.spiders.cuya_homeless_services import CuyaHomelessServicesSpi
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_homeless_services.html"),
-    url="http://ohs.cuyahogacounty.us/en-US/Advisory-Board.aspx",
+    url="https://cuyahogacounty.gov/boards-and-commissions/board-details/external/cleveland-cuyahoga-office-of-homeless-services-advisory-board",  # noqa
 )
 test_detail_response = file_response(
     join(dirname(__file__), "files", "cuya_homeless_services_detail.html"),
-    url="http://ohs.cuyahogacounty.us/en-US/091219-Advisory-meeting.aspx",
+    url="https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2023/11/16/boards-and-commissions/11-16-23-ohs-advisory-board",  # noqa
 )
 spider = CuyaHomelessServicesSpider()
 
-freezer = freeze_time("2019-10-14")
+freezer = freeze_time("2024-1-14")
 freezer.start()
 
 parsed_items = [item for item in spider.parse(test_response)]
@@ -28,11 +28,11 @@ freezer.stop()
 
 
 def test_count():
-    assert len(parsed_items) == 4
+    assert len(parsed_items) == 5
 
 
 def test_title():
-    assert parsed_item["title"] == "Advisory Board"
+    assert parsed_item["title"] == "11/16/23 OHS Advisory Board"
 
 
 def test_description():
@@ -40,11 +40,11 @@ def test_description():
 
 
 def test_start():
-    assert parsed_item["start"] == datetime(2019, 9, 12, 9, 0)
+    assert parsed_item["start"] == datetime(2023, 11, 16, 9, 0)
 
 
 def test_end():
-    assert parsed_item["end"] == datetime(2019, 9, 12, 11, 0)
+    assert parsed_item["end"] == datetime(2023, 11, 16, 11, 0)
 
 
 def test_time_notes():
@@ -52,7 +52,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item["id"] == "cuya_homeless_services/201909120900/x/advisory_board"
+    assert (
+        parsed_item["id"]
+        == "cuya_homeless_services/202311160900/x/11_16_23_ohs_advisory_board"  # noqa
+    )
 
 
 def test_status():
@@ -60,23 +63,25 @@ def test_status():
 
 
 def test_location():
-    assert parsed_item["location"] == spider.location
+    assert parsed_item["location"] == {
+        "name": "Office of Health and Human Services",
+        "address": "310 West Lakeside Avenue, 5th Floor, Cleveland, Ohio 44113",
+    }
 
 
 def test_source():
-    assert parsed_item["source"] == test_detail_response.url
+    assert (
+        parsed_item["source"]
+        == "https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2023/11/16/boards-and-commissions/11-16-23-ohs-advisory-board"  # noqa
+    )
 
 
 def test_links():
     assert parsed_item["links"] == [
         {
-            "href": "http://ohs.cuyahogacounty.us/ViewFile.aspx?file=HrgG0wNlU4uuMnY1ORPT2g%3d%3d",  # noqa
-            "title": "Minutes",
-        },
-        {
-            "href": "http://ohs.cuyahogacounty.us/ViewFile.aspx?file=HrgG0wNlU4sH90cSRjQZyw%3d%3d",  # noqa
+            "href": "https://cuyahogacms.blob.core.windows.net/home/docs/default-source/boards-and-commissions/11162023-ohsadvbrdagenda.pdf?sfvrsn=bdac935a_1",  # noqa
             "title": "Agenda",
-        },
+        }
     ]
 
 
