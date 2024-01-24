@@ -68,6 +68,7 @@ def test_location():
         "address": "310 West Lakeside Avenue, 5th Floor, Cleveland, Ohio 44113",
     }
 
+
 def test_source():
     assert (
         parsed_item["source"]
