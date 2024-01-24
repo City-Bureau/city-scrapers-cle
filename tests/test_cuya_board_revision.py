@@ -18,7 +18,7 @@ test_detail_response = file_response(
 )
 spider = CuyaBoardRevisionSpider()
 
-freezer = freeze_time("2024-01-09")
+freezer = freeze_time("2024-01-05")
 freezer.start()
 
 parsed_items = [item for item in spider.parse(test_response)]
