@@ -20,7 +20,7 @@ test_detail_response = file_response(
 )
 spider = CuyaCitizensAdvisoryEquitySpider()
 
-freezer = freeze_time("2021-01-25")
+freezer = freeze_time("2024-01-20")
 freezer.start()
 
 parsed_items = [item for item in spider.parse(test_response)]
@@ -34,7 +34,7 @@ def test_count():
 
 
 def test_title():
-    assert parsed_item["title"] == "Workforce Development Board Meeting - 11/17/23"
+    assert parsed_item["title"] == "12/11/23 - CACE meeting"
 
 
 def test_description():
@@ -42,11 +42,11 @@ def test_description():
 
 
 def test_start():
-    assert parsed_item["start"] == datetime(2023, 11, 17, 8, 0)
+    assert parsed_item["start"] == datetime(2023, 12, 11, 15, 0)
 
 
 def test_end():
-    assert parsed_item["end"] == datetime(2023, 11, 17, 10, 0)
+    assert parsed_item["end"] == datetime(2023, 12, 11, 17, 0)
 
 
 def test_time_notes():
@@ -56,8 +56,8 @@ def test_time_notes():
 def test_id():
     assert (
         parsed_item["id"]
-        == "cuya_workforce_development/202311170800/x/workforce_development_board_meeting_11_17_23"  # noqa
-    )
+        == "cuya_citizens_advisory_equity/202312111500/x/12_11_23_cace_meeting"
+    )  # noqa
 
 
 def test_status():
@@ -67,21 +67,21 @@ def test_status():
 def test_location():
     assert parsed_item["location"] == {
         "name": "",
-        "address": "1910 Carnegie Avenue, Cleveland, OH 44115",
+        "address": "2079 East 9th Street Room 5-006, Cleveland, Ohio 44113",
     }
 
 
 def test_source():
     assert (
         parsed_item["source"]
-        == "https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2023/11/17/boards-and-commissions/wd-board-meeting-111723"  # noqa
+        == "https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2023/12/11/boards-and-commissions/121123-cace-meeting"  # noqa
     )
 
 
 def test_links():
     assert parsed_item["links"] == [
         {
-            "href": "https://cuyahogacms.blob.core.windows.net/home/docs/default-source/boards-and-commissions/external/wdb/2023/111723-ccwdbagenda.pdf?sfvrsn=740b923b_1",  # noqa
+            "href": "https://cuyahogacms.blob.core.windows.net/home/docs/default-source/boards-and-commissions/external/cace/2023/121123-caceagenda.pdf?sfvrsn=902f11f4_1",  # noqa
             "title": "Agenda",
         }
     ]
