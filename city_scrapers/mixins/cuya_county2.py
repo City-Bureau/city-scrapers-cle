@@ -1,5 +1,5 @@
 import re
-from datetime import datetime
+from datetime import datetime, time
 
 import dateutil.parser
 from city_scrapers_core.items import Meeting
@@ -52,6 +52,12 @@ class CuyaCountyMixin2:
         return full_text
 
     def _parse_dates(self, selector):
+        """
+        Extracts the start and end dates from the page. Returns a tuple of
+        datetime.date objects. Defaults start time to 12:00 AM and end time
+        to None if parsing fails.
+        """
+
         # Extract the start date from the 'content' attribute
         start_date_str = selector.css(
             '.meta-item[itemprop="startDate"] ::attr(content)'
@@ -64,6 +70,14 @@ class CuyaCountyMixin2:
         text_nodes = selector.css(
             ".meta-item[itemprop='startDate'] > p::text"
         ).extract()
+        if len(text_nodes) < 2 or not text_nodes[1].strip():
+            # In these cases, the node structure is unusual or the date text is
+            # jumbled so we default to 12:00 AM.
+            default_time = time(0, 0)
+            start_datetime = datetime.combine(start_date, default_time)
+            end_datetime = None
+            return start_datetime, end_datetime
+
         start_time_str = text_nodes[1].strip()
         if not start_time_str:
             raise ValueError("Could not find start time")
@@ -87,7 +101,6 @@ class CuyaCountyMixin2:
         # combine
         start_datetime = datetime.combine(start_date, start_time)
         end_datetime = datetime.combine(start_date, end_time)
-
         return start_datetime, end_datetime
 
     def _parse_location(self, selector):
