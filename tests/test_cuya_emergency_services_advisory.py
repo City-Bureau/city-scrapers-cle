@@ -2,7 +2,7 @@ from datetime import datetime
 from os.path import dirname, join
 
 import pytest  # noqa
-from city_scrapers_core.constants import COMMITTEE, PASSED
+from city_scrapers_core.constants import ADVISORY_COMMITTEE
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
@@ -12,15 +12,15 @@ from city_scrapers.spiders.cuya_emergency_services_advisory import (
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_emergency_services_advisory.html"),
-    url="http://bc.cuyahogacounty.us/en-US/CC-EmergencySrvcsAdvsryBrd.aspx",
+    url="https://cuyahogacounty.gov/boards-and-commissions/board-details/other/emergency-services-advisory-board",  # noqa
 )
 test_detail_response = file_response(
     join(dirname(__file__), "files", "cuya_emergency_services_advisory_detail.html"),
-    url="http://bc.cuyahogacounty.us/en-US/091119-CCESAB-Comms-meeting.aspx",
+    url="https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2024/01/09/ccesab-calendar/01-09-24---ccesab-emergency-management-committee",  # noqa
 )
 spider = CuyaEmergencyServicesAdvisorySpider()
 
-freezer = freeze_time("2019-09-25")
+freezer = freeze_time("2024-01-25")
 freezer.start()
 
 parsed_items = [item for item in spider.parse(test_response)]
@@ -30,11 +30,11 @@ freezer.stop()
 
 
 def test_count():
-    assert len(parsed_items) == 30
+    assert len(parsed_items) == 14
 
 
 def test_title():
-    assert parsed_item["title"] == "CCESAB Communications Committee"
+    assert parsed_item["title"] == "01/09/24 - CCESAB Emergency Management Committee"
 
 
 def test_description():
@@ -42,11 +42,11 @@ def test_description():
 
 
 def test_start():
-    assert parsed_item["start"] == datetime(2019, 9, 11, 10, 15)
+    assert parsed_item["start"] == datetime(2024, 1, 9, 9, 0)
 
 
 def test_end():
-    assert parsed_item["end"] == datetime(2019, 9, 11, 11, 30)
+    assert parsed_item["end"] == datetime(2024, 1, 9, 10, 0)
 
 
 def test_time_notes():
@@ -56,36 +56,39 @@ def test_time_notes():
 def test_id():
     assert (
         parsed_item["id"]
-        == "cuya_emergency_services_advisory/201909111015/x/ccesab_communications_committee"  # noqa
-    )
+        == "cuya_emergency_services_advisory/202401090900/x/01_09_24_ccesab_emergency_management_committee"  # noqa
+    )  # noqa
 
 
 def test_status():
-    assert parsed_item["status"] == PASSED
+    assert parsed_item["status"] == "passed"
 
 
 def test_location():
     assert parsed_item["location"] == {
-        "name": "The Cassidy Theatre",
-        "address": "6200 Pearl Road Parma Heights, OH 44130",
+        "name": "",
+        "address": "4747 East 49th Street, Cleveland, OH",
     }
 
 
 def test_source():
-    assert parsed_item["source"] == test_detail_response.url
+    assert (
+        parsed_item["source"]
+        == "https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2024/01/09/ccesab-calendar/01-09-24---ccesab-emergency-management-committee"  # noqa
+    )  # noqa
 
 
 def test_links():
     assert parsed_item["links"] == [
         {
-            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=7DSCAKoM0rqkeTzD%2f6%2f4cw%3d%3d",  # noqa
+            "href": "https://cuyahogacms.blob.core.windows.net/home/docs/default-source/boards-and-commissions/other/ccesab/em/2024/010924-emagenda.pdf?sfvrsn=9a071cac_1",  # noqa
             "title": "Agenda",
         }
     ]
 
 
 def test_classification():
-    assert parsed_item["classification"] == COMMITTEE
+    assert parsed_item["classification"] == ADVISORY_COMMITTEE
 
 
 def test_all_day():
