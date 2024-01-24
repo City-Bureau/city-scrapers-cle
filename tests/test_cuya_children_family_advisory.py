@@ -49,7 +49,7 @@ def test_start():
 
 
 def test_end():
-    assert parsed_item["end"] is None
+    assert parsed_item["end"] == datetime(2023, 6, 7, 20, 0)
 
 
 def test_time_notes():
