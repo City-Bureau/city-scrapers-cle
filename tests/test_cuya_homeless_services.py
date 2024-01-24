@@ -64,10 +64,9 @@ def test_status():
 
 def test_location():
     assert parsed_item["location"] == {
-        "name": "",
-        "address": "",
+        "name": "Office of Health and Human Services",
+        "address": "310 West Lakeside Avenue, 5th Floor, Cleveland, Ohio 44113",
     }
-
 
 def test_source():
     assert (
