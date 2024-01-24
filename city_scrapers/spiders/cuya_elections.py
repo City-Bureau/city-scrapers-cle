@@ -1,6 +1,5 @@
 from datetime import datetime
-from typing import List, Tuple
-from urllib.parse import urljoin
+from typing import Tuple
 
 from city_scrapers_core.constants import BOARD
 from city_scrapers_core.items import Meeting
@@ -11,7 +10,9 @@ class CuyaElectionsSpider(CityScrapersSpider):
     name = "cuya_elections"
     agency = "Cuyahoga County Board of Elections"
     timezone = "America/Detroit"
-    start_urls = ["https://boe.cuyahogacounty.gov/calendar?it=Current%20Events&mpp=96"]
+    start_urls = [
+        "https://boe.cuyahogacounty.gov/calendar?it=Current%20Events&categories=1%7CBoard%20Meeting"  # noqa
+    ]
     _month_dict = {
         "January": 1,
         "February": 2,
@@ -26,18 +27,16 @@ class CuyaElectionsSpider(CityScrapersSpider):
         "November": 11,
         "December": 12,
     }
+    attachments_page = {
+        "title": "Board meeting documents",
+        "href": "https://boe.cuyahogacounty.gov/about-us/board-meeting-documents",
+    }
 
     def parse(self, response):
-        """
-        `parse` should always `yield` Meeting items.
-
-        Change the `_parse_title`, `_parse_start`, etc methods to fit your scraping
-        needs.
-        """
-        # Go through each of the links from the calendar landing page and add them
-        #   to callbacks.
         for link in response.css("a.item-link::attr(href)"):
-            yield response.follow(link.get(), callback=self._parse_detail)
+            # The link path is incorrect, so we need to update it
+            correct_link = link.get().replace("boe-events/", "calendar/event-details/")
+            yield response.follow(correct_link, callback=self._parse_detail)
 
     def _parse_detail(self, item):
         meeting = Meeting(
@@ -49,7 +48,7 @@ class CuyaElectionsSpider(CityScrapersSpider):
             all_day=self._parse_all_day(item),
             time_notes=self._parse_time_notes(item),
             location=self._parse_location(item),
-            links=self._parse_links(item),
+            links=[self.attachments_page],
             source=self._parse_source(item),
         )
         meeting["status"] = self._get_status(meeting)
@@ -58,14 +57,14 @@ class CuyaElectionsSpider(CityScrapersSpider):
 
     def _parse_title(self, item) -> str:
         """Parse or generate meeting title."""
-        title = item.css("h3.sf-event-title span::text").get()
+        title = item.css("h1.sf-event-title span::text").get()
         if title is None:
             return ""
         return title.strip()
 
     def _parse_description(self, item) -> str:
         """Parse or generate meeting description."""
-        description = item.css(".sf_colsIn.col-lg-12 p::text").get()
+        description = item.css(".sf_colsIn.col-lg-12 p::text").get().strip()
         if description is None:
             return ""
         return description
@@ -128,19 +127,6 @@ class CuyaElectionsSpider(CityScrapersSpider):
             location["address"] = "see links and/or source"
 
         return location
-
-    def _parse_links(self, item) -> List:
-        """Parse or generate links."""
-        _parsed_links_titles = item.css(".sf_colsIn.col-lg-12 a::text")[9:]
-        _parsed_links_hrefs = item.css(".sf_colsIn.col-lg-12 a::attr(href)")[9:]
-        links: list = []
-        for i in range(len(_parsed_links_hrefs)):
-            temp = {
-                "title": _parsed_links_titles[i].get(),
-                "href": urljoin(item.url, _parsed_links_hrefs[i].get()),
-            }
-            links.append(temp)
-        return links
 
     def _parse_source(self, item):
         """Parse or generate source."""
