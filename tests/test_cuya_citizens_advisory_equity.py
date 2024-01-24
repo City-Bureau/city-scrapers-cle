@@ -12,11 +12,11 @@ from city_scrapers.spiders.cuya_citizens_advisory_equity import (
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_citizens_advisory_equity.html"),
-    url="http://bc.cuyahogacounty.us/en-US/Citizens-Advisory-Council-Equity.aspx",
+    url="https://cuyahogacounty.gov/boards-and-commissions/board-details/external/citizens-advisory-council-on-equity",  # noqa
 )
 test_detail_response = file_response(
     join(dirname(__file__), "files", "cuya_citizens_advisory_equity_detail.html"),
-    url="http://bc.cuyahogacounty.us/en-US/12172020-citizens-advisory.aspx",
+    url="https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2023/12/11/boards-and-commissions/121123-cace-meeting",  # noqa
 )
 spider = CuyaCitizensAdvisoryEquitySpider()
 
@@ -30,11 +30,11 @@ freezer.stop()
 
 
 def test_count():
-    assert len(parsed_items) == 1
+    assert len(parsed_items) == 3
 
 
 def test_title():
-    assert parsed_item["title"] == "Citizens’ Advisory Council on Equity"
+    assert parsed_item["title"] == "Workforce Development Board Meeting - 11/17/23"
 
 
 def test_description():
@@ -42,11 +42,11 @@ def test_description():
 
 
 def test_start():
-    assert parsed_item["start"] == datetime(2020, 12, 17, 15, 0)
+    assert parsed_item["start"] == datetime(2023, 11, 17, 8, 0)
 
 
 def test_end():
-    assert parsed_item["end"] == datetime(2020, 12, 17, 16, 0)
+    assert parsed_item["end"] == datetime(2023, 11, 17, 10, 0)
 
 
 def test_time_notes():
@@ -56,7 +56,7 @@ def test_time_notes():
 def test_id():
     assert (
         parsed_item["id"]
-        == "cuya_citizens_advisory_equity/202012171500/x/citizens_advisory_council_on_equity"  # noqa
+        == "cuya_workforce_development/202311170800/x/workforce_development_board_meeting_11_17_23"  # noqa
     )
 
 
@@ -66,22 +66,24 @@ def test_status():
 
 def test_location():
     assert parsed_item["location"] == {
-        "name": "Remote",
-        "address": "",
+        "name": "",
+        "address": "1910 Carnegie Avenue, Cleveland, OH 44115",
     }
 
 
 def test_source():
-    assert parsed_item["source"] == test_detail_response.url
+    assert (
+        parsed_item["source"]
+        == "https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2023/11/17/boards-and-commissions/wd-board-meeting-111723"  # noqa
+    )
 
 
 def test_links():
     assert parsed_item["links"] == [
         {
-            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=6M9ljYUOx9F9%2fb6%2fYdjOWQ%3d%3d",  # noqa
+            "href": "https://cuyahogacms.blob.core.windows.net/home/docs/default-source/boards-and-commissions/external/wdb/2023/111723-ccwdbagenda.pdf?sfvrsn=740b923b_1",  # noqa
             "title": "Agenda",
-        },
-        {"href": "https://www.youtube.com/embed//3GZE1T68czc", "title": "Video"},
+        }
     ]
 
 
