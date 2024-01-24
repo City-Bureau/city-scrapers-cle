@@ -11,3 +11,10 @@ class CuyaHomelessServicesSpider(CuyaCountyMixin2, CityScrapersSpider):
         "https://cuyahogacounty.gov/boards-and-commissions/board-details/external/cleveland-cuyahoga-office-of-homeless-services-advisory-board"  # noqa
     ]
     classification = ADVISORY_COMMITTEE
+    location = {
+        "name": "Office of Health and Human Services",
+        "address": "310 West Lakeside Avenue, 5th Floor, Cleveland, Ohio 44113",
+    }
+
+    def _parse_location(self, selector):
+        return self.location
