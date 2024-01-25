@@ -1,8 +1,7 @@
 from datetime import datetime
 from os.path import dirname, join
 
-import pytest  # noqa
-from city_scrapers_core.constants import BOARD, PASSED
+from city_scrapers_core.constants import BOARD, TENTATIVE
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
@@ -10,15 +9,15 @@ from city_scrapers.spiders.cuya_board_control import CuyaBoardControlSpider
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_board_control.html"),
-    url="http://bc.cuyahogacounty.us/en-US/Board-of-Control.aspx",
+    url="https://cuyahogacounty.gov/boards-and-commissions/board-details/internal/board-of-control",  # noqa
 )
 test_detail_response = file_response(
     join(dirname(__file__), "files", "cuya_board_control_detail.html"),
-    url="http://bc.cuyahogacounty.us/en-US/090319-BOC-meeting.aspx",
+    url="https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2024/01/29/boards-and-commissions/01-29-24---board-of-control-meeting",  # noqa
 )
 spider = CuyaBoardControlSpider()
 
-freezer = freeze_time("2019-09-16")
+freezer = freeze_time("2024-01-25")
 freezer.start()
 
 parsed_items = [item for item in spider.parse(test_response)]
@@ -28,23 +27,26 @@ freezer.stop()
 
 
 def test_count():
-    assert len(parsed_items) == 37
+    assert len(parsed_items) == 5
 
 
 def test_title():
-    assert parsed_item["title"] == "Board of Control"
+    assert parsed_item["title"] == "01/29/24 - Board of Control Meeting"
 
 
 def test_description():
-    assert parsed_item["description"] == ""
+    assert (
+        parsed_item["description"]
+        == "This meeting is open to the public and may also be accessed via livestream using the following link: https://www.YouTube.com/CuyahogaCounty"  # noqa
+    )
 
 
 def test_start():
-    assert parsed_item["start"] == datetime(2019, 9, 3, 11, 0)
+    assert parsed_item["start"] == datetime(2024, 1, 29, 11, 0)
 
 
 def test_end():
-    assert parsed_item["end"] == datetime(2019, 9, 3, 12, 0)
+    assert parsed_item["end"] == datetime(2024, 1, 29, 12, 0)
 
 
 def test_time_notes():
@@ -52,38 +54,36 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_item["id"] == "cuya_board_control/201909031100/x/board_of_control"
+    assert (
+        parsed_item["id"]
+        == "cuya_board_control/202401291100/x/01_29_24_board_of_control_meeting"
+    )
 
 
 def test_status():
-    assert parsed_item["status"] == PASSED
+    assert parsed_item["status"] == TENTATIVE
 
 
 def test_location():
     assert parsed_item["location"] == {
-        **spider.location,
-        "name": "County Headquarters 4th - Committee Room B",
+        "name": "",
+        "address": "County Headquarters 2079 East Ninth Street 4th, Cmmt Room B",
     }
 
 
 def test_source():
     assert (
         parsed_item["source"]
-        == "http://bc.cuyahogacounty.us/en-US/090319-BOC-meeting.aspx"
+        == "https://cuyahogacounty.gov/boards-and-commissions/bc-event-detail//2024/01/29/boards-and-commissions/01-29-24---board-of-control-meeting"  # noqa
     )
 
 
 def test_links():
     assert parsed_item["links"] == [
         {
-            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=4WMJGeytOlPc09gwkgQOWA%3d%3d",  # noqa
-            "title": "Minutes",
-        },
-        {
-            "href": "http://bc.cuyahogacounty.us/ViewFile.aspx?file=ItAmWexRAtkvZMENqysomw%3d%3d",  # noqa
+            "href": "https://cuyahogacms.blob.core.windows.net/home/docs/default-source/boards-and-commissions/internal/boc/2024/012924-bocagenda.pdf?sfvrsn=60356a8a_1",  # noqa
             "title": "Agenda",
-        },
-        {"href": "https://www.youtube.com/embed//yMhUaaxldIg", "title": "Video"},
+        }
     ]
 
 
