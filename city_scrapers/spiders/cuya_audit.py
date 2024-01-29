@@ -11,7 +11,3 @@ class CuyaAuditSpider(CuyaCountyMixin2, CityScrapersSpider):
         "https://cuyahogacounty.gov/boards-and-commissions/board-details/external/audit-committee"  # noqa
     ]
     classification = ADVISORY_COMMITTEE
-    location = {
-        "name": "County Headquarters, 4-407 Conference Room B",
-        "address": "2079 East 9th St Cleveland, OH 44115",
-    }
