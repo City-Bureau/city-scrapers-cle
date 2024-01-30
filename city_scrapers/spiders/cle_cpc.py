@@ -9,6 +9,12 @@ class CleCpcSpider(CityScrapersSpider):
     agency = "Cleveland Community Police Commission"
     timezone = "America/Chicago"
     start_urls = ["https://clecpc.org/get-involved/calendar/"]
+    links = [
+        {
+            "title": "Meeting agendas and minutes",
+            "href": "https://clecpc.org/resources/meeting-agendas-minutes/",
+        }
+    ]
 
     def parse(self, response):
         """
@@ -41,7 +47,7 @@ class CleCpcSpider(CityScrapersSpider):
             time_notes="",
             all_day=False,
             location=self._parse_location(response),
-            links=self._parse_links(response),
+            links=self.links,
             source=self._parse_source(response),
         )
         meeting["status"] = self._get_status(meeting)
@@ -109,20 +115,6 @@ class CleCpcSpider(CityScrapersSpider):
             "name": org_name,
             "address": address,
         }
-
-    def _parse_links(self, response):
-        """Parse or generate links."""
-        links = []
-        # Target all links within mec-single-event-description, regardless of nesting
-        for link_element in response.css(".mec-events-content a"):
-            # Extracting all text within the link, including text in nested elements
-            link_text = link_element.css("*::text").get().lower()
-            link_href = link_element.attrib.get("href", "")
-            if "agenda" in link_text:
-                links.append({"href": link_href, "title": "Agenda"})
-            if "youtube.com" in link_href:
-                links.append({"href": link_href, "title": "Video"})
-        return links
 
     def _parse_source(self, response):
         """Generate source."""
