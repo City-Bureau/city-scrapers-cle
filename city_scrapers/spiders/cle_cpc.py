@@ -17,7 +17,10 @@ class CleCpcSpider(CityScrapersSpider):
         Change the `_parse_title`, `_parse_start`, etc methods to fit your scraping
         needs.
         """
-        for event in response.css("article.mec-event-article"):
+        calendars = response.css('.mec-wrap.mec-skin-grid-container')
+        if len(calendars) <= 1:
+            raise ("Meetings calendar not found")
+        for event in calendars[0].css("article.mec-event-article"):
             event_link = event.css("h4.mec-event-title a::attr(href)").get()
             if event_link:
                 yield response.follow(event_link, callback=self._parse_detail)
