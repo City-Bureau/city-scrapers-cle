@@ -4,6 +4,7 @@ from city_scrapers_core.constants import COMMISSION, PASSED, TENTATIVE
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
 
+
 class CleCpcSpider(CityScrapersSpider):
     name = "cle_cpc"
     agency = "Cleveland Community Police Commission"
@@ -39,7 +40,6 @@ class CleCpcSpider(CityScrapersSpider):
         """
         Parse details from the event detail page.
         """
-
         date = self._parse_date(response)
         start_time, end_time = self._parse_start_end_time(response)
         meeting = Meeting(
@@ -59,7 +59,7 @@ class CleCpcSpider(CityScrapersSpider):
         yield meeting
 
     def _parse_title(self, response):
-        """Parse or generate meeting title."""
+        """Parse meeting title."""
         title = response.css(".mec-single-title::text").get()
         if not title:
             return None
@@ -78,6 +78,7 @@ class CleCpcSpider(CityScrapersSpider):
         return full_description
 
     def _parse_date(self, response):
+        """Parse date from calendar element."""
         # Extracting the date string
         date_str = response.css(
             ".mec-single-event-date .mec-start-date-label::text"
@@ -87,7 +88,10 @@ class CleCpcSpider(CityScrapersSpider):
         return date
 
     def _parse_start_end_time(self, response):
-        # Extracting the time string
+        """
+        Parses start and end times from calendar element.
+        If times are missing, returns None for both.
+        """
         time_str = response.css(".mec-single-event-time .mec-events-abbr::text").get()
         if time_str:
             time_parts = time_str.split(" - ")
@@ -98,9 +102,8 @@ class CleCpcSpider(CityScrapersSpider):
                 end_time = datetime.strptime(end_time_str, "%I:%M %p").time()
                 return start_time, end_time
             else:
-                # Log a warning or handle the case where the time format is unexpected
+                # Log a warning in case where the time format is unexpected
                 self.logger.warning(f"Unexpected time format: {time_str}")
-        # Return None for both start and end times if the time element doesn't exist or format is incorrect
         return None, None
 
     def _gen_datetime(self, date, time_obj):
@@ -113,6 +116,7 @@ class CleCpcSpider(CityScrapersSpider):
         return datetime.combine(date, time_obj)
 
     def _parse_location(self, response):
+        """Parses location from calendar element."""
         org_name = response.css(".org::text").get().strip()
         address = response.css(".mec-address::text").get().strip()
         return {
@@ -121,7 +125,6 @@ class CleCpcSpider(CityScrapersSpider):
         }
 
     def _parse_source(self, response):
-        """Generate source."""
         return response.url
 
     def _get_status(self, item):
