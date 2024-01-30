@@ -18,18 +18,22 @@ class CleCpcSpider(CityScrapersSpider):
 
     def parse(self, response):
         """
-        `parse` should always `yield` Meeting items.
-
-        Change the `_parse_title`, `_parse_start`, etc methods to fit your scraping
-        needs.
+        Parses meeting calendar page. Because this website has a variety of
+        quirks that can lead to duplicate data we only scrape the first
+        unique link for each meeting.
         """
-        calendars = response.css('.mec-wrap.mec-skin-grid-container')
+        calendars = response.css(".mec-wrap.mec-skin-grid-container")
         if len(calendars) <= 1:
             raise ("Meetings calendar not found")
+
+        unique_links = []
         for event in calendars[0].css("article.mec-event-article"):
-            event_link = event.css("h4.mec-event-title a::attr(href)").get()
-            if event_link:
-                yield response.follow(event_link, callback=self._parse_detail)
+            link = event.css("h4.mec-event-title a::attr(href)").get()
+            if link not in unique_links:
+                unique_links.append(link)
+
+        for link in unique_links:
+            yield response.follow(link, callback=self._parse_detail)
 
     def _parse_detail(self, response):
         """
