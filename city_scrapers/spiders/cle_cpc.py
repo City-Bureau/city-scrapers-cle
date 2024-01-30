@@ -1,6 +1,6 @@
 from datetime import datetime, time
 
-from city_scrapers_core.constants import COMMISSION
+from city_scrapers_core.constants import COMMISSION, PASSED, TENTATIVE
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
 
@@ -119,3 +119,13 @@ class CleCpcSpider(CityScrapersSpider):
     def _parse_source(self, response):
         """Generate source."""
         return response.url
+
+    def _get_status(self, item):
+        """
+        Overrides the parent class method because basing a meeting's
+        cancellation status on the title and time of the meeting is not
+        reliable. Instead, we'll only focus on the meeting's start time.
+        """
+        if item["start"] < datetime.now():
+            return PASSED
+        return TENTATIVE
