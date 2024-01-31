@@ -8,7 +8,7 @@ from city_scrapers_core.spiders import CityScrapersSpider
 class CleCpcSpider(CityScrapersSpider):
     name = "cle_cpc"
     agency = "Cleveland Community Police Commission"
-    timezone = "America/Chicago"
+    timezone = "America/Detroit"
     start_urls = ["https://clecpc.org/get-involved/calendar/"]
     links = [
         {
