@@ -71,12 +71,14 @@ class CleMetroSchoolDistrictSpider(CityScrapersSpider):
 
     def _parse_location(self, item):
         """Parse or generate location."""
-        loc_item = (
-            item.xpath("./category[@order='1']/agendaitems/item/name/text()")
-            .extract_first()
-            .strip()
-        )
-        loc_str = re.sub(r"^\d{1,2}\.\d{1,2} ?", "", loc_item)
+        loc_item = item.xpath("./category[@order='1']/agendaitems/item/name/text()")
+        if not loc_item:
+            return {
+                "address": "",
+                "name": "TBD",
+            }
+        loc_raw_str = loc_item.extract_first().strip()
+        loc_str = re.sub(r"^\d{1,2}\.\d{1,2} ?", "", loc_raw_str)
         loc_parts = re.split(r", ?(?=\d{2})", loc_str, 1)
         if len(loc_parts) == 2:
             return {
