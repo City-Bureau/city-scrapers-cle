@@ -11,6 +11,7 @@ class CleMetroSchoolDistrictSpider(CityScrapersSpider):
     agency = "Cleveland Metropolitan School District"
     timezone = "America/Detroit"
     start_urls = ["https://www.boarddocs.com/oh/cmsd/board.nsf/XML-ActiveMeetings"]
+    custom_settings = {"ROBOTSTXT_OBEY": False}
 
     def parse(self, response):
         """
