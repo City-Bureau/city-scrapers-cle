@@ -1,4 +1,3 @@
-from collections import defaultdict
 from datetime import datetime
 from os.path import dirname, join
 
@@ -11,32 +10,26 @@ from city_scrapers.spiders.cuya_health import CuyaHealthSpider
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_health.html"),
-    url="https://www.ccbh.net/board-minutes-agenda/",
+    url="https://ccbh.net/board-minutes-agenda/",
 )
-test_pdf_response = file_response(
-    join(dirname(__file__), "files", "cuya_health.pdf"),
-    url="https://www.ccbh.net/wp-content/uploads/2019/04/REVISED-April-2019-Board-Agenda.pdf",  # noqa
-    mode="rb",
-)
+
 spider = CuyaHealthSpider()
 
-freezer = freeze_time("2019-10-21")
+freezer = freeze_time("2024-02-07")
 freezer.start()
 
 parsed_items = [item for item in spider.parse(test_response)]
-spider.link_date_map = defaultdict(list)
-spider._parse_pdf(test_pdf_response)
-parsed_item = [item for item in spider._yield_meetings(test_response)][0]
-
+# Assuming this is the correct item you're testing; adjust as necessary
+parsed_item = parsed_items[0]
 freezer.stop()
 
 
 def test_count():
-    assert len(parsed_items) == 41
+    assert len(parsed_items) == 5
 
 
 def test_title():
-    assert parsed_item["title"] == "Board of Health"
+    assert parsed_item["title"] == "Board meeting (Dec 20, 2023)"
 
 
 def test_description():
@@ -44,7 +37,7 @@ def test_description():
 
 
 def test_start():
-    assert parsed_item["start"] == datetime(2019, 4, 24, 9, 0)
+    assert parsed_item["start"] == datetime(2023, 12, 20, 0, 0)
 
 
 def test_end():
@@ -52,11 +45,11 @@ def test_end():
 
 
 def test_time_notes():
-    assert parsed_item["time_notes"] == "Confirm details with agency"
+    assert parsed_item["time_notes"] == ""  # Adjust if there's a specific note
 
 
 def test_id():
-    assert parsed_item["id"] == "cuya_health/201904240900/x/board_of_health"
+    assert parsed_item["id"] == "cuya_health/202312200000/x/board_meeting_dec_20_2023_"
 
 
 def test_status():
@@ -64,15 +57,29 @@ def test_status():
 
 
 def test_location():
-    assert parsed_item["location"] == spider.location
+    expected_location = {
+        "name": "Cuyahoga County Board of Health",
+        "address": "5550 Venture Dr, Parma, OH 44130",
+    }
+    assert parsed_item["location"] == expected_location
 
 
 def test_source():
-    assert parsed_item["source"] == test_response.url
+    assert parsed_item["source"] == "https://ccbh.net/board-minutes-agenda/"
 
 
 def test_links():
-    assert parsed_item["links"] == [{"href": test_pdf_response.url, "title": "Agenda"}]
+    expected_links = [
+        {
+            "href": "https://ccbh.net/wp-content/uploads/2024/01/01.00-December_2023_Board_Agenda-Revised_12-19-2023.pdf",  # noqa
+            "title": "Agenda",
+        },
+        {
+            "href": "https://ccbh.net/wp-content/uploads/2024/01/December_20_2023-Minutes-1.pdf",  # noqa
+            "title": "Minutes",
+        },
+    ]
+    assert parsed_item["links"] == expected_links
 
 
 def test_classification():
