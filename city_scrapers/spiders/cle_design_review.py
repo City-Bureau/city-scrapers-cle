@@ -166,6 +166,7 @@ class CleDesignReviewSpider(CityScrapersSpider):
 
     def _parse_start(self, year_str, month_str, day_str, time_str):
         """Parse start datetime as a naive datetime object."""
+        print(year_str, month_str, day_str, time_str)
         date_str = " ".join([year_str, month_str, day_str, time_str])
         return datetime.strptime(date_str, "%Y %B %d %I:%M%p")
 
@@ -241,10 +242,11 @@ class CleDesignReviewSpider(CityScrapersSpider):
         return weekday, chosen_ordinals, is_downtown
 
     def _parse_weekday(self, weekday):
-        """Parses weekday strings as their integer equivalent"""
-        # we cut off the last char of weekday, because it comes through with
-        # an 's' i.e. 'Tuesdays'
-        return time.strptime(weekday[:-1], "%A").tm_wday
+        """Parses weekday strings as their integer equivalent.
+        Handles pluralization."""
+        if weekday.endswith("s"):
+            weekday = weekday[:-1]
+        return time.strptime(weekday, "%A").tm_wday
 
     def _parse_ordinal(self, ordinal_str):
         """Parses ordinals as their integer equivalent beginning from 0"""
