@@ -16,7 +16,7 @@ class CleDesignReviewSpider(CityScrapersSpider):
     start_urls = [
         "https://planning.clevelandohio.gov/designreview/schedule.php"  # noqa
     ]
-    description = "Cleveland Planning Commission conducts virtual meetings in a limited capacity using the WebEx Platform. To request access to WebEx meetings, email " # noqa
+    description = "Cleveland Planning Commission conducts virtual meetings in a limited capacity using the WebEx Platform. To request access to WebEx meetings, email "  # noqa
 
     def parse(self, response):
         """
