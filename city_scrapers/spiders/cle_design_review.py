@@ -16,8 +16,7 @@ class CleDesignReviewSpider(CityScrapersSpider):
     start_urls = [
         "https://planning.clevelandohio.gov/designreview/schedule.php"  # noqa
     ]
-    description = "Due to Covid meetings are being held on WebEx rather than in person. For more information contact "  # noqa
-    calculated_description = "This is an upcoming meeting - please verify it with staff if you want attend. Due to Covid meetings are being held on WebEx rather than in person. For more information contact "  # noqa
+    description = "Cleveland Planning Commission conducts virtual meetings in a limited capacity using the WebEx Platform. To request access to WebEx meetings, email " # noqa
 
     def parse(self, response):
         """
@@ -130,7 +129,7 @@ class CleDesignReviewSpider(CityScrapersSpider):
                 start = self._parse_calculated_start(day, time_str)
                 meeting = Meeting(
                     title=title,
-                    description=self.calculated_description + email_contact,
+                    description=self.description + email_contact,
                     classification=ADVISORY_COMMITTEE,
                     start=start,
                     end=None,
