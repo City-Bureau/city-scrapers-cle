@@ -33,7 +33,7 @@ def test_title():
 def test_description():
     assert (
         parsed_items[0]["description"]
-        == "Due to Covid meetings are being held on WebEx rather than in person. For more information contact asantora@clevelandohio.gov"  # noqa
+        == CleDesignReviewSpider.description + "asantora@clevelandohio.gov"  # noqa
     )
 
 
@@ -102,7 +102,7 @@ def test_future_meeting_title():
 def test_future_meeting_description():
     assert (
         parsed_items[-1]["description"]
-        == "This is an upcoming meeting - please verify it with staff if you want attend. Due to Covid meetings are being held on WebEx rather than in person. For more information contact mfields@clevelandohio.gov"  # noqa
+        == CleDesignReviewSpider.description + "mfields@clevelandohio.gov"  # noqa
     )
 
 

@@ -16,8 +16,7 @@ class CleDesignReviewSpider(CityScrapersSpider):
     start_urls = [
         "https://planning.clevelandohio.gov/designreview/schedule.php"  # noqa
     ]
-    description = "Due to Covid meetings are being held on WebEx rather than in person. For more information contact "  # noqa
-    calculated_description = "This is an upcoming meeting - please verify it with staff if you want attend. Due to Covid meetings are being held on WebEx rather than in person. For more information contact "  # noqa
+    description = "Cleveland Planning Commission conducts virtual meetings in a limited capacity using the WebEx Platform. To request access to WebEx meetings, email "  # noqa
 
     def parse(self, response):
         """
@@ -130,7 +129,7 @@ class CleDesignReviewSpider(CityScrapersSpider):
                 start = self._parse_calculated_start(day, time_str)
                 meeting = Meeting(
                     title=title,
-                    description=self.calculated_description + email_contact,
+                    description=self.description + email_contact,
                     classification=ADVISORY_COMMITTEE,
                     start=start,
                     end=None,
@@ -166,6 +165,7 @@ class CleDesignReviewSpider(CityScrapersSpider):
 
     def _parse_start(self, year_str, month_str, day_str, time_str):
         """Parse start datetime as a naive datetime object."""
+        print(year_str, month_str, day_str, time_str)
         date_str = " ".join([year_str, month_str, day_str, time_str])
         return datetime.strptime(date_str, "%Y %B %d %I:%M%p")
 
@@ -241,10 +241,11 @@ class CleDesignReviewSpider(CityScrapersSpider):
         return weekday, chosen_ordinals, is_downtown
 
     def _parse_weekday(self, weekday):
-        """Parses weekday strings as their integer equivalent"""
-        # we cut off the last char of weekday, because it comes through with
-        # an 's' i.e. 'Tuesdays'
-        return time.strptime(weekday[:-1], "%A").tm_wday
+        """Parses weekday strings as their integer equivalent.
+        Handles pluralization."""
+        if weekday.endswith("s"):
+            weekday = weekday[:-1]
+        return time.strptime(weekday, "%A").tm_wday
 
     def _parse_ordinal(self, ordinal_str):
         """Parses ordinals as their integer equivalent beginning from 0"""
