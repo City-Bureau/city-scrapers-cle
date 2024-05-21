@@ -10,6 +10,7 @@ scrapy-wayback-middleware = "*"
 python-dateutil = "*"
 pdfminer-six = "*"
 scrapy-sentry-errors = "1.0.0"
+pytz = "*"
 
 [dev-packages]
 freezegun = "*"

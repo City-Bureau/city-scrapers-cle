@@ -132,3 +132,6 @@ src/
 # validation logs
 logs/*.log
 travis/*.json
+
+# output files
+*.csv

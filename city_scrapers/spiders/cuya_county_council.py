@@ -1,17 +1,19 @@
 import json
 from datetime import datetime, timedelta
 
-from city_scrapers_core.constants import CITY_COUNCIL
+import pytz
+from city_scrapers_core.constants import COMMISSION
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
-from scrapy import Selector
 
 
 class CuyaCountyCouncilSpider(CityScrapersSpider):
     name = "cuya_county_council"
     agency = "Cuyahoga County Council"
     timezone = "America/Detroit"
-    custom_settings = {"DEFAULT_REQUEST_HEADERS": {"Content-Type": "application/json"}}
+    custom_settings = {
+        "DEFAULT_REQUEST_HEADERS": {"Content-Type": "application/json"}
+    }  # noqa
     location = {
         "address": "4th Floor 2079 East 9th Street",
         "name": "C. Ellen Connally Council Chambers",
@@ -21,98 +23,60 @@ class CuyaCountyCouncilSpider(CityScrapersSpider):
     def start_urls(self):
         start_date = datetime.now() + timedelta(days=-90)
         end_date = datetime.now() + timedelta(days=90)
-        return [
-            (
-                "http://council.cuyahogacounty.us/api/items/GetItemsByType?itemTypeCode="  # noqa
-                "EVENT;NEWS;EVENTREG&languageCd=en-US&siteKey=141&"
-                "returnEventsAfterDate={}&returnEventsBeforeDate={}"
-            ).format(start_date.strftime("%m/%d/%Y"), end_date.strftime("%m/%d/%Y"))
-        ]
+        start_date_str = start_date.strftime("%Y-%m-%dT%H:%M:%S")
+        end_date_str = end_date.strftime("%Y-%m-%dT%H:%M:%S")
+        url = f"https://www.cuyahogacounty.gov/web-interface/events?StartDate={start_date_str}&EndDate={end_date_str}&EventSchedulerViewMode=month&UICulture=&Id=175b0fba-07f2-4b3e-a794-e499e98c0a93&CurrentPageId=b38b8f62-8073-4d89-9027-e7a13e53248e&sf_site=f3ea71cd-b8c9-4a53-b0db-ee5d552472fc"  # noqa
+        return [url]
 
     def parse(self, response):
         """
-        `parse` should always `yield` Meeting items.
-
-        Change the `_parse_title`, `_parse_start`, etc methods to fit your scraping
-        needs.
+        Parse JSON response and return list of Meeting items.
         """
         data = json.loads(response.text)
         for item in data:
-            start, end = self._parse_start_end(item)
+            start = self._parse_date(item.get("Start", ""))
+            if start is None:
+                continue
             meeting = Meeting(
-                title=self._parse_title(item),
-                description="",
-                classification=CITY_COUNCIL,
+                title=item.get("Title", ""),
+                description=item.get("Description", ""),
+                # Although they're a "council", commission seems like the
+                # closest classification among our constants
+                classification=COMMISSION,
                 start=start,
-                end=end,
-                all_day=False,
+                # "End" is included in JSON but is always the same as start
+                end=None,
+                all_day=item.get("IsAllDay", False),
                 time_notes="",
-                location=self._parse_location(item),
-                links=self._parse_links(item),
-                source=self._parse_source(item),
+                location=self.location,
+                links=[],
+                source=response.url,
             )
 
-            meeting["status"] = self._get_status(meeting)
+            meeting["status"] = self._get_status(meeting, text=item["Title"])
             meeting["id"] = self._get_id(meeting)
 
             yield meeting
 
-    def _parse_title(self, item):
-        """Parse or generate meeting title."""
-        header_items = [i for i in item["Characteristics"] if i["TypeCode"] == "HEADER"]
-        return header_items[0]["StringValue"].replace("amp;", "")
+    def _parse_date(self, date_str):
+        """Convert a millisecond unix timestamp in a string that looks like:
+        "/Date(1714399200000)/"
+        To a timezone naive datetime object.
+        """
+        # Remove the surrounding identifiers and convert to a proper timestamp
+        clean_date_str = date_str.replace("/Date(", "").replace(")/", "")
+        try:
+            timestamp = int(int(clean_date_str) / 1000)
 
-    def _parse_start_end(self, item):
-        start = datetime.strptime(item["StartDate"], "%Y-%m-%dT%H:%M:%S")
-        end = datetime.strptime(item["EndDate"], "%Y-%m-%dT%H:%M:%S")
-        if end <= start:
-            end = None
-        return start, end
+            # Convert the timestamp to a datetime object
+            date = datetime.fromtimestamp(timestamp)
+            date = date.replace(tzinfo=pytz.utc)
 
-    def _parse_location(self, item):
-        """Parse or generate location."""
-        addr_items = [i for i in item["Characteristics"] if i["TypeCode"] == "ADD"]
-        if len(addr_items) == 0:
-            return self.location
-        addr_str = addr_items[0]["StringValue"]
-        addr_split = addr_str.split("-")
-        loc_name = ""
-        if len(addr_split) > 1:
-            loc_name = addr_split[0].strip()
-            loc_addr = "-".join(addr_split[1:]).strip()
-        else:
-            loc_addr = addr_split[0].strip()
-        if "Cleveland" not in loc_addr:
-            loc_addr += " Cleveland, OH 44115"
-        return {
-            "name": loc_name,
-            "address": loc_addr,
-        }
+            # Convert the UTC datetime to the local timezone
+            local_date = date.astimezone(pytz.timezone(self.timezone))
+        except ValueError:
+            self.logger.error(f"Unable to parse date: {date_str}")
+            return None
 
-    def _parse_links(self, item):
-        """Parse or generate links."""
-        links = []
-        link_items = [
-            i for i in item["Characteristics"] if i["DataType"] == "F" and i["FileName"]
-        ]
-        for link_item in link_items:
-            if link_item["TypeCode"] == "BAGENDA":
-                links.append(
-                    {
-                        "title": "Agenda",
-                        "href": (
-                            "{}ViewFile.aspx?file={}".format(
-                                item["SiteBaseUrl"], link_item["FileKey"]
-                            )
-                        ),
-                    }
-                )
-        body_item = [i for i in item["Characteristics"] if i["TypeCode"] == "BODY"][0]
-        body = Selector(text=body_item["StringValue"])
-        for iframe in body.css("iframe"):
-            links.append({"title": "Video", "href": iframe.attrib["src"]})
-        return links
-
-    def _parse_source(self, item):
-        """Parse or generate source."""
-        return item["SiteBaseUrl"][:-1] + item["PageUrl"]
+        # make timezone naive
+        return local_date.replace(tzinfo=None)
