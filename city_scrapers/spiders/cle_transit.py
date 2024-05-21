@@ -37,9 +37,8 @@ class CleTransitSpider(CityScrapersSpider):
 
     def parse(self, response):
         """
-        Parse the JavaScript-rendered calendar and loop over each <a> tag in
-        node of class "fc-day-grid" with parent classes
-        "fc-scroller" and "fc-day-grid-container". Print the href of each <a> tag.
+        Parse the JavaScript-rendered calendar and loop over each <a> tag
+        to follow the link to the event page.
         """
         # Navigate through the containers and select each <a> tag
         events = response.css("div.fc-day-grid a.fc-day-grid-event")
