@@ -1,125 +1,122 @@
+# flake8: noqa: E501
 from datetime import datetime
-from os.path import dirname, join
+from unittest.mock import MagicMock
 
-import pytest  # noqa
-from city_scrapers_core.constants import COMMITTEE, PASSED
-from city_scrapers_core.utils import file_response
-from freezegun import freeze_time
+import pytest
+from city_scrapers_core.constants import BOARD
+from scrapy.http import HtmlResponse, Request
+from scrapy.utils.test import get_crawler
 
 from city_scrapers.spiders.cle_transit import CleTransitSpider
 
-test_response = file_response(
-    join(dirname(__file__), "files", "cle_transit.html"),
-    url="http://www.riderta.com/events/2019/8/6/committee-meetings",
-)
-spider = CleTransitSpider()
 
-freezer = freeze_time("2019-09-12")
-freezer.start()
-
-parsed_item = [item for item in spider._parse_meeting(test_response)][0]
-
-freezer.stop()
+@pytest.fixture
+def spider():
+    crawler = get_crawler(CleTransitSpider)
+    return CleTransitSpider.from_crawler(crawler)
 
 
-def test_title():
-    assert parsed_item["title"] == "Standing Committees"
+def test_parse(spider, mocker):
+    html_content = """
+    <div class="fc-day-grid">
+        <a class="fc-day-grid-event" href="/event/1">
+            <span class="fc-title">Board Meeting</span>
+        </a>
+        <a class="fc-day-grid-event" href="/event/2">
+            <span class="fc-title">Career Day</span>
+        </a>
+    </div>
+    """
+    url = "https://www.riderta.com/events"
+    request = Request(url=url)
+    response = HtmlResponse(
+        url=url, request=request, body=html_content.encode(), encoding="utf-8"
+    )
+    response.follow = MagicMock(return_value=None)
+
+    list(spider.parse(response))
+
+    response.follow.assert_called()
+    called_args_list = response.follow.call_args_list
+    assert len(called_args_list) == 1
+    assert "/event/1" in called_args_list[0][0][0]
 
 
-def test_description():
-    assert parsed_item["description"] == ""
+def test_filter_events(spider, mocker):
+    html_content = """
+    <div class="fc-day-grid">
+        <a class="fc-day-grid-event" href="/event/1">
+            <span class="fc-title">Board Meeting</span>
+        </a>
+        <a class="fc-day-grid-event" href="/event/2">
+            <span class="fc-title">Career Day</span>
+        </a>
+    </div>
+    """
+    url = "https://www.riderta.com/events"
+    request = Request(url=url)
+    response = HtmlResponse(
+        url=url, request=request, body=html_content.encode(), encoding="utf-8"
+    )
+    response.follow = mocker.MagicMock(return_value=None)
 
+    list(spider.parse(response))
 
-def test_start():
-    assert parsed_item["start"] == datetime(2019, 8, 6, 9, 0)
-
-
-def test_end():
-    assert parsed_item["end"] is None
-
-
-def test_time_notes():
-    assert parsed_item["time_notes"] == ""
-
-
-def test_id():
-    assert parsed_item["id"] == "cle_transit/201908060900/x/standing_committees"
-
-
-def test_status():
-    assert parsed_item["status"] == PASSED
-
-
-def test_location():
-    assert parsed_item["location"] == {
-        "name": "RTA Main Office",
-        "address": "1240 West 6th St Board Room Cleveland, OH 44113",
-    }
-
-
-def test_source():
-    assert (
-        parsed_item["source"]
-        == "http://www.riderta.com/events/2019/8/6/committee-meetings"
+    # Assert follow was called for the meeting but not for the career day
+    response.follow.assert_called_once_with(
+        "/event/1", spider.parse_event, meta={"title": "Board Meeting"}
     )
 
 
-def test_links():
-    assert parsed_item["links"] == [
-        {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06CmtAgendas.pdf",  # noqa
-            "title": "2019-08-06CmtAgendas.pdf",
-        },
-        {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06FarePolicy.pdf",  # noqa
-            "title": "2019-08-06FarePolicy.pdf",
-        },
-        {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06CNGTriskett_0.pdf",  # noqa
-            "title": "2019-08-06CNGTriskett.pdf",
-        },
-        {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06VanPool.pdf",  # noqa
-            "title": "2019-08-06VanPool.pdf",
-        },
-        {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06DCADiscountFareProgram.pdf",  # noqa
-            "title": "2019-08-06DCADiscountFareProgram.pdf",
-        },
-        {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06MedinaCounty.pdf",  # noqa
-            "title": "2019-08-06MedinaCounty.pdf",
-        },
-        {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06CasualtyInsProgram.pdf",  # noqa
-            "title": "2019-08-06CasualtyInsProgram.pdf",
-        },
-        {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06IA2ndQuarter2019.pdf",  # noqa
-            "title": "2019-08-06IA2ndQuarter2019.pdf",
-        },
-        {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06ExternalStakholderMinutes.pdf",  # noqa
-            "title": "2019-08-06ExternalStakholderMinutes.pdf",
-        },
-        {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06OrganizationalMinutes.pdf",  # noqa
-            "title": "2019-08-06OrganizationalMinutes.pdf",
-        },
-        {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06OperationalMinutes.pdf",  # noqa
-            "title": "2019-08-06OperationalMinutes.pdf",
-        },
-        {
-            "href": "http://www.riderta.com/sites/default/files/events/2019-08-06AuditMinutes.pdf",  # noqa
-            "title": "2019-08-06AuditMinutes.pdf",
-        },
-    ]
+def test_parse_event(spider, mocker):
+    html_content = """
+    <div class="event-details">
+        <div class="views-field-field-event-date">
+            <h2>Wed, May 29 2024, 9 - 10am</h2>
+        </div>
+        <p class="address">
+            <span>The Holden Arboretum</span>, <span>9550 Sperry Rd</span>,
+            <span>Kirtland</span>,
+            <span>OH</span>, <span>44094</span>, <span>United States</span>
+        </p>
+        <div class="views-element-container block block-views block-views-blockevent-attachments-block-1">
+            <h2>Attachments</h2>
+            <div class="content">
+                <ul>
+                    <li><a href="/sites/default/files/events/2024-05-07CommitteePackageREVISED.pdf">
+                    2024-05-07CommitteePackageREVISED.pdf</a></li>
+                    <li><a href="/sites/default/files/events/2024-05-07CodeBookUpdatePresentation.pdf">
+                    2024-05-07CodeBookUpdatePresentation.pdf</a></li>
+                    <li><a href="/sites/default/files/events/2024-05-07EZFareRenewalPresentation.pdf">
+                    2024-05-07EZFareRenewalPresentation.pdf</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    """
+    url = "https://www.riderta.com/event/1"
+    request = Request(url=url, meta={"title": "Board meeting"})
+    response = HtmlResponse(
+        url=url, request=request, body=html_content.encode(), encoding="utf-8"
+    )
 
+    # Call the parse_event method
+    result = spider.parse_event(response)
 
-def test_classification():
-    assert parsed_item["classification"] == COMMITTEE
+    # Assertions
+    assert result["title"] == "Board meeting"
+    assert result["start"] == datetime(2024, 5, 29, 9, 0)
+    assert result["end"] == datetime(2024, 5, 29, 10, 0)
+    assert result["location"] == {
+        "name": "The Holden Arboretum",
+        "address": "The Holden Arboretum, 9550 Sperry Rd, Kirtland, OH 44094, United States",
+    }
+    assert result["classification"] == BOARD
+    assert len(result["links"]) == 3
+    assert (
+        result["links"][0]["href"]
+        == "/sites/default/files/events/2024-05-07CommitteePackageREVISED.pdf"
+    )
+    assert result["links"][0]["title"] == "2024-05-07CommitteePackageREVISED.pdf"
 
-
-def test_all_day():
-    assert parsed_item["all_day"] is False
+    assert result["classification"] == BOARD
