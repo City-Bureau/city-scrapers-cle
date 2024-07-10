@@ -1,9 +1,9 @@
- <!DOCTYPE html> <html lang="en"> <head><script>var HawkSearchBaseUrl = '/search/json'; HawkSearchTrackingUrl = 'http://lusearchapi-na.hawksearch.com/sites/cuyahogacounty'; SiteName = 'boe';</script> <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> <meta name="viewport" content="width=device-width, initial-scale=1"> <meta charset="utf-8" /> <title>
-	Board Meeting
+ <!DOCTYPE html> <html lang="en"> <head><script>var elasticSearchUrl = '/search'; var elasticSearchBox = 'txtSiteSearch'; var elasticSearchButton = 'btnSiteSearch';</script> <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> <meta name="viewport" content="width=device-width, initial-scale=1"> <meta charset="utf-8" /> <title>
+	Current Event Calendar
 </title> <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/assets/icons/apple-touch-icon-57x57.png" /> <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/icons/apple-touch-icon-114x114.png" /> <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/icons/apple-touch-icon-72x72.png" /> <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/icons/apple-touch-icon-144x144.png" /> <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/assets/icons/apple-touch-icon-60x60.png" /> <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/assets/icons/apple-touch-icon-120x120.png" /> <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/assets/icons/apple-touch-icon-76x76.png" /> <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/assets/icons/apple-touch-icon-152x152.png" /> <meta name="application-name" content="&nbsp;" /> <meta name="msapplication-TileColor" content="#FFFFFF" /> <meta name="msapplication-TileImage" content="mstile-144x144.png" /> <meta name="msapplication-square70x70logo" content="mstile-70x70.png" /> <meta name="msapplication-square150x150logo" content="mstile-150x150.png" /> <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" /> <meta name="msapplication-square310x310logo" content="mstile-310x310.png" /> <style>
     /*hide header and navigation in edit mode*/
     #ctl00_Contentplaceholder1_ctl00_C_RadDockZoneTAA75111F018_Col00 {
-        display: none
+        display: block;
     }
 
     /*show site alert container*/
@@ -15,13 +15,13 @@
 
     /*hide helpful servey in edit mode*/
     #ctl00_Contentplaceholder1_ctl01_C_ctl04_C_ctl02_C_ctl02_C {
-        display: none
+        display: block;
     }
     /*hide footer items in edit mode*/
     #ctl00_Footer_RadDockZoneFooter {
-        display: none
+        display: block;
     }
-</style> <script src="/ResourcePackages/Bootstrap4/assets/dist/js/jquery-3.5.1.min.js"></script> <!-- ======= Font-Awesome font======= --> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> <!--link href="~/ResourcePackages/Bootstrap4/assets/font/font-awesome-5.14.0/css/all.css" rel="stylesheet" /--> <!-- ======= Bootstrap ======= --> <link href="/ResourcePackages/Bootstrap4/assets/dist/css/HawkSearch.css" rel="stylesheet" /> <link href="/ResourcePackages/Bootstrap4/assets/dist/css/main.min.css?package=Bootstrap4" rel="stylesheet" type="text/css" /> <link href="/ResourcePackages/Bootstrap4/assets/dist/css/CustomStyle.css" rel="stylesheet" /> <script type="text/javascript">
+</style> <script src="/ResourcePackages/Bootstrap4/assets/dist/js/jquery-3.5.1.min.js"></script> <!-- ======= Font-Awesome font======= --> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> <!--link href="~/ResourcePackages/Bootstrap4/assets/font/font-awesome-5.14.0/css/all.css" rel="stylesheet" /--> <link href="/ResourcePackages/Bootstrap4/assets/dist/css/HawkSearch.css" rel="stylesheet" /> <link href="/ResourcePackages/Bootstrap4/assets/dist/css/main.min.css?package=Bootstrap4" rel="stylesheet" type="text/css" /><link href="/Frontend-Assembly/ElasticSearch.Widgets/Mvc/Styles/elasticsearch.css?package=Bootstrap4" rel="stylesheet" type="text/css" /><link href="/Frontend-Assembly/ElasticSearch.Widgets/Mvc/Styles/elasticmisc.css?package=Bootstrap4" rel="stylesheet" type="text/css" /> <link href="/ResourcePackages/Bootstrap4/assets/dist/css/CustomStyle.css" rel="stylesheet" /> <meta name="robots" content="noindex" /><meta property="og:title" content="Current Event Calendar" /><meta property="og:description" content="View upcoming events related to the Cuyahoga County Board of Elections." /><meta property="og:url" content="https://boe.cuyahogacounty.gov/calendar" /><meta property="og:type" content="website" /><meta property="og:site_name" content="Default" /><script type="text/javascript">
 window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -46,17 +46,21 @@ window._monsido = window._monsido || {
         },
     };
 
-</script><meta property="og:title" content="Board Meeting" /><meta property="og:type" content="website" /><meta property="og:url" content="https://boe.cuyahogacounty.gov/boe-events/2024/01/23/default-calendar/board-meeting-2024-01-23" /><meta property="og:site_name" content="Default" /><meta name="Generator" content="Sitefinity 14.2.7900.0 DX" /><link rel="canonical" href="https://boe.cuyahogacounty.gov/boe-events/2024/01/23/default-calendar/board-meeting-2024-01-23" /></head> <body> <div class="wrapper"> <!-- Page Content  --> <div id="content"> <div class="sfPublicWrapper" id="PublicWrapper"> <!-- Header --> <header class="site-header navbar-fixed-top" role="banner" aria-label="Site Header"> <div> <a id="skippy" class="sr-only-focusable fixed-top official-site full-size-official-site" data-toggle="collapse" href="#collapseContainer" aria-expanded="false" 
-                     aria-controls="collapseContainer"> <div class="container-fluid center"> <span class="skiplink-text"><img src="/ResourcePackages/Bootstrap4/assets/dist/images/us_flag_small.png"
-                                                       alt="Image of the State of Ohio flag">  An official website of the Cuyahoga County government.  Here’s how you know</span> </div> </a> <div class="row collapse top-ribbon" id="collapseContainer"> <div class="card shadow border parent justify-content-center align-items-center officialWebSite"> <div class="card-body" style="padding:0px;"> <div class="row adjustWidthForOfficialSite"> <div class="col-lg-2"><img src="/ResourcePackages/Bootstrap4/assets/dist/images/icon-dott-gov.png" alt=""/></div> <div class="col-lg-4 x-small-text"> <strong>The site is secure.</strong><br />
-                            A lock or https:// means you’ve safely connected to the .gov website. Share sensitive information only on official, secure websites.
-                          </div> <div class="col-lg-2"><img src="/ResourcePackages/Bootstrap4/assets/dist/images/icon-https.png" alt=""/></div> <div class="col-lg-4 x-small-text"> <strong>The .gov means it&#39;s official.</strong><br />
-                            A .gov website belongs to an official government organization in the United States.
-                          </div> </div> </div> </div> </div> </div> <a id="skippy" class="sr-only sr-only-focusable fixed-top" href="#main-content" style="z-index:5000; position:absolute;"> <div class="container-fluid"> <span class="skiplink-text">Skip to main content</span> </div> </a> <a id="skippy" class="sr-only sr-only-focusable fixed-top searchPageOnly" href="#GoToFilterResults" style="z-index:5000; position:absolute;"> <div class="container-fluid"> <span class="skiplink-text">Skip to Filter Results</span> </div> </a> <a id="skippy" class="sr-only sr-only-focusable fixed-top searchPageOnly" href="#searchResults" style="z-index:5000; position:absolute;"> <div class="container-fluid"> <span class="skiplink-text">Skip to Search Results</span> </div> </a> <div class="container-fluid py-0" aria-hidden="true"> <!-- nav container --> <div><script src="/Frontend-Assembly/HawkSearchWidgets/Mvc/Scripts/hawksearch-init.js?package=Bootstrap4&amp;v=MS43LjY1MC4w" type="text/javascript"></script><script src="/Frontend-Assembly/HawkSearchWidgets/Mvc/Scripts/hawksearch.min.js?package=Bootstrap4&amp;v=MS43LjY1MC4w" type="text/javascript"></script><script src="/Frontend-Assembly/HawkSearchWidgets/Mvc/Scripts/hawksearch-autosuggest.js?package=Bootstrap4&amp;v=MS43LjY1MC4w" type="text/javascript"></script><script src="/Frontend-Assembly/HawkSearchWidgets/Mvc/Scripts/hawksearchbox.js?package=Bootstrap4&amp;v=MS43LjY1MC4w" type="text/javascript"></script><script src="/ScriptResource.axd?d=okuX3IVIBwfJlfEQK32K3vH2leGe_HpQz2TBOQXDTmKWoPdLL4tKOa-0-choWAwNLb2IbxmYmX8vWD_WzByJTqKdsT7M1hvD-iBYwa-dNOClJ-qc8ylPsFjk9L0wl0fr-cGHhebwVzWqV---1y_dWoOGQIvvXcZZh9_qvgufWhMFqDzoiJsQJ_9q5mJMby_b0&amp;t=ffffffffd8dd13d8" type="text/javascript"></script><script src="/ScriptResource.axd?d=EydukmxBmDstn7gSYzQESAs8qSa7EaZfTjjep3hSvwY2RkbuJQfYzJG7KE6kIOwKNzmzSXFzdzpgy5FCgqVcQZV-WdpL9PNppL-6E-2O6BlMpXwq6IMstiga8CN-KeZIcL-CRxPZoZYIEdqrNhEV5ycWsZj2m06_q6aQFuhtN9-lXIGjwmlrOGvyeh5HXHzy0&amp;t=ffffffffd8dd13d8" type="text/javascript"></script><script src="/ResourcePackages/Bootstrap4/assets/dist/js/popper.min.js" type="text/javascript"></script><script src="/ResourcePackages/Bootstrap4/assets/dist/js/bootstrap.min.js" type="text/javascript"></script></div> <div class="row">
+</script><meta name="Generator" content="Sitefinity 14.2.7900.0 DX" /><link rel="canonical" href="https://boe.cuyahogacounty.gov/calendar" /><meta name="description" content="View upcoming events related to the Cuyahoga County Board of Elections." /><meta name="keywords" content="2022,2021,2020,2019,2018,2017" /></head> <body> <div class="wrapper"> <!-- Page Content  --> <div id="content"> <div class="sfPublicWrapper" id="PublicWrapper"> <!-- Elastic start exclusion --> <div class="es-hidden-text" aria-hidden="true">
+                    es-exclude-start-header
+                </div> <!-- Header --> <header class="site-header navbar-fixed-top" role="banner" aria-label="Site Header"> <div> <a id="skippy" class="sr-only-focusable fixed-top official-site full-size-official-site" data-toggle="collapse" href="#collapseContainer" aria-expanded="false"
+                           aria-controls="collapseContainer"> <div class="container-fluid center"> <span class="skiplink-text"> <img src="/ResourcePackages/Bootstrap4/assets/dist/images/us_flag_small.png"
+                                         alt="Image of the State of Ohio flag">  An official website of the Cuyahoga County government.  Here’s how you know
+                                    </span> </div> </a> <div class="row collapse top-ribbon" id="collapseContainer"> <div class="card shadow border parent justify-content-center align-items-center officialWebSite"> <div class="card-body" style="padding:0px;"> <div class="row adjustWidthForOfficialSite"> <div class="col-lg-2"><img src="/ResourcePackages/Bootstrap4/assets/dist/images/icon-dott-gov.png" alt="" /></div> <div class="col-lg-4 x-small-text"> <strong>The site is secure.</strong><br />
+                                                skip-link
+                                            </div> <div class="col-lg-2"><img src="/ResourcePackages/Bootstrap4/assets/dist/images/icon-https.png" alt="" /></div> <div class="col-lg-4 x-small-text"> <strong>The .gov means it&#39;s official.</strong><br />
+                                                A .gov website belongs to an official government organization in the United States.
+                                            </div> </div> </div> </div> </div> </div> <a id="skippy" class="sr-only sr-only-focusable fixed-top" href="#main-content" style="z-index:5000; position:absolute;"> <div class="container-fluid"> <span class="skiplink-text">Skip to main content</span> </div> </a> <a id="skippy" class="sr-only sr-only-focusable fixed-top searchPageOnly" href="#GoToFilterResults" style="z-index:5000; position:absolute;"> <div class="container-fluid"> <span class="skiplink-text">skip-link</span> </div> </a> <a id="skippy" class="sr-only sr-only-focusable fixed-top searchPageOnly" href="#searchResults" style="z-index:5000; position:absolute;"> <div class="container-fluid"> <span class="skiplink-text">Skip to Search Results</span> </div> </a> <div class="container-fluid py-0" aria-hidden="true"> <!-- nav container --> <div><script src="/ScriptResource.axd?d=okuX3IVIBwfJlfEQK32K3vH2leGe_HpQz2TBOQXDTmKWoPdLL4tKOa-0-choWAwNLb2IbxmYmX8vWD_WzByJTqKdsT7M1hvD-iBYwa-dNOClJ-qc8ylPsFjk9L0wl0fr-cGHhebwVzWqV---1y_dWoOGQIvvXcZZh9_qvgufWhMFqDzoiJsQJ_9q5mJMby_b0&amp;t=ffffffffd8dd13d8" type="text/javascript"></script><script src="/ScriptResource.axd?d=EydukmxBmDstn7gSYzQESAs8qSa7EaZfTjjep3hSvwY2RkbuJQfYzJG7KE6kIOwKNzmzSXFzdzpgy5FCgqVcQZV-WdpL9PNppL-6E-2O6BlMpXwq6IMstiga8CN-KeZIcL-CRxPZoZYIEdqrNhEV5ycWsZj2m06_q6aQFuhtN9-lXIGjwmlrOGvyeh5HXHzy0&amp;t=ffffffffd8dd13d8" type="text/javascript"></script><script src="/ResourcePackages/Bootstrap4/assets/dist/js/popper.min.js" type="text/javascript"></script><script src="/ResourcePackages/Bootstrap4/assets/dist/js/bootstrap.min.js" type="text/javascript"></script></div> <div class="row">
 
 
-</div> </div> </header> <!-- end Header --> <!-- Site Main --> <div class="site-main mb-5"> <!-- Main Content --> <main class="container-fluid mainContent" role="main" tabindex="-1">
-<section id="Contentplaceholder1_TAA75111F018_Col00" class="sf_colsIn top container-flex fixed-top" data-sf-element="Section" data-placeholder-label="Section Top"><div class=" additional-fixed row" data-sf-element="Row">
+</div> </div> </header> <!-- Elastic end exclusion not here but in the page template below breadcrumb --> <!-- end Header --> <!-- Site Main --> <div class="site-main mb-5"> <!-- Main Content --> <main class="container-fluid mainContent" role="main" tabindex="-1">
+<section id="Contentplaceholder1_TAA75111F018_Col00" class="sf_colsIn top container-flex fixed-top" data-sf-element="Section" data-placeholder-label="Section Top">
+<script src="https://cdn.usefathom.com/script.js" data-site="TKCOEYGH" defer></script><div class=" additional-fixed row" data-sf-element="Row">
     <div id="Contentplaceholder1_TE5485A05087_Col00" class="sf_colsIn col-md-2 clearfix" data-sf-element="Column 1" data-placeholder-label="Column 1"></div>
     <div id="Contentplaceholder1_TE5485A05087_Col01" class="sf_colsIn col-md-2" data-sf-element="Column 2" data-placeholder-label="Column 2"></div>
     <div id="Contentplaceholder1_TE5485A05087_Col02" class="sf_colsIn col-md-2" data-sf-element="Column 3" data-placeholder-label="Column 3"></div>
@@ -64,9 +68,6 @@ window._monsido = window._monsido || {
     <div id="Contentplaceholder1_TE5485A05087_Col04" class="sf_colsIn col-md-2 clearfix" data-sf-element="Column 5" data-placeholder-label="Column 5">
 <div style="float:right; margin:-15px 0 0 30px;">
     <ul class="sf-lang-selector list-inline lang-selector-tab">
-            <li class="language-link-in-top-tab">
-                    <a href="" onclick="openLink('es'); return false;" class=" language-link-in-top-tab">espa&#241;ol</a>
-            </li>
     </ul>
 </div>
 
@@ -82,11 +83,10 @@ window._monsido = window._monsido || {
 <div class="row" data-sf-element="Row">
     <div id="Contentplaceholder1_TE5485A05055_Col00" class="sf_colsIn col-sm-6" data-sf-element="Column 1" data-placeholder-label="Column 1">
 <div >
-    <div ><a href="5f1f76c2-6f97-431e-b1b8-57684e69b54c"><img data-method="CropCropArguments" data-customsizemethodproperties="'MaxWidth':null,'MaxHeight':null,'Width':320,'Height':80,'ScaleUp':false,'Quality':'High','Method':'CropCropArguments'}" src="/images/default-source/default-album/untitled-(1).png?sfvrsn=898e93f3_19&amp;Width=320&amp;Height=80&amp;ScaleUp=false&amp;Quality=High&amp;Method=CropCropArguments&amp;Signature=93A64BF97A03C847A74EF5E7044451C0DE7C6449" alt="Board Of Elections Logo. Ohio Map in letter O in Vote Cuyahoga County." title="BOE_LOGO" data-displaymode="Custom" style="float:left;max-height:80px;padding-left:13%;" class="boeLogo" /></a></div>    
+    <div ><a href="/home"><img class="boeLogo" src="/images/default-source/default-album/untitled-(1).png?sfvrsn=898e93f3_19&amp;Width=320&amp;Height=80&amp;ScaleUp=false&amp;Quality=High&amp;Method=CropCropArguments&amp;Signature=93A64BF97A03C847A74EF5E7044451C0DE7C6449" data-method="CropCropArguments" title="BOE_LOGO" data-displaymode="Custom" alt="Board Of Elections Logo. Ohio Map in letter O in Vote Cuyahoga County." style="float:left;max-height:80px;padding-left:13%;" data-customsizemethodproperties="&#39;MaxWidth&#39;:null,&#39;MaxHeight&#39;:null,&#39;Width&#39;:320,&#39;Height&#39;:80,&#39;ScaleUp&#39;:false,&#39;Quality&#39;:&#39;High&#39;,&#39;Method&#39;:&#39;CropCropArguments&#39;}" /></a></div>    
 </div>
     </div>
-    <div id="Contentplaceholder1_TE5485A05055_Col01" class="sf_colsIn col-sm-6" data-sf-element="Column 2" data-placeholder-label="Column 2">
-<div class="search-box search-box--header form-inline">
+    <div id="Contentplaceholder1_TE5485A05055_Col01" class="sf_colsIn col-sm-6" data-sf-element="Column 2" data-placeholder-label="Column 2"><div class="search-box search-box--header form-inline">
     <div class="input-group mt-3" style="margin-bottom: .2rem !important;">
         <input class="form-control" id="txtSiteSearch" type="text" placeholder="Insert Keyword to search" autocomplete="off" data-axe-pro-tab-stop-index="4">
         <div class="input-group-append">
@@ -97,10 +97,6 @@ window._monsido = window._monsido || {
     </div>
     <div id="querydiv" name="querydiv"></div>
 </div>
-
-
-
-
 
 
 
@@ -203,12 +199,18 @@ window._monsido = window._monsido || {
     <nav aria-label="Full path to the current page">
         <ol class="sf-breadscrumb breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home </a></li>
-                    <li class="breadcrumb-item"><a href="/calendar">Calendar </a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Event Details</li>
+                    <li class="breadcrumb-item active" aria-current="page">Calendar</li>
         </ol>
     </nav>
     <span id="main-content"></span>
-</div><section id="Contentplaceholder1_TE5485A05070_Col00" class="sf_colsIn" data-sf-element="Section" data-placeholder-label="Section for ALERT for entire site."></section>
+</div><section id="Contentplaceholder1_TE5485A05070_Col00" class="sf_colsIn" data-sf-element="Section" data-placeholder-label="Section for ALERT for entire site."><div id="Contentplaceholder1_TE5485A05117_Col00" class="sf_colsIn container" data-sf-element="Container" data-placeholder-label="Container">
+</div>
+
+<div class="es-hidden-text" aria-hidden="true">
+    es-exclude-end-header
+</div>
+
+</section>
     </div>
 </div>
 </section>
@@ -231,54 +233,1020 @@ window._monsido = window._monsido || {
 </div>
 <div class="row" data-sf-element="Row">
     <div id="Contentplaceholder1_TAA75111F015_Col00" class="sf_colsIn col-lg-12" data-sf-element="Column 1" data-placeholder-label="Drag-n-drop Content Block and add Main Content of your page.">
-<div >
-    <h1 class="sf-event-title">
-        <span >Board Meeting</span>
-    </h1>
-    <span class="sf-event-type" style="background: #C0C0C0"></span>
+
+<div class="twelve70 es-container">
+    <a class="skip-link" href="#GoToFilterResults"> <h3>Go To Filter Results</h3></a>
+    <a class="skip-link" href="#searchResults"><h3>Skip to Results</h3></a>
+    <div class="row es-wrap">
+        <div class="col-md-3 hs-col-3" id="GoToFilterResults">
+            
 
 
+<div class="results-filters es-results-filters">
+    <div class="es-rail">Narrow Results</div>
 
-            <div class="meta"><em>January 23, 2024 9:30 AM<span> - </span> 10:30 AM</em></div>
-            <address>
-
-2925 Euclid Ave
-Cleveland                <br>
-
-        </address>
-
-    <div>
-
-
-
-
-    </div>
-
-    <div class="related-content" style="padding-bottom:10px;">
-
-    </div>
-
-    
-
-        <p ><p>Certification of remaining issues, charter amendments, and write-in candidates for the
-March 19, 2024 Primary Election</p><p><a href="/about-us/board-meeting-documents">See Board Meeting Documents on our About Us page</a></p></p>
-
-        <div>
-                <span>Add to:</span>
-                <ul>
-                    <li><a href="/Sitefinity/Public/Services/ICalanderService/file.ics/?id=3b2f870d-a484-4ad4-8ff4-5b54e3dafbb2&amp;provider=&amp;uiculture=en" target="_blank">Outlook</a>,</li>
-                    <li><a href="/Sitefinity/Public/Services/ICalanderService/file.ics/?id=3b2f870d-a484-4ad4-8ff4-5b54e3dafbb2&amp;provider=&amp;uiculture=en" target="_blank">ICal</a>,</li>
-                    <li><a href="http://www.google.com/calendar/event?action=TEMPLATE&amp;text=Board+Meeting&amp;dates=20240123T143000Z/20240123T153000Z&amp;location=Cleveland%2c2925+Euclid+Ave&amp;sprop=website:https://boe.cuyahogacounty.gov&amp;sprop=name:Board+Meeting&amp;details=Certification+of+remaining+issues%2c+charter+amendments%2c+and+write-in+candidates+for+the%0aMarch+19%2c+2024+Primary+ElectionSee+Board+Meeting+Documents+on+our+About+Us+page&amp;recur=" target="_blank">Google Calendar</a></li>
-                </ul>
-
+            <div class="filter-type es-filter-type">
+                <h4>Year</h4>
+                <div>
+                    <ul>
+                            <li class="filter-parent filter-value collapsed">
+                                <a href="/calendar?pageSize=96&amp;it=Current Events&amp;year_month=2024" title="Check to filter results by 2024">
+                                    <span>
+                                        2024
+                                        <span>(29)</span>
+                                    </span>
+                                </a>
+                                <span class="expand-year" title="Click to Expand" aria-controls="year-2024"><i class="fas fa-plus"></i></span>
+                                <span class="expanded-year" title="Click to Collapse" aria-controls="year-2024"><i class="fas fa-minus"></i></span>
+                                <ul class="filter-child" aria-expanded="false" id="year-2024">
+                                        <li class="filter-value">
+                                            <a href="/calendar?pageSize=96&amp;it=Current Events&amp;year_month=2024%2fJuly" title="Check to filter results by 2024 July">
+                                                <span>
+                                                    July
+                                                    <span>(9)</span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="filter-value">
+                                            <a href="/calendar?pageSize=96&amp;it=Current Events&amp;year_month=2024%2fAugust" title="Check to filter results by 2024 August">
+                                                <span>
+                                                    August
+                                                    <span>(5)</span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="filter-value">
+                                            <a href="/calendar?pageSize=96&amp;it=Current Events&amp;year_month=2024%2fSeptember" title="Check to filter results by 2024 September">
+                                                <span>
+                                                    September
+                                                    <span>(3)</span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="filter-value">
+                                            <a href="/calendar?pageSize=96&amp;it=Current Events&amp;year_month=2024%2fOctober" title="Check to filter results by 2024 October">
+                                                <span>
+                                                    October
+                                                    <span>(4)</span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="filter-value">
+                                            <a href="/calendar?pageSize=96&amp;it=Current Events&amp;year_month=2024%2fNovember" title="Check to filter results by 2024 November">
+                                                <span>
+                                                    November
+                                                    <span>(6)</span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="filter-value">
+                                            <a href="/calendar?pageSize=96&amp;it=Current Events&amp;year_month=2024%2fDecember" title="Check to filter results by 2024 December">
+                                                <span>
+                                                    December
+                                                    <span>(2)</span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                </ul>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="filter-type es-filter-type">
+                <h4>Category</h4>
+                <div>
+                    <ul>
+                                <li class="filter-value">
+                                    <a href="/calendar?pageSize=96&amp;it=Current Events&amp;typeattr=Community Events" title="Check to filter results by Community Events zzzz ?pageSize=96&amp;it=Current Events zzzz &amp;typeattr=Community Events">
+                                        <span>
+                                            Community Events
+                                            <span>(11)</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="filter-value">
+                                    <a href="/calendar?pageSize=96&amp;it=Current Events&amp;typeattr=Board Meeting" title="Check to filter results by Board Meeting zzzz ?pageSize=96&amp;it=Current Events zzzz &amp;typeattr=Board Meeting">
+                                        <span>
+                                            Board Meeting
+                                            <span>(9)</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="filter-value">
+                                    <a href="/calendar?pageSize=96&amp;it=Current Events&amp;typeattr=Election" title="Check to filter results by Election zzzz ?pageSize=96&amp;it=Current Events zzzz &amp;typeattr=Election">
+                                        <span>
+                                            Election
+                                            <span>(1)</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="filter-value">
+                                    <a href="/calendar?pageSize=96&amp;it=Current Events&amp;typeattr=Other" title="Check to filter results by Other zzzz ?pageSize=96&amp;it=Current Events zzzz &amp;typeattr=Other">
+                                        <span>
+                                            Other
+                                            <span>(1)</span>
+                                        </span>
+                                    </a>
+                                </li>
+                    </ul>
+                </div>
+            </div>
+</div>
         </div>
+        <div id="searchResults" class="col-md-9 es-col-9">
+            <ul role="main" id="main-content">
+                    <div>
+                        <ul class="es-current-past">
+                                <li class="filter-value">
+                                    <a href="/calendar?it=Past Events" title="Check to filter results by Past Events">
+                                        <span>
+                                            Past Events
+                                            <span>(278)</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="filter-value filter-active">
+                                    <a href="/calendar" title="Check to filter results by Current Events">
+                                        <span>
+                                            Current Events
+                                            <span>(30)</span>
+                                        </span>
+                                    </a>
+                                </li>
+                        </ul>
+                    </div>
+                <h1 class="es-heading-xl">Events</h1>
+                    <div class="es-actionbar es-actionbar-top">
 
-</div><div id="Contentplaceholder1_TE5485A05080_Col00" class="sf_colsIn container" data-sf-element="Container" data-placeholder-label="Container">
+
+<div class="es-results-actions">
+    <div class="es-sortWrapper">
+        <span><b>Sort By</b></span>
+        <select class="sort-actions">
+            <option value="event-dt desc">Newest - Oldest</option>
+            <option value="event-dt">Oldest - Newest</option>
+            <option value="title">A-Z</option>
+            <option value="title desc">Z-A</option>
+        </select>
+    </div>
+    <div class="es-pagination">
+        <span>Page 1 of 1</span>
+        <select class="page-actions">
+            <option value="24">24 Items Per Page</option>
+            <option value="48">48 Items Per Page</option>
+            <option value="96">96 Items Per Page</option>
+        </select>
+    </div>
+    <div class="clear"></div>
+</div></div>
+                    <ul class="es-item-list">
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Jul</span>
+                                    <span>11</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=667f7524e5d5e00eb508e442&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f07%2f11%2fdefault-calendar%2fcleveland-department-of-aging-event">
+                                            Cleveland Department of Aging Event
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        July 11, 2024 9:00 AM - 11:00 AM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Cleveland Department of Aging Event Date and time: July 11, 2024 9:00 AM - 11:00 AM 75 Erieview Plaza Suite 201 East 12th &amp; St. Clair Cleveland, Ohio 44114 Get Directions Add to: Outlook , ICal</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Jul</span>
+                                    <span>12</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=668ee5eca4cb953150694df4&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f07%2f12%2fdefault-calendar%2fclose-of-rfb-event-5641-boe-printing-of-provisional-envelopes-2024">
+                                            Close of RFB Event #5641: BOE Printing of Provisional Envelopes 2024
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        July 12, 2024 11:00 AM - 12:00 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Close of RFB Event #5641: BOE Printing of Provisional Envelopes 2024 Date and time: July 12, 2024 11:00 AM - 12:00 PM RFB Event #5641: BOE Printing of Provisional Envelopes 2024 Suppliers can submit</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Jul</span>
+                                    <span>13</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=668e8c3ba4cb95b176f1a91c&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f07%2f13%2fdefault-calendar%2fannual-community-day">
+                                            Annual Community day
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        July 13, 2024 12:00 PM - 5:00 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Annual Community day Date and time: July 13, 2024 12:00 PM - 5:00 PM Sure House Baptist Church 11318 Miles Avenue Cleveland, Ohio 44105 Get Directions Add to: Outlook , ICal , Google Calendar</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Jul</span>
+                                    <span>13</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=66807257e5d5e030423d096c&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f07%2f13%2fdefault-calendar%2fmusic-in-the-park-2024-series">
+                                            Music In The Park 2024 Series
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        July 13, 2024 6:30 PM - 8:30 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Music In The Park 2024 Series Date and time: July 13, 2024 6:30 PM - 8:30 PM Stafford Park &quot;Townsman Orchestra&quot; 5400 Mayville Avenue, Maple Heights, Ohio 44137 Get Directions Add to: Outlook , ICal</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Jul</span>
+                                    <span>13</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=668d6a3ca4cb95515f6e2bf2&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f07%2f13%2fdefault-calendar%2f2nd-annual-self-care-community-fair">
+                                            2nd Annual Self Care Community Fair
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        July 13, 2024 12:00 PM - 4:00 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> 2nd Annual Self Care Community Fair Date and time: July 13, 2024 12:00 PM - 4:00 PM The West 73rd Community Partners 3144 West 73rd Street Cleveland, Ohio 44102 Get Directions Add to: Outlook , ICal</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Jul</span>
+                                    <span>21</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=668e8c3ca4cb95c0acf1ab62&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f07%2f21%2fdefault-calendar%2f18th-annual-community-day">
+                                            18th Annual Community Day
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        July 21, 2024 12:00 PM - 4:00 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> 18th Annual Community Day Date and time: July 21, 2024 12:00 PM - 4:00 PM The Church C.O.G.I.C. 7541 Kinsman Road Cleveland, Ohio 44104 Get Directions Add to: Outlook , ICal , Google Calendar</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Jul</span>
+                                    <span>25</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=66565fc8e5d5e0d061d359e7&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f07%2f25%2fdefault-calendar%2fboard-meeting">
+                                            Board Meeting
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        July 25, 2024 9:30 AM - 10:30 AM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Board Meeting Date and time: July 25, 2024 9:30 AM - 10:30 AM 2925 Euclid Ave Cleveland July Board Meeting See Board Meeting Documents on our About Us page Add to: Outlook , ICal , Google Calendar</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Jul</span>
+                                    <span>26</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=668e8c42a4cb955e81f1b3cb&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f07%2f26%2fdefault-calendar%2fmobile-food-pantry">
+                                            Mobile Food Pantry
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        July 26, 2024 11:00 AM - 3:00 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Mobile Food Pantry Date and time: July 26, 2024 11:00 AM - 3:00 PM Cleveland Public Library 3096 Scranton Road &amp; Clark Avenue, Cleveland, Ohio 44113 Get Directions Add to: Outlook , ICal , Google</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Jul</span>
+                                    <span>28</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=668e8c3ca4cb95c4a1f1ab97&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f07%2f28%2fdefault-calendar%2fcommunity-back-to-school-rally">
+                                            Community Back To School Rally
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        July 28, 2024 12:00 PM - 4:00 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Community Back To School Rally Date and time: July 28, 2024 12:00 PM - 4:00 PM Temple Baptist Church 1862 Noble Road, East Cleveland, Ohio 44112 Get Directions Add to: Outlook , ICal , Google</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Jul</span>
+                                    <span>31</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=668e8c42a4cb9580faf1b3c9&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f07%2f31%2fdefault-calendar%2fjones-home-neighborhood">
+                                            Jones Home Neighborhood
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        July 31, 2024 6:00 PM - 7:30 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Jones Home Neighborhood Date and time: July 31, 2024 6:00 PM - 7:30 PM Dunlap Tavern 3258 West 32nd Street, Cleveland, Ohio 44109 Get Directions Add to: Outlook , ICal , Google Calendar Category</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Aug</span>
+                                    <span>03</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=668e8c45a4cb9573b8f1b6b0&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f08%2f03%2fdefault-calendar%2f11th-annual-intergenerational-community-day">
+                                            11th Annual Intergenerational Community Day
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        August 03, 2024 1:00 PM - 7:03 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> 11th Annual Intergenerational Community Day Date and time: August 03, 2024 1:00 PM - 7:03 PM Oleatha Wilson Park East 110th &amp; LaRose Avenue Cleveland, Ohio 44105 Get Directions Add to: Outlook , ICal</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Aug</span>
+                                    <span>03</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=668e8c46a4cb9572f2f1b898&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f08%2f03%2fdefault-calendar%2f2024-puerto-rican-parade-expo">
+                                            2024 Puerto Rican Parade & Expo
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        August 03, 2024 12:00 PM - 10:00 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> 2024 Puerto Rican Parade &amp; Expo Date and time: August 03, 2024 12:00 PM - 10:00 PM Metrohealth Hospital - Main Campus 2500 Metrohealth Drive Cleveland, Ohio 44109 Get Directions Add to: Outlook</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Aug</span>
+                                    <span>04</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=668e8c48a4cb95f171f1bab4&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f08%2f04%2fdefault-calendar%2f2024-puerto-rican-parade-expo">
+                                            2024 Puerto Rican Parade & Expo
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        August 04, 2024 12:00 PM - 10:00 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> 2024 Puerto Rican Parade &amp; Expo Date and time: August 04, 2024 12:00 PM - 10:00 PM Metrohealth Hospital - Main Campus 2500 Metrohealth Drive Cleveland, Ohio 44109 Get Directions Add to: Outlook</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Aug</span>
+                                    <span>06</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f45a1d9934e11fef99eb6f&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f08%2f06%2fdefault-calendar%2fboard-meeting">
+                                            Board Meeting
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        August 06, 2024 9:30 AM - 10:30 AM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Board Meeting Date and time: August 06, 2024 9:30 AM - 10:30 AM 2925 Euclid Ave Cleveland August Board Meeting See Board Meeting Documents on our About Us page Add to: Outlook , ICal , Google</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Aug</span>
+                                    <span>19</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f45a1d9934e1543f99ec38&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f08%2f19%2fdefault-calendar%2fboard-meeting">
+                                            Board Meeting
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        August 19, 2024 9:30 AM - 10:30 AM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Board Meeting Date and time: August 19, 2024 9:30 AM - 10:30 AM 2925 Euclid Ave Cleveland Certification of candidates and issues for the November 5, 2024 General Election See Board Meeting Documents</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Sep</span>
+                                    <span>02</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f459529934e1294d98d6a1&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f09%2f02%2fdefault-calendar%2flabor-day-(office-closed)">
+                                            Labor Day (Office Closed)
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        September 02, 2024 8:00 AM - 4:00 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Labor Day (Office Closed) Date and time: September 02, 2024 8:00 AM - 4:00 PM Labor Day (Office Closed) Add to: Outlook , ICal , Google Calendar Category</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Sep</span>
+                                    <span>09</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f4595d9934e1bb1d98ead2&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f09%2f09%2fdefault-calendar%2fboard-meeting">
+                                            Board Meeting
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        September 09, 2024 9:30 AM - 10:30 AM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Board Meeting Date and time: September 09, 2024 9:30 AM - 10:30 AM 2925 Euclid Ave Cleveland Certification of remaining issues, charter amendments, and write in candidates for the November 5, 2024</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Sep</span>
+                                    <span>17</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f459529934e196ed98d61b&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f09%2f17%2fdefault-calendar%2fnational-voter-registration-day">
+                                            National Voter Registration Day
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        September 17, 2024 8:00 AM - 4:00 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> National Voter Registration Day Date and time: September 17, 2024 8:00 AM - 4:00 PM National Voter Registration Day! Link to National Voter Registration website: https</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Oct</span>
+                                    <span>07</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f459699934e18dad990049&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f10%2f07%2fdefault-calendar%2fvoter-registration-deadline-for-november-5-2024-general-election">
+                                            Voter registration deadline for November 5, 2024 General Election
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        November 5, 2024
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Voter registration deadline for November 5, 2024 General Election Date and time: October 07, 2024 8:30 AM - 9:00 PM Voter registration deadline for November 5, 2024 General Election Add to: Outlook</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Oct</span>
+                                    <span>08</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f4596b9934e13c91990272&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f10%2f08%2fdefault-calendar%2fboard-meeting">
+                                            Board Meeting
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        October 08, 2024 9:30 AM - 10:30 AM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Board Meeting Date and time: October 08, 2024 9:30 AM - 10:30 AM 2925 Euclid Ave Cleveland October Board Meeting See Board Meeting Documents on our About Us page Add to: Outlook , ICal , Google</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Oct</span>
+                                    <span>08</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f4596a9934e13b67990227&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f10%2f08%2fdefault-calendar%2fopen-of-absentee-voting-for-november-5-2024-general-election">
+                                            Open of absentee voting for November 5, 2024 General Election
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        November 5, 2024
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Open of absentee voting for November 5, 2024 General Election Date and time: October 08, 2024 8:00 AM - 5:00 PM Open of absentee voting for November 5, 2024 General Election Add to: Outlook , ICal</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Oct</span>
+                                    <span>14</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f459de9934e1d36f999ecb&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f10%2f14%2fdefault-calendar%2fcolumbus-day-(office-closed)">
+                                            Columbus Day (Office Closed)
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        October 14, 2024 8:00 AM - 4:00 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Columbus Day (Office Closed) Date and time: October 14, 2024 8:00 AM - 4:00 PM Columbus Day (Office Closed) Add to: Outlook , ICal , Google Calendar Category</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Nov</span>
+                                    <span>01</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f459e59934e1d24b99a8ba&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f11%2f01%2fdefault-calendar%2fboard-meeting">
+                                            Board Meeting
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        November 01, 2024 9:30 AM - 10:30 AM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Board Meeting Date and time: November 01, 2024 9:30 AM - 10:30 AM 2925 Euclid Ave Cleveland Meeting for the November 5, 2024 General Election See Board Meeting Documents on our About Us page Add</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Nov</span>
+                                    <span>05</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f459e39934e1544399a552&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f11%2f05%2fdefault-calendar%2fnovember-5-2024-general-election">
+                                            November 5, 2024 General Election
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        November 5, 2024
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> November 5, 2024 General Election Date and time: November 05, 2024 6:30 AM - 7:30 PM Polls will be open from 6:30 AM until 7:30 PM on election day. My Voting Information Where Do I Vote How to Track</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Nov</span>
+                                    <span>11</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f4594d9934e1689598cd03&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f11%2f11%2fdefault-calendar%2fveterans-day-(office-closed)">
+                                            Veterans Day (Office Closed)
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        November 11, 2024 8:00 AM - 4:00 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Veterans Day (Office Closed) Date and time: November 11, 2024 8:00 AM - 4:00 PM Veterans Day (Office Closed) Add to: Outlook , ICal , Google Calendar Category</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Nov</span>
+                                    <span>18</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f4594f9934e1134698d004&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f11%2f18%2fdefault-calendar%2fboard-meeting">
+                                            Board Meeting
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        November 18, 2024 9:30 AM - 10:30 AM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Board Meeting Date and time: November 18, 2024 9:30 AM - 10:30 AM 2925 Euclid Ave Cleveland Provisional Verification for the November 5, 2024 General Election See Board Meeting Documents on our About</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Nov</span>
+                                    <span>26</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f4594f9934e19a7998d046&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f11%2f26%2fdefault-calendar%2fboard-meeting">
+                                            Board Meeting
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        November 26, 2024 9:30 AM - 10:30 AM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Board Meeting Date and time: November 26, 2024 9:30 AM - 10:30 AM 2925 Euclid Ave Cleveland Certification of the November 5, 2024 General Election See Board Meeting Documents on our About Us page Add</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Nov</span>
+                                    <span>28</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f459609934e1953198f0b4&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f11%2f28%2fdefault-calendar%2fthanksgiving-(office-closed)">
+                                            Thanksgiving (Office Closed)
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        November 28, 2024 8:00 AM - November 29, 2024 4:00 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Thanksgiving (Office Closed) Date and time: November 28, 2024 8:00 AM - November 29, 2024 4:00 PM Thanksgiving (Office Closed) Add to: Outlook , ICal , Google Calendar Category</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Dec</span>
+                                    <span>12</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f459669934e148e098fa1d&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f12%2f12%2fdefault-calendar%2fboard-meeting">
+                                            Board Meeting
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        December 12, 2024 9:30 AM - 10:30 AM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Board Meeting Date and time: December 12, 2024 9:30 AM - 10:30 AM 2925 Euclid Ave Cleveland December Board Meeting See Board Meeting Documents on our About Us page Add to: Outlook , ICal , Google</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li class="es-item es-content-type-event">
+                                <div class="es-date">
+                                    <span>Dec</span>
+                                    <span>25</span>
+                                    <span>2024</span>
+                                </div>
+                                <div class="es-search-content">
+                                    <div class="es-item-title">
+                                        <a href="/calendar/click?query=&amp;documentId=65f459669934e121a498fa2b&amp;requestId=ml_1U7lPRj6uwUiEweUH7g&amp;link=https%3a%2f%2fboe.cuyahogacounty.gov%2fcalendar%2fevent-details%2f2024%2f12%2f25%2fdefault-calendar%2fchristmas-(office-closed)">
+                                            Christmas (Office Closed)
+                                        </a>
+                                    </div>
+                                    <div class="meta">
+                                        December 25, 2024 8:00 AM - 4:00 PM
+                                    </div>
+                                    <div>
+                                        <b>Board of Elections</b>
+                                    </div>
+                                    <div> Christmas (Office Closed) Date and time: December 25, 2024 8:00 AM - 4:00 PM Christmas (Office Closed) Add to: Outlook , ICal , Google Calendar Category</div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                    </ul>
+                    <div class="es-actionbar es-actionbar-bottom">
+
+
+<div class="es-results-actions">
+    <div class="es-sortWrapper">
+        <span><b>Sort By</b></span>
+        <select class="sort-actions">
+            <option value="event-dt desc">Newest - Oldest</option>
+            <option value="event-dt">Oldest - Newest</option>
+            <option value="title">A-Z</option>
+            <option value="title desc">Z-A</option>
+        </select>
+    </div>
+    <div class="es-pagination">
+        <span>Page 1 of 1</span>
+        <select class="page-actions">
+            <option value="24">24 Items Per Page</option>
+            <option value="48">48 Items Per Page</option>
+            <option value="96">96 Items Per Page</option>
+        </select>
+    </div>
+    <div class="clear"></div>
+</div></div>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div id="Contentplaceholder1_TE5485A05080_Col00" class="sf_colsIn container" data-sf-element="Container" data-placeholder-label="Container">
+
+<script src="https://www.google.com/recaptcha/api.js?render=6LdD8QEqAAAAAAi-FejDdHZeXFYwIzDevt_G81pW" ?badge=bottomleft"></script>
+
+<br />
+<hr />
+
+<div id="survey" class="form-inline" style="margin-top:35px;font-size:90%;">
+    <div class="">
+        <div id="yesno" class="form-group">
+            <label for="btnyes"> Was this page helpful? &nbsp;&nbsp;    </label>
+            <button id="btnyes" class="form-control btn btn-outline-primary" style="font-weight: 600;">Yes</button>&nbsp;&nbsp;
+            <button id="btnno" class="form-control btn btn-outline-primary" style="font-weight: 600;">No</button>
+        </div>
+        <div id="comment" class="form-group">
+            <div id="feedback">How could we make it better? Leaving an email can assist us in troubleshooting the issue.</div>
+            <textarea id="usercomment" rows="3" style="width:97%;"></textarea>
+            <button id="btnsubmit" class="form-control btn btn-outline-primary" style="margin-top:5px;font-weight: 600;">Submit</button>&nbsp;&nbsp;
+            <button id="btncancel" class="form-control btn btn-outline-primary" style="margin-top:5px;font-weight: 600;">Cancel</button>
+            <span id="emptycommenterror" style="color:red;margin-left:5px;">Please leave a comment before submitting.</span>
+        </div>
+        <div id="thankyou" class="form-group" style="display:block;">
+            <div style="width:auto;font-weight: 600;">Thank you for your feedback</div>
+            <div style="width:auto;margin-top:0px;"> Your feedback means a lot to us. We use it to improve the experience of all of our users. </div>
+            <div style="width:auto;margin-top:0px;"> If you would like to contact our staff, please email us at   <a href="mailto:electioninfo@cuyahogacounty.gov">electioninfo@cuyahogacounty.gov.</a></div><br />
+        </div>
+    </div>
+    <br />
+    <br />
+
+    <input type="hidden" id="id">
+    <input type="hidden" id="answer">
+</div>
+<style>
+    .grecaptcha-badge {
+    bottom:80px !important;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+
+        $("#btnyes").click(function () {
+            process('Yes');
+        });
+
+        $("#btnno").click(function () {
+            process('No');
+        });
+
+        $("#btnsubmit").click(function () {
+            var comment = $("#usercomment").val();
+            if (comment === "") {
+                $("#emptycommenterror").show();
+                return;
+            };
+            grecaptcha.ready(function () {
+                grecaptcha.execute('6LdD8QEqAAAAAAi-FejDdHZeXFYwIzDevt_G81pW', { action: 'submit' }).then(function (token) {
+                    process('comment', token);
+                });
+            });
+        });
+
+        $("#btncancel").click(function () {
+            $("#yesno").show();
+            $("#comment").hide();
+            $("#thankyou").hide();
+
+            $("#id").val("");
+            $("#answer").val("");
+        });
+
+        $("#yesno").show();
+        $("#comment").hide();
+        $("#thankyou").hide();
+
+        function process(response, token) {
+            var url = "/calendar/ProcessSurvey/";
+            url = url.replace("/itefinity/", "/Sitefinity/"); // fix SF routing issue
+
+            var data = {};
+
+            if (response == 'comment') {
+
+                data = {
+                    ID: $("#id").val(),
+                    Answer: $("#answer").val(),
+                    Action: "comment",
+                    Comment: $("#usercomment").val(),
+                    Token: token
+                };
+            }
+            else {
+                data = {
+                    ID: "",
+                    Answer: response,
+                    Action: "",
+                    Comment: ""
+                };
+            }
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json'
+                }).done(function (result) {
+
+                    if (result.Action === 'showcomment') {
+                        $("#yesno").hide();
+                        $("#comment").show();
+                        $("#thankyou").hide();
+                        $("#emptycommenterror").hide();
+
+                        $("#id").val(result.ID);
+                        $("#answer").val(result.Answer);
+                    }
+                    else if (result.Action === 'showthankyou') {
+
+                        $("#yesno").hide();
+                        $("#comment").hide();
+                        $("#thankyou").show();
+                    }
+                    else if (result.Action === 'reset') {
+
+                        $("#yesno").show();
+                        $("#comment").hide();
+                        $("#thankyou").hide();
+
+                        $("#id").val();
+                        $("#answer").val();
+                    }
+
+                }).fail(function () {
+            })
+        }
+
+        function onClick(e) {
+            e.preventDefault();
+            grecaptcha.ready(function () {
+                grecaptcha.execute('6LdiQP4pAAAAAO5xhaS4rCyj134htS3KM_uJHHp', { action: 'submit' }).then(function (token) {
+                    // Add your logic to submit to your backend server here.
+                });
+            });
+        }
+    });
+</script>
+
+
 </div>
 
     </div>
 </div>
-</section></main> <!-- end Main Content --> </div> <!--end Site Main --> <!-- Footer --> <footer class="footer mb-6" aria-label="Site Footer" role="contentinfo"> <div class="container-fluid">
+</section></main> <!-- end Main Content --> </div> <!--end Site Main --> <div class="es-hidden-text" aria-hidden="true">
+                        es-exclude-start-footer
+                    </div> <!-- Footer --> <footer class="footer mb-6" aria-label="Site Footer" role="contentinfo"> <div class="container-fluid">
 <section id="Footer_TAA75111F036_Col00" class="sf_colsIn ng-hideX" data-sf-element="Section" data-placeholder-label="Section"><div class="row" data-sf-element="Row">
     <div id="Footer_TE5485A05092_Col00" class="sf_colsIn col-lg-3" data-sf-element="Column 1" data-placeholder-label="Column 1">
 <div >
@@ -304,14 +1272,16 @@ March 19, 2024 Primary Election</p><p><a href="/about-us/board-meeting-documents
 </div>
     </div>
 </div>
-</section></div> </footer> <!-- end Footer --> </div> </div> </div>  <script src="/Frontend-Assembly/Telerik.Sitefinity.Frontend.Navigation/Mvc/Scripts/LanguageSelector/language-selector.js?package=Bootstrap4&amp;v=MTQuMi43OTAwLjA%3d" type="text/javascript"></script><script type="application/json" id="PersonalizationTracker">
-	{"IsPagePersonalizationTarget":false,"IsUrlPersonalizationTarget":false,"PageId":"1a1482af-9a21-42c6-a9ce-115d02dcd10d"}
+</section></div> </footer> <!-- end Footer --> </div> </div> </div>  <script src="/Frontend-Assembly/Telerik.Sitefinity.Frontend.Navigation/Mvc/Scripts/LanguageSelector/language-selector.js?package=Bootstrap4&amp;v=MTQuMi43OTAwLjA%3d" type="text/javascript"></script><script src="/Frontend-Assembly/ElasticSearch.Widgets/Mvc/Scripts/elasticsearch.js?package=Bootstrap4&amp;v=MS4wLjAuMA%3d%3d" type="text/javascript"></script><script type="application/json" id="PersonalizationTracker">
+	{"IsPagePersonalizationTarget":false,"IsUrlPersonalizationTarget":false,"PageId":"c24f7ad0-f93a-4523-8797-7171161dcf82"}
 </script><script type="text/javascript" src="/WebResource.axd?d=Oiw5o8i74rDb2VpVaCaMSug7YPVEPWIRzQjICIaIY3PlgOIUtMMNhTSEns2R-cmB1vEcjGoYitKtcoEORIQimGZJi2N7UwBFXdJg0P5truBEJBPxF81hxPPQu09bOys5OVLKmpPptXIc2qHpT_ht8OUsVT88mRO6prXNjVP-8kpi5pcaGVzQiuf-B4HrBJzg_egmbtltSue9Xz9mAjDj9tglLeEapNEGSCXA5xgaDgI1&amp;t=637919266240000000">
 
-</script><input data-sf-role='es' type='hidden' value='https://boe.cuyahogacounty.gov/es/calendario/detalles-del-evento/2024/01/23/default-calendar/reuni&#243;n-de-la-junta-directiva'> <a href="#" id="scroll" style="display: block;" title="go to top"><span>go to top</span></a> <script src="/ResourcePackages/Bootstrap4/assets/dist/js/CustomScripts.js"></script> <script src="/ResourcePackages/Bootstrap4/assets/dist/js/sweetalert2.all.min.js"></script> <link href="/ResourcePackages/Bootstrap4/assets/dist/css/sweetalert2.css" rel="stylesheet" /> </body> </html>
+</script> <a href="#" id="scroll" style="display: block;" title="go to top"><span>go to top</span></a> <div class="es-hidden-text" aria-hidden="true">
+            es-exclude-end-footer
+        </div> <script src="/ResourcePackages/Bootstrap4/assets/dist/js/CustomScripts.js"></script> <script src="/ResourcePackages/Bootstrap4/assets/dist/js/sweetalert2.all.min.js"></script> <link href="/ResourcePackages/Bootstrap4/assets/dist/css/sweetalert2.css" rel="stylesheet" /> </body> </html>
 
 
-<script id="f5_cspm">(function(){var f5_cspm={f5_p:'AEOCDDHDFEACMFINAFBNLBNANHALMCDEFNJBAHJKINEOBKDAPBNPAFEAMDFHKPLMLBCBEHFFCFIABENAFNDAOGCOAIDOMFCMNLOMCKHHDEFFOJIFKDFEECKKEKBOJMAC',setCharAt:function(str,index,chr){if(index>str.length-1)return str;return str.substr(0,index)+chr+str.substr(index+1);},get_byte:function(str,i){var s=(i/16)|0;i=(i&15);s=s*32;return((str.charCodeAt(i+16+s)-65)<<4)|(str.charCodeAt(i+s)-65);},set_byte:function(str,i,b){var s=(i/16)|0;i=(i&15);s=s*32;str=f5_cspm.setCharAt(str,(i+16+s),String.fromCharCode((b>>4)+65));str=f5_cspm.setCharAt(str,(i+s),String.fromCharCode((b&15)+65));return str;},set_latency:function(str,latency){latency=latency&0xffff;str=f5_cspm.set_byte(str,40,(latency>>8));str=f5_cspm.set_byte(str,41,(latency&0xff));str=f5_cspm.set_byte(str,35,2);return str;},wait_perf_data:function(){try{var wp=window.performance.timing;if(wp.loadEventEnd>0){var res=wp.loadEventEnd-wp.navigationStart;if(res<60001){var cookie_val=f5_cspm.set_latency(f5_cspm.f5_p,res);window.document.cookie='f5avr1661711575aaaaaaaaaaaaaaaa_cspm_='+encodeURIComponent(cookie_val)+';path=/';}
+<script id="f5_cspm">(function(){var f5_cspm={f5_p:'AHGNMDJCFDMNJICDOEDBMDLCHIMOPHEJIHKCOJEGIMOFPMLOLMFHBBABIODHOCIOHBGBFHBKAAHOPJBCKMDAPMIJAAKIFACBAEDPAOJNCGCBCNKPHJOKKPJJIMAHPIOK',setCharAt:function(str,index,chr){if(index>str.length-1)return str;return str.substr(0,index)+chr+str.substr(index+1);},get_byte:function(str,i){var s=(i/16)|0;i=(i&15);s=s*32;return((str.charCodeAt(i+16+s)-65)<<4)|(str.charCodeAt(i+s)-65);},set_byte:function(str,i,b){var s=(i/16)|0;i=(i&15);s=s*32;str=f5_cspm.setCharAt(str,(i+16+s),String.fromCharCode((b>>4)+65));str=f5_cspm.setCharAt(str,(i+s),String.fromCharCode((b&15)+65));return str;},set_latency:function(str,latency){latency=latency&0xffff;str=f5_cspm.set_byte(str,40,(latency>>8));str=f5_cspm.set_byte(str,41,(latency&0xff));str=f5_cspm.set_byte(str,35,2);return str;},wait_perf_data:function(){try{var wp=window.performance.timing;if(wp.loadEventEnd>0){var res=wp.loadEventEnd-wp.navigationStart;if(res<60001){var cookie_val=f5_cspm.set_latency(f5_cspm.f5_p,res);window.document.cookie='f5avr0380657014aaaaaaaaaaaaaaaa_cspm_='+encodeURIComponent(cookie_val)+';path=/';}
 return;}}
 catch(err){return;}
 setTimeout(f5_cspm.wait_perf_data,100);return;},go:function(){var chunk=window.document.cookie.split(/\s*;\s*/);for(var i=0;i<chunk.length;++i){var pair=chunk[i].split(/\s*=\s*/);if(pair[0]=='f5_cspm'&&pair[1]=='1234')
