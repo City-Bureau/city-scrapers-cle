@@ -1,7 +1,7 @@
 from datetime import datetime
 from os.path import dirname, join
 
-import pytest
+import pytest  # noqa
 from city_scrapers_core.constants import BOARD
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
@@ -10,77 +10,80 @@ from city_scrapers.spiders.cuya_elections import CuyaElectionsSpider
 
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_elections.html"),
-    url="https://boe.cuyahogacounty.gov/calendar/event-details/2024/01/23/default-calendar/board-meeting-2024-01-23",  # noqa
+    url="https://boe.cuyahogacounty.gov/calendar?pageSize=96&it=Current+Events",  # noqa
+)
+test_detail_response = file_response(
+    join(dirname(__file__), "files", "cuya_elections_detail.html"),
+    url="https://boe.cuyahogacounty.gov/calendar/event-details/2024/07/25/default-calendar/board-meeting",  # noqa
 )
 spider = CuyaElectionsSpider()
 
-freezer = freeze_time("2022-04-28")
+freezer = freeze_time("2024-04-28")
 freezer.start()
 
-parsed_items = [item for item in spider._parse_detail(test_response)]
-
+parsed_items = [item for item in spider.parse(test_response)]
+parsed_item = next(spider._parse_detail(test_detail_response))
 freezer.stop()
 
 
+def test_count():
+    assert len(parsed_items) == 9
+
+
 def test_title():
-    print(parsed_items[0]["title"])
-    assert parsed_items[0]["title"] == "Board Meeting"
+    assert parsed_item["title"] == "Board Meeting"
 
 
 def test_description():
-    assert (
-        parsed_items[0]["description"]
-        == "Certification of remaining issues, charter amendments, and write-in candidates for the\nMarch 19, 2024 Primary Election"  # noqa
-    )
+    assert parsed_item["description"] == "July Board Meeting"
 
 
 def test_start():
-    assert parsed_items[0]["start"] == datetime(2024, 1, 23, 9, 30)
+    assert parsed_item["start"] == datetime(2024, 7, 25, 9, 30)
 
 
 def test_end():
-    assert parsed_items[0]["end"] == datetime(2024, 1, 23, 10, 30)
+    assert parsed_item["end"] == datetime(2024, 7, 25, 10, 30)
 
 
 def test_time_notes():
-    assert parsed_items[0]["time_notes"] == ""
+    assert parsed_item["time_notes"] == ""
 
 
 def test_id():
-    assert parsed_items[0]["id"] == "cuya_elections/202401230930/x/board_meeting"
+    assert parsed_item["id"] == "cuya_elections/202407250930/x/board_meeting"
 
 
 def test_status():
-    assert parsed_items[0]["status"] == "tentative"
+    assert parsed_item["status"] == "tentative"
 
 
 def test_location():
-    assert parsed_items[0]["location"] == {
+    assert parsed_item["location"] == {
         "name": "",
-        "address": "2925 Euclid Ave\nCleveland",
+        "address": "2925 Euclid Ave Cleveland",
     }
 
 
 def test_source():
     assert (
-        parsed_items[0]["source"]
-        == "https://boe.cuyahogacounty.gov/calendar/event-details/2024/01/23/default-calendar/board-meeting-2024-01-23"  # noqa
+        parsed_item["source"]
+        == "https://boe.cuyahogacounty.gov/calendar/event-details/2024/07/25/default-calendar/board-meeting"  # noqa
     )
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [
+    assert parsed_item["links"] == [
         {
-            "href": "https://boe.cuyahogacounty.gov/about-us/board-meeting-documents",
+            "href": "https://boe.cuyahogacounty.gov/about-us/board-meeting-documents",  # noqa
             "title": "Board meeting documents",
         }
     ]
 
 
 def test_classification():
-    assert parsed_items[0]["classification"] == BOARD
+    assert parsed_item["classification"] == BOARD
 
 
-@pytest.mark.parametrize("item", parsed_items)
-def test_all_day(item):
-    assert item["all_day"] is False
+def test_all_day():
+    assert not parsed_item["all_day"]
