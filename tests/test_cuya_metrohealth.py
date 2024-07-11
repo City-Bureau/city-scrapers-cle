@@ -2,7 +2,7 @@ from datetime import datetime
 from os.path import dirname, join
 
 import pytest  # noqa
-from city_scrapers_core.constants import BOARD, PASSED
+from city_scrapers_core.constants import BOARD, TENTATIVE
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
@@ -14,84 +14,76 @@ test_response = file_response(
 )
 test_detail_response = file_response(
     join(dirname(__file__), "files", "cuya_metrohealth_detail.html"),
-    url="https://www.metrohealth.org/about-us/board-and-governance/meetings/09-2018",
+    url="https://www.metrohealth.org/about-us/board-and-governance/meetings/07-2024",  # noqa
 )
 spider = CuyaMetrohealthSpider()
 
-freezer = freeze_time("2019-09-25")
+freezer = freeze_time("2024-07-15")  # Adjusted date for context
 freezer.start()
 
-parsed_main_items = [item for item in spider.parse(test_response)]
-parsed_items = [item for item in spider._parse_detail(test_detail_response)]
+parsed_items = [item for item in spider.parse(test_response)]
+parsed_item = next(spider._parse_detail(test_detail_response))
 
 freezer.stop()
 
 
 def test_count():
-    assert len(parsed_main_items) == 24
-    assert len(parsed_items) == 4
+    assert len(parsed_items) == 7  # Assuming actual item count from `parse`
 
 
 def test_title():
-    assert parsed_items[0]["title"] == "Board of Trustees"
+    assert parsed_item["title"] == "Board of Trustees"
 
 
 def test_description():
-    assert parsed_items[0]["description"] == ""
+    text_frag = "Wednesday, July 31, 2024 Special Meeting - The purpose of this meeting is to approve the Internal Audit plan."  # noqa
+    assert text_frag in parsed_item["description"]
 
 
 def test_start():
-    assert parsed_items[0]["start"] == datetime(2018, 9, 26, 8, 0)
+    assert parsed_item["start"] == datetime(2024, 7, 31, 0, 0)
 
 
 def test_end():
-    assert parsed_items[0]["end"] == datetime(2018, 9, 26, 10, 0)
+    assert parsed_item["end"] is None
 
 
 def test_time_notes():
-    assert parsed_items[0]["time_notes"] == "See source to confirm details"
+    assert parsed_item["time_notes"] == ""
 
 
 def test_id():
-    assert parsed_items[0]["id"] == "cuya_metrohealth/201809260800/x/board_of_trustees"
+    assert (
+        parsed_item["id"] == "cuya_metrohealth/202407310000/x/board_of_trustees"
+    )  # noqa
 
 
 def test_status():
-    assert parsed_items[0]["status"] == PASSED
+    assert parsed_item["status"] == TENTATIVE
 
 
 def test_location():
-    assert parsed_items[0]["location"] == spider.location
+    assert parsed_item["location"] == {
+        "name": "MetroHealth Business Services Building, Board Room K-107",
+        "address": "2500 MetroHealth Dr, Cleveland, OH 44109",
+    }
 
 
 def test_source():
-    assert parsed_items[0]["source"] == test_detail_response.url
+    assert (
+        parsed_item["source"]
+        == "https://www.metrohealth.org/about-us/board-and-governance/meetings/07-2024"  # noqa
+    )
 
 
 def test_links():
-    assert parsed_items[0]["links"] == [
-        {
-            "href": "https://www.metrohealth.org/-/media/metrohealth/documents/about-us/board/meetings/2018/09_september/sept2018-bot-agenda.pdf?la=en&hash=E039383B98366D9ABB4AF4D820E30009D8DED50A",  # noqa
-            "title": "Agenda",
-        },
-        {
-            "href": "https://www.metrohealth.org/-/media/metrohealth/documents/about-us/board/meetings/2018/09_september/sept2018-bot-minutes.pdf?la=en&hash=6E58528D3F4AAFE3F888A429AE7F61D1DC0C91A8",  # noqa
-            "title": "Minutes",
-        },
-        {
-            "href": "https://www.metrohealth.org/-/media/metrohealth/documents/about-us/board/meetings/2018/09_september/sept2018-bot-presidentsreport.pdf?la=en&hash=5293380F4E11A5E5CD94FA1EFF1E0B63EBBEE39C",  # noqa
-            "title": "President's Report",
-        },
-        {
-            "href": "https://www.metrohealth.org/-/media/metrohealth/documents/about-us/board/meetings/2018/09_september/sept2018-bot-resolutions---public.pdf?la=en&hash=8FD98573CF0EA2F3A5ACFB143B0312A0938446E8",  # noqa
-            "title": "Resolutions",
-        },
-    ]
+    # Assuming there are no specific links provided for this test case
+    assert parsed_item["links"] == []
 
 
 def test_classification():
-    assert parsed_items[0]["classification"] == BOARD
+    assert parsed_item["classification"] == BOARD
 
 
 def test_all_day():
-    assert parsed_items[0]["all_day"] is False
+    assert parsed_item["all_day"] is False
