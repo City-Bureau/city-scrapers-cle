@@ -2,59 +2,66 @@ from datetime import datetime
 from os.path import dirname, join
 
 import pytest  # noqa
-from city_scrapers_core.constants import BOARD, TENTATIVE
+from city_scrapers_core.constants import BOARD
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
-from city_scrapers.spiders.cuya_soil_water_conservation import CuyaSoilWaterConservation
+from city_scrapers.spiders.cuya_soil_water_conservation import (  # noqa
+    CuyaSoilWaterConservation,
+)
 
+# Mock the response from the list page and detail page
 test_response = file_response(
     join(dirname(__file__), "files", "cuya_soil_water_conservation.html"),
-    url="https://www.cuyahogaswcd.org/events/2019/09/23/cuyahoga-swcd-board-meeting",
+    url="https://cuyahogaswcd.org/events/?category_filter%5B%5D=1",
 )
+test_detail_response = file_response(
+    join(
+        dirname(__file__), "files", "cuya_soil_water_conservation_detail.html"
+    ),  # noqa
+    url="https://cuyahogaswcd.org/events/cuyahoga-swcd-board-meeting-5/",
+)
+
+# Initialize the spider
 spider = CuyaSoilWaterConservation()
 
-freezer = freeze_time("2019-09-13")
+# Freeze time to ensure consistent test results
+freezer = freeze_time("2024-07-30")
 freezer.start()
 
-parsed_item = [item for item in spider._parse_meeting(test_response)][0]
+# Parse items using the spider
+parsed_items = [item for item in spider.parse(test_response)]
+parsed_item = next(spider._parse_meeting(test_detail_response))
 
 freezer.stop()
 
 
+def test_count():
+    assert len(parsed_items) == 5
+
+
 def test_title():
-    assert parsed_item["title"] == "Board of Supervisors"
+    assert parsed_item["title"] == "Cuyahoga SWCD August Board Meeting"
 
 
 def test_description():
-    assert (
-        parsed_item["description"]
-        == """Meets fourth Monday of each month at Cuyahoga SWCD offices at 6:30pm with the exception of January, February, May and December. All meeting are open to the public.
-January 29 (Tuesday)
-February 19 (Tuesday)
-March 25
-April 22
-May 20 (Monday)
-June 24
-July 22
-August 26
-September 23
-October 28
-November 25
-December 16 (Monday)
-Members of the media or general public that would like to be notified of SWCD special meetings or meetings of a special topic may notify the District at 216/524-6580.
-Click
-here
-for more information on our Board of Supervisors"""  # noqa
+    assert parsed_item["description"] == (
+        "Cuyahoga SWCD office\n3311 Perkins Avenue, Suite 100\nCleveland, Ohio 44114\n\n"  # noqa
+        "The public is welcome to attend.\n\n"
+        "To obtain a copy of the agenda and login information, members of the public may "  # noqa
+        "register to participate in the meeting by using Contact Us below, or by calling "  # noqa
+        "the District office at 216/524-6580, ext. 1000.\n\n"
+        "The member of the public must be connected to the board meeting via the internet, "  # noqa
+        "telephone or in person when the Board Chair recognizes visitors."
     )
 
 
 def test_start():
-    assert parsed_item["start"] == datetime(2019, 9, 23, 18, 30)
+    assert parsed_item["start"] == datetime(2024, 8, 26, 18, 30)
 
 
 def test_end():
-    assert parsed_item["end"] == datetime(2019, 9, 23, 20, 0)
+    assert parsed_item["end"] is None
 
 
 def test_time_notes():
@@ -64,25 +71,21 @@ def test_time_notes():
 def test_id():
     assert (
         parsed_item["id"]
-        == "cuya_soil_water_conservation/201909231830/x/board_of_supervisors"
+        == "cuya_soil_water_conservation/202408261830/x/cuyahoga_swcd_august_board_meeting"  # noqa
     )
-
-
-def test_status():
-    assert parsed_item["status"] == TENTATIVE
 
 
 def test_location():
     assert parsed_item["location"] == {
         "name": "Cuyahoga SWCD office",
-        "address": "3311 Perkins Ave Suite 100 Cleveland, OH 44114",
+        "address": "3311 Perkins Ave, Suite 100, Cleveland, OH 44114",
     }
 
 
 def test_source():
     assert (
         parsed_item["source"]
-        == "https://www.cuyahogaswcd.org/events/2019/09/23/cuyahoga-swcd-board-meeting"
+        == "https://cuyahogaswcd.org/events/cuyahoga-swcd-board-meeting-5/"
     )
 
 
@@ -96,3 +99,7 @@ def test_classification():
 
 def test_all_day():
     assert parsed_item["all_day"] is False
+
+
+def test_status():
+    assert parsed_item["status"] == "tentative"
