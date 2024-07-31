@@ -1,190 +1,138 @@
 import re
+from datetime import datetime
 
-import scrapy
-from city_scrapers_core.constants import (
-    ADVISORY_COMMITTEE,
-    BOARD,
-    COMMITTEE,
-    NOT_CLASSIFIED,
-)
+from city_scrapers_core.constants import ADVISORY_COMMITTEE, BOARD, COMMITTEE, FORUM
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
-from dateutil.parser import parse
-from scrapy_playwright.page import PageMethod
+from dateutil.relativedelta import relativedelta
 
 
 class CleTransitSpider(CityScrapersSpider):
     name = "cle_transit"
     agency = "Greater Cleveland Regional Transit Authority"
     timezone = "America/Detroit"
+    location = {
+        "name": "RTA Main Office, Board Room",
+        "address": "1240 W 6th St Cleveland, OH 44113",
+    }
 
-    def start_requests(self):
-        """
-        We use a headless browser (scrapy-playwright) to handle our request
-        because the agency's website uses JavaScript to render the events page.
-        """
-        yield scrapy.Request(
-            url="https://www.riderta.com/events",
-            meta={
-                "playwright": True,
-                "playwright_include_page": True,
-                "playwright_page_methods": [
-                    PageMethod("wait_for_selector", "div.fc-scroller")
-                ],
-            },
-            callback=self.parse,
-        )
+    @property
+    def start_urls(self):
+        """Start at calendar pages 2 months back and 2 months into the future"""
+        this_month = datetime.now().replace(day=1)
+        months = [this_month + relativedelta(months=i) for i in range(-2, 3)]
+        return ["http://www.riderta.com/events/" + m.strftime("%Y/%m") for m in months]
 
     def parse(self, response):
         """
-        Parse the JavaScript-rendered calendar and loop over each <a> tag
-        to follow the link to the event page.
-        """
-        # Navigate through the containers and select each <a> tag
-        events = response.css("div.fc-day-grid a.fc-day-grid-event")
-        for event in events:
-            title = event.css("span.fc-title::text").extract_first()
-            href = event.css("::attr(href)").extract_first()
-            # this agency includes many events that aren't meetings
-            # (eg. career days) so we are explicit in the pages we follow
-            if re.search(r"meeting", title, re.IGNORECASE):
-                yield response.follow(href, self.parse_event, meta={"title": title})
+        `parse` should always `yield` Meeting items.
 
-    def parse_event(self, response):
+        Change the `_parse_title`, `_parse_start`, etc methods to fit your scraping
+        needs.
         """
-        Parse the event page for the meeting details.
-        """
-        title = response.meta["title"]
-        start, end = self._parse_date(response)
+        for meeting_link in response.css(".field-content a"):
+            meeting_title = " ".join(meeting_link.css("*::text").extract())
+            if not any(
+                w in meeting_title for w in ["Board", "Committee", "Community", "CAC"]
+            ):
+                continue
+            yield response.follow(
+                meeting_link.attrib["href"],
+                callback=self._parse_meeting,
+                dont_filter=True,
+            )
+
+    def _parse_meeting(self, response):
+        """Parse meeting from detail page"""
+        title = self._parse_title(response)
         meeting = Meeting(
             title=title,
             description="",
             classification=self._parse_classification(title),
-            start=start,
-            end=end,
+            start=self._parse_start(response),
+            end=self._parse_end(response),
             all_day=False,
             time_notes="",
             location=self._parse_location(response),
             links=self._parse_links(response),
             source=response.url,
         )
-        meeting["status"] = self._get_status(meeting)
+
+        meeting["status"] = self._get_status(
+            meeting, text=response.css(".panel-flexible-inside")[0].extract()
+        )
         meeting["id"] = self._get_id(meeting)
-        return meeting
 
-    def _parse_date(self, response):
-        """
-        Targets a node with a date string in format
-        "Wed, May 29 2024, 9 - 10am"
-        and extracts the start datetime and end datetime of the
-        meeting in timezone naive format. Note that times
-        can be in several forms. eg. "9am - 10am" or "9 - 10am" or
-        "9am - 1pm" or "9 - 10pm"
-        """
-        target_str = response.css(
-            "div.views-field-field-event-date h2::text"
-        ).extract_first()
-        try:
-            date_parts = target_str.split(",")
-            date_str = date_parts[1].strip()
-            start_str = date_parts[2].split("-")[0].strip()
-            end_str = date_parts[2].split("-")[1].strip()
-        except IndexError:
-            self.logger.error("Failed to parse date string: %s", target_str)
-            return None, None
-        # start datetime
-        # If 'am' or 'pm' is in the start time, parse
-        # the datetime string normally. Otherwise, use
-        # any 'am' or 'pm' in the end time to determine.
-        # Otherwise, default to 'am'
-        if re.search(r"am|pm", start_str, re.IGNORECASE):
-            start_datetime_str = f"{date_str} {start_str}"
-            start_datetime = parse(start_datetime_str)
-        elif re.search(r"am|pm", end_str, re.IGNORECASE):
-            regex_am_or_pm = re.compile(r"[a-zA-Z]+")
-            am_or_pm = regex_am_or_pm.search(end_str).group()
-            start_datetime = parse(f"{date_str} {start_str} {am_or_pm}")
-        else:
-            start_datetime = parse(f"{date_str} {start_str} am")
+        yield meeting
 
-        # end datetime
-        # If 'am' or 'pm' is in the end time, parse
-        # the datetime string normally. Otherwise,
-        # default to 'am'
-        if re.search(r"am|pm", end_str, re.IGNORECASE):
-            end_datetime = parse(f"{date_str} {end_str}")
-        else:
-            end_datetime = parse(f"{date_str} {end_str} am")
-        return start_datetime, end_datetime
+    def _parse_title(self, response):
+        """Parse or generate meeting title."""
+        title_str = response.css("#page-title::text").extract_first().strip()
+        if title_str == "Committee Meetings":
+            return "Standing Committees"
+        if title_str == "Board and Committee Meetings":
+            return "Board of Trustees and Standing Committees"
+        if title_str == "Board Meeting":
+            return "Board of Trustees"
+        if "Community Meeting" in title_str:
+            return title_str
+        if "CAC" in title_str:
+            return "Community Advisory Committee"
+        return re.sub(r" Meeting(s)?$", "", title_str)
 
     def _parse_classification(self, title):
-        """
-        Classify the event based on the title.
-        """
-        if re.search(r"board", title, re.IGNORECASE):
+        """Parse or generate classification from allowed options."""
+        if "Board" in title:
             return BOARD
-        elif re.search(r"committee", title, re.IGNORECASE):
-            return COMMITTEE
-        elif re.search(r"advisory", title, re.IGNORECASE):
+        elif "Advisory" in title:
             return ADVISORY_COMMITTEE
-        return NOT_CLASSIFIED
+        elif "Committee" in title:
+            return COMMITTEE
+        return FORUM
+
+    def _parse_start(self, response):
+        """Parse start datetime as a naive datetime object."""
+        start_el = response.css(".date-display-start")
+        single_el = response.css(".date-display-single")
+        if len(start_el) > 0:
+            dt_str = start_el[0].attrib["content"][:19]
+        elif len(single_el) > 0:
+            dt_str = single_el[0].attrib["content"][:19]
+        else:
+            return
+        return datetime.strptime(dt_str, "%Y-%m-%dT%H:%M:%S")
+
+    def _parse_end(self, response):
+        """Parse end datetime as a naive datetime object. Added by pipeline if None"""
+        end_el = response.css(".date-display-end")
+        if not len(end_el):
+            return
+        dt_str = end_el[0].attrib["content"][:19]
+        return datetime.strptime(dt_str, "%Y-%m-%dT%H:%M:%S")
 
     def _parse_location(self, response):
-        """
-        Parse the location of the event.
-        """
-        # Create a selector for the paragraph containing the address
-        address_parts = response.css("p.address span")
-        if not address_parts:
-            self.logger.info("No address found - default to an undefined location")
-            return {
-                "name": "TBD",
-                "address": "",
-            }
-
-        # Combine the address parts
-        address = ", ".join(
-            [
-                part.css("::text").extract_first(default="").strip()
-                for part in address_parts
-            ]
+        """Parse or generate location."""
+        addr_str = " ".join(
+            [l.strip() for l in response.css(".adr .street-address *::text").extract()]
         ).strip()
-
-        # Format state and zip code from "OH, 44115" to "OH 44115"
-        pattern = r"([A-Z]{2}), (\d{5})"
-        address = re.sub(pattern, r"\1 \2", address)
-
-        # Extract the first part as the name
-        name = address_parts[0].css("::text").extract_first(default="TBD").strip()
-
+        city = response.css(".adr .locality::text").extract_first() or ""
+        state = response.css(".adr .region::text").extract_first() or ""
+        zip_code = response.css(".adr .postal-code::text").extract_first() or ""
         return {
-            "name": name,
-            "address": address,
+            "name": (response.css(".adr .fn::text").extract_first() or "").strip(),
+            "address": "{} {}, {} {}".format(
+                addr_str, city.strip(), state.strip(), zip_code.strip()
+            ),
         }
 
     def _parse_links(self, response):
-        # Select the container that holds the documents
-        container_selector = response.css("div.views-element-container")
-
-        # If the container does not exist, return an empty list
-        if not container_selector:
-            return []
-
-        # Find all list items within the container that contain links
-        list_items = container_selector.css("ul li")
-
-        documents = []
-        for item in list_items:
-            # Extract the title and href attributes from each link
-            title = item.css("a::text").get()
-            href = item.css("a::attr(href)").get()
-
-            # If either title or href is None (i.e., element not found),
-            # continue to the next item
-            if title is None or href is None:
-                continue
-
-            # Clean up and append to the list
-            documents.append({"title": title.strip(), "href": href.strip()})
-
-        return documents
+        """Parse or generate links."""
+        links = []
+        for link in response.css(".field-type-file a"):
+            links.append(
+                {
+                    "title": " ".join(link.css("*::text").extract()),
+                    "href": response.urljoin(link.attrib["href"]),
+                }
+            )
+        return links
