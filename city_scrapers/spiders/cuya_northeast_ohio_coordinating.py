@@ -1,6 +1,7 @@
 import re
 from datetime import datetime
 
+import scrapy
 from city_scrapers_core.constants import ADVISORY_COMMITTEE, BOARD, COMMITTEE
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
@@ -14,11 +15,30 @@ class CuyaNortheastOhioCoordinatingSpider(CityScrapersSpider):
         "https://www.noaca.org/board-committees/noaca-board-and-committees/agendas-and-presentations/-toggle-all",  # noqa
         "https://www.noaca.org/board-committees/noaca-board-and-committees/agendas-and-presentations/-toggle-all/-npage-2",  # noqa
     ]
+    # intended to avoid being block by bot detection
+    custom_settings = {
+        "DOWNLOAD_DELAY": 1,
+        "ROBOTSTXT_OBEY": False,
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0",  # noqa
+    }
+
+    def start_requests(self):
+        """
+        Parse the agency's meeting materials page. We use a headless
+        browser (scrapy-playwright) to handle our requests because
+        the city uses Cloudflare to detect and block requests from obvious
+        bots.
+        """
+        for url in self.start_urls:
+            yield scrapy.Request(url, callback=self.parse, meta={"playwright": True})
 
     def parse(self, response):
         for link in response.css(".title_column a")[1:]:
             yield response.follow(
-                link.attrib["href"], callback=self._parse_detail, dont_filter=True
+                link.attrib["href"],
+                callback=self._parse_detail,
+                dont_filter=True,
+                meta={"playwright": True},
             )
 
     def _parse_detail(self, response):

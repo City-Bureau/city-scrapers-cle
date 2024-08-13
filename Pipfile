@@ -11,6 +11,7 @@ python-dateutil = "*"
 pdfminer-six = "*"
 scrapy-sentry-errors = "1.0.0"
 pytz = "*"
+scrapy-playwright = "*"
 
 [dev-packages]
 freezegun = "*"
