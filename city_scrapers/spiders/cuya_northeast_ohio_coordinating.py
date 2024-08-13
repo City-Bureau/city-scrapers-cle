@@ -15,8 +15,15 @@ class CuyaNortheastOhioCoordinatingSpider(CityScrapersSpider):
         "https://www.noaca.org/board-committees/noaca-board-and-committees/agendas-and-presentations/-toggle-all",  # noqa
         "https://www.noaca.org/board-committees/noaca-board-and-committees/agendas-and-presentations/-toggle-all/-npage-2",  # noqa
     ]
-    # intended to avoid being block by bot detection
     custom_settings = {
+        # Playwright uses to help avoid bot detection
+        "TWISTED_REACTOR": "twisted.internet.asyncioreactor.AsyncioSelectorReactor",
+        "DOWNLOAD_HANDLERS": {
+            "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+            "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+        },
+        "PLAYWRIGHT_BROWSER_TYPE": "firefox",
+        # other scrapy settings to help avoid bot detection
         "DOWNLOAD_DELAY": 1,
         "ROBOTSTXT_OBEY": False,
         "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0",  # noqa
