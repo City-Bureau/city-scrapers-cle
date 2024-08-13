@@ -58,11 +58,3 @@ AUTOTHROTTLE_TARGET_CONCURRENCY = float(
 SPIDER_MIDDLEWARES = {}
 
 logging.getLogger("pdfminer").propagate = False
-
-# Playwright settings
-TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
-DOWNLOAD_HANDLERS = {
-    "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-    "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-}
-PLAYWRIGHT_BROWSER_TYPE = "firefox"
