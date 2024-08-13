@@ -1,43 +1,60 @@
 from city_scrapers_core.constants import COMMISSION
+from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
+from dateutil.parser import parse as dateparse
 
-from city_scrapers.mixins import CuyaCountyMixin
 
-
-class CuyaPersonnelReviewCommissionSpider(CuyaCountyMixin, CityScrapersSpider):
+class CuyaPersonnelReviewCommissionSpider(CityScrapersSpider):
     name = "cuya_personnel_review_commission"
     agency = "Cuyahoga County Personnel Review Commission"
-    start_urls = ["https://prc.cuyahogacounty.us/en-US/PRC-Meetings-Resolutions.aspx"]
-    classification = COMMISSION
+    start_urls = ["https://cuyahogacounty.gov/personnel-review-commission/calendar"]
 
     def parse(self, response):
-        # Pull the most recent 12 meetings
-        for detail_link in response.css(
-            "#contentColumn td:nth-child(3) a::attr(href)"
-        ).extract()[:12]:
-            # Ignore links to the live-stream for parsing
-            if detail_link.endswith("Streaming-Video.aspx"):
+        items = response.css("div.moudle.list.events > ul > li")
+        for item in items:
+            title = item.css("div.title a::text").extract_first()
+            meta_text = item.css(".meta span::text").extract()
+            clean_meta_text = [text.strip() for text in meta_text if text.strip()]
+            if not title or not meta_text:
                 continue
-            yield response.follow(
-                detail_link, callback=self._parse_detail, dont_filter=True
+            start, end = self._parse_times(clean_meta_text)
+            meeting = Meeting(
+                title=title,
+                description="",
+                classification=COMMISSION,
+                start=start,
+                end=end,
+                all_day=False,
+                time_notes="",
+                location=self._parse_location(clean_meta_text),
+                links=self._parse_links(item),
+                source=response.url,
             )
+            meeting["status"] = self._get_status(meeting)
+            meeting["id"] = self._get_id(meeting)
 
-    def _parse_title(self, response):
-        title_parts = (
-            response.css("#contentColumn h1::text").extract_first().strip().split(" - ")
-        )
-        title_str = [t for t in title_parts if "cancel" not in t.lower()][0]
-        if "Special" in title_str:
-            return title_str
-        return title_str.replace(" Meeting", "").strip()
+            yield meeting
 
-    def _parse_location(self, response):
+    def _parse_times(self, meta_text: list[str]) -> tuple:
+        date = meta_text[1]
+        start_time = meta_text[2]
+        end_time = meta_text[4]
+        start = dateparse(f"{date} {start_time}")
+        end = dateparse(f"{date} {end_time}")
+        return start, end
+
+    def _parse_location(self, meta_text: list[str]) -> dict:
+        location = meta_text[0]
         return {
             "name": "",
-            "address": super()._parse_location(response),
+            "address": location,
         }
 
-    def _parse_status(self, response, meeting):
-        return self._get_status(
-            meeting, text=response.css("#contentColumn h1::text").extract_first()
-        )
+    def _parse_links(self, item) -> list:
+        attachments = item.css("div.related-content a")
+        links = []
+        for attachment in attachments:
+            url = attachment.css("a::attr(href)").extract_first()
+            title = attachment.css("a span::text").extract_first()
+            links.append({"href": url, "title": title})
+        return links
