@@ -4,93 +4,71 @@ from datetime import date
 
 def calculate_upcoming_meeting_days(chosen_weekday, chosen_ordinals, start, end):
     """
-    Lots of city meeting websites describe their upcoming meetings by saying
-    things like: "this committee meets the 1st and 3rd Tuesday of every month ".
-    This calculator is intended to help parse dates from such a description.  It
-    doesn't handle parsing the actual language, since that might differ from page
-    to page, but given a weekday, and a list of the oridnals you care about (like
-    1st, 3rd), a start date and an end date, it will return all the meeting dates
-    that match the weekday and ordinals.
-
+    Calculate meeting dates that fall on specified weekdays and ordinals within a date range.
+    
     Parameters:
-    chosen_weekday (int): the weekday that you're looking for. Monday is 0,
-        so in the examples above this would be 2
-    chosen_ordinals (int[]): the particular days you're looking for - like 1st
-        and 3rd. These days should be passed though starting the count from 0,
-        i.e [0, 2] for first and third
-    start (date): the first day to begin calculating meetings from
-    end (date): the final day to be considered as a potential meeting date
-
+    chosen_weekday (int): Weekday (0=Monday, 6=Sunday)
+    chosen_ordinals (int[]): List of ordinals (0-based) like [0,2] for 1st and 3rd
+    start (date): Start date
+    end (date): End date
+    
     Returns:
-    []date: an array of dates that match the given conditions
+    []date: List of matching meeting dates
     """
-    current_month = start.month
-    current_year = start.year
-
-    raw_dates = []
-    while not (current_month == end.month and current_year == end.year):
-        current_month_days = _calculate_meeting_days_per_month(
-            chosen_weekday, chosen_ordinals, current_year, current_month
+    # Filter out invalid ordinals (5 or greater)
+    valid_ordinals = [ord for ord in chosen_ordinals if ord < 5]
+    if not valid_ordinals:
+        return []
+        
+    result = []
+    current = date(start.year, start.month, 1)
+    
+    while current <= end:
+        days = _calculate_meeting_days_per_month(
+            chosen_weekday, valid_ordinals, current.year, current.month
         )
-        raw_dates = raw_dates + [
-            date(current_year, current_month, day) for day in current_month_days
-        ]
-
-        # we can't easily use % arithmetic here since we're starting at 1, so
-        # it's a bit easier to read this way
-        current_month = current_month + 1 if current_month != 12 else 1
-        if current_month == 1:
-            current_year = current_year + 1
-
-    # add the days for the final month since they're missed by the loop
-    current_month_days = _calculate_meeting_days_per_month(
-        chosen_weekday, chosen_ordinals, current_year, current_month
-    )
-    raw_dates = raw_dates + [
-        date(current_year, current_month, day) for day in current_month_days
-    ]
-    # we now have all the relevant dates for the given months but we need to
-    # filter out days before and after start and end
-    return [
-        current_date for current_date in raw_dates if (start <= current_date <= end)
-    ]
+        
+        for day in days:
+            meeting_date = date(current.year, current.month, day)
+            if start <= meeting_date <= end:
+                result.append(meeting_date)
+        
+        # Move to first day of next month
+        year = current.year + (1 if current.month == 12 else 0)
+        month = 1 if current.month == 12 else current.month + 1
+        current = date(year, month, 1)
+            
+    return result
 
 
 def _calculate_meeting_days_per_month(chosen_weekday, chosen_ordinals, year, month):
     """
-    Lots of city meeting websites describe their upcoming meetings by saying
-    things like: "this committee meets the 1st and 3rd Tuesday of every month".
-    This calculator is intended to help parse dates from such a description. It
-    doesn't handle parsing the actual language, since that might differ from page
-    to page, but given a weekday, and a list of the oridnals you care about (like
-    1st, 3rd) and a month it will return all the days in the month that match the
-    given conditions.
-
+    Calculate days of the month that match given weekday and ordinal criteria.
+    
     Parameters:
-    chosen_weekday (int): the weekday that you're looking for. Monday is 0, so
-        in the examples above this would be 2
-    chosen_ordinals (int[]): the particular days you're looking for - like 1st and
-        3rd. These days should be passed though starting the count from 0,
-        i.e [0, 2] for first and third
-    year (int): the year as an integer
-    month (int): the month as an integer
-
+    chosen_weekday (int): Weekday (0=Monday, 6=Sunday)
+    chosen_ordinals (int[]): List of ordinals (0-based) like [0,2] for 1st and 3rd
+    year (int): Year
+    month (int): Month
+    
     Returns:
-    []int: an array of the days of the month that matched the given conditions.
+    []int: List of matching days of the month
     """
-
-    days_of_the_month = calendar.Calendar().itermonthdays2(year, month)
-    # we create a list of all days in the month that are the proper weekday -
-    # day is 0 if it is outside the month but present to make complete first or
-    # last weeks
-    potential_days = [
-        day
-        for day, weekday in days_of_the_month
-        if day != 0 and weekday == chosen_weekday
-    ]
-    # we then see if the resulting number is in the chosen_weeks array
-    chosen_days = [
-        day for i, day in enumerate(potential_days) if (i) in chosen_ordinals
-    ]
-
-    return chosen_days
+    # Get first day of month and its weekday
+    first_day_weekday = calendar.weekday(year, month, 1)
+    
+    # Calculate first occurrence of chosen weekday
+    first_occurrence = 1 + ((chosen_weekday - first_day_weekday) % 7)
+    if first_occurrence <= 0:
+        first_occurrence += 7
+        
+    # Calculate all occurrences
+    last_day = calendar.monthrange(year, month)[1]
+    result = []
+    
+    for ordinal in chosen_ordinals:
+        day = first_occurrence + (ordinal * 7)
+        if day <= last_day:
+            result.append(day)
+            
+    return result

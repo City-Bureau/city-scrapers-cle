@@ -13,39 +13,23 @@ class CuyaArtsCultureSpider(CityScrapersSpider):
     timezone = "America/Detroit"
     start_urls = ["https://www.cacgrants.org/about-us/meet-our-board/board-materials/"]
 
+    # Compile regex patterns once at class level for better performance
+    DATE_PATTERN = re.compile(r"[A-Z][a-z]+ \d{1,2}, \d{4}")
+    
     def parse(self, response):
         """
-        First we parse the board materials page, creating a dictionary of
-        links to meeting materials indexed by meeting dates. Then we
-        scrape the the meeting schedule page itself.
+        Parse board materials page to create a dictionary of meeting materials links,
+        then scrape the meeting schedule page.
         """
         links_dict = {}
-        material_els = response.css(".accordion-body p")
-        for item in material_els:
-            meeting_date_str = item.css("strong::text").extract_first()
-            if not meeting_date_str:
+        for item in response.css(".accordion-body p"):
+            meeting_date = self._extract_meeting_date(item)
+            if not meeting_date:
                 continue
-            # regex to extract meeting date in format "Month DD, YYYY"
-            meeting_date_regex = re.search(
-                r"[A-Z][a-z]+ \d{1,2}, \d{4}", meeting_date_str
-            )
-            if not meeting_date_regex:
-                continue
-            meeting_date_str = meeting_date_regex.group()
-            meeting_date = dateparse(meeting_date_str)
-            link_els = item.css("a")
-            if not link_els:
-                continue
-            links = []
-            for link_el in link_els:
-                title = link_el.css("::text").extract_first()
-                if not title:
-                    # hidden link, skip
-                    continue
-                relative_href = link_el.css("::attr(href)").extract_first()
-                abs_hrf = response.urljoin(relative_href)
-                links.append({"title": title, "href": abs_hrf})
-            links_dict[meeting_date] = links
+                
+            links = self._extract_links(item, response)
+            if links:
+                links_dict[meeting_date] = links
 
         # now scrape meeting agenda page
         yield response.follow(
@@ -96,57 +80,58 @@ class CuyaArtsCultureSpider(CityScrapersSpider):
             meeting["id"] = self._get_id(meeting)
             yield meeting
 
-    def _parse_meeting_date(self, meeting_datetime_str):
-        """
-        Extract meeting date from a string in the format "Month DD, YYYY".
-        """
-        meeting_date_regex = re.search(
-            r"[A-Z][a-z]+ \d{1,2}, \d{4}", meeting_datetime_str
-        )
-        if not meeting_date_regex:
+    def _extract_meeting_date(self, item):
+        """Extract and parse meeting date from item."""
+        meeting_date_str = item.css("strong::text").extract_first()
+        if not meeting_date_str:
             return None
-        meeting_date_str = meeting_date_regex.group()
-        meeting_date = dateparse(meeting_date_str)
-        return meeting_date
+            
+        match = self.DATE_PATTERN.search(meeting_date_str)
+        return dateparse(match.group()) if match else None
+        
+    def _extract_links(self, item, response):
+        """Extract and format links from item."""
+        links = []
+        for link_el in item.css("a"):
+            title = link_el.css("::text").extract_first()
+            if not title:  # Skip hidden links
+                continue
+            href = response.urljoin(link_el.css("::attr(href)").extract_first())
+            links.append({"title": title, "href": href})
+        return links
+
+    # Compile time pattern once
+    TIME_PATTERN = re.compile(r"at (\d{1,2}(:\d{2})? [ap]\.m\.)")
+    
+    def _parse_meeting_date(self, meeting_datetime_str):
+        """Extract meeting date using compiled pattern."""
+        match = self.DATE_PATTERN.search(meeting_datetime_str)
+        return dateparse(match.group()) if match else None
 
     def _parse_meeting_time(self, meeting_datetime_str):
-        """
-        Extract meeting time from a string in the format
-        "at 8:30 a.m." or "at 4 p.m." etc
-        """
-        meeting_time_regex = re.search(
-            r"at (\d{1,2}(:\d{2})? [ap]\.m\.)", meeting_datetime_str
-        )
-        if not meeting_time_regex:
+        """Extract meeting time using compiled pattern."""
+        match = self.TIME_PATTERN.search(meeting_datetime_str)
+        if not match:
             return None
-        meeting_time_str = meeting_time_regex.group(1)
-        datetime_obj = dateparse(meeting_time_str)
-        # just return time
-        return datetime_obj.time()
+        return dateparse(match.group(1)).time()
 
+    # Compile address and cleanup patterns
+    ADDRESS_PATTERN = re.compile(r"[A-Z]{2} \d{5}")
+    CLEANUP_PATTERN = re.compile(r"[^a-zA-Z0-9\s-]")
+    
     def _parse_location(self, text_chunks):
-        """
-        Extract location from a list of text chunks.
-        Assume everything between the 3rd and finals
-        chunks is location information.
-        """
+        """Extract location information from text chunks."""
         default = {"name": "", "address": "TBD"}
         if len(text_chunks) < 4:
             return default
-        # use regex to find address chunk in format "OH 44101" or
+            
         location_chunks = text_chunks[2:]
-        address_pattern = re.compile(r"[A-Z]{2} \d{5}")
-        for chunk in location_chunks:
-            if address_pattern.search(chunk):
-                self.logger.info(f"Found address: {chunk}")
-                name = ""
-                # if address is the last chunk, assume preceding chunks are
-                # the location name
+        for i, chunk in enumerate(location_chunks):
+            if self.ADDRESS_PATTERN.search(chunk):
                 if chunk == location_chunks[-1]:
-                    name = " ".join(location_chunks[:-1])
-                    # remove excess whitespace
-                    name = re.sub(r"\s+", " ", name)
-                    # remove any chars that are not letters, numbers, spaces, hyphens
-                    name = re.sub(r"[^a-zA-Z0-9\s-]", "", name)
-                return {"name": name, "address": chunk}
+                    name = " ".join(location_chunks[:i])
+                    name = re.sub(r"\s+", " ", name.strip())
+                    name = self.CLEANUP_PATTERN.sub("", name)
+                    return {"name": name, "address": chunk}
+                return {"name": "", "address": chunk}
         return default
