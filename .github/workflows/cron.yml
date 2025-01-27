@@ -82,8 +82,14 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         if: ${{ failure() }}
 
+  keepalive-workflow:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
       - name: Prevent workflow deactivation
-        uses: gautamkrishnar/keepalive-workflow@v1
+        uses: gautamkrishnar/keepalive-workflow@v2
         with:
-          committer_username: "citybureau-bot"
-          committer_email: "documenters@citybureau.org"
+          auto_write_check: "true"
+          workflow_files: "archive.yml"
