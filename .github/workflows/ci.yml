@@ -37,6 +37,17 @@ jobs:
             pip-${{ matrix.python-version }}-
             pip-
 
+      - name: Check and conditionally remove invalid virtual environment
+        run: |
+          if [ -d ".venv" ] && [ ! -f ".venv/bin/python" ]; then
+            echo "Virtual environment exists but Python executable is missing. Rebuilding."
+            rm -rf .venv
+          elif [ ! -d ".venv" ]; then
+            echo "No virtual environment found. Will build new one."
+          else
+            echo "Virtual environment appears valid. Reusing."
+          fi
+
       - name: Install dependencies
         run: pipenv sync --dev
         env:
