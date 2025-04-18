@@ -29,7 +29,7 @@ jobs:
         uses: dschep/install-pipenv-action@v1
 
       - name: Cache Python dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: .venv
           key: pip-${{ matrix.python-version }}-${{ hashFiles('**/Pipfile.lock') }}
