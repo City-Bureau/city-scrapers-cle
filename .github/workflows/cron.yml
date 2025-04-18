@@ -45,13 +45,24 @@ jobs:
         uses: dschep/install-pipenv-action@v1
 
       - name: Cache Python dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: .venv
           key: pip-3.11-${{ hashFiles('**/Pipfile.lock') }}
           restore-keys: |
             pip-3.11-
             pip-
+
+      - name: Check and conditionally remove invalid virtual environment
+        run: |
+          if [ -d ".venv" ] && [ ! -f ".venv/bin/python" ]; then
+            echo "Virtual environment exists but Python executable is missing. Rebuilding."
+            rm -rf .venv
+          elif [ ! -d ".venv" ]; then
+            echo "No virtual environment found. Will build new one."
+          else
+            echo "Virtual environment appears valid. Reusing."
+          fi
 
       - name: Install dependencies
         run: pipenv sync
