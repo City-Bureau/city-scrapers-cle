@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1cfdd27734257d1356c44fb4b98551e917d0051d76475f4e3af3d6d4932e63a9"
+            "sha256": "e4021d1562974490cae2067218318392622d118d85da6909ec858592c0c737ff"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -1776,12 +1776,12 @@
         },
         "scrapy": {
             "hashes": [
-                "sha256:9c16a482e1474b501f7b7121a4071ddc5cec4c0c7c0320217ed678d4fb8a3e9e",
-                "sha256:bf17588c10e46a9d70c49a05380b749e3c7fba58204a367a5747ce6da2bd204d"
+                "sha256:4be353d6abbb942a9f7e7614ca8b5f3d9037381176ac8d8859c8cac676e74fa0",
+                "sha256:dfbd565384fc3fffeba121f5a3a2d0899ac1f756d41432ca0879933fbfb3401d"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.9'",
-            "version": "==2.13.3"
+            "markers": "python_version >= '3.8'",
+            "version": "==2.11.2"
         },
         "scrapy-playwright": {
             "hashes": [
@@ -2162,7 +2162,7 @@
             "markers": "python_version >= '3.9'",
             "version": "==1.22.0"
         },
-        "zope-interface": {
+        "zope.interface": {
             "hashes": [
                 "sha256:04ee726e6939be1c2924d8513a17eb819217129e25d3217ca009cf9c8832e3fe",
                 "sha256:10f06d128f1c181ded3af08c5004abcb3719c13a976ce9163124e7eeded6899a",

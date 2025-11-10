@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-scrapy = "*"
+scrapy = "==2.11.2"
 city-scrapers-core = {ref = "main", git = "https://github.com/City-Bureau/city-scrapers-core.git", extras = ["azure"]}
 scrapy-wayback-middleware = "*"
 python-dateutil = "*"
