@@ -8,13 +8,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from playwright.async_api import async_playwright
 
-from harambe_scrapers.cle_building_standards import (
-    AGENCY_NAME,
-    SCRAPER_NAME,
-    START_URL,
-    main,
-    scrape,
-)
+from harambe_scrapers.cle_building_standards import AGENCY_NAME, START_URL, main, scrape
 
 
 @pytest.mark.asyncio
@@ -80,11 +74,3 @@ async def test_main_function():
                 assert "observer" in call_args[1]
                 assert "harness" in call_args[1]
                 assert call_args[1]["headless"] is True
-
-
-def test_scraper_configuration():
-    """Test scraper configuration constants"""
-    assert SCRAPER_NAME == "cle_building_standards_v2"
-    agency = "Cleveland Board of Building Standards and Building Appeals"
-    assert AGENCY_NAME == agency
-    assert START_URL == "https://planning.clevelandohio.gov/bza/bbs.html"

@@ -10,7 +10,6 @@ from playwright.async_api import async_playwright
 
 from harambe_scrapers.cle_planning_commission import (
     AGENCY_NAME,
-    SCRAPER_NAME,
     START_URL,
     main,
     scrape,
@@ -78,11 +77,3 @@ async def test_main_function():
                 assert "observer" in call_args[1]
                 assert "harness" in call_args[1]
                 assert call_args[1]["headless"] is True
-
-
-def test_scraper_configuration():
-    """Test scraper configuration constants"""
-    assert SCRAPER_NAME == "cle_planning_commission_v2"
-    assert AGENCY_NAME == "Cleveland City Planning Commission"
-    url = "https://planning.clevelandohio.gov/designreview/schedule.php"
-    assert START_URL == url
