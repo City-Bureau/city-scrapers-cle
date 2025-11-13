@@ -22,78 +22,81 @@ env:
   OPENVPN_CONFIG: ${{ secrets.OPENVPN_CONFIG }}
 
 jobs:
-  crawl:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-
-      - name: Connect to OpenVPN
-        run: |
-          sudo apt-get install -y openvpn
-          echo "$OPENVPN_USER" | sudo tee -a /etc/openvpn/client/auth
-          echo "$OPENVPN_PASS" | sudo tee -a /etc/openvpn/client/auth
-          echo "$OPENVPN_CONFIG" | sudo tee -a /etc/openvpn/ovpn.conf
-          sudo openvpn --config /etc/openvpn/ovpn.conf --daemon
-          sleep 120
-
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.12
-
-      - name: Install Pipenv
-        uses: dschep/install-pipenv-action@v1
-
-      - name: Cache Python dependencies
-        uses: actions/cache@v4
-        with:
-          path: .venv
-          key: pip-3.12-${{ hashFiles('**/Pipfile.lock') }}
-          restore-keys: |
-            pip-3.12-
-            pip-
-
-      - name: Check and conditionally remove invalid virtual environment
-        run: |
-          if [ -d ".venv" ] && [ ! -f ".venv/bin/python" ]; then
-            echo "Virtual environment exists but Python executable is missing. Rebuilding."
-            rm -rf .venv
-          elif [ ! -d ".venv" ]; then
-            echo "No virtual environment found. Will build new one."
-          else
-            echo "Virtual environment appears valid. Reusing."
-          fi
-
-      - name: Install dependencies
-        run: pipenv sync
-        env:
-          PIPENV_DEFAULT_PYTHON_VERSION: 3.12
-
-      - name: Set up playwright
-        run: |
-          pipenv run playwright install firefox
-
-      - name: Run scrapers
-        run: |
-          export PYTHONPATH=$(pwd):$PYTHONPATH
-          ./.deploy.sh
-
-      - name: Combine output feeds
-        run: |
-          export PYTHONPATH=$(pwd):$PYTHONPATH
-          pipenv run scrapy combinefeeds -s LOG_ENABLED=True
-
-      - name: Notify slack on job failure
-        id: slack
-        uses: slackapi/slack-github-action@v1.17.0
-        with:
-          channel-id: 'C01A6HC2FU6'
-          slack-message: 'Cronjob Failed'
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        if: ${{ failure() }}
+  # Temporarily commented out for testing crawl_v2 and merge script independently
+  # Uncomment after merge script is verified to work correctly
+  # crawl:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #
+  #     - name: Connect to OpenVPN
+  #       run: |
+  #         sudo apt-get install -y openvpn
+  #         echo "$OPENVPN_USER" | sudo tee -a /etc/openvpn/client/auth
+  #         echo "$OPENVPN_PASS" | sudo tee -a /etc/openvpn/client/auth
+  #         echo "$OPENVPN_CONFIG" | sudo tee -a /etc/openvpn/ovpn.conf
+  #         sudo openvpn --config /etc/openvpn/ovpn.conf --daemon
+  #         sleep 120
+  #
+  #     - name: Set up Python 3.12
+  #       uses: actions/setup-python@v1
+  #       with:
+  #         python-version: 3.12
+  #
+  #     - name: Install Pipenv
+  #       uses: dschep/install-pipenv-action@v1
+  #
+  #     - name: Cache Python dependencies
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: .venv
+  #         key: pip-3.12-${{ hashFiles('**/Pipfile.lock') }}
+  #         restore-keys: |
+  #           pip-3.12-
+  #           pip-
+  #
+  #     - name: Check and conditionally remove invalid virtual environment
+  #       run: |
+  #         if [ -d ".venv" ] && [ ! -f ".venv/bin/python" ]; then
+  #           echo "Virtual environment exists but Python executable is missing. Rebuilding."
+  #           rm -rf .venv
+  #         elif [ ! -d ".venv" ]; then
+  #           echo "No virtual environment found. Will build new one."
+  #         else
+  #           echo "Virtual environment appears valid. Reusing."
+  #         fi
+  #
+  #     - name: Install dependencies
+  #       run: pipenv sync
+  #       env:
+  #         PIPENV_DEFAULT_PYTHON_VERSION: 3.12
+  #
+  #     - name: Set up playwright
+  #       run: |
+  #         pipenv run playwright install firefox
+  #
+  #     - name: Run scrapers
+  #       run: |
+  #         export PYTHONPATH=$(pwd):$PYTHONPATH
+  #         ./.deploy.sh
+  #
+  #     - name: Combine output feeds
+  #       run: |
+  #         export PYTHONPATH=$(pwd):$PYTHONPATH
+  #         pipenv run scrapy combinefeeds -s LOG_ENABLED=True
+  #
+  #     - name: Notify slack on job failure
+  #       id: slack
+  #       uses: slackapi/slack-github-action@v1.17.0
+  #       with:
+  #         channel-id: 'C01A6HC2FU6'
+  #         slack-message: 'Cronjob Failed'
+  #       env:
+  #         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+  #       if: ${{ failure() }}
 
   crawl_v2:
+    # needs: [crawl]  # Commented out for testing - re-enable after verification
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -174,3 +177,8 @@ jobs:
               print(f'❌ Azure upload failed: No v2 scraper blobs found for {prefix}')
               sys.exit(1)  # Fail the job to alert about upload issues
           "
+
+      - name: Merge conventional and Harambe outputs
+        run: |
+          export PYTHONPATH=$(pwd):$PYTHONPATH
+          pipenv run python scripts/merge_harambe_to_latest.py
