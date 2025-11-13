@@ -31,7 +31,7 @@ import os
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Dict, List
 
 try:
     from azure.storage.blob import BlobServiceClient
@@ -44,7 +44,7 @@ except ImportError:
 
 # Configuration Constants
 DEFAULT_CONTAINER = "meetings-feed-cle"
-DEFAULT_OUTPUT_BLOB = "latest_v2.json"  # Use _v2 for testing by default
+DEFAULT_OUTPUT_BLOB = "latest_v2.json"
 PRODUCTION_OUTPUT_BLOB = "latest.json"
 LOCAL_OUTPUT_DIR = "harambe_scrapers/output"
 HARAMBE_SCRAPERS_DIR = "harambe_scrapers"
@@ -87,7 +87,6 @@ def download_latest_from_azure(container_name: str = DEFAULT_CONTAINER) -> List[
     try:
         content = blob_client.download_blob().readall().decode("utf-8")
 
-        # Parse JSONLINES format (one JSON object per line)
         data = []
         for line in content.strip().split("\n"):
             if line:
@@ -126,22 +125,17 @@ def read_harambe_from_local(output_dir: str = LOCAL_OUTPUT_DIR) -> List[Dict]:
 
     print(f"\nReading latest Harambe outputs from {output_dir}/...")
 
-    # Group files by scraper name
     by_scraper = {}
 
     for json_file in output_path.glob("*.json"):
-        # Extract scraper name and timestamp from filename
         # Expected format: scraper_name_YYYYMMDD_HHMMSS.json
-        # Example: cle_city_council_v2_20251112_060015.json
-        filename = json_file.stem  # Remove .json extension
-
-        # Split from right to separate timestamp from scraper name
+        filename = json_file.stem
         parts = filename.rsplit("_", 2)
 
         if len(parts) >= 3:
-            scraper_name = parts[0]  # Everything before last 2 underscores
-            date_part = parts[1]  # YYYYMMDD
-            time_part = parts[2]  # HHMMSS
+            scraper_name = parts[0]
+            date_part = parts[1]
+            time_part = parts[2]
             timestamp_str = f"{date_part}_{time_part}"
 
             if scraper_name not in by_scraper:
@@ -155,16 +149,13 @@ def read_harambe_from_local(output_dir: str = LOCAL_OUTPUT_DIR) -> List[Dict]:
         print(f"  ⚠ No Harambe output files found in {output_dir}")
         return []
 
-    # Get latest file per scraper and read meetings
     all_meetings = []
 
     for scraper_name, files in by_scraper.items():
-        # Sort by timestamp to get latest
         latest = max(files, key=lambda x: x["timestamp"])
 
         print(f"  ✓ {scraper_name}: Using {latest['file'].name}")
 
-        # Read meetings from latest file (JSONLINES format)
         try:
             with open(latest["file"], "r") as f:
                 for line in f:
@@ -221,7 +212,6 @@ def get_latest_harambe_outputs(
     for scraper_name in scraper_names:
         print(f"  Looking for {scraper_name}...")
 
-        # Get all blobs for this scraper today
         matching_blobs = []
         blobs = container_client.list_blobs(name_starts_with=today_prefix)
 
@@ -233,15 +223,12 @@ def get_latest_harambe_outputs(
             print(f"    ⚠ No runs found for {scraper_name} today")
             continue
 
-        # Sort by last_modified to get the latest run
         latest_blob = max(matching_blobs, key=lambda b: b.last_modified)
         print(f"    ✓ Using {latest_blob.name} (modified: {latest_blob.last_modified})")
 
-        # Fetch only the latest blob
         blob_client = container_client.get_blob_client(latest_blob.name)
         content = blob_client.download_blob().readall().decode("utf-8")
 
-        # Parse JSONLINES format (one JSON object per line)
         for line in content.strip().split("\n"):
             if line:
                 try:
@@ -252,80 +239,6 @@ def get_latest_harambe_outputs(
 
     print(f"  ✓ Found {len(all_meetings)} Harambe meetings total")
     return all_meetings
-
-
-def slugify(text: str) -> str:
-    """
-    Convert text to URL slug format.
-
-    Args:
-        text: Text to slugify
-
-    Returns:
-        Slugified text with spaces/special chars replaced with underscores
-    """
-    text = str(text).lower().strip()
-    text = re.sub(r"[^\w\s-]", "", text)
-    text = re.sub(r"[\s_]+", "_", text)
-    text = re.sub(r"^-+|-+$", "", text)
-    return text
-
-
-def normalize_meeting_format(meeting: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Normalize meeting format to Scrapy format.
-    Handles both OCD format (from Harambe) and Scrapy format.
-
-    Args:
-        meeting: Meeting dictionary in either OCD or Scrapy format
-
-    Returns:
-        Meeting dictionary in Scrapy format
-    """
-    # If it's already in Scrapy format, return as-is
-    if "title" in meeting and "start" in meeting:
-        return meeting
-
-    # Convert OCD/Harambe format to Scrapy format
-    if "name" in meeting and "start_time" in meeting:
-        # Extract location info
-        location = meeting.get("location", {})
-        if isinstance(location, dict):
-            location_name = location.get("name", "")
-            location_address = meeting.get("extras", {}).get(
-                "cityscrapers.org/address", ""
-            )
-        else:
-            location_name = ""
-            location_address = ""
-
-        # Extract source URL
-        sources = meeting.get("sources", [])
-        source_url = sources[0].get("url", "") if sources else ""
-
-        # Use cityscrapers.org/id if available, otherwise generate one
-        meeting_id = meeting.get("extras", {}).get("cityscrapers.org/id")
-        if not meeting_id:
-            meeting_id = meeting.get("_id", "")
-
-        return {
-            "title": meeting.get("name", ""),
-            "description": meeting.get("description", ""),
-            "classification": meeting.get("classification", "Board"),
-            "start": meeting.get("start_time"),
-            "end": meeting.get("end_time"),
-            "all_day": meeting.get("all_day", False),
-            "time_notes": meeting.get("extras", {}).get(
-                "cityscrapers.org/time_notes", ""
-            ),
-            "location": {"name": location_name, "address": location_address},
-            "links": meeting.get("links", []),
-            "source": source_url,
-            "status": meeting.get("status", "tentative"),
-            "id": meeting_id,
-        }
-
-    return meeting
 
 
 def filter_out_scrapers(meetings: List[Dict], scraper_names: List[str]) -> List[Dict]:
@@ -345,8 +258,6 @@ def filter_out_scrapers(meetings: List[Dict], scraper_names: List[str]) -> List[
 
     for meeting in meetings:
         meeting_id = meeting.get("id") or meeting.get("_id", "")
-
-        # Check if this meeting is from a Harambe scraper
         is_harambe = any(scraper_name in meeting_id for scraper_name in scraper_names)
 
         if not is_harambe:
@@ -393,7 +304,6 @@ def upload_to_azure(
     container_client = blob_service.get_container_client(container_name)
     blob_client = container_client.get_blob_client(blob_name)
 
-    # Write in JSONLINES format (one JSON object per line) to match combinefeeds output
     jsonlines_content = "\n".join(
         json.dumps(meeting, ensure_ascii=False) for meeting in data
     )
@@ -423,14 +333,12 @@ def discover_harambe_scrapers_from_files(
         return []
 
     for py_file in scrapers_path.glob("*.py"):
-        # Skip utility files
         if py_file.name in ["__init__.py", "observers.py", "utils.py"]:
             continue
 
         try:
             with open(py_file, "r") as f:
                 content = f.read()
-                # Look for SCRAPER_NAME = "..." pattern
                 match = re.search(r'SCRAPER_NAME\s*=\s*["\']([^"\']+)["\']', content)
                 if match:
                     scraper_name = match.group(1)
@@ -480,7 +388,6 @@ def auto_detect_harambe_scrapers(container_name: str = DEFAULT_CONTAINER) -> Lis
 
         for blob in blobs:
             if "_v2" in blob.name and blob.name.endswith(".json"):
-                # Extract scraper name from path: YYYY/MM/DD/HHMM/scraper_name_v2.json
                 parts = blob.name.split("/")
                 if len(parts) >= 5:
                     filename = parts[-1]
@@ -503,7 +410,6 @@ def main():
     container_name = os.getenv("AZURE_CONTAINER", DEFAULT_CONTAINER)
     output_blob = os.getenv("OUTPUT_BLOB", DEFAULT_OUTPUT_BLOB)
 
-    # Show configuration
     print("Configuration:")
     print(f"  Container: {container_name}")
     print(f"  Output blob: {output_blob}")
@@ -514,13 +420,11 @@ def main():
         print(f"  ⚠ PRODUCTION mode - will overwrite {output_blob}!")
     print()
 
-    # Auto-detect Harambe scrapers from Azure, with filesystem fallback
     harambe_scrapers = auto_detect_harambe_scrapers(container_name)
 
     if harambe_scrapers:
         print(f"Auto-detected Harambe scrapers from Azure: {harambe_scrapers}")
     else:
-        # Fallback: discover from filesystem
         print("  Azure auto-detection returned no scrapers, checking filesystem...")
         harambe_scrapers = discover_harambe_scrapers_from_files(HARAMBE_SCRAPERS_DIR)
         if harambe_scrapers:
@@ -531,7 +435,6 @@ def main():
 
     print()
 
-    # Step 1: Download production latest.json
     existing_meetings = download_latest_from_azure(container_name)
 
     if not existing_meetings:
@@ -539,29 +442,22 @@ def main():
         print("This might be normal if combinefeeds hasn't run yet.")
         print()
 
-    # Step 2: Remove old Harambe data (so we don't accumulate stale data)
     print("\nCleaning old Harambe data...")
     cleaned_meetings = filter_out_scrapers(existing_meetings, harambe_scrapers)
 
-    # Step 3: Get FRESH Harambe outputs (latest run only)
-    # Try local files first (faster, uses files from previous step)
     harambe_meetings = read_harambe_from_local(LOCAL_OUTPUT_DIR)
 
-    # Fallback to Azure if no local files found
     if not harambe_meetings:
         print("\n  ⚠ No local files found, fetching from Azure...")
         harambe_meetings = get_latest_harambe_outputs(harambe_scrapers, container_name)
 
-    # Step 4: Normalize format and merge
     print("\nMerging data...")
-    normalized_harambe = [normalize_meeting_format(m) for m in harambe_meetings]
-    merged = cleaned_meetings + normalized_harambe
+    merged = cleaned_meetings + harambe_meetings
 
     print(f"  Conventional scrapers: {len(cleaned_meetings)} meetings")
-    print(f"  Harambe scrapers: {len(normalized_harambe)} meetings")
+    print(f"  Harambe scrapers: {len(harambe_meetings)} meetings")
     print(f"  Total merged: {len(merged)} meetings")
 
-    # Step 5: Upload
     upload_to_azure(merged, blob_name=output_blob, container_name=container_name)
 
     print()
