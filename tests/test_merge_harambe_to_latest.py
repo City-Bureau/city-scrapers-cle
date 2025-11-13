@@ -29,7 +29,6 @@ class TestDownloadLatestFromAzure:
 
     @patch("scripts.merge_harambe_to_latest.BlobServiceClient")
     def test_download_jsonlines_format(self, mock_blob_service):
-        """Test parsing JSONLINES format correctly."""
         mock_blob_client = Mock()
         mock_container_client = Mock()
         container = mock_blob_service.from_connection_string.return_value
@@ -57,7 +56,6 @@ class TestDownloadLatestFromAzure:
 
     @patch("scripts.merge_harambe_to_latest.BlobServiceClient")
     def test_download_empty_file(self, mock_blob_service):
-        """Test handling empty latest.json."""
         mock_blob_client = Mock()
         mock_container_client = Mock()
         container = mock_blob_service.from_connection_string.return_value
@@ -74,7 +72,6 @@ class TestDownloadLatestFromAzure:
 
     @patch("scripts.merge_harambe_to_latest.BlobServiceClient")
     def test_download_with_invalid_lines(self, mock_blob_service):
-        """Test skipping invalid JSON lines."""
         mock_blob_client = Mock()
         mock_container_client = Mock()
         container = mock_blob_service.from_connection_string.return_value
@@ -100,7 +97,6 @@ class TestDownloadLatestFromAzure:
         assert result[1]["id"] == "meeting2"
 
     def test_download_missing_credentials(self):
-        """Test error handling when Azure credentials are missing."""
         with patch.dict(os.environ, {}, clear=True):
             with pytest.raises(ValueError, match="AZURE_ACCOUNT_NAME"):
                 download_latest_from_azure("test-container")
@@ -110,7 +106,6 @@ class TestReadHarambeFromLocal:
     """Test reading Harambe scraper outputs from local files."""
 
     def test_read_latest_files(self, tmp_path):
-        """Test reading latest file for each scraper."""
         output_dir = tmp_path / "output"
         output_dir.mkdir()
 
@@ -129,7 +124,6 @@ class TestReadHarambeFromLocal:
         assert result[1]["id"] == "new2"
 
     def test_read_multiple_scrapers(self, tmp_path):
-        """Test reading from multiple different scrapers."""
         output_dir = tmp_path / "output"
         output_dir.mkdir()
 
@@ -148,12 +142,10 @@ class TestReadHarambeFromLocal:
         assert "building1" in ids
 
     def test_read_missing_directory(self, tmp_path):
-        """Test handling missing output directory."""
         result = read_harambe_from_local(str(tmp_path / "nonexistent"))
         assert result == []
 
     def test_read_empty_directory(self, tmp_path):
-        """Test handling empty output directory."""
         output_dir = tmp_path / "output"
         output_dir.mkdir()
         result = read_harambe_from_local(str(output_dir))
@@ -164,7 +156,6 @@ class TestFilterOutScrapers:
     """Test filtering meetings by scraper name."""
 
     def test_filter_harambe_scrapers(self):
-        """Test removing Harambe scraper meetings."""
         meetings = [
             {"id": "cle_city_council/20251113/1400/meeting"},
             {"id": "cle_planning_v2/20251113/1400/meeting"},
@@ -180,7 +171,6 @@ class TestFilterOutScrapers:
         assert result[1]["id"] == "cle_landmarks/20251113/1600/meeting"
 
     def test_filter_no_matches(self):
-        """Test filtering when no scrapers match."""
         meetings = [
             {"id": "cle_city_council/20251113/1400/meeting"},
             {"id": "cle_landmarks/20251113/1600/meeting"},
@@ -191,7 +181,6 @@ class TestFilterOutScrapers:
         assert len(result) == 2
 
     def test_filter_all_matches(self):
-        """Test filtering when all meetings match."""
         meetings = [
             {"id": "cle_planning_v2/20251113/1400/meeting"},
             {"id": "cle_building_v2/20251113/1500/meeting"},
@@ -202,7 +191,6 @@ class TestFilterOutScrapers:
         assert len(result) == 0
 
     def test_filter_with_underscore_id_field(self):
-        """Test filtering with _id field instead of id."""
         meetings = [
             {"_id": "cle_planning_v2/20251113/1400/meeting"},
         ]
@@ -216,7 +204,6 @@ class TestUploadToAzure:
 
     @patch("scripts.merge_harambe_to_latest.BlobServiceClient")
     def test_upload_jsonlines_format(self, mock_blob_service):
-        """Test uploading in JSONLINES format."""
         mock_blob_client = Mock()
         mock_container_client = Mock()
         container = mock_blob_service.from_connection_string.return_value
@@ -246,7 +233,6 @@ class TestDiscoverHarambeScrapersFromFiles:
     """Test discovering scraper names from Python files."""
 
     def test_discover_from_files(self, tmp_path):
-        """Test discovering SCRAPER_NAME from Python files."""
         scrapers_dir = tmp_path / "harambe_scrapers"
         scrapers_dir.mkdir()
 
@@ -265,12 +251,10 @@ class TestDiscoverHarambeScrapersFromFiles:
         assert "cle_building_v2" in result
 
     def test_discover_missing_directory(self, tmp_path):
-        """Test handling missing scrapers directory."""
         result = discover_harambe_scrapers_from_files(str(tmp_path / "nonexistent"))
         assert result == []
 
     def test_discover_skip_utility_files(self, tmp_path):
-        """Test skipping utility files."""
         scrapers_dir = tmp_path / "harambe_scrapers"
         scrapers_dir.mkdir()
 

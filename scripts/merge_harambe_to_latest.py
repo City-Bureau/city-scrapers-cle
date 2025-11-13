@@ -1,31 +1,3 @@
-#!/usr/bin/env python
-"""
-Merge Harambe scraper outputs with conventional Scrapy spider outputs.
-
-This script:
-1. Downloads production latest.json from Azure (created by combinefeeds)
-2. Fetches latest Harambe scraper outputs from local files (or Azure as fallback)
-3. Removes old Harambe data from latest.json
-4. Merges cleaned conventional data + fresh Harambe data
-5. Uploads merged result back to Azure
-
-The script prioritizes local files (harambe_scrapers/output/) for performance,
-automatically handling multiple runs per scraper by selecting the latest file.
-
-Usage:
-    python scripts/merge_harambe_to_latest.py
-
-Environment Variables:
-    AZURE_ACCOUNT_NAME: Azure storage account name
-    AZURE_ACCOUNT_KEY: Azure storage account key
-    AZURE_CONTAINER: Azure container name (default: meetings-feed-cle)
-    OUTPUT_BLOB: Output blob name (default: latest_v2.json for testing,
-                 set to latest.json for production cutover)
-
-Author: City Scrapers
-Version: 1.0.0
-"""
-
 import json
 import os
 import re
@@ -244,7 +216,6 @@ def get_latest_harambe_outputs(
 def filter_out_scrapers(meetings: List[Dict], scraper_names: List[str]) -> List[Dict]:
     """
     Remove all meetings from specified scrapers.
-    Useful to remove old Harambe data before adding fresh Harambe data.
 
     Args:
         meetings: List of meeting dictionaries to filter
@@ -401,7 +372,6 @@ def auto_detect_harambe_scrapers(container_name: str = DEFAULT_CONTAINER) -> Lis
 
 
 def main():
-    """Main function to merge Harambe outputs with production latest.json"""
     print("=" * 70)
     print("Merging Harambe Scraper Outputs with Production latest.json")
     print("=" * 70)
