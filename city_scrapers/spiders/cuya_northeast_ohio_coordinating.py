@@ -22,11 +22,11 @@ class CuyaNortheastOhioCoordinatingSpider(CityScrapersSpider):
             "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
             "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
         },
-        "PLAYWRIGHT_BROWSER_TYPE": "firefox",
+        "PLAYWRIGHT_BROWSER_TYPE": "chromium",
         # other scrapy settings to help avoid bot detection
         "DOWNLOAD_DELAY": 1,
         "ROBOTSTXT_OBEY": False,
-        "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0",  # noqa
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",  # noqa
     }
 
     def start_requests(self):
