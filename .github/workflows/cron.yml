@@ -94,7 +94,7 @@ jobs:
         if: ${{ failure() }}
 
   crawl_v2:
-    needs: [crawl]
+    # needs: [crawl]  # Temporarily disabled for testing crawl_v2 independently
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
