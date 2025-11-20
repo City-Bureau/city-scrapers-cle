@@ -102,10 +102,14 @@ def create_ocd_event(
     # Handle classification - don't modify if provided, keep as-is
     # Different scrapers use different casing conventions
 
+    now = datetime.now()
+    timestamp = now.strftime("%Y-%m-%dT%H:%M:%S.%f")
+
     return {
         "_type": "event",
         "_id": ocd_id,
-        "updated_at": datetime.now().isoformat(),
+        "updated_at": timestamp,
+        "last_scraped_date": timestamp,
         "name": title,
         "description": description,
         "classification": classification,
