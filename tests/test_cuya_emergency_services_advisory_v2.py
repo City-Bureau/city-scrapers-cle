@@ -24,9 +24,7 @@ from harambe_scrapers.extractor.cuya_emergency_services_advisory.listing import 
 @pytest.fixture
 def fixture_html():
     parent_dir = Path(__file__).parent
-    fixture_path = (
-        parent_dir / "files" / "cuya_emergency_services_advisory.html"
-    )
+    fixture_path = parent_dir / "files" / "cuya_emergency_services_advisory.html"
     with open(fixture_path, "r") as f:
         return f.read()
 
@@ -34,9 +32,7 @@ def fixture_html():
 @pytest.fixture
 def fixture_detail_html():
     parent_dir = Path(__file__).parent
-    fixture_path = (
-        parent_dir / "files" / "cuya_emergency_services_advisory_detail.html"
-    )
+    fixture_path = parent_dir / "files" / "cuya_emergency_services_advisory_detail.html"
     with open(fixture_path, "r") as f:
         return f.read()
 
@@ -97,8 +93,7 @@ async def test_orchestrator_converts_relative_urls_to_absolute():
         page = await browser.new_page()
 
         with patch(
-            "harambe_scrapers.cuya_emergency_services_advisory."
-            "listing_scrape"
+            "harambe_scrapers.cuya_emergency_services_advisory." "listing_scrape"
         ) as mock_listing:
             mock_listing.return_value = None
 
@@ -133,10 +128,7 @@ async def test_detail_scraper_extracts_meeting_data_from_html(fixture_detail_htm
 
         assert sdk.data is not None
 
-        assert (
-            sdk.data["title"]
-            == "01/09/24 - CCESAB Emergency Management Committee"
-        )
+        assert sdk.data["title"] == "01/09/24 - CCESAB Emergency Management Committee"
         assert "2024-01-09" in sdk.data["start_time"]
         assert "09:00" in sdk.data["start_time"]
         assert "10:00" in sdk.data["end_time"]

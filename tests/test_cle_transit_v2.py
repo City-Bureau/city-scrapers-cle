@@ -46,6 +46,7 @@ async def test_listing_scraper_extracts_event_urls_from_html(fixture_html):
         async def mock_goto(url):
             # Don't navigate, fixture is already loaded
             pass
+
         page.goto = mock_goto
 
         # Call the actual listing scraper function
@@ -102,13 +103,9 @@ async def test_detail_scraper_extracts_meeting_data_from_html(fixture_detail_htm
 
         links = sdk.data["links"]
         assert len(links) == 3
-        assert any(
-            "Board%26CmtPackage.pdf" in link["url"] for link in links
-        )
+        assert any("Board%26CmtPackage.pdf" in link["url"] for link in links)
         assert any("Presentations.pdf" in link["url"] for link in links)
-        assert any(
-            "CompensationMinutes.pdf" in link["url"] for link in links
-        )
+        assert any("CompensationMinutes.pdf" in link["url"] for link in links)
 
         assert sdk.data["classification"] == "BOARD"
         assert sdk.data["is_cancelled"] is False
