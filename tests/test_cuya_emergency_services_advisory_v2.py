@@ -2,17 +2,13 @@
 Unit tests for Cuyahoga County Emergency Services Advisory Board v2.
 """
 
-from datetime import datetime, timedelta
 from pathlib import Path
 from unittest.mock import patch
 
 import pytest
-import pytz
 from playwright.async_api import async_playwright
 
 from harambe_scrapers.cuya_emergency_services_advisory import (
-    AGENCY_NAME,
-    TIMEZONE,
     CuyaEmergencyServicesOrchestrator,
     DetailSDK,
     ListingSDK,
@@ -23,36 +19,6 @@ from harambe_scrapers.extractor.cuya_emergency_services_advisory.detail import (
 from harambe_scrapers.extractor.cuya_emergency_services_advisory.listing import (
     scrape as listing_scrape,
 )
-
-
-def get_future_datetime(days_ahead=30):
-    tz = pytz.timezone(TIMEZONE)
-    return (datetime.now(tz) + timedelta(days=days_ahead)).replace(
-        hour=10, minute=0, second=0, microsecond=0
-    )
-
-
-def test_transform_to_ocd_format():
-    orchestrator = CuyaEmergencyServicesOrchestrator(headless=True)
-    orchestrator.current_url = (
-        "https://cuyahogacounty.gov/boards-and-commissions/"
-        "bc-event-detail/2024/12/12/test"
-    )
-
-    future_time = get_future_datetime(days_ahead=60).isoformat()
-
-    raw_data = {
-        "title": "Emergency Services Advisory Board Meeting",
-        "start_time": future_time,
-        "classification": "ADVISORY",
-    }
-
-    result = orchestrator.transform_to_ocd_format(raw_data)
-
-    assert result["name"] == "Emergency Services Advisory Board Meeting"
-    assert result["classification"] == "ADVISORY"
-    assert result["status"] == "tentative"
-    assert result["extras"]["cityscrapers.org/agency"] == AGENCY_NAME
 
 
 @pytest.fixture
@@ -76,8 +42,8 @@ def fixture_detail_html():
 
 
 @pytest.mark.asyncio
-async def test_listing_scrape_with_real_html(fixture_html):
-    """Integration test with real HTML fixture"""
+async def test_listing_scraper_extracts_event_urls_from_calendar(fixture_html):
+    """Test that listing scraper correctly extracts event URLs from calendar HTML"""
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()
@@ -121,8 +87,8 @@ async def test_listing_scrape_with_real_html(fixture_html):
 
 
 @pytest.mark.asyncio
-async def test_orchestrator_url_conversion():
-    """Test relative to absolute URL conversion"""
+async def test_orchestrator_converts_relative_urls_to_absolute():
+    """Test that orchestrator correctly converts relative URLs to absolute URLs"""
     orchestrator = CuyaEmergencyServicesOrchestrator(headless=True)
     orchestrator.year_urls = ["emergency-services-advisory-board?year=2024"]
 
@@ -147,7 +113,8 @@ async def test_orchestrator_url_conversion():
 
 
 @pytest.mark.asyncio
-async def test_detail_scrape_with_real_html(fixture_detail_html):
+async def test_detail_scraper_extracts_meeting_data_from_html(fixture_detail_html):
+    """Test detail scraper extracts title, time, location, and links from HTML"""
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()

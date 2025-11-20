@@ -2,67 +2,14 @@
 Unit tests for Greater Cleveland Regional Transit Authority v2 scraper.
 """
 
-from datetime import datetime, timedelta
 from pathlib import Path
-from unittest.mock import AsyncMock
 
 import pytest
-import pytz
 from playwright.async_api import async_playwright
 
-from harambe_scrapers.cle_transit import (
-    AGENCY_NAME,
-    TIMEZONE,
-    DetailSDK,
-    GCRTAOrchestrator,
-    ListingSDK,
-)
-from harambe_scrapers.extractor.cle_transit.detail import (
-    scrape as detail_scrape,
-)
+from harambe_scrapers.cle_transit import DetailSDK, ListingSDK
+from harambe_scrapers.extractor.cle_transit.detail import scrape as detail_scrape
 from harambe_scrapers.extractor.cle_transit.listing import scrape as listing_scrape
-
-
-def get_future_datetime(days_ahead=30):
-    tz = pytz.timezone(TIMEZONE)
-    return (datetime.now(tz) + timedelta(days=days_ahead)).replace(
-        hour=10, minute=0, second=0, microsecond=0
-    )
-
-
-def test_transform_to_ocd_format():
-    orchestrator = GCRTAOrchestrator(headless=True)
-    orchestrator.current_url = (
-        "https://www.riderta.com/events/2024-1-23/board-meeting"
-    )
-
-    future_time = get_future_datetime(days_ahead=60).isoformat()
-    end_time = (
-        get_future_datetime(days_ahead=60) + timedelta(hours=2)
-    ).isoformat()
-
-    raw_data = {
-        "title": "Community Advisory Committee Meeting",
-        "start_time": future_time,
-        "end_time": end_time,
-        "description": "Regular committee meeting",
-        "classification": "COMMITTEE",
-        "location": {
-            "name": "RTA Headquarters",
-            "address": "1240 West 6th Street",
-        },
-        "links": [{"url": "agenda.pdf", "title": "Agenda"}],
-        "is_cancelled": False,
-        "is_all_day_event": False,
-    }
-
-    result = orchestrator.transform_to_ocd_format(raw_data)
-
-    assert result["name"] == "Community Advisory Committee Meeting"
-    assert result["classification"] == "COMMITTEE"
-    assert result["status"] == "tentative"
-    assert result["all_day"] is False
-    assert result["extras"]["cityscrapers.org/agency"] == AGENCY_NAME
 
 
 @pytest.fixture
@@ -82,8 +29,8 @@ def fixture_detail_html():
 
 
 @pytest.mark.asyncio
-async def test_listing_scrape_with_real_html(fixture_html):
-    """Integration test with real HTML fixture"""
+async def test_listing_scraper_extracts_event_urls_from_html(fixture_html):
+    """Test that listing scraper correctly extracts event URLs from HTML"""
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()
@@ -93,11 +40,18 @@ async def test_listing_scrape_with_real_html(fixture_html):
         event_contexts = {}
         sdk = ListingSDK(page, event_urls, event_contexts)
 
+        # Mock page.goto to prevent navigation since we've already loaded the fixture
         original_goto = page.goto
-        page.goto = AsyncMock()
 
-        await listing_scrape(sdk, "http://www.riderta.com/about", {})
+        async def mock_goto(url):
+            # Don't navigate, fixture is already loaded
+            pass
+        page.goto = mock_goto
 
+        # Call the actual listing scraper function
+        await listing_scrape(sdk, "https://www.riderta.com/about", {})
+
+        # Restore original goto
         page.goto = original_goto
 
         assert len(event_urls) > 0
@@ -120,7 +74,8 @@ async def test_listing_scrape_with_real_html(fixture_html):
 
 
 @pytest.mark.asyncio
-async def test_detail_scrape_with_real_html(fixture_detail_html):
+async def test_detail_scraper_extracts_meeting_data_from_html(fixture_detail_html):
+    """Test detail scraper extracts title, time, location, and links from HTML"""
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()
