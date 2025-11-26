@@ -91,16 +91,11 @@ def create_ocd_event(
     # Determine status
     status = determine_status(is_cancelled, start_time)
 
-    # Default location if not provided
     if location is None:
         location = {"name": "", "address": ""}
 
-    # Ensure links is a list
     if links is None:
         links = []
-
-    # Handle classification - don't modify if provided, keep as-is
-    # Different scrapers use different casing conventions
 
     now = datetime.now()
     timestamp = now.strftime("%Y-%m-%dT%H:%M:%S.%f")
@@ -109,7 +104,6 @@ def create_ocd_event(
         "_type": "event",
         "_id": ocd_id,
         "updated_at": timestamp,
-        "last_scraped_date": timestamp,
         "name": title,
         "description": description,
         "classification": classification,
