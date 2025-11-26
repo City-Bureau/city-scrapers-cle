@@ -109,10 +109,10 @@ class TestReadHarambeFromLocal:
         output_dir = tmp_path / "output"
         output_dir.mkdir()
 
-        (output_dir / "cle_planning_v2_20251110_100000.json").write_text(
+        (output_dir / "cle_planning_20251110_100000.json").write_text(
             '{"id": "old1", "name": "Old Meeting"}\n'
         )
-        (output_dir / "cle_planning_v2_20251113_120000.json").write_text(
+        (output_dir / "cle_planning_20251113_120000.json").write_text(
             '{"id": "new1", "name": "New Meeting 1"}\n'
             '{"id": "new2", "name": "New Meeting 2"}\n'
         )
@@ -127,10 +127,10 @@ class TestReadHarambeFromLocal:
         output_dir = tmp_path / "output"
         output_dir.mkdir()
 
-        (output_dir / "cle_planning_v2_20251113_120000.json").write_text(
+        (output_dir / "cle_planning_20251113_120000.json").write_text(
             '{"id": "planning1"}\n'
         )
-        (output_dir / "cle_building_v2_20251113_120000.json").write_text(
+        (output_dir / "cle_building_20251113_120000.json").write_text(
             '{"id": "building1"}\n'
         )
 
@@ -158,12 +158,12 @@ class TestFilterOutScrapers:
     def test_filter_harambe_scrapers(self):
         meetings = [
             {"id": "cle_city_council/20251113/1400/meeting"},
-            {"id": "cle_planning_v2/20251113/1400/meeting"},
-            {"id": "cle_building_standards_v2/20251113/1500/meeting"},
+            {"id": "cle_planning/20251113/1400/meeting"},
+            {"id": "cle_building_standards/20251113/1500/meeting"},
             {"id": "cle_landmarks/20251113/1600/meeting"},
         ]
 
-        scrapers_to_remove = ["cle_planning_v2", "cle_building_standards_v2"]
+        scrapers_to_remove = ["cle_planning", "cle_building_standards"]
         result = filter_out_scrapers(meetings, scrapers_to_remove)
 
         assert len(result) == 2
@@ -176,26 +176,26 @@ class TestFilterOutScrapers:
             {"id": "cle_landmarks/20251113/1600/meeting"},
         ]
 
-        result = filter_out_scrapers(meetings, ["cle_planning_v2"])
+        result = filter_out_scrapers(meetings, ["cle_planning"])
 
         assert len(result) == 2
 
     def test_filter_all_matches(self):
         meetings = [
-            {"id": "cle_planning_v2/20251113/1400/meeting"},
-            {"id": "cle_building_v2/20251113/1500/meeting"},
+            {"id": "cle_planning/20251113/1400/meeting"},
+            {"id": "cle_building/20251113/1500/meeting"},
         ]
 
-        result = filter_out_scrapers(meetings, ["cle_planning_v2", "cle_building_v2"])
+        result = filter_out_scrapers(meetings, ["cle_planning", "cle_building"])
 
         assert len(result) == 0
 
     def test_filter_with_underscore_id_field(self):
         meetings = [
-            {"_id": "cle_planning_v2/20251113/1400/meeting"},
+            {"_id": "cle_planning/20251113/1400/meeting"},
         ]
 
-        result = filter_out_scrapers(meetings, ["cle_planning_v2"])
+        result = filter_out_scrapers(meetings, ["cle_planning"])
         assert len(result) == 0
 
 
@@ -236,19 +236,15 @@ class TestDiscoverHarambeScrapersFromFiles:
         scrapers_dir = tmp_path / "harambe_scrapers"
         scrapers_dir.mkdir()
 
-        (scrapers_dir / "cle_planning.py").write_text(
-            'SCRAPER_NAME = "cle_planning_v2"\n'
-        )
-        (scrapers_dir / "cle_building.py").write_text(
-            "SCRAPER_NAME = 'cle_building_v2'\n"
-        )
+        (scrapers_dir / "cle_planning.py").write_text('SCRAPER_NAME = "cle_planning"\n')
+        (scrapers_dir / "cle_building.py").write_text("SCRAPER_NAME = 'cle_building'\n")
         (scrapers_dir / "__init__.py").write_text("")  # Should be skipped
 
         result = discover_harambe_scrapers_from_files(str(scrapers_dir))
 
         assert len(result) == 2
-        assert "cle_planning_v2" in result
-        assert "cle_building_v2" in result
+        assert "cle_planning" in result
+        assert "cle_building" in result
 
     def test_discover_missing_directory(self, tmp_path):
         result = discover_harambe_scrapers_from_files(str(tmp_path / "nonexistent"))
@@ -260,12 +256,12 @@ class TestDiscoverHarambeScrapersFromFiles:
 
         (scrapers_dir / "observers.py").write_text('SCRAPER_NAME = "should_skip"\n')
         (scrapers_dir / "utils.py").write_text('SCRAPER_NAME = "should_skip"\n')
-        (scrapers_dir / "cle_real.py").write_text('SCRAPER_NAME = "cle_real_v2"\n')
+        (scrapers_dir / "cle_real.py").write_text('SCRAPER_NAME = "cle_real"\n')
 
         result = discover_harambe_scrapers_from_files(str(scrapers_dir))
 
         assert len(result) == 1
-        assert "cle_real_v2" in result
+        assert "cle_real" in result
 
 
 if __name__ == "__main__":

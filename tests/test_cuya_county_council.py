@@ -1,83 +1,124 @@
-from datetime import datetime
-from os.path import dirname, join
+"""
+Unit tests for Cuyahoga County Council scraper.
+"""
+
+import json
+from pathlib import Path
+from unittest.mock import MagicMock, patch
 
 import pytest
-from city_scrapers_core.constants import COMMISSION
-from city_scrapers_core.utils import file_response
-from freezegun import freeze_time
+from playwright.async_api import async_playwright
 
-from city_scrapers.spiders.cuya_county_council import CuyaCountyCouncilSpider
-
-test_response = file_response(
-    join(dirname(__file__), "files", "cuya_county_council.json"),
-    url="https://www.cuyahogacounty.gov/web-interface/events?StartDate=2024-02-17T11:13:35&EndDate=2024-08-15T11:13:35&EventSchedulerViewMode=month&UICulture=&Id=175b0fba-07f2-4b3e-a794-e499e98c0a93&CurrentPageId=b38b8f62-8073-4d89-9027-e7a13e53248e&sf_site=f3ea71cd-b8c9-4a53-b0db-ee5d552472fc",  # noqa
+from harambe_scrapers.cuya_county_council import DetailSDK, ListingSDK
+from harambe_scrapers.extractor.cuya_county_council.detail import (
+    scrape as detail_scrape,
 )
-spider = CuyaCountyCouncilSpider()
-
-freezer = freeze_time("2024-04-18")
-freezer.start()
-
-parsed_items = [item for item in spider.parse(test_response)]
-parsed_item = parsed_items[0]
-freezer.stop()
+from harambe_scrapers.extractor.cuya_county_council.listing import (
+    scrape as listing_scrape,
+)
 
 
-def test_title():
-    assert (
-        parsed_item["title"]
-        == "Public Works, Procurement & Contracting Committee Meeting - 02/21/2024"  # noqa
-    )
+@pytest.fixture
+def fixture_json():
+    parent_dir = Path(__file__).parent
+    fixture_path = parent_dir / "files" / "cuya_county_council.json"
+    with open(fixture_path, "r") as f:
+        return json.load(f)
 
 
-def test_description():
-    assert parsed_item["description"] == ""
+@pytest.mark.asyncio
+async def test_listing_scraper_parses_json_api_and_generates_urls(fixture_json):
+    """Test listing scraper parses JSON API and generates event URLs correctly"""
+    event_urls = []
+    event_contexts = {}
+    sdk = ListingSDK(None, event_urls, event_contexts)
+
+    with patch(
+        "harambe_scrapers.extractor.cuya_county_council.listing.requests.get"
+    ) as mock_get:
+        mock_response = MagicMock()
+        mock_response.json.return_value = fixture_json
+        mock_get.return_value = mock_response
+
+        await listing_scrape(
+            sdk, "http://council.cuyahogacounty.us/en-US/about-council.aspx", {}
+        )
+
+        assert len(event_urls) > 0
+        assert len(event_urls) == len(fixture_json)
+
+        assert any(
+            "public-works-procurement-contracting-committee" in url
+            for url in event_urls
+        )
+
+        first_url = event_urls[0]
+        assert first_url in event_contexts
+        context = event_contexts[first_url]
+        assert "title" in context
+        assert "start_time" in context
+
+        for url in event_urls:
+            assert url.startswith(
+                "https://cuyahogacounty.gov/council/council-event-details"
+            )
 
 
-def test_start():
-    assert parsed_item["start"] == datetime(2024, 2, 21, 10, 0)
+@pytest.fixture
+def fixture_detail_html():
+    parent_dir = Path(__file__).parent
+    fixture_path = parent_dir / "files" / "cuya_county_council_detail.html"
+    with open(fixture_path, "r") as f:
+        return f.read()
 
 
-def test_end():
-    assert parsed_item["end"] is None
+@pytest.mark.asyncio
+async def test_detail_scraper_extracts_meeting_data_from_html(fixture_detail_html):
+    """Test detail scraper extracts title, location, and links from HTML"""
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
+        await page.set_content(fixture_detail_html)
 
+        sdk = DetailSDK(page)
+        # Context data that would normally come from the listing scraper
+        context = {
+            "title": "Committee of the Whole Meeting/Executive Session - 01/09/2024",
+            "description": "Regular committee meeting to discuss county business",
+            "start_time": "2024-01-09T15:00:00-05:00",
+            "is_all_day_event": False,
+        }
 
-def test_time_notes():
-    assert parsed_item["time_notes"] == ""
+        await detail_scrape(
+            sdk,
+            (
+                "https://cuyahogacounty.gov/council/council-event-details/"
+                "2024/01/09/council/committee-of-the-whole-meeting---01-09-2024"
+            ),
+            context,
+        )
 
+        assert sdk.data is not None
 
-def test_id():
-    assert (
-        parsed_item["id"]
-        == "cuya_county_council/202402211000/x/public_works_procurement_contracting_committee_meeting_02_21_2024"  # noqa
-    )
+        assert (
+            sdk.data["title"]
+            == "Committee of the Whole Meeting/Executive Session - 01/09/2024"
+        )
+        assert sdk.data["start_time"] == "2024-01-09T15:00:00-05:00"
 
+        location = sdk.data["location"]
+        assert location is not None
+        assert "2079 East 9th Street" in location["address"]
+        assert "Cleveland" in location["address"]
 
-def test_status():
-    assert parsed_item["status"] == "passed"
+        links = sdk.data["links"]
+        assert len(links) == 3
+        assert any("Agenda" in link["title"] for link in links)
+        assert any("Minutes" in link["title"] for link in links)
+        assert any("Legislation" in link["title"] for link in links)
+        assert any("20240109-ccwhl-agenda.pdf" in link["url"] for link in links)
 
+        assert sdk.data["classification"] == "COMMITTEE"
+        assert sdk.data["is_cancelled"] is False
 
-def test_location():
-    assert parsed_item["location"] == {
-        "address": "4th Floor 2079 East 9th Street",
-        "name": "C. Ellen Connally Council Chambers",
-    }
-
-
-def test_source():
-    assert (
-        parsed_item["source"]
-        == "https://www.cuyahogacounty.gov/web-interface/events?StartDate=2024-02-17T11:13:35&EndDate=2024-08-15T11:13:35&EventSchedulerViewMode=month&UICulture=&Id=175b0fba-07f2-4b3e-a794-e499e98c0a93&CurrentPageId=b38b8f62-8073-4d89-9027-e7a13e53248e&sf_site=f3ea71cd-b8c9-4a53-b0db-ee5d552472fc"  # noqa
-    )
-
-
-def test_links():
-    assert parsed_item["links"] == []
-
-
-def test_classification():
-    assert parsed_item["classification"] == COMMISSION
-
-
-@pytest.mark.parametrize("item", parsed_items)
-def test_all_day(item):
-    assert item["all_day"] is False
+        await browser.close()

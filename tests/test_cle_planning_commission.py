@@ -1,144 +1,79 @@
-from datetime import datetime
-from os.path import dirname, join
+"""
+Unit tests for Cleveland City Planning Commission scraper (Harambe-based).
+"""
 
-import pytest  # noqa
-from city_scrapers_core.constants import COMMISSION, PASSED, TENTATIVE
-from city_scrapers_core.utils import file_response
-from freezegun import freeze_time
+from pathlib import Path
+from unittest.mock import AsyncMock, MagicMock, patch
 
-from city_scrapers.spiders.cle_planning_commission import ClePlanningCommissionSpider
+import pytest
+from playwright.async_api import async_playwright
 
-test_response = file_response(
-    join(dirname(__file__), "files", "cle_planning_commission.html"),
-    url=ClePlanningCommissionSpider.start_urls[0],
+from harambe_scrapers.cle_planning_commission import (
+    AGENCY_NAME,
+    START_URL,
+    main,
+    scrape,
 )
-spider = ClePlanningCommissionSpider()
-
-freezer = freeze_time("2021-12-29")
-freezer.start()
-
-parsed_items = [item for item in spider.parse(test_response)]
-
-freezer.stop()
 
 
-def test_count():
-    assert len(parsed_items) == 28
+@pytest.mark.asyncio
+async def test_scraper_with_real_browser_and_html_fixture():
+    """
+    Integration test using real browser with HTML fixture.
+    Loads real HTML, runs scraper, and asserts parsed data.
+    """
+    fixture_path = Path(__file__).parent / "files" / "cle_planning_commission.html"
+    with open(fixture_path, "r", encoding="utf-8") as f:
+        fixture_html = f.read()
+
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
+        await page.set_content(fixture_html)
+
+        sdk = MagicMock()
+        sdk.save_data = AsyncMock()
+        sdk.page = page
+
+        await scrape(sdk, START_URL, {})
+        await browser.close()
+
+    msg = f"Expected meetings from HTML fixture, got {sdk.save_data.call_count}"
+    assert sdk.save_data.call_count >= 3, msg
+
+    all_meetings = [call[0][0] for call in sdk.save_data.call_args_list]
+
+    unique_titles = set(m["name"] for m in all_meetings)
+    assert "CITY PLANNING COMMISSION" in unique_titles
+
+    meeting_dates = [m["start_time"][:10] for m in all_meetings]
+    assert "2025-01-03" in meeting_dates or "2025-01-17" in meeting_dates
+    assert "2025-02-07" in meeting_dates or "2025-02-21" in meeting_dates
+    assert "2025-03-07" in meeting_dates or "2025-03-21" in meeting_dates
+
+    for meeting in all_meetings[:3]:
+        assert meeting["_type"] == "event"
+        assert meeting["name"] == "CITY PLANNING COMMISSION"
+        assert meeting["extras"]["cityscrapers.org/agency"] == AGENCY_NAME
+        assert meeting["timezone"] == "America/Detroit"
+        assert "classification" in meeting
+        assert "location" in meeting
 
 
-def test_title():
-    assert parsed_items[0]["title"] == spider.title
+@pytest.mark.asyncio
+async def test_main_function():
+    """Test the main function orchestration"""
+    with patch("harambe_scrapers.cle_planning_commission.SDK.run") as mock_run:
+        with patch("pathlib.Path.mkdir") as mock_mkdir:
+            with patch("builtins.open", create=True):
+                mock_run.return_value = None
 
+                await main()
 
-def test_description():
-    assert parsed_items[0]["description"] == spider.description
+                mock_mkdir.assert_called_once_with(exist_ok=True)
+                mock_run.assert_called_once()
+                call_args = mock_run.call_args
 
-
-def test_start():
-    assert parsed_items[0]["start"] == datetime(2021, 1, 15, 9, 0)
-
-
-def test_end():
-    assert parsed_items[0]["end"] is None
-
-
-def test_time_notes():
-    assert parsed_items[0]["time_notes"] == ""
-
-
-def test_id():
-    assert (
-        parsed_items[0]["id"]
-        == "cle_planning_commission/202101150900/x/city_planning_commission"
-    )
-
-
-def test_status():
-    assert parsed_items[0]["status"] == PASSED
-
-
-def test_location():
-    assert parsed_items[0]["location"] == spider.location
-
-
-def test_source():
-    assert parsed_items[0]["source"] == test_response.url
-
-
-def test_links():
-    assert parsed_items[0]["links"] == [
-        {
-            "href": "https://planning.clevelandohio.gov/designreview/drcagenda/2021/PDF/CPC-Agenda-WebEx-meeting-011521.pdf",  # noqa
-            "title": "Agenda",
-        }
-    ]
-    # do a second test for a meeting that has a presentation as well
-    assert parsed_items[2]["links"] == [
-        {
-            "href": "https://planning.clevelandohio.gov/designreview/drcagenda/2021/PDF/CPC-Agenda-WebEx-meeting-021921.pdf",  # noqa
-            "title": "Agenda",
-        },
-        {
-            "href": "https://planning.clevelandohio.gov/designreview/drcagenda/2021/PDF/CPC-presentation-02-19-2021.pdf",  # noqa
-            "title": "Presentation",
-        },
-    ]
-
-
-def test_classification():
-    assert parsed_items[0]["classification"] == COMMISSION
-
-
-def test_all_day():
-    assert parsed_items[0]["all_day"] is False
-
-
-def test_future_meeting_title():
-    assert parsed_items[-1]["title"] == spider.title
-
-
-def test_future_meeting_description():
-    assert parsed_items[-1]["description"] == spider.calculated_description
-
-
-def test_future_meeting_start():
-    assert parsed_items[-1]["start"] == datetime(2022, 2, 4, 9, 0)
-
-
-def test_future_meeting_end():
-    assert parsed_items[-1]["end"] is None
-
-
-def test_future_meeting_time_notes():
-    assert parsed_items[-1]["time_notes"] == ""
-
-
-def test_future_meeting_id():
-    assert (
-        parsed_items[-1]["id"]
-        == "cle_planning_commission/202202040900/x/city_planning_commission"
-    )
-
-
-def test_future_meeting_status():
-    assert parsed_items[-1]["status"] == TENTATIVE
-
-
-def test_future_meeting_location():
-    assert parsed_items[0]["location"] == spider.location
-
-
-def test_future_meeting_source():
-    assert parsed_items[-1]["source"] == test_response.url
-
-
-def test_future_meeting_links():
-    assert len(parsed_items[-1]["links"]) == 0
-
-
-def test_future_meeting_classification():
-    assert parsed_items[-1]["classification"] == COMMISSION
-
-
-def test_future_meeting_all_day():
-    assert parsed_items[-1]["all_day"] is False
+                assert "observer" in call_args[1]
+                assert "harness" in call_args[1]
+                assert call_args[1]["headless"] is True

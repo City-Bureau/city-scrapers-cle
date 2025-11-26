@@ -17,7 +17,7 @@ from harambe_scrapers.observers import DataCollector
 from harambe_scrapers.utils import create_ocd_event
 
 OUTPUT_DIR = Path("harambe_scrapers/output")
-SCRAPER_NAME = "cle_transit_v2"
+SCRAPER_NAME = "cle_transit"
 AGENCY_NAME = "Greater Cleveland Regional Transit Authority"
 TIMEZONE = "America/Detroit"
 START_URL = "http://www.riderta.com/about"

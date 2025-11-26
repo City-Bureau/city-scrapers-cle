@@ -24,7 +24,7 @@ from harambe_scrapers.observers import DataCollector
 from harambe_scrapers.utils import create_ocd_event
 
 OUTPUT_DIR = Path("harambe_scrapers/output")
-SCRAPER_NAME = "cuya_emergency_services_advisory_v2"
+SCRAPER_NAME = "cuya_emergency_services_advisory"
 AGENCY_NAME = "Cuyahoga County Emergency Services Advisory Board"
 TIMEZONE = "America/Detroit"
 START_URL = "https://bc.cuyahogacounty.us/en-US/CC-EmergencySrvcsAdvsryBrd.aspx"

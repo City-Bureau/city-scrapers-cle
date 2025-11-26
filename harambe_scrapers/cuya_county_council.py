@@ -21,7 +21,7 @@ from harambe_scrapers.observers import DataCollector
 from harambe_scrapers.utils import create_ocd_event
 
 OUTPUT_DIR = Path("harambe_scrapers/output")
-SCRAPER_NAME = "cuya_county_council_v2"
+SCRAPER_NAME = "cuya_county_council"
 AGENCY_NAME = "Cuyahoga County Council"
 TIMEZONE = "America/Detroit"
 START_URL = "http://council.cuyahogacounty.us/en-US/about-council.aspx"

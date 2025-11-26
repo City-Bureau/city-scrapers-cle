@@ -1,89 +1,76 @@
-from datetime import datetime
-from operator import itemgetter
-from os.path import dirname, join
+"""
+Unit tests for Cleveland Board of Building Standards scraper (Harambe-based).
+"""
 
-import pytest  # noqa
-from city_scrapers_core.constants import BOARD, PASSED
-from city_scrapers_core.utils import file_response
-from freezegun import freeze_time
+from pathlib import Path
+from unittest.mock import AsyncMock, MagicMock, patch
 
-from city_scrapers.spiders.cle_building_standards import CleBuildingStandardsSpider
+import pytest
+from playwright.async_api import async_playwright
 
-test_response = file_response(
-    join(dirname(__file__), "files", "cle_building_standards.html"),
-    url="http://planning.city.cleveland.oh.us/bza/bbs.html",
-)
-spider = CleBuildingStandardsSpider()
-
-freezer = freeze_time("2019-09-11")
-freezer.start()
-
-parsed_items = sorted(
-    [item for item in spider.parse(test_response)], key=itemgetter("start")
-)
-
-freezer.stop()
+from harambe_scrapers.cle_building_standards import AGENCY_NAME, START_URL, main, scrape
 
 
-def test_count():
-    assert len(parsed_items) == 18
+@pytest.mark.asyncio
+async def test_scraper_with_real_browser_and_html_fixture():
+    """
+    Integration test using real browser with HTML fixture.
+    Loads real HTML, runs scraper, and asserts parsed data.
+    """
+    fixture_path = Path(__file__).parent / "files" / "cle_building_standards.html"
+    with open(fixture_path, "r", encoding="utf-8") as f:
+        fixture_html = f.read()
+
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
+        await page.set_content(fixture_html)
+
+        sdk = MagicMock()
+        sdk.save_data = AsyncMock()
+        sdk.page = page
+
+        async def mock_goto(url, **kwargs):
+            await page.set_content(fixture_html)
+
+        page.goto = mock_goto
+
+        await scrape(sdk, START_URL, {})
+        await browser.close()
+
+    msg = f"Expected meetings from HTML fixture, got {sdk.save_data.call_count}"
+    assert sdk.save_data.call_count >= 3, msg
+
+    all_meetings = [call[0][0] for call in sdk.save_data.call_args_list]
+
+    meeting_dates = [m["start_time"][:10] for m in all_meetings]
+    assert "2019-10-02" in meeting_dates
+    assert "2019-09-18" in meeting_dates
+    assert "2019-09-04" in meeting_dates
+
+    for meeting in all_meetings[:3]:
+        assert meeting["_type"] == "event"
+        assert meeting["extras"]["cityscrapers.org/agency"] == AGENCY_NAME
+        assert meeting["timezone"] == "America/Detroit"
+        assert "classification" in meeting
+        assert "location" in meeting
+        assert "start_time" in meeting
 
 
-def test_title():
-    assert (
-        parsed_items[0]["title"] == "Board of Building Standards and Building Appeals"
-    )
+@pytest.mark.asyncio
+async def test_main_function():
+    """Test the main function orchestration"""
+    with patch("harambe_scrapers.cle_building_standards.SDK.run") as mock_run:
+        with patch("pathlib.Path.mkdir") as mock_mkdir:
+            with patch("builtins.open", create=True):
+                mock_run.return_value = None
 
+                await main()
 
-def test_description():
-    assert parsed_items[0]["description"] == ""
+                mock_mkdir.assert_called_once_with(exist_ok=True)
+                mock_run.assert_called_once()
+                call_args = mock_run.call_args
 
-
-def test_start():
-    assert parsed_items[0]["start"] == datetime(2019, 1, 23, 9, 30)
-
-
-def test_end():
-    assert parsed_items[0]["end"] is None
-
-
-def test_time_notes():
-    assert parsed_items[0]["time_notes"] == ""
-
-
-def test_id():
-    assert (
-        parsed_items[0]["id"]
-        == "cle_building_standards/201901230930/x/board_of_building_standards_and_building_appeals"  # noqa
-    )
-
-
-def test_status():
-    assert parsed_items[0]["status"] == PASSED
-
-
-def test_location():
-    assert parsed_items[0]["location"] == spider.location
-
-
-def test_source():
-    assert (
-        parsed_items[0]["source"] == "http://planning.city.cleveland.oh.us/bza/bbs.html"
-    )
-
-
-def test_links():
-    assert parsed_items[0]["links"] == [
-        {
-            "href": "http://planning.city.cleveland.oh.us/bza/bbs/agenda/2019/AGENDA01232019.pdf",  # noqa
-            "title": "Agenda",
-        }
-    ]
-
-
-def test_classification():
-    assert parsed_items[0]["classification"] == BOARD
-
-
-def test_all_day():
-    assert parsed_items[0]["all_day"] is False
+                assert "observer" in call_args[1]
+                assert "harness" in call_args[1]
+                assert call_args[1]["headless"] is True

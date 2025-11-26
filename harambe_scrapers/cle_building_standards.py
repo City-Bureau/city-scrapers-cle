@@ -12,10 +12,9 @@ from playwright.async_api import Page
 from harambe_scrapers.observers import DataCollector
 from harambe_scrapers.utils import create_ocd_event
 
-# Configuration
 START_URL = "https://planning.clevelandohio.gov/bza/bbs.html"
 OUTPUT_DIR = Path("harambe_scrapers/output")
-SCRAPER_NAME = "cle_building_standards_v2"
+SCRAPER_NAME = "cle_building_standards"
 AGENCY_NAME = "Cleveland Board of Building Standards and Building Appeals"
 TIMEZONE = "America/Detroit"
 
@@ -275,7 +274,7 @@ async def main():
     print("=" * 70)
 
     if observer.data:
-        fname = f"cle_building_standards_v2_{datetime.now():%Y%m%d_%H%M%S}.json"
+        fname = f"cle_building_standards_{datetime.now():%Y%m%d_%H%M%S}.json"
         output_file = OUTPUT_DIR / fname
         # Write JSONLINES format - one JSON object per line
         with open(output_file, "w") as f:
