@@ -238,9 +238,18 @@ def discover_harambe_scrapers_from_files(
             with open(py_file, "r") as f:
                 content = f.read()
                 match = re.search(r'SCRAPER_NAME\s*=\s*["\']([^"\']+)["\']', content)
+                if not match:
+                    match = re.search(
+                        r'SCRAPER_NAME\s*=\s*\(\s*["\']([^"\']+)["\']',
+                        content,
+                        re.DOTALL,
+                    )
                 if match:
                     scraper_name = match.group(1)
-                    scrapers.append(scraper_name)
+                    if "," in scraper_name:
+                        scrapers.extend(scraper_name.split(","))
+                    else:
+                        scrapers.append(scraper_name)
         except Exception as e:
             print(f"  ⚠ Error reading {py_file.name}: {e}")
 

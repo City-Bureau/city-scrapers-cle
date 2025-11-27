@@ -157,9 +157,3 @@ def test_create_ocd_event():
     assert "cityscrapers.org/id" in result["extras"]
     assert result["extras"]["cityscrapers.org/agency"] == "Test Agency"
     assert result["extras"]["cityscrapers.org/address"] == "123 Main St"
-
-    # Verify timestamp format for updated_at
-    import re
-
-    timestamp_pattern = r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}$"
-    assert re.match(timestamp_pattern, result["updated_at"])

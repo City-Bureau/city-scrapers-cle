@@ -7,6 +7,8 @@ import hashlib
 import re
 from datetime import datetime
 
+import pytz
+
 
 def slugify(text):
     """Convert text to URL slug format"""
@@ -97,13 +99,13 @@ def create_ocd_event(
     if links is None:
         links = []
 
-    now = datetime.now()
-    timestamp = now.strftime("%Y-%m-%dT%H:%M:%S.%f")
+    tz = pytz.timezone(timezone)
+    updated_at = tz.localize(datetime.now()).isoformat(timespec="seconds")
 
     return {
         "_type": "event",
         "_id": ocd_id,
-        "updated_at": timestamp,
+        "updated_at": updated_at,
         "name": title,
         "description": description,
         "classification": classification,

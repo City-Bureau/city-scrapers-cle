@@ -264,5 +264,42 @@ class TestDiscoverHarambeScrapersFromFiles:
         assert "cle_real" in result
 
 
+def test_discover_handles_comma_separated(tmp_path):
+    """Test discover_harambe_scrapers_from_files handles comma-separated names."""
+    scrapers_dir = tmp_path / "harambe_scrapers"
+    scrapers_dir.mkdir()
+
+    (scrapers_dir / "cle_transit.py").write_text('SCRAPER_NAME = "cle_transit"\n')
+
+    (scrapers_dir / "multi_scraper.py").write_text(
+        'SCRAPER_NAME = "scraper1,scraper2,scraper3"\n'
+    )
+
+    result = discover_harambe_scrapers_from_files(str(scrapers_dir))
+
+    assert "cle_transit" in result
+    assert "scraper1" in result
+    assert "scraper2" in result
+    assert "scraper3" in result
+    assert len(result) == 4
+
+
+def test_discover_handles_multiline_scraper_name(tmp_path):
+    """Test discovering SCRAPER_NAME with multi-line format"""
+    scrapers_dir = tmp_path / "harambe_scrapers"
+    scrapers_dir.mkdir()
+
+    (scrapers_dir / "multi_scraper.py").write_text(
+        "SCRAPER_NAME = (\n" '    "scraper1,scraper2,scraper3"\n' ")\n"
+    )
+
+    result = discover_harambe_scrapers_from_files(str(scrapers_dir))
+
+    assert "scraper1" in result
+    assert "scraper2" in result
+    assert "scraper3" in result
+    assert len(result) == 3
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
