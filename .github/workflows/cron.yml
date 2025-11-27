@@ -93,7 +93,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         if: ${{ failure() }}
 
-  crawl_v2:
+  crawl_harambe:
     needs: [crawl]
     runs-on: ubuntu-latest
     steps:
@@ -113,10 +113,10 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .venv
-          key: v2-3.12-${{ hashFiles('**/Pipfile.lock') }}
+          key: harambe-3.12-${{ hashFiles('**/Pipfile.lock') }}
           restore-keys: |
-            v2-3.12-
-            v2-pip-
+            harambe-3.12-
+            harambe-pip-
 
       - name: Check and conditionally remove invalid virtual environment
         run: |
@@ -137,44 +137,10 @@ jobs:
       - name: Install Playwright browsers
         run: pipenv run playwright install chromium
 
-      - name: Run v2 scrapers
+      - name: Run Harambe scrapers
         run: |
           export PYTHONPATH=$(pwd):$PYTHONPATH
           ./.deploy-harambe.sh
-
-      - name: Verify v2 scraper output in Azure
-        run: |
-          pip install azure-storage-blob --quiet
-
-          python -c "
-          from azure.storage.blob import BlobServiceClient
-          from datetime import datetime
-          import os
-          import sys
-
-          account_name = os.getenv('AZURE_ACCOUNT_NAME')
-          account_key = os.getenv('AZURE_ACCOUNT_KEY')
-          container = os.getenv('AZURE_CONTAINER')
-
-          conn_str = f'DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net'
-          blob_service = BlobServiceClient.from_connection_string(conn_str)
-          container_client = blob_service.get_container_client(container)
-
-          now = datetime.now()
-          prefix = f'{now.year}/{now.month:02d}/{now.day:02d}/'
-
-          blobs = list(container_client.list_blobs(name_starts_with=prefix))
-          v2_blobs = [b for b in blobs if any(x in b.name for x in ['cle_planning_commission_v2', 'cle_building_standards_v2', 'cuya_arts_culture_v2'])]
-
-          if v2_blobs:
-              total_size = sum(b.size for b in v2_blobs)
-              print(f'✅ Azure upload successful: {len(v2_blobs)} v2 scraper blob(s), {total_size:,} bytes total')
-              for blob in v2_blobs:
-                  print(f'  - {blob.name} ({blob.size:,} bytes)')
-          else:
-              print(f'❌ Azure upload failed: No v2 scraper blobs found for {prefix}')
-              sys.exit(1)  # Fail the job to alert about upload issues
-          "
 
       - name: Merge conventional and Harambe outputs
         run: |
