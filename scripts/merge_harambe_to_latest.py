@@ -1,7 +1,6 @@
 import json
 import os
 import re
-from datetime import datetime
 from pathlib import Path
 from typing import Dict, List
 
@@ -16,8 +15,7 @@ except ImportError:
 
 # Configuration Constants
 DEFAULT_CONTAINER = "meetings-feed-cle"
-DEFAULT_OUTPUT_BLOB = "latest_v2.json"
-PRODUCTION_OUTPUT_BLOB = "latest.json"
+OUTPUT_BLOB = "latest.json"
 LOCAL_OUTPUT_DIR = "harambe_scrapers/output"
 HARAMBE_SCRAPERS_DIR = "harambe_scrapers"
 LATEST_JSON_NAME = "latest.json"
@@ -142,77 +140,6 @@ def read_harambe_from_local(output_dir: str = LOCAL_OUTPUT_DIR) -> List[Dict]:
     return all_meetings
 
 
-def get_latest_harambe_outputs(
-    scraper_names: List[str], container_name: str = DEFAULT_CONTAINER
-) -> List[Dict]:
-    """
-    Get the LATEST run output for each Harambe scraper from today.
-    If multiple runs exist, only fetch the most recent one per scraper.
-
-    Args:
-        scraper_names: List of Harambe scraper names to fetch
-        container_name: Azure container name
-
-    Returns:
-        List of meeting dictionaries from the latest run of each scraper
-    """
-    if not AZURE_AVAILABLE:
-        raise ImportError("azure-storage-blob is required")
-
-    account_name = os.getenv("AZURE_ACCOUNT_NAME")
-    account_key = os.getenv("AZURE_ACCOUNT_KEY")
-
-    if not account_name or not account_key:
-        raise ValueError("AZURE_ACCOUNT_NAME and AZURE_ACCOUNT_KEY required")
-
-    conn_str = (
-        f"DefaultEndpointsProtocol=https;"
-        f"AccountName={account_name};"
-        f"AccountKey={account_key};"
-        f"EndpointSuffix=core.windows.net"
-    )
-
-    blob_service = BlobServiceClient.from_connection_string(conn_str)
-    container_client = blob_service.get_container_client(container_name)
-
-    all_meetings = []
-    now = datetime.now()
-    today_prefix = f"{now.year}/{now.month:02d}/{now.day:02d}"
-
-    print(f"\nFetching latest Harambe outputs from {today_prefix}/...")
-
-    for scraper_name in scraper_names:
-        print(f"  Looking for {scraper_name}...")
-
-        matching_blobs = []
-        blobs = container_client.list_blobs(name_starts_with=today_prefix)
-
-        for blob in blobs:
-            if scraper_name in blob.name and blob.name.endswith(".json"):
-                matching_blobs.append(blob)
-
-        if not matching_blobs:
-            print(f"    ⚠ No runs found for {scraper_name} today")
-            continue
-
-        latest_blob = max(matching_blobs, key=lambda b: b.last_modified)
-        print(f"    ✓ Using {latest_blob.name} (modified: {latest_blob.last_modified})")
-
-        blob_client = container_client.get_blob_client(latest_blob.name)
-        content = blob_client.download_blob().readall().decode("utf-8")
-
-        for line in content.strip().split("\n"):
-            if line:
-                try:
-                    meeting = json.loads(line)
-                    all_meetings.append(meeting)
-                except json.JSONDecodeError as e:
-                    print(f"    ⚠ Failed to parse line: {e}")
-
-    print(f"  ✓ Found {len(all_meetings)} Harambe meetings total")
-    return all_meetings
-
-
 def filter_out_scrapers(meetings: List[Dict], scraper_names: List[str]) -> List[Dict]:
     """
     Remove all meetings from specified scrapers.
@@ -244,7 +171,7 @@ def filter_out_scrapers(meetings: List[Dict], scraper_names: List[str]) -> List[
 
 def upload_to_azure(
     data: List[Dict],
-    blob_name: str = DEFAULT_OUTPUT_BLOB,
+    blob_name: str = OUTPUT_BLOB,
     container_name: str = DEFAULT_CONTAINER,
 ) -> None:
     """
@@ -320,57 +247,6 @@ def discover_harambe_scrapers_from_files(
     return scrapers
 
 
-def auto_detect_harambe_scrapers(container_name: str = DEFAULT_CONTAINER) -> List[str]:
-    """
-    Auto-detect Harambe scrapers by looking for _v2 blobs in today's uploads.
-    Falls back to filesystem discovery if Azure detection fails.
-
-    Args:
-        container_name: Azure container name
-
-    Returns:
-        List of detected Harambe scraper names from Azure blobs
-    """
-    if not AZURE_AVAILABLE:
-        return []
-
-    account_name = os.getenv("AZURE_ACCOUNT_NAME")
-    account_key = os.getenv("AZURE_ACCOUNT_KEY")
-
-    if not account_name or not account_key:
-        return []
-
-    try:
-        conn_str = (
-            f"DefaultEndpointsProtocol=https;"
-            f"AccountName={account_name};"
-            f"AccountKey={account_key};"
-            f"EndpointSuffix=core.windows.net"
-        )
-
-        blob_service = BlobServiceClient.from_connection_string(conn_str)
-        container_client = blob_service.get_container_client(container_name)
-
-        now = datetime.now()
-        today_prefix = f"{now.year}/{now.month:02d}/{now.day:02d}"
-
-        scrapers = set()
-        blobs = container_client.list_blobs(name_starts_with=today_prefix)
-
-        for blob in blobs:
-            if "_v2" in blob.name and blob.name.endswith(".json"):
-                parts = blob.name.split("/")
-                if len(parts) >= 5:
-                    filename = parts[-1]
-                    scraper_name = filename.replace(".json", "")
-                    scrapers.add(scraper_name)
-
-        return list(scrapers)
-    except Exception as e:
-        print(f"  ⚠ Azure auto-detection failed: {e}")
-        return []
-
-
 def main():
     print("=" * 70)
     print("Merging Harambe Scraper Outputs with Production latest.json")
@@ -378,30 +254,16 @@ def main():
     print()
 
     container_name = os.getenv("AZURE_CONTAINER", DEFAULT_CONTAINER)
-    output_blob = os.getenv("OUTPUT_BLOB", DEFAULT_OUTPUT_BLOB)
+    output_blob = os.getenv("OUTPUT_BLOB", OUTPUT_BLOB)
 
     print("Configuration:")
     print(f"  Container: {container_name}")
     print(f"  Output blob: {output_blob}")
-    if output_blob == "latest_v2.json":
-        print(f"  ⚠ Using TEST mode - outputs to {output_blob}")
-        print("  💡 Set OUTPUT_BLOB=latest.json for production cutover")
-    else:
-        print(f"  ⚠ PRODUCTION mode - will overwrite {output_blob}!")
+    print(f"  ⚠ Will update production {output_blob}")
     print()
 
-    harambe_scrapers = auto_detect_harambe_scrapers(container_name)
-
-    if harambe_scrapers:
-        print(f"Auto-detected Harambe scrapers from Azure: {harambe_scrapers}")
-    else:
-        print("  Azure auto-detection returned no scrapers, checking filesystem...")
-        harambe_scrapers = discover_harambe_scrapers_from_files(HARAMBE_SCRAPERS_DIR)
-        if harambe_scrapers:
-            print(f"Discovered Harambe scrapers from files: {harambe_scrapers}")
-        else:
-            print("  ⚠ Warning: No Harambe scrapers found!")
-            print("  The merge will only include conventional scraper data.")
+    harambe_scrapers = discover_harambe_scrapers_from_files(HARAMBE_SCRAPERS_DIR)
+    print(f"Harambe scrapers to process: {len(harambe_scrapers)} scrapers")
 
     print()
 
@@ -418,8 +280,10 @@ def main():
     harambe_meetings = read_harambe_from_local(LOCAL_OUTPUT_DIR)
 
     if not harambe_meetings:
-        print("\n  ⚠ No local files found, fetching from Azure...")
-        harambe_meetings = get_latest_harambe_outputs(harambe_scrapers, container_name)
+        print("\n✗ ERROR: No Harambe output files found in local directory")
+        print(f"  Expected location: {LOCAL_OUTPUT_DIR}")
+        print("  Make sure Harambe scrapers have run before this merge step")
+        exit(1)
 
     print("\nMerging data...")
     merged = cleaned_meetings + harambe_meetings
