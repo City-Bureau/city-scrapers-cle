@@ -1,6 +1,5 @@
 import json
 import os
-import re
 from pathlib import Path
 from typing import Dict, List
 
@@ -17,7 +16,6 @@ except ImportError:
 DEFAULT_CONTAINER = "meetings-feed-cle"
 OUTPUT_BLOB = "latest.json"
 LOCAL_OUTPUT_DIR = "harambe_scrapers/output"
-HARAMBE_SCRAPERS_DIR = "harambe_scrapers"
 LATEST_JSON_NAME = "latest.json"
 
 
@@ -210,52 +208,6 @@ def upload_to_azure(
     print(f"\n✓ Uploaded to {blob_name} ({len(data)} meetings)")
 
 
-def discover_harambe_scrapers_from_files(
-    scrapers_dir: str = HARAMBE_SCRAPERS_DIR,
-) -> List[str]:
-    """
-    Discover Harambe scrapers by reading SCRAPER_NAME from Python files.
-    This provides a fallback when Azure auto-detection fails.
-
-    Args:
-        scrapers_dir: Directory containing Harambe scraper Python files
-
-    Returns:
-        List of discovered scraper names from SCRAPER_NAME constants
-    """
-    scrapers = []
-    scrapers_path = Path(scrapers_dir)
-
-    if not scrapers_path.exists():
-        print(f"  ⚠ Harambe scrapers directory not found: {scrapers_dir}")
-        return []
-
-    for py_file in scrapers_path.glob("*.py"):
-        if py_file.name in ["__init__.py", "observers.py", "utils.py"]:
-            continue
-
-        try:
-            with open(py_file, "r") as f:
-                content = f.read()
-                match = re.search(r'SCRAPER_NAME\s*=\s*["\']([^"\']+)["\']', content)
-                if not match:
-                    match = re.search(
-                        r'SCRAPER_NAME\s*=\s*\(\s*["\']([^"\']+)["\']',
-                        content,
-                        re.DOTALL,
-                    )
-                if match:
-                    scraper_name = match.group(1)
-                    if "," in scraper_name:
-                        scrapers.extend(scraper_name.split(","))
-                    else:
-                        scrapers.append(scraper_name)
-        except Exception as e:
-            print(f"  ⚠ Error reading {py_file.name}: {e}")
-
-    return scrapers
-
-
 def main():
     print("=" * 70)
     print("Merging Harambe Scraper Outputs with Production latest.json")
@@ -271,7 +223,15 @@ def main():
     print(f"  ⚠ Will update production {output_blob}")
     print()
 
-    harambe_scrapers = discover_harambe_scrapers_from_files(HARAMBE_SCRAPERS_DIR)
+    harambe_scrapers = [
+        "cle_building_standards",
+        "cle_planning_commission",
+        "cle_transit",
+        "cuya_arts_culture",
+        "cuya_county_council",
+        "cuya_emergency_services_advisory",
+    ]
+
     print(f"Harambe scrapers to process: {len(harambe_scrapers)} scrapers")
 
     print()

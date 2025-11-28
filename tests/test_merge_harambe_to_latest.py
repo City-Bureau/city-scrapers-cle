@@ -16,7 +16,6 @@ from unittest.mock import Mock, patch
 import pytest
 
 from scripts.merge_harambe_to_latest import (
-    discover_harambe_scrapers_from_files,
     download_latest_from_azure,
     filter_out_scrapers,
     read_harambe_from_local,
@@ -227,78 +226,6 @@ class TestUploadToAzure:
         assert len(lines) == 2
         assert json.loads(lines[0])["id"] == "meeting1"
         assert json.loads(lines[1])["id"] == "meeting2"
-
-
-class TestDiscoverHarambeScrapersFromFiles:
-    """Test discovering scraper names from Python files."""
-
-    def test_discover_from_files(self, tmp_path):
-        scrapers_dir = tmp_path / "harambe_scrapers"
-        scrapers_dir.mkdir()
-
-        (scrapers_dir / "cle_planning.py").write_text('SCRAPER_NAME = "cle_planning"\n')
-        (scrapers_dir / "cle_building.py").write_text("SCRAPER_NAME = 'cle_building'\n")
-        (scrapers_dir / "__init__.py").write_text("")  # Should be skipped
-
-        result = discover_harambe_scrapers_from_files(str(scrapers_dir))
-
-        assert len(result) == 2
-        assert "cle_planning" in result
-        assert "cle_building" in result
-
-    def test_discover_missing_directory(self, tmp_path):
-        result = discover_harambe_scrapers_from_files(str(tmp_path / "nonexistent"))
-        assert result == []
-
-    def test_discover_skip_utility_files(self, tmp_path):
-        scrapers_dir = tmp_path / "harambe_scrapers"
-        scrapers_dir.mkdir()
-
-        (scrapers_dir / "observers.py").write_text('SCRAPER_NAME = "should_skip"\n')
-        (scrapers_dir / "utils.py").write_text('SCRAPER_NAME = "should_skip"\n')
-        (scrapers_dir / "cle_real.py").write_text('SCRAPER_NAME = "cle_real"\n')
-
-        result = discover_harambe_scrapers_from_files(str(scrapers_dir))
-
-        assert len(result) == 1
-        assert "cle_real" in result
-
-
-def test_discover_handles_comma_separated(tmp_path):
-    """Test discover_harambe_scrapers_from_files handles comma-separated names."""
-    scrapers_dir = tmp_path / "harambe_scrapers"
-    scrapers_dir.mkdir()
-
-    (scrapers_dir / "cle_transit.py").write_text('SCRAPER_NAME = "cle_transit"\n')
-
-    (scrapers_dir / "multi_scraper.py").write_text(
-        'SCRAPER_NAME = "scraper1,scraper2,scraper3"\n'
-    )
-
-    result = discover_harambe_scrapers_from_files(str(scrapers_dir))
-
-    assert "cle_transit" in result
-    assert "scraper1" in result
-    assert "scraper2" in result
-    assert "scraper3" in result
-    assert len(result) == 4
-
-
-def test_discover_handles_multiline_scraper_name(tmp_path):
-    """Test discovering SCRAPER_NAME with multi-line format"""
-    scrapers_dir = tmp_path / "harambe_scrapers"
-    scrapers_dir.mkdir()
-
-    (scrapers_dir / "multi_scraper.py").write_text(
-        "SCRAPER_NAME = (\n" '    "scraper1,scraper2,scraper3"\n' ")\n"
-    )
-
-    result = discover_harambe_scrapers_from_files(str(scrapers_dir))
-
-    assert "scraper1" in result
-    assert "scraper2" in result
-    assert "scraper3" in result
-    assert len(result) == 3
 
 
 if __name__ == "__main__":
