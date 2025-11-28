@@ -15,7 +15,7 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        python-version: [3.11]
+        python-version: [3.12]
 
     steps:
       - uses: actions/checkout@v1
@@ -55,7 +55,7 @@ jobs:
 
       - name: Set up playwright
         run: |
-          pipenv run playwright install firefox
+          pipenv run playwright install firefox chromium
 
       - name: Check imports with isort
         run: pipenv run isort . --check-only

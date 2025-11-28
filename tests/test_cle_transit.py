@@ -1,101 +1,113 @@
-from datetime import datetime
-from os.path import dirname, join
+"""
+Unit tests for Greater Cleveland Regional Transit Authority scraper.
+"""
 
-import pytest  # noqa
-from city_scrapers_core.constants import BOARD, PASSED
-from city_scrapers_core.utils import file_response
-from freezegun import freeze_time
+from pathlib import Path
 
-from city_scrapers.spiders.cle_transit import CleTransitSpider
+import pytest
+from playwright.async_api import async_playwright
 
-test_response_meetings = file_response(
-    join(dirname(__file__), "files", "cle_transit.html"),
-    url="https://www.riderta.com/board",
-)
-test_response_meeting = file_response(
-    join(dirname(__file__), "files", "cle_transit_meeting.html"),
-    url="https://www.riderta.com/events/2024/7/30/board-meeting",
-)
-spider = CleTransitSpider()
-
-freezer = freeze_time("2024-09-12")
-freezer.start()
-
-parsed_items = [item for item in spider._parse(test_response_meetings)]
-parsed_item = next(spider._parse_meeting(test_response_meeting))
-
-freezer.stop()
+from harambe_scrapers.cle_transit import DetailSDK, ListingSDK
+from harambe_scrapers.extractor.cle_transit.detail import scrape as detail_scrape
+from harambe_scrapers.extractor.cle_transit.listing import scrape as listing_scrape
 
 
-def test_count():
-    assert len(parsed_items) == 37
+@pytest.fixture
+def fixture_html():
+    parent_dir = Path(__file__).parent
+    fixture_path = parent_dir / "files" / "cle_transit.html"
+    with open(fixture_path, "r") as f:
+        return f.read()
 
 
-def test_title():
-    assert parsed_item["title"] == "Board Meeting"
+@pytest.fixture
+def fixture_detail_html():
+    parent_dir = Path(__file__).parent
+    fixture_path = parent_dir / "files" / "cle_transit_meeting.html"
+    with open(fixture_path, "r") as f:
+        return f.read()
 
 
-def test_description():
-    assert parsed_item["description"] == (
-        "The RTA Board of Trustees will meet at 9 a.m. July 30, 2024 in the Main Office "  # noqa
-        "Board Room, 1240 West 6th Street, Cleveland, OH 44113. 216-356-3016, office 216-501-0242, cell"  # noqa
-    )
+@pytest.mark.asyncio
+async def test_listing_scraper_extracts_event_urls_from_html(fixture_html):
+    """Test that listing scraper correctly extracts event URLs from HTML"""
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
+        await page.set_content(fixture_html)
+
+        event_urls = []
+        event_contexts = {}
+        sdk = ListingSDK(page, event_urls, event_contexts)
+
+        # Mock page.goto to prevent navigation since we've already loaded the fixture
+        original_goto = page.goto
+
+        async def mock_goto(url):
+            # Don't navigate, fixture is already loaded
+            pass
+
+        page.goto = mock_goto
+
+        # Call the actual listing scraper function
+        await listing_scrape(sdk, "https://www.riderta.com/about", {})
+
+        # Restore original goto
+        page.goto = original_goto
+
+        assert len(event_urls) > 0
+
+        expected_urls = [
+            "/events/2024-1-23/board-meeting",
+            "/events/2024/1/26/board-retreat",
+            "/events/2024-2-27/committee-and-board-meetings",
+            "/events/2024-3-5/committee-and-board-meetings",
+        ]
+
+        for expected_url in expected_urls:
+            assert expected_url in event_urls
+
+        first_url = event_urls[0]
+        assert first_url in event_contexts
+        assert "date" in event_contexts[first_url]
+
+        await browser.close()
 
 
-def test_start():
-    assert parsed_item["start"] == datetime(2024, 7, 30, 9, 0)
+@pytest.mark.asyncio
+async def test_detail_scraper_extracts_meeting_data_from_html(fixture_detail_html):
+    """Test detail scraper extracts title, time, location, and links from HTML"""
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
+        await page.set_content(fixture_detail_html)
 
+        sdk = DetailSDK(page)
+        await detail_scrape(
+            sdk,
+            "https://www.riderta.com/events/2024-7-30/board-meeting",
+            {"date": "Jul 30, 2024"},
+        )
 
-def test_end():
-    assert parsed_item["end"] == datetime(2024, 7, 30, 11, 0)
+        assert sdk.data is not None
 
+        assert sdk.data["title"] == "Board Meeting"
+        assert "2024-07-30" in sdk.data["start_time"]
+        assert "09:00" in sdk.data["start_time"]
+        assert "11:00" in sdk.data["end_time"]
 
-def test_time_notes():
-    assert parsed_item["time_notes"] == ""
+        location = sdk.data["location"]
+        assert location is not None
+        assert "1240 West 6th" in location["address"]
+        assert "Cleveland" in location["address"]
 
+        links = sdk.data["links"]
+        assert len(links) == 3
+        assert any("Board%26CmtPackage.pdf" in link["url"] for link in links)
+        assert any("Presentations.pdf" in link["url"] for link in links)
+        assert any("CompensationMinutes.pdf" in link["url"] for link in links)
 
-def test_id():
-    assert parsed_item["id"] == "cle_transit/202407300900/x/board_meeting"
+        assert sdk.data["classification"] == "BOARD"
+        assert sdk.data["is_cancelled"] is False
 
-
-def test_status():
-    assert parsed_item["status"] == PASSED
-
-
-def test_location():
-    assert parsed_item["location"] == {
-        "name": "",
-        "address": "1240 West 6th St, Cleveland, OH 44113",
-    }
-
-
-def test_source():
-    assert (
-        parsed_item["source"]
-        == "https://www.riderta.com/events/2024/7/30/board-meeting"
-    )
-
-
-def test_links():
-    assert parsed_item["links"] == [
-        {
-            "href": "https://www.riderta.com/sites/default/files/events/2024-07-30Board%26CmtPackage.pdf",  # noqa
-            "title": "2024-07-30Board&CmtPackage.pdf",
-        },
-        {
-            "href": "https://www.riderta.com/sites/default/files/events/2024-07-30Presentations.pdf",  # noqa
-            "title": "2024-07-30Presentations.pdf",
-        },
-        {
-            "href": "https://www.riderta.com/sites/default/files/events/2024-07-30CompensationMinutes.pdf",  # noqa
-            "title": "2024-07-30CompensationMinutes.pdf",
-        },
-    ]
-
-
-def test_classification():
-    assert parsed_item["classification"] == BOARD
-
-
-def test_all_day():
-    assert parsed_item["all_day"] is False
+        await browser.close()
