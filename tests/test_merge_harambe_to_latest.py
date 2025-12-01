@@ -6,25 +6,27 @@ Tests all core functionality including:
 - Local file reading with latest selection
 - Azure blob fetching
 - Scraper filtering
-- Dynamic scraper discovery
+- Upcoming meetings filtering
 """
 
 import json
 import os
+from datetime import datetime, timedelta
 from unittest.mock import Mock, patch
 
 import pytest
 
 from scripts.merge_harambe_to_latest import (
-    download_latest_from_azure,
+    download_blob_from_azure,
     filter_out_scrapers,
+    filter_upcoming_meetings,
     read_harambe_from_local,
     upload_to_azure,
 )
 
 
-class TestDownloadLatestFromAzure:
-    """Test downloading and parsing latest.json in JSONLINES format."""
+class TestDownloadBlobFromAzure:
+    """Test downloading and parsing blobs in JSONLINES format."""
 
     @patch("scripts.merge_harambe_to_latest.BlobServiceClient")
     def test_download_jsonlines_format(self, mock_blob_service):
@@ -46,7 +48,7 @@ class TestDownloadLatestFromAzure:
         with patch.dict(
             os.environ, {"AZURE_ACCOUNT_NAME": "test", "AZURE_ACCOUNT_KEY": "test"}
         ):
-            result = download_latest_from_azure("test-container")
+            result = download_blob_from_azure("latest.json", "test-container")
 
         assert len(result) == 3
         assert result[0]["id"] == "meeting1"
@@ -65,7 +67,7 @@ class TestDownloadLatestFromAzure:
         with patch.dict(
             os.environ, {"AZURE_ACCOUNT_NAME": "test", "AZURE_ACCOUNT_KEY": "test"}
         ):
-            result = download_latest_from_azure("test-container")
+            result = download_blob_from_azure("latest.json", "test-container")
 
         assert result == []
 
@@ -89,7 +91,7 @@ class TestDownloadLatestFromAzure:
         with patch.dict(
             os.environ, {"AZURE_ACCOUNT_NAME": "test", "AZURE_ACCOUNT_KEY": "test"}
         ):
-            result = download_latest_from_azure("test-container")
+            result = download_blob_from_azure("latest.json", "test-container")
 
         assert len(result) == 2
         assert result[0]["id"] == "meeting1"
@@ -98,7 +100,7 @@ class TestDownloadLatestFromAzure:
     def test_download_missing_credentials(self):
         with patch.dict(os.environ, {}, clear=True):
             with pytest.raises(ValueError, match="AZURE_ACCOUNT_NAME"):
-                download_latest_from_azure("test-container")
+                download_blob_from_azure("latest.json", "test-container")
 
 
 class TestReadHarambeFromLocal:
@@ -196,6 +198,59 @@ class TestFilterOutScrapers:
 
         result = filter_out_scrapers(meetings, ["cle_planning"])
         assert len(result) == 0
+
+
+class TestFilterUpcomingMeetings:
+    """Test filtering meetings for upcoming (future) meetings only."""
+
+    def test_filter_future_meetings(self):
+        tomorrow = (datetime.now() + timedelta(days=1)).isoformat()[:19]
+        yesterday = (datetime.now() - timedelta(days=2)).isoformat()[:19]
+
+        meetings = [
+            {"id": "future1", "start_time": tomorrow},
+            {"id": "past1", "start_time": yesterday},
+            {"id": "future2", "start_time": tomorrow},
+        ]
+
+        result = filter_upcoming_meetings(meetings)
+
+        assert len(result) == 2
+        assert result[0]["id"] == "future1"
+        assert result[1]["id"] == "future2"
+
+    def test_filter_all_past(self):
+        yesterday = (datetime.now() - timedelta(days=2)).isoformat()[:19]
+
+        meetings = [
+            {"id": "past1", "start_time": yesterday},
+            {"id": "past2", "start_time": yesterday},
+        ]
+
+        result = filter_upcoming_meetings(meetings)
+        assert len(result) == 0
+
+    def test_filter_all_future(self):
+        tomorrow = (datetime.now() + timedelta(days=1)).isoformat()[:19]
+
+        meetings = [
+            {"id": "future1", "start_time": tomorrow},
+            {"id": "future2", "start_time": tomorrow},
+        ]
+
+        result = filter_upcoming_meetings(meetings)
+        assert len(result) == 2
+
+    def test_filter_missing_start_time_raises_error(self):
+        tomorrow = (datetime.now() + timedelta(days=1)).isoformat()[:19]
+
+        meetings = [
+            {"id": "future1", "start_time": tomorrow},
+            {"id": "no_time"},
+        ]
+
+        with pytest.raises(KeyError):
+            filter_upcoming_meetings(meetings)
 
 
 class TestUploadToAzure:
