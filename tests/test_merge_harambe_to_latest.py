@@ -65,17 +65,17 @@ def test_read_harambe_from_local(tmp_path):
 
 
 def test_filter_out_scrapers():
-    """Test filtering meetings by scraper name, supporting both id and _id fields."""
+    """Test filtering meetings by scraper name using extras.cityscrapers.org/id."""
     meetings = [
-        {"id": "cle_council/20251113/meeting"},
-        {"id": "cle_planning/20251113/meeting"},
-        {"_id": "cle_building/20251113/meeting"},
+        {"extras": {"cityscrapers.org/id": "cle_council/20251113/meeting"}},
+        {"extras": {"cityscrapers.org/id": "cle_planning/20251113/meeting"}},
+        {"extras": {"cityscrapers.org/id": "cle_building/20251113/meeting"}},
     ]
 
     result = filter_out_scrapers(meetings, ["cle_planning", "cle_building"])
 
     assert len(result) == 1
-    assert result[0]["id"] == "cle_council/20251113/meeting"
+    assert result[0]["extras"]["cityscrapers.org/id"] == "cle_council/20251113/meeting"
 
 
 def test_filter_upcoming_meetings():

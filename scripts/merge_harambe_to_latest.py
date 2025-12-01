@@ -129,7 +129,7 @@ def filter_out_scrapers(meetings: List[Dict], scraper_names: List[str]) -> List[
     removed_count = 0
 
     for meeting in meetings:
-        meeting_id = meeting.get("id") or meeting.get("_id", "")
+        meeting_id = meeting.get("extras", {}).get("cityscrapers.org/id", "")
         is_harambe = any(scraper_name in meeting_id for scraper_name in scraper_names)
 
         if not is_harambe:
