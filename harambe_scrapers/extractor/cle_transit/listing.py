@@ -18,10 +18,7 @@ async def scrape(
         Parse meeting links and follow them.
         """
         meetings = None
-        # meeting_links = await page.locator(
-        #     "div.inserted-view > div.calendar-event-style > "
-        #     "div.view-content > .mb-4.views-row a"
-        # ).all_text_contents()
+
         if await page.query_selector(
             "div.calendar-event-style > div.view-content > .mb-4.views-row a"
         ):
@@ -29,17 +26,11 @@ async def scrape(
                 "div.calendar-event-style > div.view-content > .mb-4.views-row "
             )
 
-        # else:
-        #     meetings = await page.locator(
-        #         "div.calendar-event-style > div.view-content > .mb-4.views-row "
-        #     )
-
         if not meetings:
             # Handle the case where no links are found
             print("No meeting links found.")
             return
 
-        # deduped_meeting_links = list(set(meeting_links))
         link_set = set()
         meeting_elements = await meetings.element_handles()
         for m in meeting_elements:
@@ -51,8 +42,6 @@ async def scrape(
                 if meeting_date_element
                 else None
             )
-            # if not meeting_date:
-            # continue
             meeting_link_element = await m.query_selector("a")
             meeting_link = (
                 await meeting_link_element.get_attribute("href")
@@ -66,9 +55,6 @@ async def scrape(
                 await sdk.enqueue(meeting_link, context={"date": meeting_date})
             else:
                 await sdk.enqueue(meeting_link)
-            # meeting_date =
-            # if meeting_link:  # Ensure the link is not None or empty
-            # await sdk.enqueue(meeting_link)
 
     links = [
         "https://www.riderta.com/cac",
@@ -83,10 +69,6 @@ async def scrape(
             )
         except TimeoutError:
             pass
-            # await page.wait_for_selector(
-            #     "div.calendar-event-style > div.view-content > "
-            #     ".mb-4.views-row a[hreflang='en']"
-            # )
         await parse_meeting_links()
 
 

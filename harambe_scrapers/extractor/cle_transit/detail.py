@@ -102,12 +102,6 @@ async def scrape(
             start = parse(f"{date_match_str} {time_matches[0]}{merdiem_matches[0]}")
             end = parse(f"{date_match_str} {time_matches[1]}{merdiem_matches[0]}")
             return (start.isoformat(), end.isoformat())
-            # Parse the string into datetime object
-            dt = datetime.strptime(meeting_duration_str, "%a, %b %d %Y, %I%p")
-
-            # Format into the desired output
-            formatted = dt.strftime("%y-%m-%dT%H:%M:%S")
-            return (formatted, None)
 
     async def _parse_description():
         """Parse or generate meeting description."""
@@ -128,8 +122,6 @@ async def scrape(
             return "COMMITTEE"
         return None
 
-    # Code will be updated here
-    "\n    Parse meeting details from the page.\n    "
     try:
         await page.wait_for_selector(".content > h1.title span span")
     except TimeoutError:
