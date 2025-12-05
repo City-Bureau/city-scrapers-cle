@@ -58,24 +58,22 @@ def filter_harambe_meetings(meetings, scrapers=HARAMBE_SCRAPERS):
     ]
 
 
-def get_urls_to_archive(meeting, max_links=MAX_LINKS):
-    """Extract URLs to archive following Scrapy's logic."""
+def get_urls_to_archive(meeting):
+    """Extract URLs to archive (matching Scrapy's middleware logic exactly)."""
     urls = []
 
-    # Source URL only if contains "legistar" (not Calendar.aspx)
+    # 1. Add source URL only if contains "legistar" (not Calendar.aspx)
     sources = meeting.get("sources", [])
     if sources:
         source_url = sources[0].get("url", "")
         if "legistar" in source_url and "Calendar.aspx" not in source_url:
             urls.append(source_url)
 
-    # Random sample of links and documents (max 3 each)
-    for field in ["links", "documents"]:
-        items = meeting.get(field, [])
-        item_urls = [item.get("url") for item in items if item.get("url")]
-        if len(item_urls) > max_links:
-            item_urls = random.sample(item_urls, max_links)
-        urls.extend(item_urls)
+    # 2. Add up to MAX_LINKS random links (always, not just for legistar)
+    link_urls = [link.get("url") for link in meeting.get("links", []) if link.get("url")]
+    if len(link_urls) > MAX_LINKS:
+        link_urls = random.sample(link_urls, MAX_LINKS)
+    urls.extend(link_urls)
 
     return urls
 

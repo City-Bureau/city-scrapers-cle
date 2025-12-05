@@ -67,11 +67,10 @@ def test_filter_harambe_meetings_empty():
 
 
 def test_get_urls_to_archive_with_legistar():
-    """Test URL extraction with legistar source."""
+    """Test URL extraction with legistar source + links."""
     meeting = {
         "sources": [{"url": "https://cuyahoga.legistar.com/View.ashx?M=A&ID=123"}],
         "links": [{"url": "https://example.com/agenda.pdf"}],
-        "documents": [],
     }
 
     urls = get_urls_to_archive(meeting)
@@ -81,16 +80,16 @@ def test_get_urls_to_archive_with_legistar():
     assert urls[1] == "https://example.com/agenda.pdf"
 
 
-def test_get_urls_to_archive_no_legistar():
-    """Test URL extraction without legistar source (source not archived)."""
+def test_get_urls_to_archive_no_legistar_but_has_links():
+    """Test URL extraction without legistar source (still archives links)."""
     meeting = {
         "sources": [{"url": "https://example.gov/meetings"}],
         "links": [{"url": "https://example.com/doc1.pdf"}],
-        "documents": [],
     }
 
     urls = get_urls_to_archive(meeting)
 
+    # Source not archived (no legistar), but links are
     assert len(urls) == 1
     assert urls[0] == "https://example.com/doc1.pdf"
 
@@ -100,7 +99,6 @@ def test_get_urls_to_archive_calendar_excluded():
     meeting = {
         "sources": [{"url": "https://cuyahoga.legistar.com/Calendar.aspx"}],
         "links": [],
-        "documents": [],
     }
 
     urls = get_urls_to_archive(meeting)
@@ -119,17 +117,16 @@ def test_get_urls_to_archive_max_links():
             {"url": "https://example.com/4.pdf"},
             {"url": "https://example.com/5.pdf"},
         ],
-        "documents": [],
     }
 
-    urls = get_urls_to_archive(meeting, max_links=3)
+    urls = get_urls_to_archive(meeting)
 
     assert len(urls) == 3
 
 
 def test_get_urls_to_archive_empty():
     """Test URL extraction with empty meeting."""
-    meeting = {"sources": [], "links": [], "documents": []}
+    meeting = {"sources": [], "links": []}
 
     urls = get_urls_to_archive(meeting)
 
