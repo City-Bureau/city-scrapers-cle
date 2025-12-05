@@ -4,6 +4,7 @@ import asyncio
 import json
 import os
 import random
+from urllib.parse import unquote
 
 import aiohttp
 from azure.storage.blob import BlobServiceClient
@@ -124,25 +125,25 @@ async def archive_url(session, url, stats, delay_event):
 
             if response.status == 200:
                 archived = response.headers.get("Content-Location", str(response.url))
-                print(f"[{num}/{stats.total}] ✓ {archived}")
+                print(f"[{num}/{stats.total}] ✓ {archived}", flush=True)
                 return True
             elif response.status == 429:
-                print(f"[{num}/{stats.total}] ⏳ Rate limited, waiting 60s...")
+                print(f"[{num}/{stats.total}] ⏳ Rate limited, waiting 60s...", flush=True)
                 delay_event.set()
                 await asyncio.sleep(60)
                 delay_event.clear()
                 # Retry once
                 return await archive_url_retry(session, url, stats)
             else:
-                print(f"[{num}/{stats.total}] ✗ ({response.status}) {url[:60]}")
+                print(f"[{num}/{stats.total}] ✗ ({response.status}) {url[:60]}", flush=True)
                 return False
     except asyncio.TimeoutError:
         num = await stats.record(False)
-        print(f"[{num}/{stats.total}] ✗ Timeout: {url[:60]}")
+        print(f"[{num}/{stats.total}] ✗ Timeout: {url[:60]}", flush=True)
         return False
     except Exception as e:
         num = await stats.record(False)
-        print(f"[{num}/{stats.total}] ✗ Error: {e}")
+        print(f"[{num}/{stats.total}] ✗ Error: {e}", flush=True)
         return False
 
 
@@ -156,10 +157,10 @@ async def archive_url_retry(session, url, stats):
         ) as response:
             if response.status == 200:
                 archived = response.headers.get("Content-Location", str(response.url))
-                print(f"  ↳ Retry ✓ {archived}")
+                print(f"  ↳ Retry ✓ {archived}", flush=True)
                 return True
             else:
-                print(f"  ↳ Retry ✗ ({response.status})")
+                print(f"  ↳ Retry ✗ ({response.status})", flush=True)
                 return False
     except Exception:
         return False
@@ -183,32 +184,32 @@ async def archive_batch(urls):
 
 
 def main():
-    print(f"Harambe Archive - {CITY.upper()}")
+    print(f"Harambe Archive - {CITY.upper()}", flush=True)
 
     meetings = download_latest_json()
-    print(f"Downloaded {len(meetings)} meetings")
+    print(f"Downloaded {len(meetings)} meetings", flush=True)
 
     harambe_meetings = filter_harambe_meetings(meetings)
-    print(f"Found {len(harambe_meetings)} Harambe meetings")
+    print(f"Found {len(harambe_meetings)} Harambe meetings", flush=True)
 
     # Collect all URLs
     all_urls = []
     for meeting in harambe_meetings:
         all_urls.extend(get_urls_to_archive(meeting))
 
-    # Deduplicate
-    all_urls = list(dict.fromkeys(all_urls))
+    # Deduplicate (unquote to normalize encoding differences like space vs %20)
+    all_urls = list(set(unquote(url) for url in all_urls))
 
-    print(f"Found {len(all_urls)} unique URLs to archive")
+    print(f"Found {len(all_urls)} unique URLs to archive", flush=True)
 
     if not all_urls:
-        print("No URLs to archive. Done.")
+        print("No URLs to archive. Done.", flush=True)
         return
 
     # Run async archive
     stats = asyncio.run(archive_batch(all_urls))
 
-    print(f"\nDone: {stats.success}/{stats.total} URLs archived")
+    print(f"\nDone: {stats.success}/{stats.total} URLs archived", flush=True)
 
 
 if __name__ == "__main__":
