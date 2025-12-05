@@ -89,17 +89,19 @@ def archive_url(url, _retry=False):
             timeout=30,
         )
         if response.status_code == 200:
-            print(f"  ✓ {url[:80]}")
+            # Get archived URL from Content-Location header or final URL
+            archived = response.headers.get("Content-Location", response.url)
+            print(f"✓ {archived}")
             return True
         elif response.status_code == 429 and not _retry:
-            print("  ⏳ Rate limited, waiting 60s...")
+            print("⏳ Rate limited, waiting 60s...")
             time.sleep(60)
             return archive_url(url, _retry=True)
         else:
-            print(f"  ✗ ({response.status_code}) {url[:80]}")
+            print(f"✗ ({response.status_code}) {url[:60]}")
             return False
     except Exception as e:
-        print(f"  ✗ Error: {e}")
+        print(f"✗ Error: {e}")
         return False
 
 
