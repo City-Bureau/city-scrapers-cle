@@ -128,14 +128,19 @@ async def archive_url(session, url, stats, delay_event):
                 print(f"[{num}/{stats.total}] ✓ {archived}", flush=True)
                 return True
             elif response.status == 429:
-                print(f"[{num}/{stats.total}] ⏳ Rate limited, waiting 60s...", flush=True)
+                print(
+                    f"[{num}/{stats.total}] ⏳ Rate limited, waiting 60s...", flush=True
+                )
                 delay_event.set()
                 await asyncio.sleep(60)
                 delay_event.clear()
                 # Retry once
                 return await archive_url_retry(session, url, stats)
             else:
-                print(f"[{num}/{stats.total}] ✗ ({response.status}) {url[:60]}", flush=True)
+                print(
+                    f"[{num}/{stats.total}] ✗ ({response.status}) {url[:60]}",
+                    flush=True,
+                )
                 return False
     except asyncio.TimeoutError:
         num = await stats.record(False)
