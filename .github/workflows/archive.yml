@@ -94,7 +94,7 @@ jobs:
         run: pip install aiohttp azure-storage-blob
 
       - name: Archive Harambe URLs to Wayback Machine
-        run: python scripts/archive_harambe.py
+        run: python -u scripts/archive_harambe.py
         env:
           AZURE_ACCOUNT_NAME: ${{ secrets.AZURE_ACCOUNT_NAME }}
           AZURE_ACCOUNT_KEY: ${{ secrets.AZURE_ACCOUNT_KEY }}
