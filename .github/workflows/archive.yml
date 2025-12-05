@@ -91,7 +91,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests azure-storage-blob
+        run: pip install aiohttp azure-storage-blob
 
       - name: Archive Harambe URLs to Wayback Machine
         run: python scripts/archive_harambe.py

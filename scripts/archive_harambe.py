@@ -1,17 +1,18 @@
 """Archive Harambe scraper URLs to Wayback Machine."""
 
+import asyncio
 import json
 import os
 import random
-import time
 
-import requests
+import aiohttp
 from azure.storage.blob import BlobServiceClient
 
 CITY = "cle"
 CONTAINER = f"meetings-feed-{CITY}"
 WAYBACK_URL = "https://web.archive.org/save/"
 MAX_LINKS = 3
+MAX_CONCURRENT = 3  # Match Scrapy's concurrency
 
 HARAMBE_SCRAPERS = [
     "cle_building_standards",
@@ -58,8 +59,13 @@ def filter_harambe_meetings(meetings, scrapers=HARAMBE_SCRAPERS):
     ]
 
 
+def is_valid_url(url):
+    """Check if URL is valid (starts with http:// or https://)."""
+    return url and (url.startswith("http://") or url.startswith("https://"))
+
+
 def get_urls_to_archive(meeting):
-    """Extract URLs to archive (matching Scrapy's middleware logic exactly)."""
+    """Extract URLs to archive (matching Scrapy's middleware logic)."""
     urls = []
 
     # 1. Add source URL only if contains "legistar" (not Calendar.aspx)
@@ -69,9 +75,11 @@ def get_urls_to_archive(meeting):
         if "legistar" in source_url and "Calendar.aspx" not in source_url:
             urls.append(source_url)
 
-    # 2. Add up to MAX_LINKS random links (always, not just for legistar)
+    # 2. Add up to MAX_LINKS random links (only valid URLs)
     link_urls = [
-        link.get("url") for link in meeting.get("links", []) if link.get("url")
+        link.get("url")
+        for link in meeting.get("links", [])
+        if is_valid_url(link.get("url"))
     ]
     if len(link_urls) > MAX_LINKS:
         link_urls = random.sample(link_urls, MAX_LINKS)
@@ -80,29 +88,98 @@ def get_urls_to_archive(meeting):
     return urls
 
 
-def archive_url(url, _retry=False):
+class ArchiveStats:
+    """Track archive statistics."""
+
+    def __init__(self, total):
+        self.total = total
+        self.completed = 0
+        self.success = 0
+        self.failed = 0
+        self.lock = asyncio.Lock()
+
+    async def record(self, success):
+        async with self.lock:
+            self.completed += 1
+            if success:
+                self.success += 1
+            else:
+                self.failed += 1
+            return self.completed
+
+
+async def archive_url(session, url, stats, delay_event):
     """Submit URL to Wayback Machine. Returns True if successful."""
+    # Wait if rate limited
+    while delay_event.is_set():
+        await asyncio.sleep(1)
+
     try:
-        response = requests.get(
+        async with session.get(
             WAYBACK_URL + url,
             headers={"User-Agent": "City Scrapers Harambe Archive Bot"},
-            timeout=30,
-        )
-        if response.status_code == 200:
-            # Get archived URL from Content-Location header or final URL
-            archived = response.headers.get("Content-Location", response.url)
-            print(f"✓ {archived}")
-            return True
-        elif response.status_code == 429 and not _retry:
-            print("⏳ Rate limited, waiting 60s...")
-            time.sleep(60)
-            return archive_url(url, _retry=True)
-        else:
-            print(f"✗ ({response.status_code}) {url[:60]}")
-            return False
-    except Exception as e:
-        print(f"✗ Error: {e}")
+            timeout=aiohttp.ClientTimeout(total=30),
+        ) as response:
+            num = await stats.record(response.status == 200)
+
+            if response.status == 200:
+                archived = response.headers.get("Content-Location", str(response.url))
+                print(f"[{num}/{stats.total}] ✓ {archived}")
+                return True
+            elif response.status == 429:
+                print(f"[{num}/{stats.total}] ⏳ Rate limited, waiting 60s...")
+                delay_event.set()
+                await asyncio.sleep(60)
+                delay_event.clear()
+                # Retry once
+                return await archive_url_retry(session, url, stats)
+            else:
+                print(f"[{num}/{stats.total}] ✗ ({response.status}) {url[:60]}")
+                return False
+    except asyncio.TimeoutError:
+        num = await stats.record(False)
+        print(f"[{num}/{stats.total}] ✗ Timeout: {url[:60]}")
         return False
+    except Exception as e:
+        num = await stats.record(False)
+        print(f"[{num}/{stats.total}] ✗ Error: {e}")
+        return False
+
+
+async def archive_url_retry(session, url, stats):
+    """Single retry for rate-limited requests."""
+    try:
+        async with session.get(
+            WAYBACK_URL + url,
+            headers={"User-Agent": "City Scrapers Harambe Archive Bot"},
+            timeout=aiohttp.ClientTimeout(total=30),
+        ) as response:
+            if response.status == 200:
+                archived = response.headers.get("Content-Location", str(response.url))
+                print(f"  ↳ Retry ✓ {archived}")
+                return True
+            else:
+                print(f"  ↳ Retry ✗ ({response.status})")
+                return False
+    except Exception:
+        return False
+
+
+async def archive_batch(urls):
+    """Archive URLs concurrently with rate limit handling."""
+    stats = ArchiveStats(len(urls))
+    delay_event = asyncio.Event()
+    semaphore = asyncio.Semaphore(MAX_CONCURRENT)
+
+    async def bounded_archive(url):
+        async with semaphore:
+            return await archive_url(session, url, stats, delay_event)
+
+    async with aiohttp.ClientSession() as session:
+        tasks = [bounded_archive(url) for url in urls]
+        await asyncio.gather(*tasks)
+
+    return stats
 
 
 def main():
@@ -114,26 +191,24 @@ def main():
     harambe_meetings = filter_harambe_meetings(meetings)
     print(f"Found {len(harambe_meetings)} Harambe meetings")
 
-    # Collect all URLs to show progress
+    # Collect all URLs
     all_urls = []
     for meeting in harambe_meetings:
         all_urls.extend(get_urls_to_archive(meeting))
 
-    total_urls = len(all_urls)
-    print(f"Found {total_urls} URLs to archive")
+    # Deduplicate
+    all_urls = list(dict.fromkeys(all_urls))
 
-    if total_urls == 0:
+    print(f"Found {len(all_urls)} unique URLs to archive")
+
+    if not all_urls:
         print("No URLs to archive. Done.")
         return
 
-    archived = 0
-    for i, url in enumerate(all_urls, 1):
-        print(f"[{i}/{total_urls}] ", end="", flush=True)
-        if archive_url(url):
-            archived += 1
-        time.sleep(1.5)
+    # Run async archive
+    stats = asyncio.run(archive_batch(all_urls))
 
-    print(f"\nDone: {archived}/{total_urls} URLs archived")
+    print(f"\nDone: {stats.success}/{stats.total} URLs archived")
 
 
 if __name__ == "__main__":
