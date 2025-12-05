@@ -70,7 +70,9 @@ def get_urls_to_archive(meeting):
             urls.append(source_url)
 
     # 2. Add up to MAX_LINKS random links (always, not just for legistar)
-    link_urls = [link.get("url") for link in meeting.get("links", []) if link.get("url")]
+    link_urls = [
+        link.get("url") for link in meeting.get("links", []) if link.get("url")
+    ]
     if len(link_urls) > MAX_LINKS:
         link_urls = random.sample(link_urls, MAX_LINKS)
     urls.extend(link_urls)
