@@ -1,9 +1,12 @@
+import logging
 import re
 from datetime import datetime
 
 from city_scrapers_core.constants import COMMISSION
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
+
+logger = logging.getLogger(__name__)
 
 
 class CleLandmarksSpider(CityScrapersSpider):
@@ -70,11 +73,11 @@ class CleLandmarksSpider(CityScrapersSpider):
     def _validate_location(self, text):
         """Parse or generate location."""
         if "in a limited capacity using the WebEx Platform" not in text:
-            raise ValueError("Meeting location has changed")
+            logger.warning("Meeting location has changed")
 
     def _validate_start_time(self, text):
         if "9:00 am" not in text:
-            raise ValueError("Meeting start time has changed")
+            logger.warning("Meeting start time has changed")
 
     def _validate_day(self, day):
         """Cancelled days dont show up but are represented by **"""
