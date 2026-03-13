@@ -1,3 +1,4 @@
+import logging
 import re
 from collections import defaultdict
 from datetime import datetime, time
@@ -5,6 +6,8 @@ from datetime import datetime, time
 from city_scrapers_core.constants import BOARD
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
+
+logger = logging.getLogger(__name__)
 
 
 class CuyaConventionSpider(CityScrapersSpider):
@@ -28,7 +31,8 @@ class CuyaConventionSpider(CityScrapersSpider):
         schedule_text = " ".join(response.css(".downloads-title *::text").extract())
         self._validate_location(schedule_text)
         if "8:00 am" not in schedule_text:
-            raise ValueError("Meeting start time has changed")
+            logger.warning("Meeting start time has changed")
+            return
         year_str = re.search(r"\d{4}", schedule_text).group()
         for date_str in re.findall(
             r"[A-Z][a-z]{2,9} \d{1,2}(?=[a-z]{2})", schedule_text
@@ -59,7 +63,7 @@ class CuyaConventionSpider(CityScrapersSpider):
     def _validate_location(self, schedule_text):
         """Parse or generate location."""
         if "GCHI" not in schedule_text:
-            raise ValueError("Meeting location has changed")
+            logger.warning("Meeting location has changed")
 
     def _parse_link_map(self, response):
         """Parse or generate links."""

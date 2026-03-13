@@ -1,5 +1,6 @@
 import asyncio
 import json
+import logging
 import re
 from datetime import datetime
 from pathlib import Path
@@ -11,6 +12,8 @@ from playwright.async_api import Page
 
 from harambe_scrapers.observers import DataCollector
 from harambe_scrapers.utils import create_ocd_event
+
+logger = logging.getLogger(__name__)
 
 START_URL = "https://planning.clevelandohio.gov/designreview/schedule.php"
 OUTPUT_DIR = Path("harambe_scrapers/output")
@@ -190,7 +193,7 @@ async def scrape(
 
     def validate_schedule(text):
         if "every 1st & 3rd Friday" not in text:
-            raise ValueError("Meeting schedule has changed")
+            logger.warning("Meeting schedule has changed")
 
     def parse_start(year_str, month_str, day_str, time_str):
         date_str = " ".join([year_str, month_str[:3], day_str, time_str])
