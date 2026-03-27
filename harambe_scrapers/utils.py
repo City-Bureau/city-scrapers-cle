@@ -20,7 +20,7 @@ def slugify(text):
 
 
 def generate_id(name, start_time, scraper_name):
-    """Generate cityscrapers.org/id format."""
+    """Generate cityscrapers/id format."""
     dt = datetime.fromisoformat(start_time.replace("Z", "+00:00"))
     date_str = dt.strftime("%Y%m%d%H%M")
     name_slug = slugify(name)
@@ -132,9 +132,9 @@ def create_ocd_event(
             }
         ],
         "extras": {
-            "cityscrapers.org/id": scraper_id,
-            "cityscrapers.org/agency": agency_name,
-            "cityscrapers.org/time_notes": "",
-            "cityscrapers.org/address": location.get("address", ""),
+            "cityscrapers/id": scraper_id,
+            "cityscrapers/agency": agency_name,
+            "cityscrapers/time_notes": "",
+            "cityscrapers/address": location.get("address", ""),
         },
     }

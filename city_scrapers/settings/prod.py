@@ -3,7 +3,7 @@ import os
 from .base import *  # noqa
 
 USER_AGENT = (
-    "City Scrapers [production mode]. Learn more and say hello at cityscrapers.org"
+    "City Scrapers [production mode]. Learn more and say hello at city-scrapers.org"
 )
 
 # Configure item pipelines

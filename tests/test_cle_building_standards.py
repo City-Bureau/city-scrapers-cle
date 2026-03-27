@@ -50,7 +50,7 @@ async def test_scraper_with_real_browser_and_html_fixture():
 
     for meeting in all_meetings[:3]:
         assert meeting["_type"] == "event"
-        assert meeting["extras"]["cityscrapers.org/agency"] == AGENCY_NAME
+        assert meeting["extras"]["cityscrapers/agency"] == AGENCY_NAME
         assert meeting["timezone"] == "America/Detroit"
         assert "classification" in meeting
         assert "location" in meeting

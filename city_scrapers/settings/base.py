@@ -17,7 +17,7 @@ NEWSPIDER_MODULE = "city_scrapers.spiders"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = (
-    "City Scrapers [development mode]. Learn more and say hello at cityscrapers.org"
+    "City Scrapers [development mode]. Learn more and say hello at city-scrapers.org"
 )
 
 # Obey robots.txt rules

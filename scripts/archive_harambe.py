@@ -57,7 +57,7 @@ def filter_harambe_meetings(meetings, scrapers=HARAMBE_SCRAPERS):
         m
         for m in meetings
         if any(
-            s in m.get("extras", {}).get("cityscrapers.org/id", "") for s in scrapers
+            s in m.get("extras", {}).get("cityscrapers/id", "") for s in scrapers
         )
     ]
 

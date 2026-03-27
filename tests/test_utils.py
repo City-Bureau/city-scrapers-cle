@@ -154,6 +154,6 @@ def test_create_ocd_event():
 
     # Check extras
     assert "extras" in result
-    assert "cityscrapers.org/id" in result["extras"]
-    assert result["extras"]["cityscrapers.org/agency"] == "Test Agency"
-    assert result["extras"]["cityscrapers.org/address"] == "123 Main St"
+    assert "cityscrapers/id" in result["extras"]
+    assert result["extras"]["cityscrapers/agency"] == "Test Agency"
+    assert result["extras"]["cityscrapers/address"] == "123 Main St"
