@@ -63,12 +63,12 @@ async def test_scraper_with_real_browser_and_html_fixtures():
 
     feb_15 = feb_15_meetings[0]
     assert feb_15["name"] == "CAC Board of Trustees Regular Meeting"
-    assert feb_15["extras"]["cityscrapers.org/agency"] == AGENCY_NAME
+    assert feb_15["extras"]["cityscrapers/agency"] == AGENCY_NAME
     assert feb_15["timezone"] == "America/New_York"
     assert "2024-02-15" in feb_15["start_time"]
     assert "T16:00" in feb_15["start_time"]
     assert "Children's Museum of Cleveland" in feb_15["location"]["name"]
-    assert "44115" in feb_15["extras"]["cityscrapers.org/address"]
+    assert "44115" in feb_15["extras"]["cityscrapers/address"]
     assert feb_15["classification"] == "BOARD"
     assert "links" in feb_15
     assert isinstance(feb_15["links"], list)

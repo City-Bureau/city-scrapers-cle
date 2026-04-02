@@ -49,9 +49,9 @@ def test_download_missing_credentials():
 def test_filter_harambe_meetings():
     """Test filtering meetings by scraper name."""
     meetings = [
-        {"extras": {"cityscrapers.org/id": "cle_city_council/2025/meeting"}},
-        {"extras": {"cityscrapers.org/id": "cle_building_standards/2025/meeting"}},
-        {"extras": {"cityscrapers.org/id": "cuya_county_council/2025/meeting"}},
+        {"extras": {"cityscrapers/id": "cle_city_council/2025/meeting"}},
+        {"extras": {"cityscrapers/id": "cle_building_standards/2025/meeting"}},
+        {"extras": {"cityscrapers/id": "cuya_county_council/2025/meeting"}},
     ]
 
     result = filter_harambe_meetings(
